@@ -20,11 +20,11 @@ class LanguageController extends GetxController {
   // Retrieves and Sets language based on device settings
   setInitialLocalLanguage() {
     if (currentLanguageStore.value == '') {
-      String _deviceLanguage = ui.window.locale.toString();
-      _deviceLanguage =
-          _deviceLanguage.substring(0, 2); //only get 1st 2 characters
-      print(ui.window.locale.toString());
-      updateLanguage(_deviceLanguage);
+      String deviceLanguage = ui.PlatformDispatcher.instance.locale.toString();
+      deviceLanguage =
+          deviceLanguage.substring(0, 2); //only get 1st 2 characters
+      print(ui.PlatformDispatcher.instance.locale.toString());
+      updateLanguage(deviceLanguage);
     }
   }
 

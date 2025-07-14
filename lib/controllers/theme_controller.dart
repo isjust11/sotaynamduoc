@@ -23,25 +23,25 @@ class ThemeController extends GetxController {
   }
 
   ThemeMode getThemeModeFromString(String themeString) {
-    ThemeMode _setThemeMode = ThemeMode.system;
+    ThemeMode setThemeMode = ThemeMode.system;
     if (themeString == 'light') {
-      _setThemeMode = ThemeMode.light;
+      setThemeMode = ThemeMode.light;
     }
     if (themeString == 'dark') {
-      _setThemeMode = ThemeMode.dark;
+      setThemeMode = ThemeMode.dark;
     }
-    return _setThemeMode;
+    return setThemeMode;
   }
 
   getThemeModeFromStore() async {
-    String _themeString = store.read('theme') ?? 'system';
-    setThemeMode(_themeString);
+    String themeString = store.read('theme') ?? 'system';
+    setThemeMode(themeString);
   }
 
   // checks whether darkmode is set via system or previously by user
   bool get isDarkModeOn {
     if (currentTheme == 'system') {
-      if (WidgetsBinding.instance!.window.platformBrightness ==
+      if (WidgetsBinding.instance.platformDispatcher.platformBrightness ==
           Brightness.dark) {
         return true;
       }

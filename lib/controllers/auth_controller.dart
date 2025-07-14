@@ -1,35 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:sotaynamduoc/helpers/gravatar.dart';
 import 'package:sotaynamduoc/models/user_model.dart';
 import 'package:sotaynamduoc/ui/auth/sign_in_ui.dart';
 import 'package:sotaynamduoc/ui/components/loading.dart';
 import 'package:sotaynamduoc/ui/home_ui.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class AuthController extends GetxController {
   static AuthController to = Get.find();
   TextEditingController nameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  Rxn<User> firebaseUser = Rxn<User>();
-  Rxn<UserModel> firestoreUser = Rxn<UserModel>();
+  
+  // API configuration
+  static const String baseUrl = "http://10.59.91.131:4000";
+  static const String loginEndpoint = '/auth/login';
+  static const String registerEndpoint = '/auth/register';
+  static const String logoutEndpoint = '/auth/logout';
+  static const String profileEndpoint = '/auth/profile';
+  static const String resetPasswordEndpoint = '/auth/reset-password';
+  
+  Rxn<UserModel> currentUser = Rxn<UserModel>();
   final RxBool admin = false.obs;
+  final RxBool isAuthenticated = false.obs;
+  String? authToken;
+  String? refreshToken;
 
   @override
   void onReady() async {
-    //run every time auth state changes
-    ever(firebaseUser, handleAuthChanged);
-
-    firebaseUser.bindStream(user);
-
+    await loadTokens();
+    await checkAuthStatus();
     super.onReady();
+  }
+
+  Future<void> loadTokens() async {
+    final prefs = await SharedPreferences.getInstance();
+    authToken = prefs.getString('accessToken');
+    refreshToken = prefs.getString('refreshToken');
+  }
+
+  Future<void> saveTokens(String? accessToken, String? refreshToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (accessToken != null) {
+      await prefs.setString('accessToken', accessToken);
+    }
+    if (refreshToken != null) {
+      await prefs.setString('refreshToken', refreshToken);
+    }
+  }
+
+  Future<void> clearTokens() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('accessToken');
+    await prefs.remove('refreshToken');
   }
 
   @override
@@ -40,211 +71,420 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
-  handleAuthChanged(firebaseUser) async {
-    //get user data from firestore
-    if (firebaseUser?.uid != null) {
-      firestoreUser.bindStream(streamFirestoreUser());
-      await isAdmin();
-    }
-
-    if (firebaseUser == null) {
-      print('Send to signin');
-      Get.offAll(SignInUI());
+  // Check authentication status on app start
+  Future<void> checkAuthStatus() async {
+    // You can store token in SharedPreferences or secure storage
+    // For now, we'll assume no stored authentication
+    if (authToken != null) {
+      await getCurrentUser();
     } else {
-      Get.offAll(HomeUI());
+      Get.offAll(SignInUI());
     }
   }
 
-  // Firebase user one-time fetch
-  Future<User> get getUser async => _auth.currentUser!;
-
-  // Firebase user a realtime stream
-  Stream<User?> get user => _auth.authStateChanges();
-
-  //Streams the firestore user from the firestore collection
-  Stream<UserModel> streamFirestoreUser() {
-    print('streamFirestoreUser()');
-
-    return _db
-        .doc('/users/${firebaseUser.value!.uid}')
-        .snapshots()
-        .map((snapshot) => UserModel.fromMap(snapshot.data()!));
+  // Get current user from API
+  Future<UserModel?> getCurrentUser() async {
+    if (authToken == null) return null;
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl$profileEndpoint'),
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        final userData = json.decode(response.body);
+        currentUser.value = UserModel.fromMap(userData);
+        isAuthenticated.value = true;
+        await checkAdminStatus();
+        Get.offAll(HomeUI());
+        return currentUser.value;
+      } else if (response.statusCode == 401 && refreshToken != null) {
+        // Token expired, try refresh
+        final refreshed = await refreshAccessToken();
+        if (refreshed) {
+          return await getCurrentUser();
+        } else {
+          await signOut();
+          return null;
+        }
+      } else {
+        await signOut();
+        return null;
+      }
+    } catch (e) {
+      print('Error getting current user: $e');
+      return null;
+    }
   }
 
-  //get the firestore user from the firestore collection
-  Future<UserModel> getFirestoreUser() {
-    return _db.doc('/users/${firebaseUser.value!.uid}').get().then(
-        (documentSnapshot) => UserModel.fromMap(documentSnapshot.data()!));
+  Future<bool> refreshAccessToken() async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/auth/refresh-token'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'refreshToken': refreshToken}),
+      );
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final data = json.decode(response.body);
+        authToken = data['accessToken'] ?? data['token'];
+        refreshToken = data['refreshToken'] ?? refreshToken;
+        await saveTokens(authToken, refreshToken);
+        return true;
+      }
+    } catch (e) {
+      print('Error refreshing token: $e');
+    }
+    return false;
   }
 
-  //Method to handle user sign in using email and password
-  signInWithEmailAndPassword(BuildContext context) async {
+  // Sign in with email and password
+  Future<void> signInWithUsernameAndPassword(BuildContext context) async {
     showLoadingIndicator();
     try {
-      await _auth.signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-      emailController.clear();
-      passwordController.clear();
+      final response = await http.post(
+        Uri.parse('$baseUrl$loginEndpoint'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'username': usernameController.text.trim(),
+          'password': passwordController.text.trim(),
+        }),
+      );
       hideLoadingIndicator();
-    } catch (error) {
-      hideLoadingIndicator();
-      Get.snackbar('auth.signInErrorTitle'.tr, 'auth.signInError'.tr,
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = json.decode(response.body);
+        authToken = data['accessToken'] ?? data['token'];
+        refreshToken = data['refreshToken'];
+        await saveTokens(authToken, refreshToken);
+        currentUser.value = UserModel.fromMap(data['user']);
+        isAuthenticated.value = true;
+        usernameController.clear();
+        passwordController.clear();
+        await checkAdminStatus();
+        Get.offAll(HomeUI());
+      } else {
+        final errorData = json.decode(response.body);
+        Get.snackbar(
+          'auth.signInErrorTitle'.tr, 
+          errorData['message'] ?? 'auth.signInError'.tr,
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 7),
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
+          colorText: Get.theme.snackBarTheme.actionTextColor,
+        );
+      }
+    } catch (error) {
+      hideLoadingIndicator();
+      Get.snackbar(
+        'auth.signInErrorTitle'.tr, 
+        'auth.signInError'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 7),
+        backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+        colorText: Get.theme.snackBarTheme.actionTextColor,
+      );
     }
   }
 
-  // User registration using email and password
-  registerWithEmailAndPassword(BuildContext context) async {
+  // User registration
+  Future<void> registerWithEmailAndPassword(BuildContext context) async {
     showLoadingIndicator();
     try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text)
-          .then((result) async {
-        print('uID: ' + result.user!.uid.toString());
-        print('email: ' + result.user!.email.toString());
-        //get photo url from gravatar if user has one
-        Gravatar gravatar = Gravatar(emailController.text);
-        String gravatarUrl = gravatar.imageUrl(
-          size: 200,
-          defaultImage: GravatarImage.retro,
-          rating: GravatarRating.pg,
-          fileExtension: true,
-        );
-        //create the new user object
-        UserModel newUser = UserModel(
-            uid: result.user!.uid,
-            email: result.user!.email!,
-            name: nameController.text,
-            photoUrl: gravatarUrl);
-        //create the user in firestore
-        _createUserFirestore(newUser, result.user!);
+      Gravatar gravatar = Gravatar(emailController.text);
+      String gravatarUrl = gravatar.imageUrl(
+        size: 200,
+        defaultImage: GravatarImage.retro,
+        rating: GravatarRating.pg,
+        fileExtension: true,
+      );
+      final response = await http.post(
+        Uri.parse('$baseUrl$registerEndpoint'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'fullName': nameController.text,
+          'email': emailController.text,
+          'username': usernameController.text,
+          'password': passwordController.text,
+          'photoUrl': gravatarUrl,
+        }),
+      );
+      hideLoadingIndicator();
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final data = json.decode(response.body);
+        authToken = data['accessToken'] ?? data['token'];
+        refreshToken = data['refreshToken'];
+        await saveTokens(authToken, refreshToken);
+        currentUser.value = UserModel.fromMap(data['user']);
+        isAuthenticated.value = true;
+        nameController.clear();
         emailController.clear();
         passwordController.clear();
-        hideLoadingIndicator();
-      });
-    } on FirebaseAuthException catch (error) {
-      hideLoadingIndicator();
-      Get.snackbar('auth.signUpErrorTitle'.tr, error.message!,
+        await checkAdminStatus();
+        Get.offAll(HomeUI());
+      } else {
+        final errorData = json.decode(response.body);
+        Get.snackbar(
+          'auth.signUpErrorTitle'.tr, 
+          errorData['message'] ?? 'Registration failed',
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 10),
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
+          colorText: Get.theme.snackBarTheme.actionTextColor,
+        );
+      }
+    } catch (error) {
+      hideLoadingIndicator();
+      Get.snackbar(
+        'auth.signUpErrorTitle'.tr, 
+        'Registration failed: $error',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 10),
+        backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+        colorText: Get.theme.snackBarTheme.actionTextColor,
+      );
     }
   }
 
-  //handles updating the user when updating profile
-  Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
-      String password) async {
+  // Update user profile
+  Future<void> updateUser(BuildContext context, UserModel user, String oldEmail, String password) async {
     String authUpdateUserNoticeTitle = 'auth.updateUserSuccessNoticeTitle'.tr;
     String authUpdateUserNotice = 'auth.updateUserSuccessNotice'.tr;
+    
     try {
       showLoadingIndicator();
-      try {
-        await _auth
-            .signInWithEmailAndPassword(email: oldEmail, password: password)
-            .then((firebaseUser) async {
-          await firebaseUser.user!
-              .updateEmail(user.email)
-              .then((value) => _updateUserFirestore(user, firebaseUser.user!));
-        });
-      } catch (err) {
-        print('Caught error: $err');
-        //not yet working, see this issue https://github.com/delay/flutter_starter/issues/21
-        if (err.toString() ==
-            "[firebase_auth/email-already-in-use] The email address is already in use by another account.") {
-          authUpdateUserNoticeTitle = 'auth.updateUserEmailInUse'.tr;
-          authUpdateUserNotice = 'auth.updateUserEmailInUse'.tr;
-        } else {
-          authUpdateUserNoticeTitle = 'auth.wrongPasswordNotice'.tr;
-          authUpdateUserNotice = 'auth.wrongPasswordNotice'.tr;
-        }
-      }
+      
+      final response = await http.put(
+        Uri.parse('$baseUrl$profileEndpoint'),
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'fullName': user.fullName,
+          'email': user.email,
+          'oldEmail': oldEmail,
+          'password': password,
+        }),
+      );
+
       hideLoadingIndicator();
-      Get.snackbar(authUpdateUserNoticeTitle, authUpdateUserNotice,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 5),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    } on PlatformException catch (error) {
-      //List<String> errors = error.toString().split(',');
-      // print("Error: " + errors[1]);
-      hideLoadingIndicator();
-      print(error.code);
-      String authError;
-      switch (error.code) {
-        case 'ERROR_WRONG_PASSWORD':
-          authError = 'auth.wrongPasswordNotice'.tr;
-          break;
-        default:
-          authError = 'auth.unknownError'.tr;
-          break;
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        currentUser.value = UserModel.fromMap(data['user']);
+        update();
+      } else {
+        final errorData = json.decode(response.body);
+        authUpdateUserNoticeTitle = 'auth.updateUserErrorTitle'.tr;
+        authUpdateUserNotice = errorData['message'] ?? 'auth.updateUserError'.tr;
       }
-      Get.snackbar('auth.wrongPasswordNoticeTitle'.tr, authError,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 10),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
+
+      Get.snackbar(
+        authUpdateUserNoticeTitle, 
+        authUpdateUserNotice,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 5),
+        backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+        colorText: Get.theme.snackBarTheme.actionTextColor,
+      );
+    } catch (error) {
+      hideLoadingIndicator();
+      Get.snackbar(
+        'auth.updateUserErrorTitle'.tr, 
+        'auth.unknownError'.tr,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 10),
+        backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+        colorText: Get.theme.snackBarTheme.actionTextColor,
+      );
     }
   }
 
-  //updates the firestore user in users collection
-  void _updateUserFirestore(UserModel user, User firebaseUser) {
-    _db.doc('/users/${firebaseUser.uid}').update(user.toJson());
-    update();
-  }
-
-  //create the firestore user in users collection
-  void _createUserFirestore(UserModel user, User firebaseUser) {
-    _db.doc('/users/${firebaseUser.uid}').set(user.toJson());
-    update();
-  }
-
-  //password reset email
+  // Send password reset email
   Future<void> sendPasswordResetEmail(BuildContext context) async {
     showLoadingIndicator();
     try {
-      await _auth.sendPasswordResetEmail(email: emailController.text);
+      final response = await http.post(
+        Uri.parse('$baseUrl$resetPasswordEndpoint'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'email': emailController.text,
+        }),
+      );
+
       hideLoadingIndicator();
-      Get.snackbar(
-          'auth.resetPasswordNoticeTitle'.tr, 'auth.resetPasswordNotice'.tr,
+
+      if (response.statusCode == 200) {
+        Get.snackbar(
+          'auth.resetPasswordNoticeTitle'.tr, 
+          'auth.resetPasswordNotice'.tr,
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 5),
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    } on FirebaseAuthException catch (error) {
-      hideLoadingIndicator();
-      Get.snackbar('auth.resetPasswordFailed'.tr, error.message!,
+          colorText: Get.theme.snackBarTheme.actionTextColor,
+        );
+      } else {
+        final errorData = json.decode(response.body);
+        Get.snackbar(
+          'auth.resetPasswordFailed'.tr, 
+          errorData['message'] ?? 'Password reset failed',
           snackPosition: SnackPosition.BOTTOM,
           duration: Duration(seconds: 10),
           backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
+          colorText: Get.theme.snackBarTheme.actionTextColor,
+        );
+      }
+    } catch (error) {
+      hideLoadingIndicator();
+      Get.snackbar(
+        'auth.resetPasswordFailed'.tr, 
+        'Password reset failed: $error',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 10),
+        backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+        colorText: Get.theme.snackBarTheme.actionTextColor,
+      );
     }
   }
 
-  //check if user is an admin user
-  isAdmin() async {
-    await getUser.then((user) async {
-      DocumentSnapshot adminRef =
-          await _db.collection('admin').doc(user.uid).get();
-      if (adminRef.exists) {
-        admin.value = true;
+  // Check if user is admin
+  Future<void> checkAdminStatus() async {
+    if (currentUser.value == null) return;
+    
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/auth/check-admin'),
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        admin.value = data['isAdmin'] ?? false;
       } else {
         admin.value = false;
       }
       update();
-    });
+    } catch (e) {
+      print('Error checking admin status: $e');
+      admin.value = false;
+      update();
+    }
   }
 
   // Sign out
-  Future<void> signOut() {
-    nameController.clear();
-    emailController.clear();
-    passwordController.clear();
-    return _auth.signOut();
+  Future<void> signOut() async {
+    try {
+      if (refreshToken != null) {
+        await http.post(
+          Uri.parse('$baseUrl$logoutEndpoint'),
+          headers: {
+            'Authorization': 'Bearer $authToken',
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({'refreshToken': refreshToken}),
+        );
+      }
+    } catch (e) {
+      print('Error during logout: $e');
+    } finally {
+      await clearTokens();
+      authToken = null;
+      refreshToken = null;
+      currentUser.value = null;
+      isAuthenticated.value = false;
+      admin.value = false;
+      nameController.clear();
+      emailController.clear();
+      passwordController.clear();
+      Get.offAll(SignInUI());
+    }
+  }
+
+  // Đăng nhập bằng Google
+  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
+
+  Future<void> signInWithGoogle(BuildContext context) async {
+    showLoadingIndicator();
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.authenticate();
+      if (googleUser == null) {
+        hideLoadingIndicator();
+        return; // Người dùng huỷ
+      }
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final String? idToken = googleAuth.idToken;
+      if (idToken == null) {
+        hideLoadingIndicator();
+        Get.snackbar('auth.signInErrorTitle'.tr, 'Google sign in failed');
+        return;
+      }
+      // Gửi idToken lên backend
+      final response = await http.get(
+        Uri.parse('$baseUrl/auth/google?token=$idToken'),
+        headers: {'Content-Type': 'application/json'},
+      );
+      hideLoadingIndicator();
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        authToken = data['accessToken'] ?? data['token'];
+        refreshToken = data['refreshToken'];
+        await saveTokens(authToken, refreshToken);
+        currentUser.value = UserModel.fromMap(data['user']);
+        isAuthenticated.value = true;
+        await checkAdminStatus();
+        Get.offAll(HomeUI());
+      } else {
+        final errorData = json.decode(response.body);
+        Get.snackbar('auth.signInErrorTitle'.tr, errorData['message'] ?? 'Google sign in failed');
+      }
+    } catch (e) {
+      hideLoadingIndicator();
+      Get.snackbar('auth.signInErrorTitle'.tr, 'Google sign in failed: $e');
+    }
+  }
+
+  // Đăng nhập bằng Facebook
+  Future<void> signInWithFacebook(BuildContext context) async {
+    showLoadingIndicator();
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final accessToken = result.accessToken?.tokenString;
+        if (accessToken == null) {
+          hideLoadingIndicator();
+          Get.snackbar('auth.signInErrorTitle'.tr, 'Facebook sign in failed');
+          return;
+        }
+        // Gửi accessToken lên backend
+        final response = await http.get(
+          Uri.parse('$baseUrl/auth/facebook?token=$accessToken'),
+          headers: {'Content-Type': 'application/json'},
+        );
+        hideLoadingIndicator();
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          authToken = data['accessToken'] ?? data['token'];
+          refreshToken = data['refreshToken'];
+          await saveTokens(authToken, refreshToken);
+          currentUser.value = UserModel.fromMap(data['user']);
+          isAuthenticated.value = true;
+          await checkAdminStatus();
+          Get.offAll(HomeUI());
+        } else {
+          final errorData = json.decode(response.body);
+          Get.snackbar('auth.signInErrorTitle'.tr, errorData['message'] ?? 'Facebook sign in failed');
+        }
+      } else {
+        hideLoadingIndicator();
+        Get.snackbar('auth.signInErrorTitle'.tr, 'Facebook sign in cancelled');
+      }
+    } catch (e) {
+      hideLoadingIndicator();
+      Get.snackbar('auth.signInErrorTitle'.tr, 'Facebook sign in failed: $e');
+    }
   }
 }

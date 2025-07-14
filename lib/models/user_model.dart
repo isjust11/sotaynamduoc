@@ -1,25 +1,34 @@
 //User Model
 class UserModel {
-  final String uid;
+  final String id;
+  final String username;
   final String email;
-  final String name;
-  final String photoUrl;
+  final String fullName;
+  final String lastLogin;
+  final String createdAt;
+  final String updatedAt;
 
   UserModel(
-      {required this.uid,
+      {required this.id,
+      required this.username,
       required this.email,
-      required this.name,
-      required this.photoUrl});
+      required this.fullName,
+      required this.lastLogin,
+      required this.createdAt,
+      required this.updatedAt});
 
   factory UserModel.fromMap(Map data) {
     return UserModel(
-      uid: data['uid'],
-      email: data['email'] ?? '',
-      name: data['name'] ?? '',
-      photoUrl: data['photoUrl'] ?? '',
+      id: data['id'],
+      username: data['username'],
+      email: data['email'],
+      fullName: data['fullName'],
+      lastLogin: data['lastLogin'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt']
     );
   }
 
   Map<String, dynamic> toJson() =>
-      {"uid": uid, "email": email, "name": name, "photoUrl": photoUrl};
-}
+          {"id": id, "username": username, "email": email, "fullName": fullName, "lastLogin": lastLogin, "createdAt": createdAt, "updatedAt": updatedAt};
+    }

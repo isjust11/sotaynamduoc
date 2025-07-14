@@ -10,7 +10,7 @@ class HomeUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
       init: AuthController(),
-      builder: (controller) => controller.firestoreUser.value!.uid == null
+      builder: (controller) => controller.currentUser.value?.id == null
           ? Center(
               child: CircularProgressIndicator(),
             )
@@ -29,34 +29,26 @@ class HomeUI extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 120),
-                    Avatar(controller.firestoreUser.value!),
+                    Avatar(controller.currentUser.value!),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         FormVerticalSpace(),
                         Text(
-                            'home.uidLabel'.tr +
-                                ': ' +
-                                controller.firestoreUser.value!.uid,
+                            '${'home.idLabel'.tr}: ${controller.currentUser.value?.id ?? ''}',
                             style: TextStyle(fontSize: 16)),
                         FormVerticalSpace(),
                         Text(
-                            'home.nameLabel'.tr +
-                                ': ' +
-                                controller.firestoreUser.value!.name,
+                            '${'home.nameLabel'.tr}: ${controller.currentUser.value?.fullName ?? ''}',
                             style: TextStyle(fontSize: 16)),
                         FormVerticalSpace(),
                         Text(
-                            'home.emailLabel'.tr +
-                                ': ' +
-                                controller.firestoreUser.value!.email,
+                            '${'home.emailLabel'.tr}: ${controller.currentUser.value?.email ?? ''}',
                             style: TextStyle(fontSize: 16)),
                         FormVerticalSpace(),
                         Text(
-                            'home.adminUserLabel'.tr +
-                                ': ' +
-                                controller.admin.value.toString(),
+                            '${'home.adminUserLabel'.tr}: ${controller.admin.value.toString()}',
                             style: TextStyle(fontSize: 16)),
                       ],
                     ),

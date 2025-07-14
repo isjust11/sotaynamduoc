@@ -32,14 +32,14 @@ class SignInUI extends StatelessWidget {
                   LogoGraphicHeader(),
                   SizedBox(height: 48.0),
                   FormInputFieldWithIcon(
-                    controller: authController.emailController,
-                    iconPrefix: Icons.email,
-                    labelText: 'auth.emailFormField'.tr,
-                    validator: Validator().email,
-                    keyboardType: TextInputType.emailAddress,
+                    controller: authController.usernameController,
+                    iconPrefix: Icons.person,
+                    labelText: 'auth.usernameFormField'.tr,
+                    validator: Validator().username,
+                    keyboardType: TextInputType.text,
                     onChanged: (value) => null,
                     onSaved: (value) =>
-                        authController.emailController.text = value!,
+                        authController.usernameController.text = value!,
                   ),
                   FormVerticalSpace(),
                   FormInputFieldWithIcon(
@@ -58,7 +58,7 @@ class SignInUI extends StatelessWidget {
                       labelText: 'auth.signInButton'.tr,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          authController.signInWithEmailAndPassword(context);
+                          authController.signInWithUsernameAndPassword(context);
                         }
                       }),
                   FormVerticalSpace(),

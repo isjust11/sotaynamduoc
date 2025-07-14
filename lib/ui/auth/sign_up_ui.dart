@@ -39,6 +39,16 @@ class SignUpUI extends StatelessWidget {
                   ),
                   FormVerticalSpace(),
                   FormInputFieldWithIcon(
+                    controller: authController.usernameController,
+                    iconPrefix: Icons.person,
+                    labelText: 'auth.usernameFormField'.tr,
+                    validator: Validator().username,
+                    onChanged: (value) => null,
+                    onSaved: (value) =>
+                        authController.usernameController.text = value!,
+                  ),
+                  FormVerticalSpace(),
+                  FormInputFieldWithIcon(
                     controller: authController.emailController,
                     iconPrefix: Icons.email,
                     labelText: 'auth.emailFormField'.tr,
