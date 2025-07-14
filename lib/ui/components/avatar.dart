@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/models/user_model.dart';
-import 'package:sotaynamduoc/ui/components/logo_graphic_header.dart';
 
 class Avatar extends StatelessWidget {
   Avatar(

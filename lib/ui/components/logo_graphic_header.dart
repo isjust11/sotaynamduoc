@@ -7,19 +7,19 @@ class LogoGraphicHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _imageLogo = 'assets/images/default.png';
-    if (themeController.isDarkModeOn == true) {
-      _imageLogo = 'assets/images/defaultDark.png';
-    }
+    String imageLogo = 'assets/images/logo.png';
+    // if (themeController.isDarkModeOn == true) {
+    //   _imageLogo = 'assets/images/logo.png';
+    // }
     return Hero(
-      tag: 'App Logo',
+      tag: 'logo',
       child: CircleAvatar(
-          foregroundColor: Colors.blue,
+          foregroundColor: Colors.white,
           backgroundColor: Colors.transparent,
           radius: 60.0,
           child: ClipOval(
             child: Image.asset(
-              _imageLogo,
+              imageLogo,
               fit: BoxFit.cover,
               width: 120.0,
               height: 120.0,

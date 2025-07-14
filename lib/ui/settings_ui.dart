@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:sotaynamduoc/ui/components/dropdown_picker.dart';
 import 'package:sotaynamduoc/ui/components/segmented_selector.dart';

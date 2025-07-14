@@ -35,7 +35,7 @@ class Validator {
   }
 
   String? username(String? value) {
-    String pattern = r'^[a-zA-Z0-9._]+$';
+    String pattern = r'^[a-zA-Z0-9._@]+$';
     RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value!)) {
       return 'validator.username'.tr;

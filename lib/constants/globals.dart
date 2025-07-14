@@ -1,7 +1,7 @@
 import 'package:sotaynamduoc/models/menu_option_model.dart';
 
 class Globals {
-  static final String defaultLanguage = 'en';
+  static final String defaultLanguage = 'vi';
 //List of languages that are supported.  Used in selector.
 //Follow this plugin for translating a google sheet to languages
 //https://github.com/aloisdeniel/flutter_sheet_localization
@@ -18,5 +18,6 @@ class Globals {
     MenuOptionsModel(key: "ja", value: "日本語"), //Japanese
     MenuOptionsModel(key: "pt", value: "Português"), //Portuguese
     MenuOptionsModel(key: "ru", value: "русский"), //Russian
+    MenuOptionsModel(key: "vi", value: "Tiếng Việt"), //Vietnamese
   ];
 }

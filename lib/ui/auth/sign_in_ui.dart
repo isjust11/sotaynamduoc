@@ -19,58 +19,71 @@ class SignInUI extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  LogoGraphicHeader(),
-                  SizedBox(height: 48.0),
-                  FormInputFieldWithIcon(
-                    controller: authController.usernameController,
-                    iconPrefix: Icons.person,
-                    labelText: 'auth.usernameFormField'.tr,
-                    validator: Validator().username,
-                    keyboardType: TextInputType.text,
-                    onChanged: (value) => null,
-                    onSaved: (value) =>
-                        authController.usernameController.text = value!,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              'assets/images/background.jpg',
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Form(
+          key: _formKey,
+          child: Container(
+            
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      LogoGraphicHeader(),
+                      SizedBox(height: 48.0),
+                      FormInputFieldWithIcon(
+                        controller: authController.usernameController,
+                        iconPrefix: Icons.person,
+                        labelText: 'auth.usernameFormField'.tr,
+                        validator: Validator().username,
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) => {},
+                        onSaved: (value) =>
+                            authController.usernameController.text = value!,
+                      ),
+                      FormVerticalSpace(),
+                      FormInputFieldWithIcon(
+                        controller: authController.passwordController,
+                        iconPrefix: Icons.lock,
+                        labelText: 'auth.passwordFormField'.tr,
+                        validator: Validator().password,
+                        obscureText: true,
+                        onChanged: (value) => {},
+                        onSaved: (value) =>
+                            authController.passwordController.text = value!,
+                        maxLines: 1,
+                      ),
+                      FormVerticalSpace(),
+                      PrimaryButton(
+                          labelText: 'auth.signInButton'.tr,
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              authController.signInWithUsernameAndPassword(context);
+                            }
+                          }),
+                      FormVerticalSpace(),
+                      LabelButton(
+                        labelText: 'auth.resetPasswordLabelButton'.tr,
+                        onPressed: () => Get.to(ResetPasswordUI()),
+                      ),
+                      LabelButton(
+                        labelText: 'auth.signUpLabelButton'.tr,
+                        onPressed: () => Get.to(SignUpUI()),
+                      ),
+                    ],
                   ),
-                  FormVerticalSpace(),
-                  FormInputFieldWithIcon(
-                    controller: authController.passwordController,
-                    iconPrefix: Icons.lock,
-                    labelText: 'auth.passwordFormField'.tr,
-                    validator: Validator().password,
-                    obscureText: true,
-                    onChanged: (value) => null,
-                    onSaved: (value) =>
-                        authController.passwordController.text = value!,
-                    maxLines: 1,
-                  ),
-                  FormVerticalSpace(),
-                  PrimaryButton(
-                      labelText: 'auth.signInButton'.tr,
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          authController.signInWithUsernameAndPassword(context);
-                        }
-                      }),
-                  FormVerticalSpace(),
-                  LabelButton(
-                    labelText: 'auth.resetPasswordLabelButton'.tr,
-                    onPressed: () => Get.to(ResetPasswordUI()),
-                  ),
-                  LabelButton(
-                    labelText: 'auth.signUpLabelButton'.tr,
-                    onPressed: () => Get.to(SignUpUI()),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

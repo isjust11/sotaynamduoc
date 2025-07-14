@@ -21,7 +21,7 @@ class AuthController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   
   // API configuration
-  static const String baseUrl = "http://10.59.91.131:4000";
+  static const String baseUrl = "http://192.168.1.19:4000";
   static const String loginEndpoint = '/auth/login';
   static const String registerEndpoint = '/auth/register';
   static const String logoutEndpoint = '/auth/logout';
