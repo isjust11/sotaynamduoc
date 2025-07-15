@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -59,15 +61,13 @@ OverlayState? get _overlayState {
 Future<void> showLoadingIndicator(
     {bool isModal = true, Color? modalColor}) async {
   try {
-    debugPrint('Showing loading overlay');
-    final _child = Center(
+    final child = Center(
       child: SizedBox(
-        child: CircularProgressIndicator(),
-        /*(Platform.isAndroid
-                ? CircularProgressIndicator()
-                : CupertinoActivityIndicator()),*/
         width: 30,
         height: 30,
+        child: Platform.isAndroid
+                ? CircularProgressIndicator()
+                : CupertinoActivityIndicator(),
       ),
     );
     await _showOverlay(
@@ -77,10 +77,10 @@ Future<void> showLoadingIndicator(
                 ModalBarrier(
                   color: modalColor,
                 ),
-                _child
+                child
               ],
             )
-          : _child,
+          : child,
     );
   } catch (err) {
     debugPrint('Exception showing loading overlay\n${err.toString()}');
@@ -90,10 +90,8 @@ Future<void> showLoadingIndicator(
 
 Future<void> hideLoadingIndicator() async {
   try {
-    debugPrint('Hiding loading overlay');
     await _hideOverlay();
   } catch (err) {
-    debugPrint('Exception hiding loading overlay');
     throw err;
   }
 }
@@ -105,7 +103,6 @@ Future<void> _showOverlay({required Widget child}) async {
     final overlay = _overlayState;
 
     if (_loaderShown) {
-      debugPrint('An overlay is already showing');
       return Future.value(false);
     }
 

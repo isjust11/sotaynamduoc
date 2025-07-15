@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sotaynamduoc/ui/components/dropdown_picker.dart';
-import 'package:sotaynamduoc/ui/components/segmented_selector.dart';
+import 'package:sotaynamduoc/screen/auth/update_profile_screen.dart';
+import 'package:sotaynamduoc/screen/components/dropdown_picker.dart';
+import 'package:sotaynamduoc/screen/components/segmented_selector.dart';
 import 'package:sotaynamduoc/controllers/language_controller.dart';
 import 'package:sotaynamduoc/controllers/theme_controller.dart';
 import 'package:sotaynamduoc/models/menu_option_model.dart';
 import 'package:sotaynamduoc/constants/globals.dart';
-import 'package:sotaynamduoc/ui/auth/update_profile_ui.dart';
 import 'package:sotaynamduoc/controllers/auth_controller.dart';
 
-class SettingsUI extends StatelessWidget {
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
   //final LanguageController languageController = LanguageController.to;
   //final ThemeController themeController = ThemeController.to;
 
@@ -32,7 +34,7 @@ class SettingsUI extends StatelessWidget {
             title: Text('settings.updateProfile'.tr),
             trailing: ElevatedButton(
               onPressed: () async {
-                Get.to(UpdateProfileUI());
+                Get.to(UpdateProfileScreen());
               },
               child: Text(
                 'settings.updateProfile'.tr,

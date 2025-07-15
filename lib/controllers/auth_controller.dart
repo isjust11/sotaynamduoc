@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:sotaynamduoc/helpers/gravatar.dart';
 import 'package:sotaynamduoc/models/user_model.dart';
-import 'package:sotaynamduoc/ui/auth/sign_in_ui.dart';
-import 'package:sotaynamduoc/ui/components/loading.dart';
-import 'package:sotaynamduoc/ui/home_ui.dart';
+import 'package:sotaynamduoc/screen/auth/signin_screen.dart';
+import 'package:sotaynamduoc/screen/components/loading.dart';
+import 'package:sotaynamduoc/screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AuthController extends GetxController {
   static AuthController to = Get.find();
   TextEditingController nameController = TextEditingController();
@@ -21,7 +20,7 @@ class AuthController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   
   // API configuration
-  static const String baseUrl = "http://192.168.1.19:4000";
+  static String baseUrl = dotenv.env['API_URL'] ?? 'http://localhost:4000';
   static const String loginEndpoint = '/auth/login';
   static const String registerEndpoint = '/auth/register';
   static const String logoutEndpoint = '/auth/logout';
@@ -29,7 +28,6 @@ class AuthController extends GetxController {
   static const String resetPasswordEndpoint = '/auth/reset-password';
   
   Rxn<UserModel> currentUser = Rxn<UserModel>();
-  final RxBool admin = false.obs;
   final RxBool isAuthenticated = false.obs;
   String? authToken;
   String? refreshToken;
@@ -78,7 +76,7 @@ class AuthController extends GetxController {
     if (authToken != null) {
       await getCurrentUser();
     } else {
-      Get.offAll(SignInUI());
+      Get.offAll(SignInScreen());
     }
   }
 
@@ -97,8 +95,7 @@ class AuthController extends GetxController {
         final userData = json.decode(response.body);
         currentUser.value = UserModel.fromMap(userData);
         isAuthenticated.value = true;
-        await checkAdminStatus();
-        Get.offAll(HomeUI());
+        Get.offAll(HomeScreen());
         return currentUser.value;
       } else if (response.statusCode == 401 && refreshToken != null) {
         // Token expired, try refresh
@@ -161,8 +158,7 @@ class AuthController extends GetxController {
         isAuthenticated.value = true;
         usernameController.clear();
         passwordController.clear();
-        await checkAdminStatus();
-        Get.offAll(HomeUI());
+        Get.offAll(HomeScreen());
       } else {
         final errorData = json.decode(response.body);
         Get.snackbar(
@@ -220,8 +216,7 @@ class AuthController extends GetxController {
         nameController.clear();
         emailController.clear();
         passwordController.clear();
-        await checkAdminStatus();
-        Get.offAll(HomeUI());
+        Get.offAll(HomeScreen());
       } else {
         final errorData = json.decode(response.body);
         Get.snackbar(
@@ -348,32 +343,6 @@ class AuthController extends GetxController {
     }
   }
 
-  // Check if user is admin
-  Future<void> checkAdminStatus() async {
-    if (currentUser.value == null) return;
-    
-    try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/auth/check-admin'),
-        headers: {
-          'Authorization': 'Bearer $authToken',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        admin.value = data['isAdmin'] ?? false;
-      } else {
-        admin.value = false;
-      }
-      update();
-    } catch (e) {
-      print('Error checking admin status: $e');
-      admin.value = false;
-      update();
-    }
-  }
 
   // Sign out
   Future<void> signOut() async {
@@ -396,11 +365,10 @@ class AuthController extends GetxController {
       refreshToken = null;
       currentUser.value = null;
       isAuthenticated.value = false;
-      admin.value = false;
       nameController.clear();
       emailController.clear();
       passwordController.clear();
-      Get.offAll(SignInUI());
+      Get.offAll(SignInScreen());
     }
   }
 
@@ -435,8 +403,7 @@ class AuthController extends GetxController {
         await saveTokens(authToken, refreshToken);
         currentUser.value = UserModel.fromMap(data['user']);
         isAuthenticated.value = true;
-        await checkAdminStatus();
-        Get.offAll(HomeUI());
+        Get.offAll(HomeScreen());
       } else {
         final errorData = json.decode(response.body);
         Get.snackbar('auth.signInErrorTitle'.tr, errorData['message'] ?? 'Google sign in failed');
@@ -472,8 +439,7 @@ class AuthController extends GetxController {
           await saveTokens(authToken, refreshToken);
           currentUser.value = UserModel.fromMap(data['user']);
           isAuthenticated.value = true;
-          await checkAdminStatus();
-          Get.offAll(HomeUI());
+          Get.offAll(HomeScreen());
         } else {
           final errorData = json.decode(response.body);
           Get.snackbar('auth.signInErrorTitle'.tr, errorData['message'] ?? 'Facebook sign in failed');

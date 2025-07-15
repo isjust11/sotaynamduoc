@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sotaynamduoc/ui/auth/sign_in_ui.dart';
-import 'package:sotaynamduoc/ui/components/form_input_field_with_icon.dart';
-import 'package:sotaynamduoc/ui/components/form_vertical_spacing.dart';
-import 'package:sotaynamduoc/ui/components/label_button.dart';
-import 'package:sotaynamduoc/ui/components/logo_graphic_header.dart';
-import 'package:sotaynamduoc/ui/components/primary_button.dart';
+import 'package:sotaynamduoc/screen/auth/signin_screen.dart';
+import 'package:sotaynamduoc/screen/components/form_input_field_with_icon.dart';
+import 'package:sotaynamduoc/screen/components/form_vertical_spacing.dart';
+import 'package:sotaynamduoc/screen/components/label_button.dart';
+import 'package:sotaynamduoc/screen/components/logo_graphic_header.dart';
+import 'package:sotaynamduoc/screen/components/primary_button.dart';
 import 'package:sotaynamduoc/controllers/auth_controller.dart';
 import 'package:sotaynamduoc/helpers/validator.dart';
 
-class ResetPasswordUI extends StatelessWidget {
+class ResetPasswordScreen extends StatelessWidget {
+  ResetPasswordScreen({super.key});
+
   final AuthController authController = AuthController.to;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -79,7 +81,7 @@ class ResetPasswordUI extends StatelessWidget {
     if (authController.emailController.text == '') {
       return LabelButton(
         labelText: 'auth.signInonResetPasswordLabelButton'.tr,
-        onPressed: () => Get.offAll(SignInUI()),
+          onPressed: () => Get.offAll(SignInScreen()),
       );
     }
     return Container(width: 0, height: 0);

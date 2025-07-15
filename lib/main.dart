@@ -7,7 +7,7 @@ import 'package:sotaynamduoc/controllers/auth_controller.dart';
 import 'package:sotaynamduoc/controllers/language_controller.dart';
 import 'package:sotaynamduoc/controllers/theme_controller.dart';
 import 'package:sotaynamduoc/helpers/localization.g.dart';
-import 'package:sotaynamduoc/ui/components/loading.dart';
+import 'package:sotaynamduoc/screen/components/loading.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
