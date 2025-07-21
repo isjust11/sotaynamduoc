@@ -9,8 +9,7 @@ import 'package:sotaynamduoc/screen/auth/signin_screen.dart';
 import 'package:sotaynamduoc/screen/components/loading.dart';
 import 'package:sotaynamduoc/screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AuthController extends GetxController {
   static AuthController to = Get.find();
@@ -372,85 +371,4 @@ class AuthController extends GetxController {
     }
   }
 
-  // Đăng nhập bằng Google
-  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
-
-  Future<void> signInWithGoogle(BuildContext context) async {
-    showLoadingIndicator();
-    try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.authenticate();
-      if (googleUser == null) {
-        hideLoadingIndicator();
-        return; // Người dùng huỷ
-      }
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final String? idToken = googleAuth.idToken;
-      if (idToken == null) {
-        hideLoadingIndicator();
-        Get.snackbar('auth.signInErrorTitle'.tr, 'Google sign in failed');
-        return;
-      }
-      // Gửi idToken lên backend
-      final response = await http.get(
-        Uri.parse('$baseUrl/auth/google?token=$idToken'),
-        headers: {'Content-Type': 'application/json'},
-      );
-      hideLoadingIndicator();
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        authToken = data['accessToken'] ?? data['token'];
-        refreshToken = data['refreshToken'];
-        await saveTokens(authToken, refreshToken);
-        currentUser.value = UserModel.fromMap(data['user']);
-        isAuthenticated.value = true;
-        Get.offAll(HomeScreen());
-      } else {
-        final errorData = json.decode(response.body);
-        Get.snackbar('auth.signInErrorTitle'.tr, errorData['message'] ?? 'Google sign in failed');
-      }
-    } catch (e) {
-      hideLoadingIndicator();
-      Get.snackbar('auth.signInErrorTitle'.tr, 'Google sign in failed: $e');
-    }
-  }
-
-  // Đăng nhập bằng Facebook
-  Future<void> signInWithFacebook(BuildContext context) async {
-    showLoadingIndicator();
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        final accessToken = result.accessToken?.tokenString;
-        if (accessToken == null) {
-          hideLoadingIndicator();
-          Get.snackbar('auth.signInErrorTitle'.tr, 'Facebook sign in failed');
-          return;
-        }
-        // Gửi accessToken lên backend
-        final response = await http.get(
-          Uri.parse('$baseUrl/auth/facebook?token=$accessToken'),
-          headers: {'Content-Type': 'application/json'},
-        );
-        hideLoadingIndicator();
-        if (response.statusCode == 200) {
-          final data = json.decode(response.body);
-          authToken = data['accessToken'] ?? data['token'];
-          refreshToken = data['refreshToken'];
-          await saveTokens(authToken, refreshToken);
-          currentUser.value = UserModel.fromMap(data['user']);
-          isAuthenticated.value = true;
-          Get.offAll(HomeScreen());
-        } else {
-          final errorData = json.decode(response.body);
-          Get.snackbar('auth.signInErrorTitle'.tr, errorData['message'] ?? 'Facebook sign in failed');
-        }
-      } else {
-        hideLoadingIndicator();
-        Get.snackbar('auth.signInErrorTitle'.tr, 'Facebook sign in cancelled');
-      }
-    } catch (e) {
-      hideLoadingIndicator();
-      Get.snackbar('auth.signInErrorTitle'.tr, 'Facebook sign in failed: $e');
-    }
-  }
 }
