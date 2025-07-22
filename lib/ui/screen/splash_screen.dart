@@ -30,7 +30,7 @@ class _SplashState extends State<SplashScreen> {
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(Assets.images.icBgSplash.path),
+                  image: AssetImage(Assets.images.background.path),
                   fit: BoxFit.cover,
                 ),
               ), /* add child content here */

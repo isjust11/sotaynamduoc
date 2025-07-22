@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/gen/fonts.gen.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 
@@ -41,7 +41,7 @@ class CustomTextLabel extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             maxLines: maxLines,
             style: TextStyle(
-              fontFamily: fontFamily ?? FontFamily.inter,
+              fontFamily: fontFamily ?? 'Inter',
               height: fontHeight,
               fontSize: fontSize ?? 14,
               fontWeight: fontWeight,
@@ -62,7 +62,7 @@ class CustomTextLabel extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
       style: TextStyle(
-          fontFamily: fontFamily ?? FontFamily.inter,
+          fontFamily: fontFamily ?? 'Inter',
           height: fontHeight ?? 22.27 / 19,
           fontSize: fontSize ?? 14,
           fontWeight: fontWeight,

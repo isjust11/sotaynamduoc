@@ -12,6 +12,7 @@ import 'package:sotaynamduoc/controllers/auth_controller.dart';
 import 'package:sotaynamduoc/helpers/validator.dart';
 import 'package:sotaynamduoc/screen/auth/signup_screen.dart';
 import 'package:sotaynamduoc/screen/auth/reset_password_screen.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -24,9 +25,7 @@ class SignInScreen extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              'assets/images/background.jpg',
-            ),
+            image: Assets.images.background.image().image,
             fit: BoxFit.cover,
           ),
         ),

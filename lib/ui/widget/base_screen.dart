@@ -85,7 +85,7 @@ class BaseScreen extends StatelessWidget {
       children: [
         // Positioned.fill(child: Container(color: backgroundColor,)),
         Container(
-          child: Assets.images.appBarBackground.image(
+          child: Assets.images.background.image(
             width: 1.width,
             height: toolbarHeight + 1.top,
             fit: BoxFit.fill,
@@ -125,7 +125,7 @@ class BaseScreen extends StatelessWidget {
                 width: 50,
                 alignment: Alignment.center,
                 child:
-                    Assets.images.icBack.image(width: 22, height: 22, fit: BoxFit.contain, color: AppColors.colorTitle),
+                    Assets.images.logo.image(width: 22, height: 22, fit: BoxFit.contain, color: AppColors.colorTitle),
               ),
             ),
       centerTitle: true,

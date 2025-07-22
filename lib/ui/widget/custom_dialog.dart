@@ -13,7 +13,7 @@ class CustomDialogUtil {
       context: context,
       builder: (BuildContext context) => CustomDialog(
           title: title,
-          image: image ?? Assets.images.noti.icDialogSuccess.path,
+          image: image ?? "Assets.images.icDialogSuccess.path",
           content: content,
           onSubmit: onSubmit,
           titleSubmit: titleSubmit ?? AppLocalizations.of(context).agree),
@@ -37,7 +37,7 @@ class CustomDialogUtil {
       builder: (BuildContext context) => CustomDialog(
           content: content,
           autoPopWhenPressSubmit: autoPopWhenPressSubmit,
-          image: image ?? Assets.images.noti.icDialogConfirm.path,
+          image: image ?? "Assets.images.icDialogConfirm.path",
           titleSubmit: titleSubmit ?? AppLocalizations.of(context).agree,
           onSubmit: onSubmit,
           onCancel: onCancel,
@@ -52,7 +52,7 @@ class CustomDialogUtil {
       context: context,
       builder: (BuildContext context) => CustomDialog(
           content: content,
-          image: image ?? Assets.images.noti.icDialogFail.path,
+          image: image ?? "Assets.images.icDialogFail.path",
           onCancel: onCancel,
           titleCancel: titleCancel ?? AppLocalizations.of(context).close),
     );

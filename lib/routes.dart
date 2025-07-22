@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sotaynamduoc/screen/auth/signin_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -9,7 +10,7 @@ class Routes {
   static const String splashScreen = "/splashScreen";
   static const String loginScreen = "/loginScreen";
   static const String mainScreen = "/mainScreen";
-
+  static const String signInScreen = "/signInScreen";
   //init screen name
   static String initScreen() => splashScreen;
 
@@ -21,6 +22,8 @@ class Routes {
         return PageTransition(child: SplashScreen(), type: PageTransitionType.fade);
       case loginScreen:
         return PageTransition(child: LoginScreen(), type: PageTransitionType.fade);
+      case signInScreen:
+        return PageTransition(child: SignInScreen(), type: PageTransitionType.fade);
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }
