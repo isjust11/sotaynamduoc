@@ -70,4 +70,7 @@ class AppDimens {
   static const double SIZE_310 = 310;
   static const double SIZE_340 = 340;
   static const double SIZE_352 = 352;
+
+  static const double SIZE_260 = 260;
+  static const double SIZE_120 = 120;
 }

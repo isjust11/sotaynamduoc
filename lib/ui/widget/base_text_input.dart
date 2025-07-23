@@ -46,6 +46,9 @@ class CustomTextInput extends StatefulWidget {
   final CustomTextFieldValidator? validator;
   final Function? onTapTextField;
   final bool autoFocus;
+  final Color? hintTextColor;
+  final double? hintTextFontSize;
+  final FontWeight? hintTextFontWeight;
 
   CustomTextInput({
     Key? key,
@@ -84,6 +87,9 @@ class CustomTextInput extends StatefulWidget {
     this.onTapTextField,
     this.autoFocus = false,
     this.fontSize,
+    this.hintTextFontSize,
+    this.hintTextColor,
+    this.hintTextFontWeight
   }) : super(key: key);
 
   @override
@@ -130,9 +136,9 @@ class TextFieldState extends State<CustomTextInput> {
               padding: EdgeInsets.only(bottom: 5),
               child: CustomTextLabel(
                 widget.title,
-                color: AppColors.ff828282,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+                color: widget.titleStyle?.color ?? AppColors.ff828282,
+                fontSize: widget.titleStyle?.fontSize ?? 14,
+                fontWeight: widget.titleStyle?.fontWeight ?? FontWeight.w400,
               ),
             ),
           Container(
@@ -175,7 +181,7 @@ class TextFieldState extends State<CustomTextInput> {
                       disabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.border)),
                       focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.focusBorder)),
                       enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.border)),
-                      hintStyle: TextStyle(color: AppColors.hintTextColor, fontWeight: FontWeight.w400, fontSize: 14),
+                      hintStyle: TextStyle(color: widget.hintTextColor ?? AppColors.hintTextColor, fontWeight: widget.hintTextFontWeight ?? FontWeight.w400, fontSize: widget.hintTextFontSize ?? 14),
                       hintText: widget.hintText,
                       isDense: true,
                       contentPadding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10, vertical: 12)),

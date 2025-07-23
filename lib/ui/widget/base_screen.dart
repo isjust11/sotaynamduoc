@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
@@ -30,12 +31,15 @@ class BaseScreen extends StatelessWidget {
   // show thông báo
   final Widget? messageNotify;
   final Widget? floatingButton;
+  final Widget? bottomNavigationBar;
 
   // nếu true => sẽ ẩn backIcon , mặc định là true
   final bool hiddenIconBack;
 
   final Color colorTitle;
   final bool hideAppBar;
+
+  final SystemUiOverlayStyle systemUiOverlayStyle;
 
   // base bg color
   final Color colorBg;
@@ -54,6 +58,8 @@ class BaseScreen extends StatelessWidget {
     this.messageNotify,
     this.floatingButton,
     this.colorBg = AppColors.white,
+    this.systemUiOverlayStyle = SystemUiOverlayStyle.dark,
+    this.bottomNavigationBar,
   }) : super(key: key);
 
   @override
@@ -80,19 +86,24 @@ class BaseScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: floatingButton ?? null);
-    return Stack(
-      children: [
-        // Positioned.fill(child: Container(color: backgroundColor,)),
-        Container(
-          child: Assets.images.background.image(
-            width: 1.width,
-            height: toolbarHeight + 1.top,
-            fit: BoxFit.fill,
+        floatingActionButton: floatingButton ?? null,
+        bottomNavigationBar: bottomNavigationBar,
+    );
+    return AnnotatedRegion(
+      value: systemUiOverlayStyle,
+      child: Stack(
+        children: [
+          // Positioned.fill(child: Container(color: backgroundColor,)),
+          Container(
+            child: Assets.images.appBarBackground.image(
+              width: 1.width,
+              height: toolbarHeight + 1.top,
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        scaffold
-      ],
+          scaffold
+        ],
+      ),
     );
   }
 
@@ -125,7 +136,7 @@ class BaseScreen extends StatelessWidget {
                 width: 50,
                 alignment: Alignment.center,
                 child:
-                    Assets.images.logo.image(width: 22, height: 22, fit: BoxFit.contain, color: AppColors.colorTitle),
+                    Assets.images.icBack.image(width: 22, height: 22, fit: BoxFit.contain, color: AppColors.colorTitle),
               ),
             ),
       centerTitle: true,

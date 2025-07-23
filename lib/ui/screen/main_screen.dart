@@ -1,33 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
-import 'package:sotaynamduoc/blocs/cubit.dart';
-import 'package:sotaynamduoc/ui/widget/base_screen.dart';
-import 'package:sotaynamduoc/injection_container.dart';
+import 'package:sotaynamduoc/screen/home_screen.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
+import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
+import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
+import 'package:sotaynamduoc/ui/screen/complaint_screen.dart';
+import 'package:sotaynamduoc/ui/screen/setting_screen.dart';
+import 'package:sotaynamduoc/ui/screen/screen.dart';
+import 'package:sotaynamduoc/ui/widget/custom_bottom_navigation_bar.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return Container(child: MainBody());
-  }
+  _MainScreenState createState() => _MainScreenState();
 }
 
-class MainBody extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+
+  static final List<Widget> _pages = <Widget>[
+    HomeScreen(),
+    HistoryScreen(),
+    QRScannerScreen(),
+    ComplaintScreen(),
+    SettingScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      body: Column(
-        children: [
-          BlocBuilder<UserInfoCubit, BaseState>(
-            bloc: getIt.get<UserInfoCubit>(),
-            builder: (_, state) {
-              // TODO handle user info here
-              return Container();
-            },
-          )
-        ],
+      hideAppBar: true,
+      body: _pages[_selectedIndex],
+      floatingButton: null,
+      customAppBar: null,
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
