@@ -4,7 +4,7 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 
 class LanguageCubit extends Cubit<String> {
-  LanguageCubit(String language) : super(language);
+  LanguageCubit(super.language);
 
   void changeLanguage(String language) async {
     await AppLocalizations.load(Locale(language));

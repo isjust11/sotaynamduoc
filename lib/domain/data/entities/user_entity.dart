@@ -14,10 +14,10 @@ class UserEntity extends BaseEntity {
 
   @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userName'] = this.userName;
-    data['age'] = this.age;
-    data['address'] = this.address;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userName'] = userName;
+    data['age'] = age;
+    data['address'] = address;
     return data;
   }
 }

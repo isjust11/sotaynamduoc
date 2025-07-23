@@ -17,7 +17,7 @@ class LoadedState<T> extends BaseState {
   final timeEmit;
   final bool isLocalizeMessage;
 
-  LoadedState(this.data, {this.msgError = "", this.timeEmit, this.isLocalizeMessage = true});
+  const LoadedState(this.data, {this.msgError = "", this.timeEmit, this.isLocalizeMessage = true});
 
   @override
   List<Object> get props => [data as Object, timeEmit ?? ""];
@@ -28,7 +28,7 @@ class ErrorState<T> extends BaseState {
   final timeEmit;
   final bool isLocalizeMessage;
 
-  ErrorState(this.data, {this.isLocalizeMessage = true, this.timeEmit}) : assert(data != null);
+  const ErrorState(this.data, {this.isLocalizeMessage = true, this.timeEmit}) : assert(data != null);
 
   @override
   List<Object> get props => [data?.toString() ?? "", timeEmit];

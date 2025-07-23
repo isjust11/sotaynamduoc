@@ -9,7 +9,7 @@ abstract class BaseListCubit<T> extends Cubit<T> {
   dynamic _refresh;
   bool _endOfPage = false;
 
-  BaseListCubit(T state) : super(state);
+  BaseListCubit(super.state);
 
   void increasePageNum() {
     _pageNum++;
