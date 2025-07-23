@@ -13,7 +13,7 @@ class LoginCubit extends Cubit<BaseState> {
     try {
       emit(LoadingState());
       UserModel userModel = await repository.login({
-        "userName": userName,
+        "username": userName,
         "password": password,
       });
       emit(LoadedState(userModel));

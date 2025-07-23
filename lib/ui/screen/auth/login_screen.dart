@@ -6,7 +6,6 @@ import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/injection_container.dart';
-import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/screen/components/form_input_field_with_icon.dart';
 import 'package:sotaynamduoc/screen/components/logo_graphic_header.dart';
 import 'package:sotaynamduoc/screen/components/form_vertical_spacing.dart';
@@ -17,7 +16,7 @@ import 'package:sotaynamduoc/ui/widget/custom_snack_bar.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class LoginScreen extends StatelessWidget {
 }
 
 class LoginBody extends StatefulWidget {
-  LoginBody({super.key});
+  const LoginBody({super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -63,21 +62,20 @@ class _LoginScreenState extends State<LoginBody> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text('Đăng nhập thành công!')));
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/mainScreen');
         } else if (state is ErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                (state as ErrorState).data ?? 'Đăng nhập thất bại!',
-              ),
-            ),
+            SnackBar(content: Text((state).data ?? 'Đăng nhập thất bại!')),
           );
+        } else if (state is LoadingState) {
+          CustomSnackBar<LoginCubit>(fontSize: 16).build(context);
         }
       },
       child: BaseScreen(
         loadingWidget: SizedBox.shrink(),
         messageNotify: CustomSnackBar<LoginCubit>(),
-        title: AppLocalizations.current.appName,
+        hideAppBar: true,
+        // title: AppLocalizations.current.appName,
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(

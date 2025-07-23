@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/screen/home_screen.dart';
-import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
 import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
 import 'package:sotaynamduoc/ui/screen/complaint_screen.dart';
 import 'package:sotaynamduoc/ui/screen/setting_screen.dart';
-import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_bottom_navigation_bar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 

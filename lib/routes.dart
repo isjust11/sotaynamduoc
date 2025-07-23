@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/screen/auth/signin_screen.dart';
 import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
 import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
@@ -30,15 +29,30 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case mainScreen:
-        return PageTransition(child: MainScreen(), type: PageTransitionType.fade);
+        return PageTransition(
+          child: MainScreen(),
+          type: PageTransitionType.fade,
+        );
       case splashScreen:
-        return PageTransition(child: SplashScreen(), type: PageTransitionType.fade);
+        return PageTransition(
+          child: SplashScreen(),
+          type: PageTransitionType.fade,
+        );
       case loginScreen:
-        return PageTransition(child: LoginScreen(), type: PageTransitionType.fade);
-     case historyScreen:
-        return PageTransition(child: HistoryScreen(), type: PageTransitionType.fade);
+        return PageTransition(
+          child: LoginScreen(),
+          type: PageTransitionType.fade,
+        );
+      case historyScreen:
+        return PageTransition(
+          child: HistoryScreen(),
+          type: PageTransitionType.fade,
+        );
       case qrScannerScreen:
-        return PageTransition(child: QRScannerScreen(), type: PageTransitionType.rightToLeft);
+        return PageTransition(
+          child: QRScannerScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }
