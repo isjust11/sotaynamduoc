@@ -5,7 +5,7 @@ import 'package:sotaynamduoc/screen/splash_screen.dart';
 import 'package:sotaynamduoc/screen/auth/signin_screen.dart';
 import 'package:sotaynamduoc/screen/auth/signup_screen.dart';
 import 'package:sotaynamduoc/screen/home_screen.dart';
-import 'package:sotaynamduoc/screen/settings_screen.dart';
+import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
 import 'package:sotaynamduoc/screen/auth/reset_password_screen.dart';
 
 class AppRoutes {

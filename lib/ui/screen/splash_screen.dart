@@ -20,6 +20,7 @@ class _SplashState extends State<SplashScreen> {
     SchedulerBinding.instance.addPostFrameCallback((_) => openScreen(context));
   }
 
+  @override
   Widget build(BuildContext context) {
     ScaleSize.init(context, designWidth: 375, designHeight: 812);
     return Scaffold(
@@ -33,7 +34,7 @@ class _SplashState extends State<SplashScreen> {
                   image: AssetImage(Assets.images.background.path),
                   fit: BoxFit.cover,
                 ),
-              ), /* add child content here */
+              ) /* add child content here */,
             ),
           ],
         ),
@@ -45,9 +46,17 @@ class _SplashState extends State<SplashScreen> {
     String token = await SharedPreferenceUtil.getAccessToken();
     await Future.delayed(Duration(seconds: 2));
     if (token.isEmpty) {
-      Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Routes.loginScreen,
+        (route) => false,
+      );
     } else {
-      Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Routes.mainScreen,
+        (route) => false,
+      );
     }
   }
 }

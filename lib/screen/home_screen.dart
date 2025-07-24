@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/screen/account_screen.dart';
 import 'package:sotaynamduoc/screen/news_screen.dart';
-import 'package:sotaynamduoc/screen/thaoduoc_screen.dart';
+import 'package:sotaynamduoc/ui/screen/baithuoc/thaoduoc_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

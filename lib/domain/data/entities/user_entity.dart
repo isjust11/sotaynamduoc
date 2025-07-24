@@ -9,8 +9,7 @@ class UserEntity extends BaseEntity {
   bool? isBlock;
   String? fullName;
   String? picture;
-  List<RoleEntity> roles=[];
-
+  List<RoleEntity> roles = [];
 
   @override
   UserEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
@@ -20,9 +19,9 @@ class UserEntity extends BaseEntity {
     isBlock = json['isBlock'];
     fullName = json['fullName'];
     picture = json['picture'];
-    roles = (json['roles'] as dynamic)
-    .map((role)=> RoleEntity.fromJson(role as Map<String, dynamic>));
-
+    roles = (json['roles'] as List)
+        .map((role) => RoleEntity.fromJson(role as Map<String, dynamic>))
+        .toList();
   }
 
   @override

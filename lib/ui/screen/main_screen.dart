@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/screen/home_screen.dart';
+import 'package:sotaynamduoc/ui/screen/baithuoc/thaoduoc_screen.dart';
 import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
 import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
 import 'package:sotaynamduoc/ui/screen/complaint_screen.dart';
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     HistoryScreen(),
     QRScannerScreen(),
-    ComplaintScreen(),
+    ThaoDuocScreen(),
     SettingScreen(),
   ];
 
