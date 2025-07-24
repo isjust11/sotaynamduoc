@@ -24,7 +24,7 @@ class Network {
       InterceptorsWrapper(
         onRequest:
             (RequestOptions myOption, RequestInterceptorHandler handler) async {
-              String token = await SharedPreferenceUtil.getToken();
+              String token = await SharedPreferenceUtil.getAccessToken();
               if (token.isNotEmpty) {
                 myOption.headers["Authorization"] = "Bearer $token";
               }
@@ -65,7 +65,7 @@ class Network {
     try {
       Response response = await _dio.post(
         url,
-        data: await BaseParamRequest.request(body),
+        data: BaseParamRequest.request(body),
         queryParameters: params,
         options: Options(
           responseType: ResponseType.json,

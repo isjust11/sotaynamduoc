@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sotaynamduoc/blocs/auth/login_cubit.dart';
+import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
@@ -20,8 +20,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LoginCubit>(
-      create: (_) => LoginCubit(repository: getIt.get<AuthRepository>()),
+    return BlocProvider<AuthCubit>(
+      create: (_) => AuthCubit(repository: getIt.get<AuthRepository>()),
       child: LoginBody(),
     );
   }
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, BaseState>(
+    return BlocListener<AuthCubit, BaseState>(
       listener: (context, state) {
         if (state is LoadedState) {
           // Đăng nhập thành công, chuyển sang màn hình chính hoặc hiển thị thông báo
@@ -68,12 +68,12 @@ class _LoginScreenState extends State<LoginBody> {
             SnackBar(content: Text((state).data ?? 'Đăng nhập thất bại!')),
           );
         } else if (state is LoadingState) {
-          CustomSnackBar<LoginCubit>(fontSize: 16).build(context);
+          CustomSnackBar<AuthCubit>(fontSize: 16).build(context);
         }
       },
       child: BaseScreen(
         loadingWidget: SizedBox.shrink(),
-        messageNotify: CustomSnackBar<LoginCubit>(),
+        messageNotify: CustomSnackBar<AuthCubit>(),
         hideAppBar: true,
         // title: AppLocalizations.current.appName,
         body: Container(
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginBody> {
                         labelText: AppLocalizations.current.login,
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            BlocProvider.of<LoginCubit>(context).doLogin(
+                            BlocProvider.of<AuthCubit>(context).doLogin(
                               userName: _usernameController.text,
                               password: _passwordController.text,
                             );

@@ -7,21 +7,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SPrefCache {
   // share preference key
-  static const String KEY_TOKEN = "auth_token";
+  static const String ACCESS_TOKEN = "access_token";
+  static const String REFRESH_TOKEN = "refresh_token";
   static const String PREF_KEY_LANGUAGE = "pref_key_language";
   static const String PREF_KEY_USER_INFO = "pref_key_user_info";
   static const String PREF_KEY_IS_KEEP_LOGIN = "pref_key_is_keep_login";
 }
 
 class SharedPreferenceUtil {
-  static Future saveToken(String token) async {
+  static Future saveAccessToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(SPrefCache.KEY_TOKEN, token);
+    await prefs.setString(SPrefCache.ACCESS_TOKEN, token);
   }
 
-  static Future<String> getToken() async {
+  static Future<String> getAccessToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(SPrefCache.KEY_TOKEN) ?? '';
+    return prefs.getString(SPrefCache.ACCESS_TOKEN) ?? '';
+  }
+
+  static Future saveRefreshToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SPrefCache.REFRESH_TOKEN, token);
+  }
+
+  static Future<String> getRefreshToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(SPrefCache.REFRESH_TOKEN) ?? '';
   }
 
   static Future saveKeepLogin(bool value) async {

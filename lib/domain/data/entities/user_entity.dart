@@ -1,23 +1,33 @@
+import 'package:sotaynamduoc/domain/data/entities/role_entity.dart';
+
 import 'base_entity.dart';
 
 class UserEntity extends BaseEntity {
-  String? userName;
-  int? age;
-  String? address;
+  int? id;
+  String? username;
+  bool? isAdmin;
+  bool? isBlock;
+  String? fullName;
+  String? picture;
+  List<RoleEntity> roles=[];
+
 
   @override
   UserEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    userName = json['userName'];
-    age = json['age'];
-    address = json['address'];
+    id = json['id'];
+    username = json['username'];
+    isAdmin = json['isAdmin'];
+    isBlock = json['isBlock'];
+    fullName = json['fullName'];
+    picture = json['picture'];
+    roles = (json['roles'] as dynamic)
+    .map((role)=> RoleEntity.fromJson(role as Map<String, dynamic>));
+
   }
 
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['userName'] = userName;
-    data['age'] = age;
-    data['address'] = address;
     return data;
   }
 }

@@ -17,7 +17,7 @@ class _SplashState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance?.addPostFrameCallback((_) => openScreen(context));
+    SchedulerBinding.instance.addPostFrameCallback((_) => openScreen(context));
   }
 
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _SplashState extends State<SplashScreen> {
   }
 
   openScreen(BuildContext context) async {
-    String token = await SharedPreferenceUtil.getToken();
+    String token = await SharedPreferenceUtil.getAccessToken();
     await Future.delayed(Duration(seconds: 2));
     if (token.isEmpty) {
       Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
