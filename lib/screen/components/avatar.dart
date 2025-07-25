@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/models/user_model.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 class Avatar extends StatelessWidget {
   Avatar(

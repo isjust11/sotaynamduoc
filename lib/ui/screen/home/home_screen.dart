@@ -5,9 +5,9 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
-import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/screen/home/home_body.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
+import 'package:sotaynamduoc/routes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +17,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+  void _navigateToNotificationList(BuildContext context) {
+    Navigator.pushNamed(context, Routes.newsListScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
@@ -37,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: AppColors.inputBorderLight,
               child: IconButton(
                 onPressed: () {},
-                icon: SvgPicture.asset(Assets.icons.icAvatar),
+                icon: Icon(Icons.person),
               ),
             ),
             SizedBox(width: AppDimens.SIZE_10),
@@ -54,8 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(Assets.icons.icRing),
+            onPressed: () {
+              _navigateToNotificationList(context);
+            },
+            icon: Icon(Icons.notifications),
           ),
         ],
       ),

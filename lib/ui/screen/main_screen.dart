@@ -3,8 +3,6 @@ import 'package:sotaynamduoc/screen/home_screen.dart';
 import 'package:sotaynamduoc/ui/screen/baithuoc/thaoduoc_screen.dart';
 import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
 import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
-import 'package:sotaynamduoc/ui/screen/complaint_screen.dart';
-import 'package:sotaynamduoc/ui/screen/setting_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_bottom_navigation_bar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
@@ -23,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     HistoryScreen(),
     QRScannerScreen(),
     ThaoDuocScreen(),
-    SettingScreen(),
+    // SettingScreen(),
   ];
 
   void _onItemTapped(int index) {

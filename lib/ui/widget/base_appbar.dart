@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:scale_size/scale_size.dart';
 
+import '../../gen/assets.gen.dart';
 import '../../gen/i18n/generated_locales/l10n.dart';
 import '../../res/colors.dart';
 import 'custom_text_label.dart';
@@ -12,6 +14,9 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Widget? customTitle;
   final Color? backgroundColor;
+  final VoidCallback? onBackTap;
+  final String? backButtonText;
+  final bool showUndoIcon;
 
   const BaseAppBar({
     super.key, 
@@ -21,6 +26,9 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.backgroundColor,
     this.customTitle,
+    this.onBackTap,
+    this.backButtonText,
+    this.showUndoIcon = false,
   });
 
   @override
@@ -55,11 +63,13 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         alignment: Alignment.bottomCenter,
         padding: EdgeInsets.only(bottom: 10.sw),
         child: InkWell(
-          onTap: () {
+          onTap: onBackTap ?? () {
             Navigator.pop(context);
           },
-          child: CustomTextLabel(AppLocalizations.current.back,
-              color: AppColors.white, fontSize: 13.sw, fontWeight: FontWeight.w400),
+          child: showUndoIcon 
+            ? Icon(Icons.undo, color: AppColors.white)
+            : CustomTextLabel(backButtonText ?? AppLocalizations.current.back,
+                color: AppColors.white, fontSize: 13.sw, fontWeight: FontWeight.w400),
         ),
       );
     }

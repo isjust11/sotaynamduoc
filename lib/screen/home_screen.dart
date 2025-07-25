@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/screen/account_screen.dart';
 import 'package:sotaynamduoc/screen/news_screen.dart';
 import 'package:sotaynamduoc/ui/screen/baithuoc/thaoduoc_screen.dart';
 
@@ -13,7 +12,7 @@ class _HomeState extends State<HomeScreen> {
     _HomeContent(),
     NewsScreen(),
     ThaoDuocScreen(),
-    AccountScreen(),
+    // AccountScreen(),
   ];
 
   @override

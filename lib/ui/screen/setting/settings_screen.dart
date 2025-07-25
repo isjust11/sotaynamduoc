@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/screen/auth/update_profile_screen.dart';
 import 'package:sotaynamduoc/screen/components/dropdown_picker.dart';
 import 'package:sotaynamduoc/screen/components/segmented_selector.dart';
-import 'package:sotaynamduoc/controllers/language_controller.dart';
-import 'package:sotaynamduoc/controllers/theme_controller.dart';
-import 'package:sotaynamduoc/models/menu_option_model.dart';
-import 'package:sotaynamduoc/constants/globals.dart';
-import 'package:sotaynamduoc/controllers/auth_controller.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -28,8 +25,8 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildLayoutSection(BuildContext context) {
     return ListView(
       children: <Widget>[
-        languageListTile(context),
-        themeListTile(context),
+        // languageListTile(context),
+        // themeListTile(context),
         ListTile(
             title: Text('settings.updateProfile'.tr),
             trailing: ElevatedButton(
@@ -44,7 +41,7 @@ class SettingsScreen extends StatelessWidget {
           title: Text('settings.signOut'.tr),
           trailing: ElevatedButton(
             onPressed: () {
-              AuthController.to.signOut();
+              // 
             },
             child: Text(
               'settings.signOut'.tr,
@@ -55,42 +52,42 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  languageListTile(BuildContext context) {
-    return GetBuilder<LanguageController>(
-      builder: (controller) => ListTile(
-        title: Text('settings.language'.tr),
-        trailing: DropdownPicker(
-          menuOptions: Globals.languageOptions,
-          selectedOption: controller.currentLanguage,
-          onChanged: (value) async {
-            await controller.updateLanguage(value!);
-            Get.forceAppUpdate();
-          },
-        ),
-      ),
-    );
-  }
+  // languageListTile(BuildContext context) {
+  //   return GetBuilder<LanguageController>(
+  //     builder: (controller) => ListTile(
+  //       title: Text('settings.language'.tr),
+  //       trailing: DropdownPicker(
+  //         menuOptions: Globals.languageOptions,
+  //         selectedOption: controller.currentLanguage,
+  //         onChanged: (value) async {
+  //           await controller.updateLanguage(value!);
+  //           Get.forceAppUpdate();
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  themeListTile(BuildContext context) {
-    final List<MenuOptionsModel> themeOptions = [
-      MenuOptionsModel(
-          key: "system", value: 'settings.system'.tr, icon: Icons.brightness_4),
-      MenuOptionsModel(
-          key: "light", value: 'settings.light'.tr, icon: Icons.brightness_low),
-      MenuOptionsModel(
-          key: "dark", value: 'settings.dark'.tr, icon: Icons.brightness_3)
-    ];
-    return GetBuilder<ThemeController>(
-      builder: (controller) => ListTile(
-        title: Text('settings.theme'.tr),
-        trailing: SegmentedSelector(
-          selectedOption: controller.currentTheme,
-          menuOptions: themeOptions,
-          onValueChanged: (value) {
-            controller.setThemeMode(value);
-          },
-        ),
-      ),
-    );
-  }
+  // themeListTile(BuildContext context) {
+  //   final List<MenuOptionsModel> themeOptions = [
+  //     MenuOptionsModel(
+  //         key: "system", value: 'settings.system'.tr, icon: Icons.brightness_4),
+  //     MenuOptionsModel(
+  //         key: "light", value: 'settings.light'.tr, icon: Icons.brightness_low),
+  //     MenuOptionsModel(
+  //         key: "dark", value: 'settings.dark'.tr, icon: Icons.brightness_3)
+  //   ];
+  //   return GetBuilder<ThemeController>(
+  //     builder: (controller) => ListTile(
+  //       title: Text('settings.theme'.tr),
+  //       trailing: SegmentedSelector(
+  //         selectedOption: controller.currentTheme,
+  //         menuOptions: themeOptions,
+  //         onValueChanged: (value) {
+  //           controller.setThemeMode(value);
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 }

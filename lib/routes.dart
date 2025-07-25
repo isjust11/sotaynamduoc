@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
+import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
+import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -22,6 +24,8 @@ class Routes {
   static const String qrScannerScreen = "/qrScannerScreen";
   static const String fakeProductScreen = "/fakeProductScreen";
   static const String historyScreen = "/historyScreen";
+  static const String newsListScreen = "/newsListScreen";
+  static const String newsDetailScreen = "/newsDetailScreen";
 
   //init screen name
   static String initScreen() => splashScreen;
@@ -52,6 +56,17 @@ class Routes {
         return PageTransition(
           child: QRScannerScreen(),
           type: PageTransitionType.rightToLeft,
+        );
+      case newsListScreen:
+        return PageTransition(
+          child: NewsListScreen(),
+          type: PageTransitionType.fade,
+        );
+      case newsDetailScreen:
+        final args = settings.arguments as NewsDetailScreenArgs;
+        return PageTransition(
+          child: NewsDetailScreen(news: args.news),
+          type: PageTransitionType.fade,
         );
       default:
         return MaterialPageRoute(builder: (context) => Container());

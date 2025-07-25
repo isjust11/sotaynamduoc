@@ -28,6 +28,7 @@ class AppDimens {
   static const double SIZE_27 = 27;
   static const double SIZE_28 = 28;
   static const double SIZE_30 = 30;
+  static const double SIZE_32 = 32;
   static const double SIZE_33 = 33;
   static const double SIZE_35 = 35;
   static const double SIZE_36 = 36;
@@ -42,6 +43,7 @@ class AppDimens {
   static const double SIZE_55 = 55;
   static const double SIZE_60 = 60;
   static const double SIZE_63 = 63;
+  static const double SIZE_64 = 64;
   static const double SIZE_65 = 65;
   static const double SIZE_67 = 67;
   static const double SIZE_69 = 69;
@@ -56,6 +58,7 @@ class AppDimens {
   static const double SIZE_110 = 110;
   static const double SIZE_115 = 115;
   static const double SIZE_116 = 116;
+  static const double SIZE_120 = 120;
   static const double SIZE_124 = 124;
   static const double SIZE_128 = 128;
   static const double SIZE_140 = 140;
@@ -66,11 +69,9 @@ class AppDimens {
   static const double SIZE_172 = 172;
   static const double SIZE_200 = 200;
   static const double SIZE_236 = 236;
+  static const double SIZE_260 = 260;
   static const double SIZE_300 = 300;
   static const double SIZE_310 = 310;
   static const double SIZE_340 = 340;
   static const double SIZE_352 = 352;
-
-  static const double SIZE_260 = 260;
-  static const double SIZE_120 = 120;
 }
