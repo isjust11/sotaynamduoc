@@ -1,5 +1,4 @@
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
-import 'package:sotaynamduoc/domain/data/models/auth_model.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 class AuthRepository {

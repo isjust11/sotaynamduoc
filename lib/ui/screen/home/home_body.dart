@@ -37,13 +37,14 @@ class _HomeBodyState extends State<HomeBody> {
     10,
     (index) => NewsModel(
       id: 'news_$index',
-      title: 'Tin tức số $index Lô HU1245 đã bị thu hồi do không đạt tiêu chuẩn chất lượng.',
+      title:
+          'Tin tức số $index Lô HU1245 đã bị thu hồi do không đạt tiêu chuẩn chất lượng.',
       content:
           'Sản phẩm sữa Hiup - Lô HU1245 đã bị thu hồi do không đạt tiêu chuẩn chất lượng. Vui lòng kiểm tra sản phẩm của bạn.',
-      description:
+      summary:
           'Theo quy định tại Thông tư số 10/2020/TT-BKHCN, các doanh nghiệp sử dụng mã số, mã vạch khi in mã vạch lên sản phẩm cần thực hiện việc kê khai thông tin sản phẩm trên Hệ thống quản lý mã số, mã vạch tại địa chỉ: Vnpc.gs1.gov.vn với 7 trường thông tin bắt buộc:\na) GTIN;\nb) Tên sản phẩm, nhãn hiệu;\nc) Mô tả sản phẩm;\nd) Nhóm sản phẩm (các loại sản phẩm có tính chất giống nhau);',
       createdAt: DateTime.now().subtract(Duration(hours: index)),
-      imageUrl: 'https://i.postimg.cc/DwXCNJzw/info-image.png',
+      thumbnail: 'https://i.postimg.cc/DwXCNJzw/info-image.png',
     ),
   );
 
@@ -86,61 +87,56 @@ class _HomeBodyState extends State<HomeBody> {
                   });
                 },
               ),
-              items:
-                  carouselImages
-                      .map(
-                        (img) => ClipRRect(
+              items: carouselImages
+                  .map(
+                    (img) => ClipRRect(
+                      borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
+                      child: Container(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                             AppDimens.SIZE_12,
                           ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                AppDimens.SIZE_12,
-                              ),
-                              gradient: LinearGradient(
-                                colors: [
-                                  AppColors.secondaryBrand,
-                                  AppColors.orangeDot,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                            ),
-                            child: Image.asset(
-                              img,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            ),
+                          gradient: LinearGradient(
+                            colors: [
+                              AppColors.secondaryBrand,
+                              AppColors.orangeDot,
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
                           ),
                         ),
-                      )
-                      .toList(),
+                        child: Image.asset(
+                          img,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
             // Indicator
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:
-                  carouselImages.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => _carouselController.animateToPage(entry.key),
-                      child: Container(
-                        width: AppDimens.SIZE_8,
-                        height: AppDimens.SIZE_8,
-                        margin: EdgeInsets.symmetric(
-                          vertical: AppDimens.SIZE_8,
-                          horizontal: AppDimens.SIZE_4,
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color:
-                              _current == entry.key
-                                  ? AppColors.orangeDot
-                                  : AppColors.lightOrangeDot,
-                        ),
-                      ),
-                    );
-                  }).toList(),
+              children: carouselImages.asMap().entries.map((entry) {
+                return GestureDetector(
+                  onTap: () => _carouselController.animateToPage(entry.key),
+                  child: Container(
+                    width: AppDimens.SIZE_8,
+                    height: AppDimens.SIZE_8,
+                    margin: EdgeInsets.symmetric(
+                      vertical: AppDimens.SIZE_8,
+                      horizontal: AppDimens.SIZE_4,
+                    ),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _current == entry.key
+                          ? AppColors.orangeDot
+                          : AppColors.lightOrangeDot,
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
             SizedBox(height: AppDimens.SIZE_16),
             // 2. Cảnh báo hàng giả
@@ -202,45 +198,42 @@ class _HomeBodyState extends State<HomeBody> {
                         if (rowStart < group.length) {
                           rows.add(
                             Row(
-                              children:
-                                  group
-                                      .sublist(rowStart, rowEnd)
-                                      .map(
-                                        (product) => Expanded(
-                                          child: Container(
-                                            width: AppDimens.SIZE_120,
-                                            margin: EdgeInsets.only(
-                                              bottom: AppDimens.SIZE_12,
-                                              right: AppDimens.SIZE_8,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Image.asset(
-                                                  product['image'] ?? '',
-                                                  height: AppDimens.SIZE_90,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                SizedBox(
-                                                  height: AppDimens.SIZE_4,
-                                                ),
-                                                CustomTextLabel(
-                                                  product['name'] ?? '',
-                                                  fontSize: AppDimens.SIZE_12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color:
-                                                      AppColors
-                                                          .secondaryTextDark,
-                                                ),
-                                              ],
-                                            ),
+                              children: group
+                                  .sublist(rowStart, rowEnd)
+                                  .map(
+                                    (product) => Expanded(
+                                      child: Container(
+                                        width: AppDimens.SIZE_120,
+                                        margin: EdgeInsets.only(
+                                          bottom: AppDimens.SIZE_12,
+                                          right: AppDimens.SIZE_8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
                                           ),
                                         ),
-                                      )
-                                      .toList(),
+                                        child: Column(
+                                          children: [
+                                            Image.asset(
+                                              product['image'] ?? '',
+                                              height: AppDimens.SIZE_90,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            SizedBox(height: AppDimens.SIZE_4),
+                                            CustomTextLabel(
+                                              product['name'] ?? '',
+                                              fontSize: AppDimens.SIZE_12,
+                                              fontWeight: FontWeight.bold,
+                                              color:
+                                                  AppColors.secondaryTextDark,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           );
                         }
@@ -248,14 +241,12 @@ class _HomeBodyState extends State<HomeBody> {
 
                       return Container(
                         padding: EdgeInsets.only(
-                          right:
-                              _currentProductGroup < _productGroupCount - 1
-                                  ? AppDimens.SIZE_14
-                                  : AppDimens.SIZE_0,
-                          left:
-                              _currentProductGroup > 0
-                                  ? AppDimens.SIZE_14
-                                  : AppDimens.SIZE_0,
+                          right: _currentProductGroup < _productGroupCount - 1
+                              ? AppDimens.SIZE_14
+                              : AppDimens.SIZE_0,
+                          left: _currentProductGroup > 0
+                              ? AppDimens.SIZE_14
+                              : AppDimens.SIZE_0,
                         ),
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.only(bottom: AppDimens.SIZE_12),
@@ -368,64 +359,59 @@ class _HomeBodyState extends State<HomeBody> {
                               borderRadius: BorderRadius.circular(
                                 AppDimens.SIZE_8,
                               ),
-                              child:
-                                  news.imageUrl != null
-                                      ? Image.network(
-                                        news.imageUrl!,
-                                        fit: BoxFit.cover,
-                                        loadingBuilder: (
-                                          context,
-                                          child,
-                                          loadingProgress,
-                                        ) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return Center(
-                                            child: CircularProgressIndicator(
-                                              value:
-                                                  loadingProgress
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProgress
+                              child: news.thumbnail != null
+                                  ? Image.network(
+                                      news.thumbnail!,
+                                      fit: BoxFit.cover,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value:
+                                                    loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
                                                               .cumulativeBytesLoaded /
                                                           loadingProgress
                                                               .expectedTotalBytes!
-                                                      : null,
-                                            ),
-                                          );
-                                        },
-                                        errorBuilder: (
-                                          context,
-                                          error,
-                                          stackTrace,
-                                        ) {
-                                          return Container(
-                                            color:
-                                                AppColors.lightGreyBackground,
-                                            child: Icon(
-                                              Icons.image_not_supported,
-                                              size: 60.sw,
-                                              color: AppColors.textMediumGrey,
-                                            ),
-                                          );
-                                        },
-                                      )
-                                      : Container(
-                                        color: AppColors.lightGreyBackground,
-                                        child: Icon(
-                                          Icons.image_not_supported,
-                                          size: 60,
-                                          color: AppColors.textMediumGrey,
-                                        ),
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return Container(
+                                              color:
+                                                  AppColors.lightGreyBackground,
+                                              child: Icon(
+                                                Icons.image_not_supported,
+                                                size: 60.sw,
+                                                color: AppColors.textMediumGrey,
+                                              ),
+                                            );
+                                          },
+                                    )
+                                  : Container(
+                                      color: AppColors.lightGreyBackground,
+                                      child: Icon(
+                                        Icons.image_not_supported,
+                                        size: 60,
+                                        color: AppColors.textMediumGrey,
                                       ),
+                                    ),
                             ),
                           ),
                         ),
                         SizedBox(height: AppDimens.SIZE_8),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppDimens.SIZE_8,
+                            ),
                             child: CustomTextLabel(
                               news.title,
                               maxLines: 2,

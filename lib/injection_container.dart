@@ -45,11 +45,17 @@ void registerCubit(GetIt getIt) {
   getIt.registerLazySingleton(
     () => UserInfoCubit(repository: getIt.get<UserRepository>()),
   );
+  getIt.registerLazySingleton(
+    () => NewsBloc(newsRepository: getIt.get<NewsRepository>()),
+  );
 }
 
 void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
-    () => AuthRepository(remoteDataSource: getIt.get(), localDataSource: getIt.get()),
+    () => AuthRepository(
+      remoteDataSource: getIt.get(),
+      localDataSource: getIt.get(),
+    ),
   );
   getIt.registerLazySingleton(
     () => UserRepository(
@@ -57,12 +63,16 @@ void registerRepositories(GetIt getIt) {
       userRemoteDataSource: getIt.get(),
     ),
   );
+  getIt.registerLazySingleton(
+    () => NewsRepository(remoteDataSource: getIt.get()),
+  );
 }
 
 void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(() => AuthRemoteDataSource(network: getIt.get()));
   getIt.registerLazySingleton(() => UserLocalDataSource());
   getIt.registerLazySingleton(() => UserRemoteDataSource(network: getIt.get()));
+  getIt.registerLazySingleton(() => NewsRemoteDataSource(network: getIt.get()));
 }
 
 void registerNetwork(GetIt getIt) {

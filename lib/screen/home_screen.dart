@@ -11,7 +11,7 @@ class _HomeState extends State<HomeScreen> {
   final List<Widget> _screens = [
     _HomeContent(),
     NewsScreen(),
-    ThaoDuocScreen(),
+    // ThaoDuocScreen(),
     // AccountScreen(),
   ];
 

@@ -70,9 +70,9 @@ class NewsDetailScreenState extends State<NewsDetailScreen> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                child: widget.news.imageUrl != null
+                child: widget.news.thumbnail != null
                     ? Image.network(
-                        widget.news.imageUrl!,
+                        widget.news.thumbnail!,
                         fit: BoxFit.cover,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) return child;
@@ -138,7 +138,7 @@ class NewsDetailScreenState extends State<NewsDetailScreen> {
           SizedBox(height: AppDimens.SIZE_16),
           // Content description
           CustomTextLabel(
-            widget.news.description,
+            widget.news.summary,
             fontSize: AppDimens.SIZE_13,
             fontWeight: FontWeight.w400,
             color: AppColors.textDark,

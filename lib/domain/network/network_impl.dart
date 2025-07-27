@@ -45,7 +45,7 @@ class Network {
     try {
       Response response = await _dio.get(
         url,
-        queryParameters: await BaseParamRequest.request(params),
+        queryParameters: BaseParamRequest.request(params),
         options: Options(responseType: ResponseType.json),
       );
       return getApiResponse(response);
@@ -74,7 +74,7 @@ class Network {
       );
       return getApiResponse(response);
     } catch (e) {
-      print("===post =====${e}");
+      print("===post =====$e");
       return getError(e as DioError);
     }
   }

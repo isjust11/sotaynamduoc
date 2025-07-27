@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:scale_size/scale_size.dart';
 
-import '../../gen/assets.gen.dart';
 import '../../gen/i18n/generated_locales/l10n.dart';
 import '../../res/colors.dart';
 import 'custom_text_label.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/screen/home_screen.dart';
 import 'package:sotaynamduoc/ui/screen/baithuoc/thaoduoc_screen.dart';
-import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
-import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
+import 'package:sotaynamduoc/ui/screen/caythuoc/caythuoc_screen.dart';
+import 'package:sotaynamduoc/ui/screen/news/news_list_bloc_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_bottom_navigation_bar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
@@ -18,9 +18,9 @@ class _MainScreenState extends State<MainScreen> {
 
   static final List<Widget> _pages = <Widget>[
     HomeScreen(),
-    HistoryScreen(),
-    QRScannerScreen(),
-    ThaoDuocScreen(),
+    CaythuocScreen(),
+    NewsListBlocScreen(),
+    BaithuocScreen(),
     // SettingScreen(),
   ];
 

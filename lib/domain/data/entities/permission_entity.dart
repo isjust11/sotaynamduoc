@@ -1,13 +1,13 @@
 import 'package:sotaynamduoc/domain/data/entities/base_entity.dart';
 
-class PermissionEntity extends BaseEntity{
-  String? id;
-  String? name;
-  String? code;
+class PermissionEntity extends BaseEntity {
+  int? id;
+  String? name = '';
+  String? code = '';
   String? description;
   bool? isActive;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   PermissionEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     id = json['id'];

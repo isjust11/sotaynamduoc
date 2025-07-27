@@ -63,10 +63,10 @@ class NewsListScreenState extends State<NewsListScreen> {
         title: 'Tin tức số $newsIndex',
         content:
             'Sản phẩm sữa Hiup - Lô HU1245 đã bị thu hồi do không đạt tiêu chuẩn chất lượng. Vui lòng kiểm tra sản phẩm của bạn.',
-        description:
+        summary:
             'Theo quy định tại Thông tư số 10/2020/TT-BKHCN, các doanh nghiệp sử dụng mã số, mã vạch khi in mã vạch lên sản phẩm cần thực hiện việc kê khai thông tin sản phẩm trên Hệ thống quản lý mã số, mã vạch tại địa chỉ: Vnpc.gs1.gov.vn với 7 trường thông tin bắt buộc:\na) GTIN;\nb) Tên sản phẩm, nhãn hiệu;\nc) Mô tả sản phẩm;\nd) Nhóm sản phẩm (các loại sản phẩm có tính chất giống nhau);',
         createdAt: DateTime.now().subtract(Duration(hours: newsIndex)),
-        imageUrl: 'https://i.postimg.cc/DwXCNJzw/info-image.png',
+        thumbnail: 'https://i.postimg.cc/DwXCNJzw/info-image.png',
       );
     });
   }
@@ -189,7 +189,11 @@ class NewsListScreenState extends State<NewsListScreen> {
           Center(
             child: Column(
               children: [
-                Icon(Icons.notifications_none, size: 64.sw, color: AppColors.textDark.withValues(alpha: 0.3)),
+                Icon(
+                  Icons.notifications_none,
+                  size: 64.sw,
+                  color: AppColors.textDark.withValues(alpha: 0.3),
+                ),
                 SizedBox(height: AppDimens.SIZE_16),
                 CustomTextLabel(
                   'No notifications yet',
@@ -237,50 +241,46 @@ class NewsListScreenState extends State<NewsListScreen> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                        child:
-                            news.imageUrl != null
-                                ? Image.network(
-                                  news.imageUrl!,
-                                  fit: BoxFit.cover,
-                                  loadingBuilder: (
-                                    context,
-                                    child,
-                                    loadingProgress,
-                                  ) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value:
-                                            loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
+                        child: news.thumbnail != null
+                            ? Image.network(
+                                news.thumbnail ?? '',
+                                fit: BoxFit.cover,
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value:
+                                              loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
                                                         .cumulativeBytesLoaded /
                                                     loadingProgress
                                                         .expectedTotalBytes!
-                                                : null,
-                                      ),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: AppColors.lightGreyBackground,
-                                      child: Icon(
-                                        Icons.image_not_supported,
-                                        size: 60.sw,
-                                        color: AppColors.textMediumGrey,
-                                      ),
-                                    );
-                                  },
-                                )
-                                : Container(
-                                  color: AppColors.lightGreyBackground,
-                                  child: Icon(
-                                    Icons.image_not_supported,
-                                    size: 60,
-                                    color: AppColors.textMediumGrey,
-                                  ),
+                                              : null,
+                                        ),
+                                      );
+                                    },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    color: AppColors.lightGreyBackground,
+                                    child: Icon(
+                                      Icons.image_not_supported,
+                                      size: 60.sw,
+                                      color: AppColors.textMediumGrey,
+                                    ),
+                                  );
+                                },
+                              )
+                            : Container(
+                                color: AppColors.lightGreyBackground,
+                                child: Icon(
+                                  Icons.image_not_supported,
+                                  size: 60,
+                                  color: AppColors.textMediumGrey,
                                 ),
+                              ),
                       ),
                     ),
                   ),
