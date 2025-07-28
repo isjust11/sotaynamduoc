@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sotaynamduoc/blocs/news/news_bloc.dart';
+import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
@@ -63,9 +65,12 @@ class Routes {
           type: PageTransitionType.fade,
         );
       case newsDetailScreen:
-        final args = settings.arguments as NewsDetailScreenArgs;
+        final args = settings.arguments as String;
         return PageTransition(
-          child: NewsDetailScreen(news: args.news),
+          child: NewsDetailScreen(
+            newsId: args,
+            newsBloc: getIt<NewsBloc>(),
+          ),
           type: PageTransitionType.fade,
         );
       default:
