@@ -19,9 +19,9 @@ class _MainScreenState extends State<MainScreen> {
 
   static final List<Widget> _pages = <Widget>[
     HomeScreen(),
-    CaythuocScreen(),
     const NewsListScreen(),
     BaithuocScreen(),
+    CaythuocScreen(),
     SettingScreen(),
   ];
 
