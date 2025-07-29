@@ -22,6 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "ProductCertification": MessageLookupByLibrary.simpleMessage(
+      "Chứng nhận sản phẩm",
+    ),
     "accountLevel": MessageLookupByLibrary.simpleMessage("Mức TK"),
     "add": MessageLookupByLibrary.simpleMessage("Thêm"),
     "addImagesOrVideos": MessageLookupByLibrary.simpleMessage(
@@ -32,6 +35,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Địa chỉ A- Địa chỉ B",
     ),
     "agree": MessageLookupByLibrary.simpleMessage("Đồng ý"),
+    "allFeedbackLoaded": MessageLookupByLibrary.simpleMessage(
+      "Đã tải hết phản ánh.",
+    ),
+    "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
+      "Đã tải hết thông báo",
+    ),
     "appName": MessageLookupByLibrary.simpleMessage("VNPT flutter_template"),
     "authenticateTrust": MessageLookupByLibrary.simpleMessage(
       "Xác thực uy tín",
@@ -42,6 +51,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
     "calcium": MessageLookupByLibrary.simpleMessage("Calci102 mg"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+    "cameraPermissionDenied": MessageLookupByLibrary.simpleMessage(
+      "Quyền camera đã bị từ chối. Vui lòng bật quyền camera trong Cài đặt để quét mã QR.",
+    ),
+    "cameraPermissionNeed": MessageLookupByLibrary.simpleMessage(
+      "Ứng dụng này cần quyền truy cập camera để quét mã QR.",
+    ),
+    "cameraPermissionRequired": MessageLookupByLibrary.simpleMessage(
+      "Cần cấp quyền camera",
+    ),
     "carbohydrates": MessageLookupByLibrary.simpleMessage("Carbohydrat7,5 g"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
     "close": MessageLookupByLibrary.simpleMessage("Đóng"),
@@ -50,11 +68,90 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "commodityType": MessageLookupByLibrary.simpleMessage("Loại hàng hóa"),
     "complaint": MessageLookupByLibrary.simpleMessage("Khiếu nại"),
+    "complaintAdd": MessageLookupByLibrary.simpleMessage("Thêm"),
+    "complaintAddImageOrVideo": MessageLookupByLibrary.simpleMessage(
+      "Thêm ít nhất 1 hình ảnh hoặc video về sản phẩm",
+    ),
     "complaintAndFeedback": MessageLookupByLibrary.simpleMessage(
       "Phản ánh - Khiếu nại",
     ),
+    "complaintCompanyName": MessageLookupByLibrary.simpleMessage("Tên công ty"),
+    "complaintContent": MessageLookupByLibrary.simpleMessage("Nội dung"),
+    "complaintContentRequired": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập nội dung phản ánh",
+    ),
+    "complaintDetailBack": MessageLookupByLibrary.simpleMessage("Quay lại"),
+    "complaintDetailContact": MessageLookupByLibrary.simpleMessage(
+      "Nếu bạn có thêm thắc mắc gì, vui lòng liên hệ:",
+    ),
+    "complaintDetailEmail": MessageLookupByLibrary.simpleMessage("Email:"),
+    "complaintDetailFeedback": MessageLookupByLibrary.simpleMessage(
+      "Phản hồi:",
+    ),
+    "complaintDetailHotline": MessageLookupByLibrary.simpleMessage("Hotline:"),
+    "complaintDetailId": MessageLookupByLibrary.simpleMessage("Mã khiếu nại"),
+    "complaintDetailProcessTime": MessageLookupByLibrary.simpleMessage(
+      "Thời gian P/A:",
+    ),
+    "complaintDetailReason": MessageLookupByLibrary.simpleMessage(
+      "Lý do phản ánh:",
+    ),
+    "complaintDetailSendTime": MessageLookupByLibrary.simpleMessage(
+      "Thời gian gửi:",
+    ),
+    "complaintDetailShare": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
+    "complaintDetailTitle": MessageLookupByLibrary.simpleMessage(
+      "Chi tiết khiếu nại",
+    ),
+    "complaintDetailViolationType": MessageLookupByLibrary.simpleMessage(
+      "Loại vi phạm:",
+    ),
     "complaintDetails": MessageLookupByLibrary.simpleMessage(
       "Chi tiết phản ánh - khiếu nại",
+    ),
+    "complaintEnterContent": MessageLookupByLibrary.simpleMessage(
+      "Nhập nội dung phản ánh",
+    ),
+    "complaintImages": MessageLookupByLibrary.simpleMessage("Hình ảnh:"),
+    "complaintListTitle": MessageLookupByLibrary.simpleMessage(
+      "Danh sách khiếu nại của tôi",
+    ),
+    "complaintNoData": MessageLookupByLibrary.simpleMessage("Không có dữ liệu"),
+    "complaintProductIdentified": MessageLookupByLibrary.simpleMessage(
+      "Sản phẩm đã được định danh",
+    ),
+    "complaintProductName": MessageLookupByLibrary.simpleMessage(
+      "Tên sản phẩm",
+    ),
+    "complaintReason": MessageLookupByLibrary.simpleMessage("Lý do phản ánh"),
+    "complaintScanTime": MessageLookupByLibrary.simpleMessage(
+      "Thời gian quét:",
+    ),
+    "complaintSelectReason": MessageLookupByLibrary.simpleMessage(
+      "Chọn lý do phản ánh",
+    ),
+    "complaintSelectViolationType": MessageLookupByLibrary.simpleMessage(
+      "Chọn loại vi phạm",
+    ),
+    "complaintSend": MessageLookupByLibrary.simpleMessage("Gửi"),
+    "complaintSendFailMedia": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng thêm ít nhất 1 hình ảnh hoặc video!",
+    ),
+    "complaintSendSuccess": MessageLookupByLibrary.simpleMessage(
+      "Gửi phản ánh thành công!",
+    ),
+    "complaintStatusPending": MessageLookupByLibrary.simpleMessage("Chờ xử lý"),
+    "complaintStatusProcessed": MessageLookupByLibrary.simpleMessage(
+      "Đã xử lý",
+    ),
+    "complaintTabPending": MessageLookupByLibrary.simpleMessage(
+      "Phản ánh - Khiếu nại",
+    ),
+    "complaintTabProcessed": MessageLookupByLibrary.simpleMessage(
+      "Phản ánh đã xử lý",
+    ),
+    "complaintViolationType": MessageLookupByLibrary.simpleMessage(
+      "Loại vi phạm",
     ),
     "contactUs": MessageLookupByLibrary.simpleMessage("Liên hệ với chúng tôi"),
     "content": MessageLookupByLibrary.simpleMessage("Nội dung:"),
@@ -68,11 +165,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "datChuan": MessageLookupByLibrary.simpleMessage("Đạt chuẩn"),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
     "delete": MessageLookupByLibrary.simpleMessage("Xoá"),
+    "detail": MessageLookupByLibrary.simpleMessage("chi tiết"),
     "done": MessageLookupByLibrary.simpleMessage("Xong"),
     "dropdown_loading": MessageLookupByLibrary.simpleMessage(
       "Đang lấy dữ liệu ...",
     ),
-    "email": MessageLookupByLibrary.simpleMessage("Email: bocongan@bca.com"),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "energy": MessageLookupByLibrary.simpleMessage("Năng lượng74,8 kcal"),
     "enterComplaintContent": MessageLookupByLibrary.simpleMessage(
       "Nhập nội dung phản ánh",
@@ -93,6 +191,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Vận chuyển nhà máy",
     ),
     "factoryTransportType": MessageLookupByLibrary.simpleMessage("Loại hình"),
+    "fakeProduct": MessageLookupByLibrary.simpleMessage("Hàng giả"),
+    "fakeProductList": MessageLookupByLibrary.simpleMessage(
+      "Danh sách hàng giả",
+    ),
     "fakeProductWarning": MessageLookupByLibrary.simpleMessage(
       "Cảnh báo hàng giả",
     ),
@@ -106,6 +208,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "furtherInquiries": MessageLookupByLibrary.simpleMessage(
       "Nếu bạn có thêm thắc mắc gì, vui lòng liên hệ:",
     ),
+    "generalNotification": MessageLookupByLibrary.simpleMessage(
+      "Thông báo chung",
+    ),
     "globalTrust": MessageLookupByLibrary.simpleMessage("Tin cậy toàn cầu"),
     "googleTermsDescription": MessageLookupByLibrary.simpleMessage(
       "Các Điều khoản dịch vụ này phản ánh cách thức kinh doanh của Google, những điều luật mà công ty chúng tôi phải tuân theo và một số điều mà chúng tôi vẫn luôn tin là đúng. Do đó, các Điều khoản dịch vụ này giúp xác định mối quan hệ giữa Google với bạn khi bạn tương tác với các dịch vụ của chúng tôi. Ví dụ: Các điều khoản này trình bày các chủ đề sau: Trách nhiệm của chúng tôi: Đây là phần mô tả cách chúng tôi cung cấp và phát triển các dịch vụ của mình Trách nhiệm của bạn: Phần này nêu ra một số quy tắc mà bạn phải tuân theo khi sử dụng các dịch vụ của chúng tôi Nội dung trong các dịch vụ của Google: Phần này mô tả quyền sở hữu trí tuệ đối với nội dung mà bạn thấy trong các dịch vụ của chúng tôi, bất kể nội dung đó thuộc về bạn, Google hay người khác Trong trường hợp xảy ra vấn đề hoặc bất đồng: Phần này mô tả các quyền hợp pháp khác mà bạn có và những điều bạn nên biết trong trường hợp có người vi phạm các điều khoản này Việc hiểu rõ các điều khoản này rất quan trọng, vì khi truy cập hoặc sử dụng các dịch vụ của chúng tôi, nghĩa là bạn đồng ý với các điều khoản này.",
@@ -118,13 +223,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "helpGuide": MessageLookupByLibrary.simpleMessage("Hướng dẫn trợ giúp"),
     "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
     "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
-    "hotline": MessageLookupByLibrary.simpleMessage("Hotline: 024 324562 2255"),
+    "hotline": MessageLookupByLibrary.simpleMessage("Hotline"),
     "idNumber": MessageLookupByLibrary.simpleMessage("Số DDCN"),
     "images": MessageLookupByLibrary.simpleMessage("Hình ảnh:"),
     "industry": MessageLookupByLibrary.simpleMessage("Ngành hàng"),
     "infoAuthenticatedSource": MessageLookupByLibrary.simpleMessage(
       "Nguồn gốc thông tin đã được chứng thực",
     ),
+    "infoContact": MessageLookupByLibrary.simpleMessage("Thông tin liên hệ"),
+    "infoNotification": MessageLookupByLibrary.simpleMessage("Thông tin"),
     "infoSelfDeclaredByOrganization": MessageLookupByLibrary.simpleMessage(
       "Thông tin do tổ chức sử dụng mã số, mã vạch tự kê khai và tự chịu trách nhiệm",
     ),
@@ -153,21 +260,44 @@ class MessageLookup extends MessageLookupByLibrary {
     "manufacturerResponseStorage": MessageLookupByLibrary.simpleMessage(
       "Phản hồi: Nhà sản xuất đã phản hồi về điều kiện bảo quản sản phẩm",
     ),
+    "markAllAsRead": MessageLookupByLibrary.simpleMessage(
+      "Đánh dấu tất cả đã đọc",
+    ),
+    "markAsRead": MessageLookupByLibrary.simpleMessage("Đánh dấu đã đọc"),
     "mfgExpDate": MessageLookupByLibrary.simpleMessage("NSX - HSD"),
     "milk": MessageLookupByLibrary.simpleMessage("Sữa"),
     "milkingDate": MessageLookupByLibrary.simpleMessage("Ngày vắt sữa"),
     "myComplaintList": MessageLookupByLibrary.simpleMessage(
       "Danh sách khiếu nại của tôi",
     ),
+    "newNotification": MessageLookupByLibrary.simpleMessage("Thông báo mới"),
     "news": MessageLookupByLibrary.simpleMessage("Tin tức"),
+    "newsDetail": MessageLookupByLibrary.simpleMessage("Chi tiết tin tức"),
+    "newsList": MessageLookupByLibrary.simpleMessage("Danh sách tin tức"),
     "nghiaSonNgheAnAddress": MessageLookupByLibrary.simpleMessage(
       "Nghĩa Sơn - Nghĩa Đàn - Nghệ An",
     ),
     "noManufacturerInfo": MessageLookupByLibrary.simpleMessage(
       "Không có thông tin nhà sản xuất",
     ),
+    "noNotifications": MessageLookupByLibrary.simpleMessage(
+      "Không có thông báo",
+    ),
+    "noNotificationsYet": MessageLookupByLibrary.simpleMessage(
+      "Chưa có thông báo nào",
+    ),
     "noProductInfo": MessageLookupByLibrary.simpleMessage(
       "Không có thông tin sản phẩm",
+    ),
+    "noQRCodeFound": MessageLookupByLibrary.simpleMessage(
+      "Không tìm thấy mã QR trong hình ảnh đã chọn",
+    ),
+    "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
+    "notificationDetail": MessageLookupByLibrary.simpleMessage(
+      "Chi tiết thông báo",
+    ),
+    "notificationList": MessageLookupByLibrary.simpleMessage(
+      "Danh sách thông báo",
     ),
     "nutritionDisclaimer": MessageLookupByLibrary.simpleMessage(
       "(*) Hàm lượng dinh dưỡng không thấp hơn 80% giá trị ghi trên nhãn​​.",
@@ -178,6 +308,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "oneLiterBox": MessageLookupByLibrary.simpleMessage("Hộp 1 lít"),
     "origin": MessageLookupByLibrary.simpleMessage("Nguồn gốc"),
     "packagingMethod": MessageLookupByLibrary.simpleMessage("Cách đóng gói"),
+    "pendingList": MessageLookupByLibrary.simpleMessage("Danh sách chưa xử lý"),
     "pendingProcessing": MessageLookupByLibrary.simpleMessage("Chờ xử lý"),
     "personalInformation": MessageLookupByLibrary.simpleMessage(
       "Thông tin cá nhân",
@@ -193,6 +324,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyPolicy": MessageLookupByLibrary.simpleMessage(
       "Chính sách quyền riêng tư",
     ),
+    "processedList": MessageLookupByLibrary.simpleMessage("Danh sách đã xử lý"),
     "productAuthenticated": MessageLookupByLibrary.simpleMessage(
       "Sản phẩm đã được chứng thực",
     ),
@@ -203,8 +335,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Định danh hàng hóa",
     ),
     "productIdentified": MessageLookupByLibrary.simpleMessage(
-      "Sản phẩm đã định danh",
+      "Sản phẩm đã được định danh",
     ),
+    "productInfo": MessageLookupByLibrary.simpleMessage("Thông tin sản phẩm"),
     "productIsCounterfeit": MessageLookupByLibrary.simpleMessage(
       "Sản phẩm này là hàng giả",
     ),
@@ -220,9 +353,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Danh sách sản phẩm đang được điều tra bởi Bộ công an",
     ),
     "protein": MessageLookupByLibrary.simpleMessage("Chất đạm3,1 g"),
-    "publicSecurityAddress": MessageLookupByLibrary.simpleMessage(
-      "Địa chỉ: Tòa nhà bộ công an - xxx đường xxx",
+    "publicSecurityAddress": MessageLookupByLibrary.simpleMessage("Địa chỉ"),
+    "pullToRefresh": MessageLookupByLibrary.simpleMessage(
+      "Kéo xuống để làm mới",
     ),
+    "qrCodeResult": MessageLookupByLibrary.simpleMessage("Kết quả mã QR"),
+    "read": MessageLookupByLibrary.simpleMessage("Đã đọc"),
     "reasonComplaintPoorQuality": MessageLookupByLibrary.simpleMessage(
       "Lý do phản ánh: hàng kém chất lượng",
     ),
@@ -238,6 +374,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "retailStore": MessageLookupByLibrary.simpleMessage("Cửa hàng bán lẻ"),
     "route": MessageLookupByLibrary.simpleMessage("Tuyến đường"),
     "sales": MessageLookupByLibrary.simpleMessage("Bán hàng"),
+    "scanAgain": MessageLookupByLibrary.simpleMessage("Quét lại"),
     "scanCode": MessageLookupByLibrary.simpleMessage("Quét mã"),
     "scanTime": MessageLookupByLibrary.simpleMessage("Thời gian quét:"),
     "selectReasonForComplaint": MessageLookupByLibrary.simpleMessage(
@@ -258,6 +395,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "storageInstructions": MessageLookupByLibrary.simpleMessage(
       "Hướng dẫn bảo quản: Bảo quản lạnh ở 2°C - 6°C.",
     ),
+    "successNotification": MessageLookupByLibrary.simpleMessage("Thành công"),
     "suitableForFamily": MessageLookupByLibrary.simpleMessage(
       "Sản phẩm phù hợp cho cả gia đình.",
     ),
@@ -283,6 +421,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "thTrueMilkFarmCluster2": MessageLookupByLibrary.simpleMessage(
       "Cụm trang trại bò sữa số 2 - TH true milk",
     ),
+    "theme": MessageLookupByLibrary.simpleMessage("Giao diện"),
     "threeGoodMilkCompany": MessageLookupByLibrary.simpleMessage(
       "Công ty cổ phần sữa 3 tốt",
     ),
@@ -291,13 +430,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "totalSugar": MessageLookupByLibrary.simpleMessage("Đường tổng số7,5 g"),
     "traceProductOrigin": MessageLookupByLibrary.simpleMessage(
-      "Truy xuất nguồn gốc sản phầm",
+      "Truy xuất nguồn gốc sản phẩm",
     ),
+    "traceability": MessageLookupByLibrary.simpleMessage("Truy xuất nguồn gốc"),
     "transport": MessageLookupByLibrary.simpleMessage("Vận chuyển"),
     "transportToFactory": MessageLookupByLibrary.simpleMessage(
       "Vận chuyển đến nhà máy",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Loại"),
+    "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
     "usOrganicStandard": MessageLookupByLibrary.simpleMessage(
       "Tiêu chuẩn hữu cơ Mỹ",
     ),
@@ -311,6 +452,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "vietnamOrganicStandard": MessageLookupByLibrary.simpleMessage(
       "Tiêu chuẩn hữu cơ Việt Nam",
     ),
+    "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
     "viewMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),
     "violationType": MessageLookupByLibrary.simpleMessage("Loại vi phạm"),
     "violationTypePoorQuality": MessageLookupByLibrary.simpleMessage(
@@ -320,5 +462,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Các vitamin và khoáng chất có sẵn trong sữa tươi",
     ),
     "warehousing": MessageLookupByLibrary.simpleMessage("Nhập kho"),
+    "warning": MessageLookupByLibrary.simpleMessage("Cảnh báo"),
+    "warningList": MessageLookupByLibrary.simpleMessage("Danh sách cảnh báo"),
   };
 }

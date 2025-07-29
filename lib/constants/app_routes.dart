@@ -8,6 +8,6 @@ class AppRoutes {
   static final routes = [
     GetPage(name: '/', page: () => SplashScreen()),
     GetPage(name: '/home', page: () => HomeScreen()),
-    GetPage(name: '/settings', page: () => SettingsScreen()),
+    GetPage(name: '/settings', page: () => SettingScreen()),
   ];
 }

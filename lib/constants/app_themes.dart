@@ -90,60 +90,30 @@ class AppThemes {
     brightness: Brightness.light,
     fontFamily: font1,
     scaffoldBackgroundColor: _lightBackgroundColor,
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: _lightPrimaryColor,
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: _lightBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _lightTextColor),
-      //textTheme: _lightTextTheme,
+      elevation: 0,
+      titleTextStyle: TextStyle(color: _lightTextColor, fontWeight: FontWeight.bold, fontSize: 18),
     ),
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: _lightPrimaryColor,
-      //primaryVariant: _lightBackgroundColor,
-      // secondary: _lightSecondaryColor,
+      secondary: _lightBackgroundSecondaryColor,
+      background: _lightBackgroundColor,
+      surface: _lightBackgroundSecondaryColor,
+      onPrimary: _lightTextColor,
+      onSecondary: _lightTextColor,
+      onBackground: _lightTextColor,
+      onSurface: _lightTextColor,
     ),
-    snackBarTheme: SnackBarThemeData(
-        backgroundColor: _lightBackgroundAlertColor,
-        actionTextColor: _lightBackgroundActionTextColor),
-    iconTheme: IconThemeData(
-      color: _lightIconColor,
-    ),
-    popupMenuTheme: PopupMenuThemeData(color: _lightBackgroundAppBarColor),
     textTheme: _lightTextTheme,
-    buttonTheme: ButtonThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        buttonColor: _lightPrimaryColor,
-        textTheme: ButtonTextTheme.primary),
-    unselectedWidgetColor: _lightPrimaryColor,
-    inputDecorationTheme: InputDecorationTheme(
-      //prefixStyle: TextStyle(color: _lightIconColor),
-      border: OutlineInputBorder(
-          borderSide: BorderSide(width: 1.0),
-          borderRadius: BorderRadius.all(
-            Radius.circular(8.0),
-          )),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _lightBorderColor, width: 1.0),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _lightBorderActiveColor),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _lightBorderErrorColor),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _lightBorderErrorColor),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      fillColor: _lightBackgroundSecondaryColor,
-      //focusColor: _lightBorderActiveColor,
-    ),
+    cardColor: _lightBackgroundSecondaryColor,
+    dividerColor: _lightBorderColor,
+    iconTheme: const IconThemeData(color: _lightIconColor),
+    buttonTheme: const ButtonThemeData(buttonColor: _lightPrimaryColor),
   );
 
 //text theme for dark theme
@@ -173,67 +143,31 @@ class AppThemes {
   //the dark theme
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    //primarySwatch: _darkPrimaryColor, //cant be Color on MaterialColor so it can compute different shades.
-    //accentColor: _darkPrimaryColor, //prefix icon color form input on focus
-
     fontFamily: font1,
     scaffoldBackgroundColor: _darkBackgroundColor,
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: _darkPrimaryColor,
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: _darkBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _darkTextColor),
-      //textTheme: _darkTextTheme,
+      elevation: 0,
+      titleTextStyle: TextStyle(color: _darkTextColor, fontWeight: FontWeight.bold, fontSize: 18),
     ),
-    colorScheme: ColorScheme.dark(
+    colorScheme: const ColorScheme.dark(
       primary: _darkPrimaryColor,
-      //primaryVariant: _darkBackgroundColor,
-
-      // secondary: _darkSecondaryColor,
+      secondary: _darkBackgroundSecondaryColor,
+      background: _darkBackgroundColor,
+      surface: _darkBackgroundSecondaryColor,
+      onPrimary: _darkTextColor,
+      onSecondary: _darkTextColor,
+      onBackground: _darkTextColor,
+      onSurface: _darkTextColor,
     ),
-    snackBarTheme: SnackBarThemeData(
-        contentTextStyle: TextStyle(color: Colors.white),
-        backgroundColor: _darkBackgroundAlertColor,
-        actionTextColor: _darkBackgroundActionTextColor),
-    iconTheme: IconThemeData(
-      color: _darkIconColor, //_darkIconColor,
-    ),
-    popupMenuTheme: PopupMenuThemeData(color: _darkBackgroundAppBarColor),
     textTheme: _darkTextTheme,
-    buttonTheme: ButtonThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        buttonColor: _darkPrimaryColor,
-        textTheme: ButtonTextTheme.primary),
-    unselectedWidgetColor: _darkPrimaryColor,
-    inputDecorationTheme: InputDecorationTheme(
-      prefixStyle: TextStyle(color: _darkIconColor),
-      //labelStyle: TextStyle(color: nevada),
-      border: OutlineInputBorder(
-          borderSide: BorderSide(width: 1.0),
-          borderRadius: BorderRadius.all(
-            Radius.circular(8.0),
-          )),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _darkBorderColor, width: 1.0),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _darkBorderActiveColor),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _darkBorderErrorColor),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _darkBorderErrorColor),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      fillColor: _darkInputFillColor,
-      //focusColor: _darkBorderActiveColor,
-    ),
+    cardColor: _darkBackgroundSecondaryColor,
+    dividerColor: _darkBorderColor,
+    iconTheme: const IconThemeData(color: _darkIconColor),
+    buttonTheme: const ButtonThemeData(buttonColor: _darkPrimaryColor),
   );
 }

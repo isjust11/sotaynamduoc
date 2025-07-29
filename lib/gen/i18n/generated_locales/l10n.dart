@@ -509,10 +509,10 @@ class AppLocalizations {
     );
   }
 
-  /// `Sản phẩm đã định danh`
+  /// `Sản phẩm đã được định danh`
   String get productIdentified {
     return Intl.message(
-      'Sản phẩm đã định danh',
+      'Sản phẩm đã được định danh',
       name: 'productIdentified',
       desc: '',
       args: [],
@@ -579,6 +579,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Thông tin sản phẩm`
+  String get productInfo {
+    return Intl.message(
+      'Thông tin sản phẩm',
+      name: 'productInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chứng nhận sản phẩm`
+  String get ProductCertification {
+    return Intl.message(
+      'Chứng nhận sản phẩm',
+      name: 'ProductCertification',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Phản ánh - Khiếu nại`
   String get complaintAndFeedback {
     return Intl.message(
@@ -604,11 +624,21 @@ class AppLocalizations {
     return Intl.message('Chia sẻ', name: 'share', desc: '', args: []);
   }
 
-  /// `Truy xuất nguồn gốc sản phầm`
+  /// `Truy xuất nguồn gốc sản phẩm`
   String get traceProductOrigin {
     return Intl.message(
-      'Truy xuất nguồn gốc sản phầm',
+      'Truy xuất nguồn gốc sản phẩm',
       name: 'traceProductOrigin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Truy xuất nguồn gốc`
+  String get traceability {
+    return Intl.message(
+      'Truy xuất nguồn gốc',
+      name: 'traceability',
       desc: '',
       args: [],
     );
@@ -979,6 +1009,61 @@ class AppLocalizations {
     return Intl.message('Gửi', name: 'send', desc: '', args: []);
   }
 
+  /// `Cần cấp quyền camera`
+  String get cameraPermissionRequired {
+    return Intl.message(
+      'Cần cấp quyền camera',
+      name: 'cameraPermissionRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quyền camera đã bị từ chối. Vui lòng bật quyền camera trong Cài đặt để quét mã QR.`
+  String get cameraPermissionDenied {
+    return Intl.message(
+      'Quyền camera đã bị từ chối. Vui lòng bật quyền camera trong Cài đặt để quét mã QR.',
+      name: 'cameraPermissionDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ứng dụng này cần quyền truy cập camera để quét mã QR.`
+  String get cameraPermissionNeed {
+    return Intl.message(
+      'Ứng dụng này cần quyền truy cập camera để quét mã QR.',
+      name: 'cameraPermissionNeed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quét lại`
+  String get scanAgain {
+    return Intl.message('Quét lại', name: 'scanAgain', desc: '', args: []);
+  }
+
+  /// `Không tìm thấy mã QR trong hình ảnh đã chọn`
+  String get noQRCodeFound {
+    return Intl.message(
+      'Không tìm thấy mã QR trong hình ảnh đã chọn',
+      name: 'noQRCodeFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kết quả mã QR`
+  String get qrCodeResult {
+    return Intl.message(
+      'Kết quả mã QR',
+      name: 'qrCodeResult',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Loại vi phạm`
   String get violationType {
     return Intl.message(
@@ -1149,30 +1234,20 @@ class AppLocalizations {
     );
   }
 
-  /// `Hotline: 024 324562 2255`
+  /// `Hotline`
   String get hotline {
-    return Intl.message(
-      'Hotline: 024 324562 2255',
-      name: 'hotline',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Hotline', name: 'hotline', desc: '', args: []);
   }
 
-  /// `Email: bocongan@bca.com`
+  /// `Email`
   String get email {
-    return Intl.message(
-      'Email: bocongan@bca.com',
-      name: 'email',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Email', name: 'email', desc: '', args: []);
   }
 
-  /// `Địa chỉ: Tòa nhà bộ công an - xxx đường xxx`
+  /// `Địa chỉ`
   String get publicSecurityAddress {
     return Intl.message(
-      'Địa chỉ: Tòa nhà bộ công an - xxx đường xxx',
+      'Địa chỉ',
       name: 'publicSecurityAddress',
       desc: '',
       args: [],
@@ -1319,6 +1394,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Thông tin liên hệ`
+  String get infoContact {
+    return Intl.message(
+      'Thông tin liên hệ',
+      name: 'infoContact',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Các Điều khoản dịch vụ này phản ánh cách thức kinh doanh của Google, những điều luật mà công ty chúng tôi phải tuân theo và một số điều mà chúng tôi vẫn luôn tin là đúng. Do đó, các Điều khoản dịch vụ này giúp xác định mối quan hệ giữa Google với bạn khi bạn tương tác với các dịch vụ của chúng tôi. Ví dụ: Các điều khoản này trình bày các chủ đề sau: Trách nhiệm của chúng tôi: Đây là phần mô tả cách chúng tôi cung cấp và phát triển các dịch vụ của mình Trách nhiệm của bạn: Phần này nêu ra một số quy tắc mà bạn phải tuân theo khi sử dụng các dịch vụ của chúng tôi Nội dung trong các dịch vụ của Google: Phần này mô tả quyền sở hữu trí tuệ đối với nội dung mà bạn thấy trong các dịch vụ của chúng tôi, bất kể nội dung đó thuộc về bạn, Google hay người khác Trong trường hợp xảy ra vấn đề hoặc bất đồng: Phần này mô tả các quyền hợp pháp khác mà bạn có và những điều bạn nên biết trong trường hợp có người vi phạm các điều khoản này Việc hiểu rõ các điều khoản này rất quan trọng, vì khi truy cập hoặc sử dụng các dịch vụ của chúng tôi, nghĩa là bạn đồng ý với các điều khoản này.`
   String get googleTermsDescription {
     return Intl.message(
@@ -1327,6 +1412,576 @@ class AppLocalizations {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Phản ánh - Khiếu nại`
+  String get complaintTabPending {
+    return Intl.message(
+      'Phản ánh - Khiếu nại',
+      name: 'complaintTabPending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phản ánh đã xử lý`
+  String get complaintTabProcessed {
+    return Intl.message(
+      'Phản ánh đã xử lý',
+      name: 'complaintTabProcessed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Danh sách khiếu nại của tôi`
+  String get complaintListTitle {
+    return Intl.message(
+      'Danh sách khiếu nại của tôi',
+      name: 'complaintListTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thêm`
+  String get complaintAdd {
+    return Intl.message('Thêm', name: 'complaintAdd', desc: '', args: []);
+  }
+
+  /// `Không có dữ liệu`
+  String get complaintNoData {
+    return Intl.message(
+      'Không có dữ liệu',
+      name: 'complaintNoData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sản phẩm đã được định danh`
+  String get complaintProductIdentified {
+    return Intl.message(
+      'Sản phẩm đã được định danh',
+      name: 'complaintProductIdentified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nội dung`
+  String get complaintContent {
+    return Intl.message(
+      'Nội dung',
+      name: 'complaintContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nhập nội dung phản ánh`
+  String get complaintEnterContent {
+    return Intl.message(
+      'Nhập nội dung phản ánh',
+      name: 'complaintEnterContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập nội dung phản ánh`
+  String get complaintContentRequired {
+    return Intl.message(
+      'Vui lòng nhập nội dung phản ánh',
+      name: 'complaintContentRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hình ảnh:`
+  String get complaintImages {
+    return Intl.message(
+      'Hình ảnh:',
+      name: 'complaintImages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thêm ít nhất 1 hình ảnh hoặc video về sản phẩm`
+  String get complaintAddImageOrVideo {
+    return Intl.message(
+      'Thêm ít nhất 1 hình ảnh hoặc video về sản phẩm',
+      name: 'complaintAddImageOrVideo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loại vi phạm`
+  String get complaintViolationType {
+    return Intl.message(
+      'Loại vi phạm',
+      name: 'complaintViolationType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chọn loại vi phạm`
+  String get complaintSelectViolationType {
+    return Intl.message(
+      'Chọn loại vi phạm',
+      name: 'complaintSelectViolationType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lý do phản ánh`
+  String get complaintReason {
+    return Intl.message(
+      'Lý do phản ánh',
+      name: 'complaintReason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chọn lý do phản ánh`
+  String get complaintSelectReason {
+    return Intl.message(
+      'Chọn lý do phản ánh',
+      name: 'complaintSelectReason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gửi`
+  String get complaintSend {
+    return Intl.message('Gửi', name: 'complaintSend', desc: '', args: []);
+  }
+
+  /// `Gửi phản ánh thành công!`
+  String get complaintSendSuccess {
+    return Intl.message(
+      'Gửi phản ánh thành công!',
+      name: 'complaintSendSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng thêm ít nhất 1 hình ảnh hoặc video!`
+  String get complaintSendFailMedia {
+    return Intl.message(
+      'Vui lòng thêm ít nhất 1 hình ảnh hoặc video!',
+      name: 'complaintSendFailMedia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thời gian quét:`
+  String get complaintScanTime {
+    return Intl.message(
+      'Thời gian quét:',
+      name: 'complaintScanTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tên sản phẩm`
+  String get complaintProductName {
+    return Intl.message(
+      'Tên sản phẩm',
+      name: 'complaintProductName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tên công ty`
+  String get complaintCompanyName {
+    return Intl.message(
+      'Tên công ty',
+      name: 'complaintCompanyName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đã xử lý`
+  String get complaintStatusProcessed {
+    return Intl.message(
+      'Đã xử lý',
+      name: 'complaintStatusProcessed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chờ xử lý`
+  String get complaintStatusPending {
+    return Intl.message(
+      'Chờ xử lý',
+      name: 'complaintStatusPending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chi tiết khiếu nại`
+  String get complaintDetailTitle {
+    return Intl.message(
+      'Chi tiết khiếu nại',
+      name: 'complaintDetailTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mã khiếu nại`
+  String get complaintDetailId {
+    return Intl.message(
+      'Mã khiếu nại',
+      name: 'complaintDetailId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thời gian gửi:`
+  String get complaintDetailSendTime {
+    return Intl.message(
+      'Thời gian gửi:',
+      name: 'complaintDetailSendTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thời gian P/A:`
+  String get complaintDetailProcessTime {
+    return Intl.message(
+      'Thời gian P/A:',
+      name: 'complaintDetailProcessTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loại vi phạm:`
+  String get complaintDetailViolationType {
+    return Intl.message(
+      'Loại vi phạm:',
+      name: 'complaintDetailViolationType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lý do phản ánh:`
+  String get complaintDetailReason {
+    return Intl.message(
+      'Lý do phản ánh:',
+      name: 'complaintDetailReason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phản hồi:`
+  String get complaintDetailFeedback {
+    return Intl.message(
+      'Phản hồi:',
+      name: 'complaintDetailFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nếu bạn có thêm thắc mắc gì, vui lòng liên hệ:`
+  String get complaintDetailContact {
+    return Intl.message(
+      'Nếu bạn có thêm thắc mắc gì, vui lòng liên hệ:',
+      name: 'complaintDetailContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hotline:`
+  String get complaintDetailHotline {
+    return Intl.message(
+      'Hotline:',
+      name: 'complaintDetailHotline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email:`
+  String get complaintDetailEmail {
+    return Intl.message(
+      'Email:',
+      name: 'complaintDetailEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chia sẻ`
+  String get complaintDetailShare {
+    return Intl.message(
+      'Chia sẻ',
+      name: 'complaintDetailShare',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quay lại`
+  String get complaintDetailBack {
+    return Intl.message(
+      'Quay lại',
+      name: 'complaintDetailBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xem tất cả`
+  String get viewAll {
+    return Intl.message('Xem tất cả', name: 'viewAll', desc: '', args: []);
+  }
+
+  /// `Hàng giả`
+  String get fakeProduct {
+    return Intl.message('Hàng giả', name: 'fakeProduct', desc: '', args: []);
+  }
+
+  /// `Danh sách hàng giả`
+  String get fakeProductList {
+    return Intl.message(
+      'Danh sách hàng giả',
+      name: 'fakeProductList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `chi tiết`
+  String get detail {
+    return Intl.message('chi tiết', name: 'detail', desc: '', args: []);
+  }
+
+  /// `Danh sách đã xử lý`
+  String get processedList {
+    return Intl.message(
+      'Danh sách đã xử lý',
+      name: 'processedList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Danh sách chưa xử lý`
+  String get pendingList {
+    return Intl.message(
+      'Danh sách chưa xử lý',
+      name: 'pendingList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đã tải hết phản ánh.`
+  String get allFeedbackLoaded {
+    return Intl.message(
+      'Đã tải hết phản ánh.',
+      name: 'allFeedbackLoaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Danh sách cảnh báo`
+  String get warningList {
+    return Intl.message(
+      'Danh sách cảnh báo',
+      name: 'warningList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Danh sách thông báo`
+  String get notificationList {
+    return Intl.message(
+      'Danh sách thông báo',
+      name: 'notificationList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chi tiết thông báo`
+  String get notificationDetail {
+    return Intl.message(
+      'Chi tiết thông báo',
+      name: 'notificationDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thông báo`
+  String get notification {
+    return Intl.message('Thông báo', name: 'notification', desc: '', args: []);
+  }
+
+  /// `Cảnh báo`
+  String get warning {
+    return Intl.message('Cảnh báo', name: 'warning', desc: '', args: []);
+  }
+
+  /// `Thông báo chung`
+  String get generalNotification {
+    return Intl.message(
+      'Thông báo chung',
+      name: 'generalNotification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thành công`
+  String get successNotification {
+    return Intl.message(
+      'Thành công',
+      name: 'successNotification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thông tin`
+  String get infoNotification {
+    return Intl.message(
+      'Thông tin',
+      name: 'infoNotification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chưa đọc`
+  String get unread {
+    return Intl.message('Chưa đọc', name: 'unread', desc: '', args: []);
+  }
+
+  /// `Đã đọc`
+  String get read {
+    return Intl.message('Đã đọc', name: 'read', desc: '', args: []);
+  }
+
+  /// `Đánh dấu đã đọc`
+  String get markAsRead {
+    return Intl.message(
+      'Đánh dấu đã đọc',
+      name: 'markAsRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đánh dấu tất cả đã đọc`
+  String get markAllAsRead {
+    return Intl.message(
+      'Đánh dấu tất cả đã đọc',
+      name: 'markAllAsRead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Không có thông báo`
+  String get noNotifications {
+    return Intl.message(
+      'Không có thông báo',
+      name: 'noNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thông báo mới`
+  String get newNotification {
+    return Intl.message(
+      'Thông báo mới',
+      name: 'newNotification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đã tải hết thông báo`
+  String get allNotificationsLoaded {
+    return Intl.message(
+      'Đã tải hết thông báo',
+      name: 'allNotificationsLoaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chưa có thông báo nào`
+  String get noNotificationsYet {
+    return Intl.message(
+      'Chưa có thông báo nào',
+      name: 'noNotificationsYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kéo xuống để làm mới`
+  String get pullToRefresh {
+    return Intl.message(
+      'Kéo xuống để làm mới',
+      name: 'pullToRefresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chi tiết tin tức`
+  String get newsDetail {
+    return Intl.message(
+      'Chi tiết tin tức',
+      name: 'newsDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Danh sách tin tức`
+  String get newsList {
+    return Intl.message(
+      'Danh sách tin tức',
+      name: 'newsList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Giao diện`
+  String get theme {
+    return Intl.message('Giao diện', name: 'theme', desc: '', args: []);
   }
 }
 

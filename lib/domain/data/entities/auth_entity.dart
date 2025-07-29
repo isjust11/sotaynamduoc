@@ -1,18 +1,19 @@
 import 'package:sotaynamduoc/domain/data/entities/entities.dart';
+import 'package:sotaynamduoc/domain/data/models/user_model.dart';
 
 import 'base_entity.dart';
 
 class AuthEntity extends BaseEntity {
   String accessToken = '';
   String refreshToken = '';
-  UserEntity? user;
+  UserModel? user;
 
 
   @override
   AuthEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     accessToken = json['accessToken'];
     refreshToken = json['refreshToken'];
-    user = UserEntity.fromJson (json['user'] as Map<String, dynamic>);
+    user = UserModel.fromJson (json['user'] as Map<String, dynamic>);
   }
 
   @override

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/blocs/news/news_bloc.dart';
-import 'package:sotaynamduoc/injection_container.dart';
-import 'package:sotaynamduoc/ui/screen/history/history_screen.dart';
+import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
-import 'package:sotaynamduoc/ui/screen/qrscanner_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -49,9 +46,9 @@ class Routes {
           child: LoginScreen(),
           type: PageTransitionType.fade,
         );
-      case historyScreen:
+      case settingScreen:
         return PageTransition(
-          child: HistoryScreen(),
+          child: SettingScreen(),
           type: PageTransitionType.fade,
         );
       case qrScannerScreen:
@@ -69,7 +66,6 @@ class Routes {
         return PageTransition(
           child: NewsDetailScreen(
             newsId: args,
-            newsBloc: getIt<NewsBloc>(),
           ),
           type: PageTransitionType.fade,
         );

@@ -42,13 +42,7 @@ Future<void> init({GetIt? getIt}) async {
 }
 
 void registerCubit(GetIt getIt) {
-  getIt.registerLazySingleton(
-    () => UserInfoCubit(repository: getIt.get<UserRepository>()),
-  );
-  // Đăng ký NewsBloc như một singleton với lifecycle management
-  getIt.registerLazySingleton(
-    () => NewsBloc(newsRepository: getIt.get<NewsRepository>()),
-  );
+  // getIt.registerLazySingleton(() => AuthCubit(repository: getIt.get()));
 }
 
 void registerRepositories(GetIt getIt) {

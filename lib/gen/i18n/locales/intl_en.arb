@@ -226,5 +226,6 @@
   "noNotificationsYet": "No notifications yet",
   "pullToRefresh": "Pull to refresh",
   "newsDetail":"News detail",
-  "newsList": "News list"
+  "newsList": "News list",
+  "theme": "Theme"
 }

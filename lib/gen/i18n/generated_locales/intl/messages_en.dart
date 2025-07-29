@@ -22,6 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "ProductCertification": MessageLookupByLibrary.simpleMessage(
+      "Product Certification",
+    ),
     "accountLevel": MessageLookupByLibrary.simpleMessage("Account Level"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "addImagesOrVideos": MessageLookupByLibrary.simpleMessage(
@@ -30,6 +33,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "address": MessageLookupByLibrary.simpleMessage("Address"),
     "addressAtoAddressB": MessageLookupByLibrary.simpleMessage(
       "Address A - Address B",
+    ),
+    "allFeedbackLoaded": MessageLookupByLibrary.simpleMessage(
+      "All feedback loaded..",
+    ),
+    "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
+      "All notifications loaded",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("VNPT flutter_template"),
     "authenticateTrust": MessageLookupByLibrary.simpleMessage(
@@ -41,6 +50,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "calcium": MessageLookupByLibrary.simpleMessage("Calcium102 mg"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+    "cameraPermissionDenied": MessageLookupByLibrary.simpleMessage(
+      "Camera permission has been permanently denied. Please enable it in Settings to scan QR codes.",
+    ),
+    "cameraPermissionNeed": MessageLookupByLibrary.simpleMessage(
+      "This app needs camera access to scan QR codes.",
+    ),
+    "cameraPermissionRequired": MessageLookupByLibrary.simpleMessage(
+      "Camera Permission Required",
+    ),
     "carbohydrates": MessageLookupByLibrary.simpleMessage("Carbohydrates7.5 g"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Change Language"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
@@ -49,11 +67,90 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "commodityType": MessageLookupByLibrary.simpleMessage("Commodity Type"),
     "complaint": MessageLookupByLibrary.simpleMessage("Complaint"),
+    "complaintAdd": MessageLookupByLibrary.simpleMessage("Add"),
+    "complaintAddImageOrVideo": MessageLookupByLibrary.simpleMessage(
+      "Add at least 1 image or video of the product",
+    ),
     "complaintAndFeedback": MessageLookupByLibrary.simpleMessage(
       "Complaint - Feedback",
     ),
+    "complaintCompanyName": MessageLookupByLibrary.simpleMessage(
+      "Company Name",
+    ),
+    "complaintContent": MessageLookupByLibrary.simpleMessage("Content"),
+    "complaintContentRequired": MessageLookupByLibrary.simpleMessage(
+      "Please enter complaint content",
+    ),
+    "complaintDetailBack": MessageLookupByLibrary.simpleMessage("Back"),
+    "complaintDetailContact": MessageLookupByLibrary.simpleMessage(
+      "If you have further questions, please contact:",
+    ),
+    "complaintDetailEmail": MessageLookupByLibrary.simpleMessage("Email:"),
+    "complaintDetailFeedback": MessageLookupByLibrary.simpleMessage(
+      "Feedback:",
+    ),
+    "complaintDetailHotline": MessageLookupByLibrary.simpleMessage("Hotline:"),
+    "complaintDetailId": MessageLookupByLibrary.simpleMessage("Complaint ID"),
+    "complaintDetailProcessTime": MessageLookupByLibrary.simpleMessage(
+      "Process Time:",
+    ),
+    "complaintDetailReason": MessageLookupByLibrary.simpleMessage(
+      "Reason for Complaint:",
+    ),
+    "complaintDetailSendTime": MessageLookupByLibrary.simpleMessage(
+      "Send Time:",
+    ),
+    "complaintDetailShare": MessageLookupByLibrary.simpleMessage("Share"),
+    "complaintDetailTitle": MessageLookupByLibrary.simpleMessage(
+      "Complaint Details",
+    ),
+    "complaintDetailViolationType": MessageLookupByLibrary.simpleMessage(
+      "Violation Type:",
+    ),
     "complaintDetails": MessageLookupByLibrary.simpleMessage(
       "Complaint Details - Feedback",
+    ),
+    "complaintEnterContent": MessageLookupByLibrary.simpleMessage(
+      "Enter complaint content",
+    ),
+    "complaintImages": MessageLookupByLibrary.simpleMessage("Images:"),
+    "complaintListTitle": MessageLookupByLibrary.simpleMessage(
+      "My Complaint List",
+    ),
+    "complaintNoData": MessageLookupByLibrary.simpleMessage("No data"),
+    "complaintProductIdentified": MessageLookupByLibrary.simpleMessage(
+      "Product Identified",
+    ),
+    "complaintProductName": MessageLookupByLibrary.simpleMessage(
+      "Product Name",
+    ),
+    "complaintReason": MessageLookupByLibrary.simpleMessage(
+      "Reason for Complaint",
+    ),
+    "complaintScanTime": MessageLookupByLibrary.simpleMessage("Scan Time:"),
+    "complaintSelectReason": MessageLookupByLibrary.simpleMessage(
+      "Select reason for complaint",
+    ),
+    "complaintSelectViolationType": MessageLookupByLibrary.simpleMessage(
+      "Select violation type",
+    ),
+    "complaintSend": MessageLookupByLibrary.simpleMessage("Send"),
+    "complaintSendFailMedia": MessageLookupByLibrary.simpleMessage(
+      "Please add at least 1 image or video!",
+    ),
+    "complaintSendSuccess": MessageLookupByLibrary.simpleMessage(
+      "Complaint sent successfully!",
+    ),
+    "complaintStatusPending": MessageLookupByLibrary.simpleMessage("Pending"),
+    "complaintStatusProcessed": MessageLookupByLibrary.simpleMessage("Handled"),
+    "complaintTabPending": MessageLookupByLibrary.simpleMessage(
+      "Complaint - Feedback",
+    ),
+    "complaintTabProcessed": MessageLookupByLibrary.simpleMessage(
+      "Handled Complaints",
+    ),
+    "complaintViolationType": MessageLookupByLibrary.simpleMessage(
+      "Violation Type",
     ),
     "contactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
     "content": MessageLookupByLibrary.simpleMessage("Content:"),
@@ -67,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "datChuan": MessageLookupByLibrary.simpleMessage("Standard Met"),
     "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
     "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+    "detail": MessageLookupByLibrary.simpleMessage("detail"),
     "dropdown_loading": MessageLookupByLibrary.simpleMessage(
       "Retrieving data...",
     ),
@@ -91,6 +189,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Factory Transport",
     ),
     "factoryTransportType": MessageLookupByLibrary.simpleMessage("Type"),
+    "fakeProduct": MessageLookupByLibrary.simpleMessage("Fake Product"),
+    "fakeProductList": MessageLookupByLibrary.simpleMessage(
+      "List of Fake Products",
+    ),
     "fakeProductWarning": MessageLookupByLibrary.simpleMessage(
       "Fake Product Warning",
     ),
@@ -103,6 +205,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "furtherInquiries": MessageLookupByLibrary.simpleMessage(
       "If you have further questions, please contact:",
+    ),
+    "generalNotification": MessageLookupByLibrary.simpleMessage(
+      "General Notification",
     ),
     "globalTrust": MessageLookupByLibrary.simpleMessage("Global Trust"),
     "googleTermsDescription": MessageLookupByLibrary.simpleMessage(
@@ -123,6 +228,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "infoAuthenticatedSource": MessageLookupByLibrary.simpleMessage(
       "Information from authenticated source",
     ),
+    "infoContact": MessageLookupByLibrary.simpleMessage("Contact Information"),
+    "infoNotification": MessageLookupByLibrary.simpleMessage("Information"),
     "infoSelfDeclaredByOrganization": MessageLookupByLibrary.simpleMessage(
       "Information self-declared and self-responsible by the organization using barcode and QR code.",
     ),
@@ -151,21 +258,40 @@ class MessageLookup extends MessageLookupByLibrary {
     "manufacturerResponseStorage": MessageLookupByLibrary.simpleMessage(
       "Reply: The manufacturer has responded regarding product storage conditions",
     ),
+    "markAllAsRead": MessageLookupByLibrary.simpleMessage("Mark all as read"),
+    "markAsRead": MessageLookupByLibrary.simpleMessage("Mark as read"),
     "mfgExpDate": MessageLookupByLibrary.simpleMessage("MFG - EXP Date"),
     "milk": MessageLookupByLibrary.simpleMessage("Milk"),
     "milkingDate": MessageLookupByLibrary.simpleMessage("Milking Date"),
     "myComplaintList": MessageLookupByLibrary.simpleMessage(
       "My Complaint List",
     ),
+    "newNotification": MessageLookupByLibrary.simpleMessage("New notification"),
     "news": MessageLookupByLibrary.simpleMessage("News"),
+    "newsDetail": MessageLookupByLibrary.simpleMessage("News detail"),
+    "newsList": MessageLookupByLibrary.simpleMessage("News list"),
     "nghiaSonNgheAnAddress": MessageLookupByLibrary.simpleMessage(
       "Nghia Son - Nghia Dan - Nghe An",
     ),
     "noManufacturerInfo": MessageLookupByLibrary.simpleMessage(
       "No manufacturer information",
     ),
+    "noNotifications": MessageLookupByLibrary.simpleMessage("No notifications"),
+    "noNotificationsYet": MessageLookupByLibrary.simpleMessage(
+      "No notifications yet",
+    ),
     "noProductInfo": MessageLookupByLibrary.simpleMessage(
       "No product information",
+    ),
+    "noQRCodeFound": MessageLookupByLibrary.simpleMessage(
+      "No QR code found in the selected image",
+    ),
+    "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+    "notificationDetail": MessageLookupByLibrary.simpleMessage(
+      "Notification Detail",
+    ),
+    "notificationList": MessageLookupByLibrary.simpleMessage(
+      "Notification List",
     ),
     "nutritionDisclaimer": MessageLookupByLibrary.simpleMessage(
       "(*) Nutritional content is not less than 80% of the value stated on the label.",
@@ -176,6 +302,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "oneLiterBox": MessageLookupByLibrary.simpleMessage("1 Liter Box"),
     "origin": MessageLookupByLibrary.simpleMessage("Origin"),
     "packagingMethod": MessageLookupByLibrary.simpleMessage("Packaging Method"),
+    "pendingList": MessageLookupByLibrary.simpleMessage("Pendding list"),
     "pendingProcessing": MessageLookupByLibrary.simpleMessage(
       "Pending Processing",
     ),
@@ -191,6 +318,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please enter your username",
     ),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+    "processedList": MessageLookupByLibrary.simpleMessage("Processed list"),
     "productAuthenticated": MessageLookupByLibrary.simpleMessage(
       "Product Authenticated",
     ),
@@ -203,6 +331,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "productIdentified": MessageLookupByLibrary.simpleMessage(
       "Product Identified",
     ),
+    "productInfo": MessageLookupByLibrary.simpleMessage("Product Information"),
     "productIsCounterfeit": MessageLookupByLibrary.simpleMessage(
       "This product is counterfeit",
     ),
@@ -221,6 +350,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "publicSecurityAddress": MessageLookupByLibrary.simpleMessage(
       "Address: Ministry of Public Security Building - xxx street xxx",
     ),
+    "pullToRefresh": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
+    "qrCodeResult": MessageLookupByLibrary.simpleMessage("QR Code Result"),
+    "read": MessageLookupByLibrary.simpleMessage("Read"),
     "reasonComplaintPoorQuality": MessageLookupByLibrary.simpleMessage(
       "Reason for complaint: poor quality product",
     ),
@@ -238,6 +370,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "retailStore": MessageLookupByLibrary.simpleMessage("Retail Store"),
     "route": MessageLookupByLibrary.simpleMessage("Route"),
     "sales": MessageLookupByLibrary.simpleMessage("Sales"),
+    "scanAgain": MessageLookupByLibrary.simpleMessage("Scan Again"),
     "scanCode": MessageLookupByLibrary.simpleMessage("Scan Code"),
     "scanTime": MessageLookupByLibrary.simpleMessage("Scan Time:"),
     "selectReasonForComplaint": MessageLookupByLibrary.simpleMessage(
@@ -258,6 +391,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "storageInstructions": MessageLookupByLibrary.simpleMessage(
       "Storage Instructions: Refrigerate at 2°C - 6°C.",
     ),
+    "successNotification": MessageLookupByLibrary.simpleMessage("Success"),
     "suitableForFamily": MessageLookupByLibrary.simpleMessage(
       "Product suitable for the whole family.",
     ),
@@ -283,6 +417,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "thTrueMilkFarmCluster2": MessageLookupByLibrary.simpleMessage(
       "TH True Milk Farm Cluster 2",
     ),
+    "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "threeGoodMilkCompany": MessageLookupByLibrary.simpleMessage(
       "3 Good Milk Joint Stock Company",
     ),
@@ -293,11 +428,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "traceProductOrigin": MessageLookupByLibrary.simpleMessage(
       "Trace Product Origin",
     ),
+    "traceability": MessageLookupByLibrary.simpleMessage("Trace Product"),
     "transport": MessageLookupByLibrary.simpleMessage("Transport"),
     "transportToFactory": MessageLookupByLibrary.simpleMessage(
       "Transport to Factory",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Type"),
+    "unread": MessageLookupByLibrary.simpleMessage("Unread"),
     "usOrganicStandard": MessageLookupByLibrary.simpleMessage(
       "US Organic Standard",
     ),
@@ -311,6 +448,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "vietnamOrganicStandard": MessageLookupByLibrary.simpleMessage(
       "Vietnam Organic Standard",
     ),
+    "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
     "viewMore": MessageLookupByLibrary.simpleMessage("View More"),
     "violationType": MessageLookupByLibrary.simpleMessage("Violation Type"),
     "violationTypePoorQuality": MessageLookupByLibrary.simpleMessage(
@@ -320,5 +458,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Vitamins and minerals available in fresh milk",
     ),
     "warehousing": MessageLookupByLibrary.simpleMessage("Warehousing"),
+    "warning": MessageLookupByLibrary.simpleMessage("Warning"),
+    "warningList": MessageLookupByLibrary.simpleMessage("Warning List"),
   };
 }

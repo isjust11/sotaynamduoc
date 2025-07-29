@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sotaynamduoc/blocs/theme_cubit.dart';
+import 'package:sotaynamduoc/constants/app_themes.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/ui/widget/locale_widget.dart';
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.delegate.supportedLocales,
           localeResolutionCallback: (locale, supportedLocales) => _localeCallback(locale, supportedLocales),
           initialRoute: Routes.initScreen(),
+          theme: context.read<ThemeCubit>().state == 'dark' ? AppThemes.darkTheme : AppThemes.lightTheme,
           onGenerateRoute: Routes.generateRoute,
         );
       },

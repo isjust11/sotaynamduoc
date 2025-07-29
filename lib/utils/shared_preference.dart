@@ -12,6 +12,7 @@ class SPrefCache {
   static const String PREF_KEY_LANGUAGE = "pref_key_language";
   static const String PREF_KEY_USER_INFO = "pref_key_user_info";
   static const String PREF_KEY_IS_KEEP_LOGIN = "pref_key_is_keep_login";
+  static const String PREF_KEY_THEME = "pref_key_theme";
 }
 
 class SharedPreferenceUtil {
@@ -73,5 +74,15 @@ class SharedPreferenceUtil {
   static Future clearData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+  static Future setCurrentTheme(String theme) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SPrefCache.PREF_KEY_THEME, theme);
+  }
+
+  static Future<String> getCurrentTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(SPrefCache.PREF_KEY_THEME) ?? 'light';
   }
 }

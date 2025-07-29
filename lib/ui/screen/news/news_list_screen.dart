@@ -8,7 +8,6 @@ import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/blocs/news/news.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
-import 'package:sotaynamduoc/injection_container.dart';
 
 class NewsListScreen extends StatefulWidget {
   const NewsListScreen({super.key});
@@ -20,21 +19,10 @@ class NewsListScreen extends StatefulWidget {
 class _NewsListScreenState extends State<NewsListScreen> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider(
-      create: (context) => getIt<NewsBloc>(),
-      child: const NewsListView(),
-    );
-  }
-}
-
-class NewsListView extends StatelessWidget {
-  const NewsListView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return BaseScreen(
       colorBg: AppColors.white,
       customAppBar: _buildAppBar(context),
@@ -222,15 +210,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
 
   Widget _buildNewsItem(BuildContext context, NewsModel news) {
     return InkWell(
-      onTap: () =>  Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NewsDetailScreen(
-          newsId: news.id,
-          newsBloc: context.read<NewsBloc>(),
-        ),
-      ),
-    ),
+      onTap: () => _navigateToDetail(context, news),
       borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
       child: Container(
         padding: EdgeInsets.all(AppDimens.SIZE_16),
@@ -394,7 +374,6 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
       MaterialPageRoute(
         builder: (context) => NewsDetailScreen(
           newsId: news.id,
-          newsBloc: context.read<NewsBloc>(),
         ),
       ),
     );

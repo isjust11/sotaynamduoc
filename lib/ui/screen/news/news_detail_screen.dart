@@ -9,20 +9,12 @@ import 'package:sotaynamduoc/blocs/news/news.dart';
 
 class NewsDetailScreen extends StatelessWidget {
   final String newsId;
-  final NewsBloc newsBloc;
 
-  const NewsDetailScreen({
-    super.key,
-    required this.newsId,
-    required this.newsBloc,
-  });
+  const NewsDetailScreen({super.key, required this.newsId});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: newsBloc,
-      child: NewsDetailView(newsId: newsId),
-    );
+    return NewsDetailView(newsId: newsId);
   }
 }
 
@@ -32,7 +24,9 @@ class NewsDetailView extends StatelessWidget  {
 
   @override
   Widget build(BuildContext context) {
+    // Load chi tiết tin tức khi màn hình được tạo
     context.read<NewsBloc>().add(LoadNewsDetail(newsId));
+    
     return BaseScreen(
       colorBg: AppColors.white,
       customAppBar: _buildAppBar(context),

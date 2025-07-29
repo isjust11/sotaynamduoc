@@ -22,7 +22,7 @@ class AppColors {
 
   // --- Primary / Accent Colors ---
   static const Color primaryBrand = Color(0xFFCD7957); // Thường dùng cho các nút, định danh sản phẩm (CD7957FF)
-  static const Color secondaryBrand = Color(0xFF990500); // Thường dùng cho Bottom menu, text báo lỗi, thông tin quan trọng (990500FF)
+  static const Color secondaryBrand = Color.fromARGB(255, 0, 3, 153); // Thường dùng cho Bottom menu, text báo lỗi, thông tin quan trọng (990500FF)
   static const Color brandButtonVariant = Color(0xFFC67A58); // Biến thể của Brand Button (C67A58FF)
   static const Color successGreen = Color(0xFF0E631D); // Màu xanh lá cây cho trạng thái thành công/đã xác thực (0E631DFF)
   static const Color errorRed = Color(0xFFE21B14); // Màu đỏ cho lỗi (E21B14FF)

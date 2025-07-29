@@ -228,5 +228,6 @@
   "noNotificationsYet": "Chưa có thông báo nào",
   "pullToRefresh": "Kéo xuống để làm mới",
   "newsDetail":"Chi tiết tin tức",
-  "newsList": "Danh sách tin tức"
+  "newsList": "Danh sách tin tức",
+  "theme": "Giao diện"
 }
