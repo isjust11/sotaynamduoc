@@ -171,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đang lấy dữ liệu ...",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "endOfList": MessageLookupByLibrary.simpleMessage("Đã tải hết danh sách"),
     "energy": MessageLookupByLibrary.simpleMessage("Năng lượng74,8 kcal"),
     "enterComplaintContent": MessageLookupByLibrary.simpleMessage(
       "Nhập nội dung phản ánh",
@@ -203,6 +204,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "farmName": MessageLookupByLibrary.simpleMessage("Tên trang trại"),
     "farmType": MessageLookupByLibrary.simpleMessage("Loại hình"),
     "fat": MessageLookupByLibrary.simpleMessage("Chất béo3,6 g"),
+    "featuredMedicine": MessageLookupByLibrary.simpleMessage(
+      "Bài thuốc nổi bật",
+    ),
     "filter": MessageLookupByLibrary.simpleMessage("Lọc"),
     "fullName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
     "furtherInquiries": MessageLookupByLibrary.simpleMessage(
@@ -246,6 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "kasumiGrowNutrition": MessageLookupByLibrary.simpleMessage(
       "Sản phẩm dinh dưỡng Kasumi grow",
     ),
+    "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "licensePlate": MessageLookupByLibrary.simpleMessage("Biển số xe"),
     "liquid": MessageLookupByLibrary.simpleMessage("Dung dịch"),
     "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
@@ -264,6 +269,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đánh dấu tất cả đã đọc",
     ),
     "markAsRead": MessageLookupByLibrary.simpleMessage("Đánh dấu đã đọc"),
+    "medicine": MessageLookupByLibrary.simpleMessage("Bài thuốc"),
     "mfgExpDate": MessageLookupByLibrary.simpleMessage("NSX - HSD"),
     "milk": MessageLookupByLibrary.simpleMessage("Sữa"),
     "milkingDate": MessageLookupByLibrary.simpleMessage("Ngày vắt sữa"),
@@ -271,7 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Danh sách khiếu nại của tôi",
     ),
     "newNotification": MessageLookupByLibrary.simpleMessage("Thông báo mới"),
-    "news": MessageLookupByLibrary.simpleMessage("Tin tức"),
+    "news": MessageLookupByLibrary.simpleMessage("Bài viết"),
     "newsDetail": MessageLookupByLibrary.simpleMessage("Chi tiết tin tức"),
     "newsList": MessageLookupByLibrary.simpleMessage("Danh sách tin tức"),
     "nghiaSonNgheAnAddress": MessageLookupByLibrary.simpleMessage(
@@ -377,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "scanAgain": MessageLookupByLibrary.simpleMessage("Quét lại"),
     "scanCode": MessageLookupByLibrary.simpleMessage("Quét mã"),
     "scanTime": MessageLookupByLibrary.simpleMessage("Thời gian quét:"),
+    "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),
     "selectReasonForComplaint": MessageLookupByLibrary.simpleMessage(
       "Chọn lý do phản ánh",
     ),

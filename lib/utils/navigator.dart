@@ -32,12 +32,13 @@ class NavigationService {
     if (context == null) {
       return;
     }
-    String? message = AppLocalizations.of(context).tokenExpiredMessage;
+    String? message = AppLocalizations.current.tokenExpiredMessage;
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => CustomDialog(
         content: message,
+        titleSubmit: AppLocalizations.current.agree,
         onSubmit: () {
           pushReplacement(Routes.loginScreen);
         },

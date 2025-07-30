@@ -169,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Retrieving data...",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email: bocongan@bca.com"),
+    "endOfList": MessageLookupByLibrary.simpleMessage("End of list"),
     "energy": MessageLookupByLibrary.simpleMessage("Energy74.8 kcal"),
     "enterComplaintContent": MessageLookupByLibrary.simpleMessage(
       "Enter complaint content",
@@ -201,6 +202,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "farmName": MessageLookupByLibrary.simpleMessage("Farm Name"),
     "farmType": MessageLookupByLibrary.simpleMessage("Type"),
     "fat": MessageLookupByLibrary.simpleMessage("Fat3.6 g"),
+    "featuredMedicine": MessageLookupByLibrary.simpleMessage(
+      "Featured medicine",
+    ),
     "filter": MessageLookupByLibrary.simpleMessage("Filter"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "furtherInquiries": MessageLookupByLibrary.simpleMessage(
@@ -244,6 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "kasumiGrowNutrition": MessageLookupByLibrary.simpleMessage(
       "Kasumi Grow Nutritional Product",
     ),
+    "library": MessageLookupByLibrary.simpleMessage("Library"),
     "licensePlate": MessageLookupByLibrary.simpleMessage("License Plate"),
     "liquid": MessageLookupByLibrary.simpleMessage("Liquid"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -373,6 +378,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "scanAgain": MessageLookupByLibrary.simpleMessage("Scan Again"),
     "scanCode": MessageLookupByLibrary.simpleMessage("Scan Code"),
     "scanTime": MessageLookupByLibrary.simpleMessage("Scan Time:"),
+    "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
     "selectReasonForComplaint": MessageLookupByLibrary.simpleMessage(
       "Select reason for complaint",
     ),

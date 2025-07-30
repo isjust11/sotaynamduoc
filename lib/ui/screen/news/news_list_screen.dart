@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scale_size/scale_size.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/res/resources.dart';
@@ -32,9 +35,9 @@ class _NewsListScreenState extends State<NewsListScreen> with AutomaticKeepAlive
 
   BaseAppBar _buildAppBar(BuildContext context) {
     return BaseAppBar(
-      title: 'Tin Tức'.toUpperCase(),
+      title: AppLocalizations.current.news.toUpperCase(),
       showUndoIcon: true,
-      onBackTap: () => Navigator.pop(context),
+      showBackButton: false,
       backgroundColor: AppColors.secondaryBrand,
     );
   }
@@ -124,11 +127,13 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
 
   Widget _buildSearchBar() {
     return Container(
-      padding: EdgeInsets.all(AppDimens.SIZE_16),
+      padding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16, vertical: AppDimens.SIZE_10),
       child: TextField(
         controller: _searchController,
+        style: TextStyle(fontSize: AppDimens.SIZE_14, color: AppColors.textDark),
         decoration: InputDecoration(
-          hintText: 'Tìm kiếm tin tức...',
+          hintText: AppLocalizations.current.searchNews,
+          hintStyle: TextStyle(fontSize: AppDimens.SIZE_14, color: AppColors.textMediumGrey),
           prefixIcon: Icon(Icons.search, color: AppColors.textMediumGrey),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
@@ -140,9 +145,10 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
                 )
               : null,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+            borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
             borderSide: BorderSide(color: AppColors.secondaryBrand),
           ),
+          contentPadding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_8, vertical: AppDimens.SIZE_4),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
             borderSide: BorderSide(color: AppColors.secondaryBrand, width: 2),
@@ -164,7 +170,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
       },
       child: ListView.separated(
         controller: _scrollController,
-        padding: EdgeInsets.all(AppDimens.SIZE_16),
+        padding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16, vertical: AppDimens.SIZE_4),
         itemCount:
             state.newsList.length +
             (state.isLoadingMore ? 1 : 0) +
@@ -178,19 +184,20 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
         itemBuilder: (context, index) {
           if (index == state.newsList.length && state.isLoadingMore) {
             return const Padding(
-              padding: EdgeInsets.symmetric(vertical: AppDimens.SIZE_32),
+              padding: EdgeInsets.symmetric(vertical: AppDimens.SIZE_12),
               child: Center(child: CircularProgressIndicator()),
             );
           }
 
           if (index == state.newsList.length &&
               !state.hasMore &&
-              state.newsList.isNotEmpty) {
+              state.newsList.isNotEmpty &&
+              state.newsList.length > 10) {
             return Padding(
               padding: EdgeInsets.symmetric(vertical: AppDimens.SIZE_24),
               child: Center(
                 child: CustomTextLabel(
-                  'Đã tải hết tin tức',
+                  AppLocalizations.current.endOfList,
                   fontSize: AppDimens.SIZE_14,
                   color: AppColors.textDark,
                 ),
@@ -213,74 +220,97 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
       onTap: () => _navigateToDetail(context, news),
       borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
       child: Container(
-        padding: EdgeInsets.all(AppDimens.SIZE_16),
+        padding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16, vertical: AppDimens.SIZE_12),
         decoration: BoxDecoration(
-          color: AppColors.transparentOrangeOverlay.withValues(alpha: 0.14),
-          borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-          border: Border.all(color: AppColors.secondaryBrand),
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_6),
+          border: Border.all(color: AppColors.textHintGrey.withValues(alpha: 0.2)),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.textDark.withValues(alpha: 0.1),
+              blurRadius: AppDimens.SIZE_4,
+              offset: Offset(AppDimens.SIZE_0, AppDimens.SIZE_2),
+            ),
+          ],
         ),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 200.sh,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                child: news.thumbnail != null
-                    ? Image.network(
-                        ApiConstant.apiHost + (news.thumbnail ?? ''),
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: AppColors.lightGreyBackground,
-                            child: Icon(
-                              Icons.image_not_supported,
-                              size: 60.sw,
-                              color: AppColors.textMediumGrey,
-                            ),
-                          );
-                        },
-                      )
-                    : Container(
-                        color: AppColors.lightGreyBackground,
-                        child: Icon(
-                          Icons.image_not_supported,
-                          size: 60,
-                          color: AppColors.textMediumGrey,
-                        ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+              child: news.thumbnail != null
+                  ? Image.network(
+                      height: 100.sh,
+                      width: 100.sw,
+                      ApiConstant.apiHost + (news.thumbnail ?? ''),
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: AppColors.white,
+                          child: Icon(
+                            Icons.image_not_supported,
+                            size: 60.sw,
+                            color: AppColors.textMediumGrey,
+                          ),
+                        );
+                      },
+                    )
+                  : Container(
+                      color: AppColors.lightGreyBackground,
+                      child: Icon(
+                        Icons.image_not_supported,
+                        size: 60,
+                        color: AppColors.textMediumGrey,
                       ),
+                    ),
+            ),
+            SizedBox(width: AppDimens.SIZE_8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextLabel(
+                    news.title?.trim() ?? '',
+                    fontSize: AppDimens.SIZE_14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textDark,
+                    maxLines: 2,
+                  ),
+                  SizedBox(height: AppDimens.SIZE_4),
+                 news.summary != null && news.summary!.isNotEmpty ?  CustomTextLabel(
+                    news.summary!.trim(),
+                    fontSize: AppDimens.SIZE_12,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textDark.withValues(alpha: 0.6),
+                    maxLines: 2,
+                  ) : const SizedBox.shrink(),
+                  SizedBox(height: AppDimens.SIZE_8),
+                    Row(
+                      children: [
+                        SvgPicture.asset(Assets.icons.icTime, width: AppDimens.SIZE_14, height: AppDimens.SIZE_14),
+                        const SizedBox(width: AppDimens.SIZE_2,),
+                        CustomTextLabel(
+                          news.timeString.trim(),
+                          fontSize: AppDimens.SIZE_12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textDark.withValues(alpha: 0.6),
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                ],
               ),
-            ),
-            SizedBox(height: AppDimens.SIZE_8),
-            CustomTextLabel(
-              news.title,
-              fontSize: AppDimens.SIZE_16,
-              fontWeight: FontWeight.w400,
-              color: AppColors.textDark,
-              maxLines: 2,
-            ),
-            SizedBox(height: AppDimens.SIZE_8),
-            CustomTextLabel(
-              news.timeString,
-              fontSize: AppDimens.SIZE_13,
-              fontWeight: FontWeight.w400,
-              color: AppColors.textDark,
-              maxLines: 1,
             ),
           ],
         ),
@@ -373,7 +403,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
       context,
       MaterialPageRoute(
         builder: (context) => NewsDetailScreen(
-          newsId: news.id,
+          news: news,
         ),
       ),
     );

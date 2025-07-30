@@ -247,7 +247,7 @@ class CustomDialog extends StatelessWidget {
   final bool autoPopWhenPressSubmit;
 
   const CustomDialog(
-      {Key? key,
+      {super.key,
       this.onSubmit,
       this.titleSubmit,
       this.image,
@@ -257,8 +257,8 @@ class CustomDialog extends StatelessWidget {
       this.contentWidget,
       this.keyInputValue,
       this.onCancel,
-      this.autoPopWhenPressSubmit = true})
-      : super(key: key);
+      this.autoPopWhenPressSubmit = true,
+      });
 
   @override
   Widget build(BuildContext context) {

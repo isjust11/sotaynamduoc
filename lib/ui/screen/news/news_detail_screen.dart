@@ -1,60 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
-import 'package:sotaynamduoc/blocs/news/news.dart';
+import 'package:sotaynamduoc/utils/html_style_helper.dart';
 
 class NewsDetailScreen extends StatelessWidget {
-  final String newsId;
+  final NewsModel news;
 
-  const NewsDetailScreen({super.key, required this.newsId});
+  const NewsDetailScreen({super.key, required this.news});
 
   @override
   Widget build(BuildContext context) {
-    return NewsDetailView(newsId: newsId);
+    return NewsDetailView(news: news);
   }
 }
 
 class NewsDetailView extends StatelessWidget  {
-  final String newsId;
-  const NewsDetailView({super.key, required this.newsId});
+  final NewsModel news;
+  const NewsDetailView({super.key, required this.news});
 
   @override
   Widget build(BuildContext context) {
-    // Load chi tiết tin tức khi màn hình được tạo
-    context.read<NewsBloc>().add(LoadNewsDetail(newsId));
-    
     return BaseScreen(
       colorBg: AppColors.white,
       customAppBar: _buildAppBar(context),
-      body: _buildBody(context),
+      body: _buildNewsDetail(news),
     );
   }
 
   BaseAppBar _buildAppBar(BuildContext context) {
     return BaseAppBar(
-      title: 'Chi Tiết Tin Tức'.toUpperCase(),
+      title: AppLocalizations.current.newsDetail.toUpperCase(),
       showUndoIcon: true,
       onBackTap: () => Navigator.pop(context),
       backgroundColor: AppColors.secondaryBrand,
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    return BlocBuilder<NewsBloc, NewsState>(
-      builder: (context, state) {
-        if (state is NewsLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is NewsDetailLoaded) {
-          return _buildNewsDetail(state.news);
-        } else if (state is NewsError) {
-          return _buildErrorState(state.message);
-        }
-        return const SizedBox.shrink();
-      },
     );
   }
 
@@ -75,7 +59,7 @@ class NewsDetailView extends StatelessWidget  {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
                 child: Image.network(
-                  news.thumbnail!,
+                  ApiConstant.apiHost + (news.thumbnail ?? ''),
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
@@ -135,12 +119,6 @@ class NewsDetailView extends StatelessWidget  {
 
           // Mô tả
           if (news.summary != null && news.summary!.isNotEmpty) ...[
-            CustomTextLabel(
-              'Mô tả',
-              fontSize: AppDimens.SIZE_16,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textDark,
-            ),
             SizedBox(height: AppDimens.SIZE_8),
             CustomTextLabel(
               news.summary,
@@ -150,51 +128,10 @@ class NewsDetailView extends StatelessWidget  {
             SizedBox(height: AppDimens.SIZE_16),
           ],
 
-          // Nội dung
-          CustomTextLabel(
-            'Nội dung',
-            fontSize: AppDimens.SIZE_16,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textDark,
-          ),
-          SizedBox(height: AppDimens.SIZE_8),
-          CustomTextLabel(
-            news.content,
-            fontSize: AppDimens.SIZE_14,
-            color: AppColors.textDark,
-          ),
-
-          SizedBox(height: AppDimens.SIZE_24),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildErrorState(String message) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error_outline, size: 64.sw, color: AppColors.errorRed),
-          SizedBox(height: AppDimens.SIZE_16),
-          CustomTextLabel(
-            'Có lỗi xảy ra',
-            fontSize: AppDimens.SIZE_16,
-            color: AppColors.errorRed,
-          ),
-          SizedBox(height: AppDimens.SIZE_8),
-          CustomTextLabel(
-            message,
-            fontSize: AppDimens.SIZE_14,
-            color: AppColors.textDark.withValues(alpha: 0.6),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: AppDimens.SIZE_16),
-          ElevatedButton(
-            onPressed: () {
-              // Có thể thêm logic retry ở đây
-            },
-            child: const Text('Thử lại'),
+          // Nội dung 
+          Html(
+            data: news.content ?? '',
+            style: HtmlStyleHelper.getNewsContentStyle(),
           ),
         ],
       ),

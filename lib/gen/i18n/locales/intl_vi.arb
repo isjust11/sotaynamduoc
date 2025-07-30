@@ -25,7 +25,7 @@
   "complaint": "Khiếu nại",
   "settings": "Cài đặt",
   "fakeProductWarning": "Cảnh báo hàng giả",
-  "news": "Tin tức",
+  "news": "Bài viết",
   "colosIQSupplement": "Thực phẩm bổ sung colos IQ",
   "viewMore": "Xem thêm",
   "photo": "Ảnh",
@@ -229,5 +229,10 @@
   "pullToRefresh": "Kéo xuống để làm mới",
   "newsDetail":"Chi tiết tin tức",
   "newsList": "Danh sách tin tức",
-  "theme": "Giao diện"
+  "theme": "Giao diện",
+  "medicine":"Bài thuốc",
+  "library":"Thư viện",
+  "featuredMedicine":"Bài thuốc nổi bật",
+  "searchNews":"Tìm bài viết...",
+  "endOfList":"Đã tải hết danh sách"
 }

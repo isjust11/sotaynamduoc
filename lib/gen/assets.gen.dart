@@ -17,8 +17,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_avatar.svg
   String get icAvatar => 'assets/icons/ic_avatar.svg';
 
+  /// File path: assets/icons/ic_baithuoc.svg
+  String get icBaithuoc => 'assets/icons/ic_baithuoc.svg';
+
   /// File path: assets/icons/ic_calendar.svg
   String get icCalendar => 'assets/icons/ic_calendar.svg';
+
+  /// File path: assets/icons/ic_caythuoc.svg
+  String get icCaythuoc => 'assets/icons/ic_caythuoc.svg';
 
   /// File path: assets/icons/ic_close_circle.svg
   String get icCloseCircle => 'assets/icons/ic_close_circle.svg';
@@ -35,6 +41,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_home.svg
   String get icHome => 'assets/icons/ic_home.svg';
 
+  /// File path: assets/icons/ic_library.svg
+  String get icLibrary => 'assets/icons/ic_library.svg';
+
+  /// File path: assets/icons/ic_news.svg
+  String get icNews => 'assets/icons/ic_news.svg';
+
   /// File path: assets/icons/ic_qrcode.svg
   String get icQrcode => 'assets/icons/ic_qrcode.svg';
 
@@ -44,18 +56,26 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_setting.svg
   String get icSetting => 'assets/icons/ic_setting.svg';
 
+  /// File path: assets/icons/ic_time.svg
+  String get icTime => 'assets/icons/ic_time.svg';
+
   /// List of all assets
   List<String> get values => [
     icAvatar,
+    icBaithuoc,
     icCalendar,
+    icCaythuoc,
     icCloseCircle,
     icComplant,
     icDotHorizontal,
     icHistory,
     icHome,
+    icLibrary,
+    icNews,
     icQrcode,
     icRing,
     icSetting,
+    icTime,
   ];
 }
 
@@ -123,6 +143,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/sample-medicine.jpg
+  AssetGenImage get sampleMedicine =>
+      const AssetGenImage('assets/images/sample-medicine.jpg');
+
   /// File path: assets/images/sample-product.png
   AssetGenImage get sampleProduct =>
       const AssetGenImage('assets/images/sample-product.png');
@@ -149,6 +173,7 @@ class $AssetsImagesGen {
     icVerified,
     icVneid,
     logo,
+    sampleMedicine,
     sampleProduct,
     video,
   ];
@@ -157,8 +182,12 @@ class $AssetsImagesGen {
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

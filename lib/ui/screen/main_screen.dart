@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/screen/home_screen.dart';
 import 'package:sotaynamduoc/ui/screen/baithuoc/thaoduoc_screen.dart';
 import 'package:sotaynamduoc/ui/screen/caythuoc/caythuoc_screen.dart';
+import 'package:sotaynamduoc/ui/screen/home/home_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_bottom_navigation_bar.dart';

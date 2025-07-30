@@ -249,9 +249,9 @@ class AppLocalizations {
     );
   }
 
-  /// `Tin tức`
+  /// `Bài viết`
   String get news {
-    return Intl.message('Tin tức', name: 'news', desc: '', args: []);
+    return Intl.message('Bài viết', name: 'news', desc: '', args: []);
   }
 
   /// `Thực phẩm bổ sung colos IQ`
@@ -1982,6 +1982,46 @@ class AppLocalizations {
   /// `Giao diện`
   String get theme {
     return Intl.message('Giao diện', name: 'theme', desc: '', args: []);
+  }
+
+  /// `Bài thuốc`
+  String get medicine {
+    return Intl.message('Bài thuốc', name: 'medicine', desc: '', args: []);
+  }
+
+  /// `Thư viện`
+  String get library {
+    return Intl.message('Thư viện', name: 'library', desc: '', args: []);
+  }
+
+  /// `Bài thuốc nổi bật`
+  String get featuredMedicine {
+    return Intl.message(
+      'Bài thuốc nổi bật',
+      name: 'featuredMedicine',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tìm bài viết...`
+  String get searchNews {
+    return Intl.message(
+      'Tìm bài viết...',
+      name: 'searchNews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đã tải hết danh sách`
+  String get endOfList {
+    return Intl.message(
+      'Đã tải hết danh sách',
+      name: 'endOfList',
+      desc: '',
+      args: [],
+    );
   }
 }
 

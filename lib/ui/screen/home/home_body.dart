@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
+import 'package:sotaynamduoc/blocs/news/news.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/resources.dart';
@@ -28,24 +31,9 @@ class _HomeBodyState extends State<HomeBody> {
   final List<Map<String, String>> fakeProducts = List.generate(
     12,
     (i) => {
-      'name': 'Sản phẩm  ${i + 1}',
-      'image': Assets.images.sampleProduct.path,
+      'name': 'Bài thuốc nổi bật ${i + 1}',
+      'image': Assets.images.sampleMedicine.path,
     },
-  );
-
-  final List<NewsModel> fakeNews = List.generate(
-    10,
-    (index) => NewsModel(
-      id: 'news_$index',
-      title:
-          'Tin tức số $index Lô HU1245 đã bị thu hồi do không đạt tiêu chuẩn chất lượng.',
-      content:
-          'Sản phẩm sữa Hiup - Lô HU1245 đã bị thu hồi do không đạt tiêu chuẩn chất lượng. Vui lòng kiểm tra sản phẩm của bạn.',
-      summary:
-          'Theo quy định tại Thông tư số 10/2020/TT-BKHCN, các doanh nghiệp sử dụng mã số, mã vạch khi in mã vạch lên sản phẩm cần thực hiện việc kê khai thông tin sản phẩm trên Hệ thống quản lý mã số, mã vạch tại địa chỉ: Vnpc.gs1.gov.vn với 7 trường thông tin bắt buộc:\na) GTIN;\nb) Tên sản phẩm, nhãn hiệu;\nc) Mô tả sản phẩm;\nd) Nhóm sản phẩm (các loại sản phẩm có tính chất giống nhau);',
-      createdAt: DateTime.now().subtract(Duration(hours: index)),
-      thumbnail: 'https://i.postimg.cc/DwXCNJzw/info-image.png',
-    ),
   );
 
   // Thêm biến cho nhóm sản phẩm
@@ -57,6 +45,7 @@ class _HomeBodyState extends State<HomeBody> {
   void initState() {
     super.initState();
     _productGroupCount = (fakeProducts.length / 6).ceil();
+    context.read<NewsBloc>().add(LoadNewsList(page: 1, size: 10, search: ''));
   }
 
   @override
@@ -139,14 +128,14 @@ class _HomeBodyState extends State<HomeBody> {
               }).toList(),
             ),
             SizedBox(height: AppDimens.SIZE_16),
-            // 2. Cảnh báo hàng giả
+            // 2. bài thuốc nổi bật
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomTextLabel(
-                  AppLocalizations.current.fakeProductWarning,
+                  AppLocalizations.current.featuredMedicine,
                   fontWeight: FontWeight.bold,
-                  fontSize: AppDimens.SIZE_16,
+                  fontSize: AppDimens.SIZE_14,
                   color: AppColors.secondaryTextDark,
                 ),
                 InkWell(
@@ -156,7 +145,7 @@ class _HomeBodyState extends State<HomeBody> {
                   child: Row(
                     children: [
                       CustomTextLabel(
-                        'View All',
+                        AppLocalizations.current.viewMore,
                         color: AppColors.primaryBlue,
                         fontSize: AppDimens.SIZE_11,
                       ),
@@ -164,7 +153,7 @@ class _HomeBodyState extends State<HomeBody> {
                       Icon(
                         Icons.arrow_forward_ios,
                         color: AppColors.primaryBlue,
-                        size: AppDimens.SIZE_16,
+                        size: AppDimens.SIZE_14,
                       ),
                     ],
                   ),
@@ -174,7 +163,7 @@ class _HomeBodyState extends State<HomeBody> {
             SizedBox(height: AppDimens.SIZE_12),
             // BẮT ĐẦU: Sản phẩm giả với điều hướng trái/phải
             SizedBox(
-              height: AppDimens.SIZE_260,
+              height: AppDimens.SIZE_280,
               child: Stack(
                 children: [
                   PageView.builder(
@@ -305,14 +294,14 @@ class _HomeBodyState extends State<HomeBody> {
                 children: [
                   CustomTextLabel(
                     AppLocalizations.current.news,
-                    fontSize: AppDimens.SIZE_18,
+                    fontSize: AppDimens.SIZE_14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.secondaryTextDark,
                   ),
                   Row(
                     children: [
                       CustomTextLabel(
-                        'View All',
+                        AppLocalizations.current.viewMore,
                         color: AppColors.primaryBlue,
                         fontSize: AppDimens.SIZE_11,
                       ),
@@ -330,99 +319,102 @@ class _HomeBodyState extends State<HomeBody> {
             SizedBox(height: AppDimens.SIZE_12),
             SizedBox(
               height: AppDimens.SIZE_200,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: fakeNews.length,
-                separatorBuilder: (_, __) => SizedBox(width: AppDimens.SIZE_12),
-                itemBuilder: (context, idx) {
-                  final news = fakeNews[idx];
-                  return Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                      color: AppColors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Container(
-                            height: 180.sh,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                AppDimens.SIZE_8,
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                AppDimens.SIZE_8,
-                              ),
-                              child: news.thumbnail != null
-                                  ? Image.network(
-                                      news.thumbnail!,
-                                      fit: BoxFit.cover,
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                value:
-                                                    loadingProgress
-                                                            .expectedTotalBytes !=
-                                                        null
-                                                    ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes!
-                                                    : null,
-                                              ),
-                                            );
-                                          },
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                            return Container(
-                                              color:
-                                                  AppColors.lightGreyBackground,
-                                              child: Icon(
-                                                Icons.image_not_supported,
-                                                size: 60.sw,
-                                                color: AppColors.textMediumGrey,
-                                              ),
-                                            );
-                                          },
-                                    )
-                                  : Container(
-                                      color: AppColors.lightGreyBackground,
-                                      child: Icon(
-                                        Icons.image_not_supported,
-                                        size: 60,
-                                        color: AppColors.textMediumGrey,
-                                      ),
-                                    ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: AppDimens.SIZE_8),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppDimens.SIZE_8,
-                            ),
-                            child: CustomTextLabel(
-                              news.title,
-                              maxLines: 2,
-                              fontSize: AppDimens.SIZE_16,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+              child: BlocBuilder<NewsBloc, NewsState>(
+                builder: (context, state) {
+                  if (state is NewsListLoaded) {
+                    return ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: state.newsList.length,
+                      separatorBuilder: (_, __) =>
+                          SizedBox(width: AppDimens.SIZE_12),
+                      itemBuilder: (context, idx) {
+                        final news = state.newsList[idx];
+                        return _buildNewsItem(context, news);
+                      },
+                    );
+                  }
+                  return const SizedBox.shrink();
                 },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNewsItem(BuildContext context, NewsModel news) {
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, Routes.newsDetailScreen, arguments: news),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.6,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+          color: AppColors.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                height: 180.sh,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+                  child: news.thumbnail != null
+                      ? Image.network(
+                          ApiConstant.apiHost + (news.thumbnail ?? ''),
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: AppColors.lightGreyBackground,
+                              child: Icon(
+                                Icons.image_not_supported,
+                                size: 60.sw,
+                                color: AppColors.textMediumGrey,
+                              ),
+                            );
+                          },
+                        )
+                      : Container(
+                          color: AppColors.lightGreyBackground,
+                          child: Icon(
+                            Icons.image_not_supported,
+                            size: 60,
+                            color: AppColors.textMediumGrey,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+            SizedBox(height: AppDimens.SIZE_4),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppDimens.SIZE_2, horizontal: AppDimens.SIZE_2),
+                child: CustomTextLabel(
+                  news.title ?? '',
+                  maxLines: 2,
+                  fontSize: AppDimens.SIZE_14,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textDark,
+                ),
               ),
             ),
           ],

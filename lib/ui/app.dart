@@ -17,22 +17,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocaleWidget(
       builder: (state) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorObservers: [routeObserver],
-          navigatorKey: NavigationService.instance.navigatorKey,
-          localizationsDelegates: [
-            AppLocalizations.delegate, // Add this line
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          locale: Locale(state),
-          supportedLocales: AppLocalizations.delegate.supportedLocales,
-          localeResolutionCallback: (locale, supportedLocales) => _localeCallback(locale, supportedLocales),
-          initialRoute: Routes.initScreen(),
-          theme: context.read<ThemeCubit>().state == 'dark' ? AppThemes.darkTheme : AppThemes.lightTheme,
-          onGenerateRoute: Routes.generateRoute,
+        return BlocBuilder<ThemeCubit, String>(
+          builder: (context, themeState) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              navigatorObservers: [routeObserver],
+              navigatorKey: NavigationService.instance.navigatorKey,
+              localizationsDelegates: [
+                AppLocalizations.delegate, // Add this line
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              locale: Locale(state),
+              supportedLocales: AppLocalizations.delegate.supportedLocales,
+              localeResolutionCallback: (locale, supportedLocales) => _localeCallback(locale, supportedLocales),
+              initialRoute: Routes.initScreen(),
+              theme: themeState == 'dark' ? AppThemes.darkTheme : AppThemes.lightTheme,
+              onGenerateRoute: Routes.generateRoute,
+            );
+          },
         );
       },
     );

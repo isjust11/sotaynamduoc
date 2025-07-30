@@ -227,5 +227,9 @@
   "pullToRefresh": "Pull to refresh",
   "newsDetail":"News detail",
   "newsList": "News list",
-  "theme": "Theme"
+  "theme": "Theme",
+  "library":"Library",
+  "featuredMedicine":"Featured medicine",
+  "searchNews":"Search news",
+  "endOfList":"End of list"
 }

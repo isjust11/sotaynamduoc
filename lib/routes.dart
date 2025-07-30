@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sotaynamduoc/domain/data/models/news_model.dart';
 import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
@@ -62,10 +63,10 @@ class Routes {
           type: PageTransitionType.fade,
         );
       case newsDetailScreen:
-        final args = settings.arguments as String;
+        final args = settings.arguments as NewsModel;
         return PageTransition(
           child: NewsDetailScreen(
-            newsId: args,
+            news: args,
           ),
           type: PageTransitionType.fade,
         );
