@@ -2023,6 +2023,66 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Tên thuốc`
+  String get folkMedicineName {
+    return Intl.message(
+      'Tên thuốc',
+      name: 'folkMedicineName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mô tả`
+  String get folkMedicineDescription {
+    return Intl.message(
+      'Mô tả',
+      name: 'folkMedicineDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nguyên liệu`
+  String get folkMedicineIngredients {
+    return Intl.message(
+      'Nguyên liệu',
+      name: 'folkMedicineIngredients',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cách chế biến`
+  String get folkMedicinePreparation {
+    return Intl.message(
+      'Cách chế biến',
+      name: 'folkMedicinePreparation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cách sử dụng`
+  String get folkMedicineUsage {
+    return Intl.message(
+      'Cách sử dụng',
+      name: 'folkMedicineUsage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ghi chú`
+  String get folkMedicineNote {
+    return Intl.message(
+      'Ghi chú',
+      name: 'folkMedicineNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

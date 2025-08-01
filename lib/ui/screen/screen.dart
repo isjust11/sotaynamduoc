@@ -1,6 +1,11 @@
 export 'auth/login_screen.dart';
 export 'main_screen.dart';
 export 'splash_screen.dart';
-export 'caythuoc/caythuoc_screen.dart';
+export 'library/library_screen.dart';
 export 'qrscanner_screen.dart';
 export 'history/history_screen.dart';
+export 'folk_medicine/folk_medicine_menu_screen.dart';
+export 'folk_medicine/list/folk_medicine_list_screen.dart';
+export 'folk_medicine/detail/folk_medicine_detail_screen.dart';
+export 'folk_medicine/detail/folk_medicine_detail_body_screen.dart';
+export 'folk_medicine/list/folk_medicine_list_body_screen.dart';

@@ -208,6 +208,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Bài thuốc nổi bật",
     ),
     "filter": MessageLookupByLibrary.simpleMessage("Lọc"),
+    "folkMedicineDescription": MessageLookupByLibrary.simpleMessage("Mô tả"),
+    "folkMedicineIngredients": MessageLookupByLibrary.simpleMessage(
+      "Nguyên liệu",
+    ),
+    "folkMedicineName": MessageLookupByLibrary.simpleMessage("Tên thuốc"),
+    "folkMedicineNote": MessageLookupByLibrary.simpleMessage("Ghi chú"),
+    "folkMedicinePreparation": MessageLookupByLibrary.simpleMessage(
+      "Cách chế biến",
+    ),
+    "folkMedicineUsage": MessageLookupByLibrary.simpleMessage("Cách sử dụng"),
     "fullName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
     "furtherInquiries": MessageLookupByLibrary.simpleMessage(
       "Nếu bạn có thêm thắc mắc gì, vui lòng liên hệ:",

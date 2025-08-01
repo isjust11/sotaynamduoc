@@ -234,5 +234,11 @@
   "library":"Thư viện",
   "featuredMedicine":"Bài thuốc nổi bật",
   "searchNews":"Tìm bài viết...",
-  "endOfList":"Đã tải hết danh sách"
+  "endOfList":"Đã tải hết danh sách",
+  "folkMedicineName":"Tên thuốc",
+  "folkMedicineDescription":"Mô tả",
+  "folkMedicineIngredients":"Nguyên liệu",
+  "folkMedicinePreparation":"Cách chế biến",
+  "folkMedicineUsage":"Cách sử dụng",
+  "folkMedicineNote":"Ghi chú"
 }

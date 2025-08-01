@@ -231,5 +231,11 @@
   "library":"Library",
   "featuredMedicine":"Featured medicine",
   "searchNews":"Search news",
-  "endOfList":"End of list"
+  "endOfList":"End of list",
+  "folkMedicineName":"Medicine name",
+  "folkMedicineDescription":"Description",
+  "folkMedicineIngredients":"Ingredients",
+  "folkMedicinePreparation":"Preparation",
+  "folkMedicineUsage":"Usage",
+  "folkMedicineNote":"Note"
 }

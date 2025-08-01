@@ -1,4 +1,3 @@
-import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
@@ -61,6 +60,14 @@ void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
     () => NewsRepository(remoteDataSource: getIt.get()),
   );
+
+  getIt.registerLazySingleton(
+    () => CategoryRepository(remoteDataSource: getIt.get()),
+  );
+
+  getIt.registerLazySingleton(
+    () => FolkMedicineRepository(remoteDataSource: getIt.get()),
+  );
 }
 
 void registerDataSource(GetIt getIt) {
@@ -68,6 +75,8 @@ void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(() => UserLocalDataSource());
   getIt.registerLazySingleton(() => UserRemoteDataSource(network: getIt.get()));
   getIt.registerLazySingleton(() => NewsRemoteDataSource(network: getIt.get()));
+  getIt.registerLazySingleton(() => CategoryRemoteDataSource(network: getIt.get()));
+  getIt.registerLazySingleton(() => FolkMedicineRemoteDataSource(network: getIt.get()));
 }
 
 void registerNetwork(GetIt getIt) {

@@ -35,6 +35,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_dot_horizontal.svg
   String get icDotHorizontal => 'assets/icons/ic_dot_horizontal.svg';
 
+  /// File path: assets/icons/ic_folder_empty.svg
+  String get icFolderEmpty => 'assets/icons/ic_folder_empty.svg';
+
   /// File path: assets/icons/ic_history.svg
   String get icHistory => 'assets/icons/ic_history.svg';
 
@@ -68,6 +71,7 @@ class $AssetsIconsGen {
     icCloseCircle,
     icComplant,
     icDotHorizontal,
+    icFolderEmpty,
     icHistory,
     icHome,
     icLibrary,

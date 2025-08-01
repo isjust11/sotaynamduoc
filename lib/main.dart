@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
-import 'package:sotaynamduoc/blocs/language_cubit.dart';
-import 'package:sotaynamduoc/blocs/news/news_bloc.dart';
-import 'package:sotaynamduoc/blocs/theme_cubit.dart';
-import 'package:sotaynamduoc/domain/repositories/auth_repository.dart';
-import 'package:sotaynamduoc/domain/repositories/news_repository.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/ui/app.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/injection_container.dart' as getIt;
@@ -24,6 +20,8 @@ void main() async {
         BlocProvider(create: (_) => ThemeCubit(theme)),
         BlocProvider(create: (_) => NewsBloc(newsRepository: getIt.getIt.get<NewsRepository>())),
         BlocProvider(create: (_) => AuthCubit(repository: getIt.getIt.get<AuthRepository>())),
+        BlocProvider(create: (_) => CategoryCubit(repository: getIt.getIt.get<CategoryRepository>())),
+        BlocProvider(create: (_) => FolkMedicineBloc(folkMedicineRepository: getIt.getIt.get<FolkMedicineRepository>())),
       ],
       child: MyApp(),
     ),

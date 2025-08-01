@@ -206,6 +206,18 @@ class MessageLookup extends MessageLookupByLibrary {
       "Featured medicine",
     ),
     "filter": MessageLookupByLibrary.simpleMessage("Filter"),
+    "folkMedicineDescription": MessageLookupByLibrary.simpleMessage(
+      "Description",
+    ),
+    "folkMedicineIngredients": MessageLookupByLibrary.simpleMessage(
+      "Ingredients",
+    ),
+    "folkMedicineName": MessageLookupByLibrary.simpleMessage("Medicine name"),
+    "folkMedicineNote": MessageLookupByLibrary.simpleMessage("Note"),
+    "folkMedicinePreparation": MessageLookupByLibrary.simpleMessage(
+      "Preparation",
+    ),
+    "folkMedicineUsage": MessageLookupByLibrary.simpleMessage("Usage"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "furtherInquiries": MessageLookupByLibrary.simpleMessage(
       "If you have further questions, please contact:",

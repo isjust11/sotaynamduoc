@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/ui/screen/baithuoc/thaoduoc_screen.dart';
-import 'package:sotaynamduoc/ui/screen/caythuoc/caythuoc_screen.dart';
+import 'package:sotaynamduoc/ui/screen/folk_medicine/folk_medicine_menu_screen.dart';
+import 'package:sotaynamduoc/ui/screen/library/library_screen.dart';
 import 'package:sotaynamduoc/ui/screen/home/home_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
@@ -20,8 +20,8 @@ class _MainScreenState extends State<MainScreen> {
   static final List<Widget> _pages = <Widget>[
     HomeScreen(),
     const NewsListScreen(),
-    BaithuocScreen(),
-    CaythuocScreen(),
+    FolkMedicineMenuScreen(),
+    LibraryScreen(),
     SettingScreen(),
   ];
 
