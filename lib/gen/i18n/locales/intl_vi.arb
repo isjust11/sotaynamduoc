@@ -240,5 +240,8 @@
   "folkMedicineIngredients":"Nguyên liệu",
   "folkMedicinePreparation":"Cách chế biến",
   "folkMedicineUsage":"Cách sử dụng",
-  "folkMedicineNote":"Ghi chú"
+  "folkMedicineNote":"Ghi chú",
+  "herbalDetail":"Chi tiết thảo dược",
+  "viewCount":"Lượt xem",
+  "likeCount":"Lượt thích"
 }

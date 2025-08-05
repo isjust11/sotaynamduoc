@@ -65,7 +65,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             Navigator.pop(context);
           },
           child: showUndoIcon 
-            ? Icon(Icons.undo, color: AppColors.white)
+            ? Icon(Icons.arrow_back_ios_new, color: AppColors.white)
             : CustomTextLabel(backButtonText ?? AppLocalizations.current.back,
                 color: AppColors.white, fontSize: 13.sw, fontWeight: FontWeight.w400),
         ),

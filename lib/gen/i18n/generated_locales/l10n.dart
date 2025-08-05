@@ -2083,6 +2083,26 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Chi tiết thảo dược`
+  String get herbalDetail {
+    return Intl.message(
+      'Chi tiết thảo dược',
+      name: 'herbalDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lượt xem`
+  String get viewCount {
+    return Intl.message('Lượt xem', name: 'viewCount', desc: '', args: []);
+  }
+
+  /// `Lượt thích`
+  String get likeCount {
+    return Intl.message('Lượt thích', name: 'likeCount', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

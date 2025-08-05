@@ -6,14 +6,13 @@ import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_event.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_state.dart';
 import 'package:sotaynamduoc/domain/data/models/folk_medicine_model.dart';
-import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
+import 'package:sotaynamduoc/ui/widget/card_item.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
-import 'package:sotaynamduoc/utils/common.dart';
 
 class FolkMedicineListBodyScreen extends StatefulWidget {
   final String categoryId;
@@ -144,117 +143,12 @@ class _FolkMedicineListBodyScreenState
     BuildContext context,
     FolkMedicineModel folkMedicine,
   ) {
-    return InkWell(
+    return CardItem(
       onTap: () => _navigateToDetail(context, folkMedicine),
-      borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppDimens.SIZE_16,
-          vertical: AppDimens.SIZE_12,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(AppDimens.SIZE_6),
-          border: Border.all(
-            color: AppColors.textHintGrey.withValues(alpha: 0.2),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.textDark.withValues(alpha: 0.1),
-              blurRadius: AppDimens.SIZE_4,
-              offset: Offset(AppDimens.SIZE_0, AppDimens.SIZE_2),
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-              child: folkMedicine.thumbnail != null
-                  ? Image.network(
-                      height: 100.sh,
-                      width: 100.sw,
-                      ApiConstant.apiHost + (folkMedicine.thumbnail ?? ''),
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: AppColors.white,
-                          child: Icon(
-                            Icons.image_not_supported,
-                            size: 60.sw,
-                            color: AppColors.textMediumGrey,
-                          ),
-                        );
-                      },
-                    )
-                  : Container(
-                      color: AppColors.lightGreyBackground,
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 60,
-                        color: AppColors.textMediumGrey,
-                      ),
-                    ),
-            ),
-            SizedBox(width: AppDimens.SIZE_8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextLabel(
-                    folkMedicine.title?.trim() ?? '',
-                    fontSize: AppDimens.SIZE_14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textDark,
-                    maxLines: 2,
-                  ),
-                  SizedBox(height: AppDimens.SIZE_4),
-                  folkMedicine.summary != null &&
-                          folkMedicine.summary!.isNotEmpty
-                      ? CustomTextLabel(
-                          folkMedicine.summary!.trim(),
-                          fontSize: AppDimens.SIZE_12,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.textDark.withValues(alpha: 0.6),
-                          maxLines: 2,
-                        )
-                      : const SizedBox.shrink(),
-                  SizedBox(height: AppDimens.SIZE_8),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        Assets.icons.icTime,
-                        width: AppDimens.SIZE_14,
-                        height: AppDimens.SIZE_14,
-                      ),
-                      const SizedBox(width: AppDimens.SIZE_2),
-                      CustomTextLabel(
-                        Common.formatDate(folkMedicine.createdAt, format: 'dd/MM/yyyy HH:mm'),
-                        fontSize: AppDimens.SIZE_12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textDark.withValues(alpha: 0.6),
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      title: folkMedicine.title ?? '',
+      thumbnail: folkMedicine.thumbnail,
+      createdAt: folkMedicine.createdAt,
+      summary: folkMedicine.summary,
     );
   }
 

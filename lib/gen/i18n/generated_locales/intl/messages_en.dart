@@ -235,6 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "helpGuide": MessageLookupByLibrary.simpleMessage("Help Guide"),
+    "herbalDetail": MessageLookupByLibrary.simpleMessage("Herbal detail"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "hotline": MessageLookupByLibrary.simpleMessage("Hotline: 024 324562 2255"),
@@ -262,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "licensePlate": MessageLookupByLibrary.simpleMessage("License Plate"),
+    "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
     "liquid": MessageLookupByLibrary.simpleMessage("Liquid"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "loginWithPublicSecurityAccount": MessageLookupByLibrary.simpleMessage(
@@ -467,6 +469,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Vietnam Organic Standard",
     ),
     "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
+    "viewCount": MessageLookupByLibrary.simpleMessage("View count"),
     "viewMore": MessageLookupByLibrary.simpleMessage("View More"),
     "violationType": MessageLookupByLibrary.simpleMessage("Violation Type"),
     "violationTypePoorQuality": MessageLookupByLibrary.simpleMessage(

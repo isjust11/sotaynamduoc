@@ -237,5 +237,8 @@
   "folkMedicineIngredients":"Ingredients",
   "folkMedicinePreparation":"Preparation",
   "folkMedicineUsage":"Usage",
-  "folkMedicineNote":"Note"
+  "folkMedicineNote":"Note",
+  "herbalDetail":"Herbal detail",
+  "viewCount":"View count",
+  "likeCount":"Like count"
 }

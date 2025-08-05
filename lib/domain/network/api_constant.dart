@@ -7,4 +7,5 @@ class ApiConstant {
   static final getCategories = "$apiHost/categories";
   static final getCategoriesByCategoryTypeCode = "$apiHost/categories/get-by-category-type";
   static final getFolkMedicines = "$apiHost/folk-medicine";
+  static final getHerbals = "$apiHost/herbals";
 }

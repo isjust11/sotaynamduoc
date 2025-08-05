@@ -22,6 +22,7 @@ void main() async {
         BlocProvider(create: (_) => AuthCubit(repository: getIt.getIt.get<AuthRepository>())),
         BlocProvider(create: (_) => CategoryCubit(repository: getIt.getIt.get<CategoryRepository>())),
         BlocProvider(create: (_) => FolkMedicineBloc(folkMedicineRepository: getIt.getIt.get<FolkMedicineRepository>())),
+        BlocProvider(create: (_) => HerbalBloc(repository: getIt.getIt.get<HerbalRepository>())),
       ],
       child: MyApp(),
     ),

@@ -235,6 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "helpGuide": MessageLookupByLibrary.simpleMessage("Hướng dẫn trợ giúp"),
+    "herbalDetail": MessageLookupByLibrary.simpleMessage("Chi tiết thảo dược"),
     "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
     "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
     "hotline": MessageLookupByLibrary.simpleMessage("Hotline"),
@@ -262,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "licensePlate": MessageLookupByLibrary.simpleMessage("Biển số xe"),
+    "likeCount": MessageLookupByLibrary.simpleMessage("Lượt thích"),
     "liquid": MessageLookupByLibrary.simpleMessage("Dung dịch"),
     "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
     "loginWithPublicSecurityAccount": MessageLookupByLibrary.simpleMessage(
@@ -470,6 +472,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Tiêu chuẩn hữu cơ Việt Nam",
     ),
     "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
+    "viewCount": MessageLookupByLibrary.simpleMessage("Lượt xem"),
     "viewMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),
     "violationType": MessageLookupByLibrary.simpleMessage("Loại vi phạm"),
     "violationTypePoorQuality": MessageLookupByLibrary.simpleMessage(
