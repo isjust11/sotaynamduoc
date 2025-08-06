@@ -196,7 +196,7 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
         icon: const Icon(Icons.logout, color: Colors.white),
         label: Text(
-          AppLocalizations.of(context).logout,
+          AppLocalizations.current.logout,
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/herbal/herbal.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
-import 'package:sotaynamduoc/domain/network/api_constant.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
+import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/screen/library/detail/library_detail_screen.dart';
 import 'package:sotaynamduoc/ui/widget/card_item.dart';
+import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 
 class LibraryBodyScreen extends StatefulWidget {
   const LibraryBodyScreen({super.key});
@@ -78,14 +80,19 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen> {
                   onPressed: () {
                     context.read<HerbalBloc>().add(const GetHerbalsEvent());
                   },
-                  child: const Text('Retry'),
+                  child: CustomTextLabel(AppLocalizations.current.retry, color: AppColors.white, fontSize: AppDimens.SIZE_14),
                 ),
               ],
             ),
           );
         }
-        return const Center(
-          child: Text('No data available'),
+        return RefreshIndicator(
+          onRefresh: () async {
+            context.read<HerbalBloc>().add(const GetHerbalsEvent(isRefresh: true));
+          },
+          child: Center(
+            child: CustomTextLabel(AppLocalizations.current.noDataAvailable, color: AppColors.disabledGrey, fontSize: AppDimens.SIZE_14),
+          ),
         );
       },
     );

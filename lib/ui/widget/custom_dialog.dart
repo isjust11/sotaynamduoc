@@ -41,7 +41,7 @@ class CustomDialogUtil {
           titleSubmit: titleSubmit ?? AppLocalizations.of(context).agree,
           onSubmit: onSubmit,
           onCancel: onCancel,
-          titleCancel: hideCancel ? null : (titleCancel ?? AppLocalizations.of(context).close)),
+          titleCancel: hideCancel ? null : (titleCancel ?? AppLocalizations.current.close)),
     );
   }
 
@@ -54,7 +54,7 @@ class CustomDialogUtil {
           content: content,
           image: image ?? "Assets.images.icDialogFail",
           onCancel: onCancel,
-          titleCancel: titleCancel ?? AppLocalizations.of(context).close),
+          titleCancel: titleCancel ?? AppLocalizations.current.close),
     );
   }
 
@@ -101,7 +101,7 @@ class CustomDialogUtil {
                   ),
                   CupertinoButton(
                     child: CustomTextLabel(
-                      AppLocalizations.of(context).done,
+                      AppLocalizations.current.done,
                       fontSize: 16,
                     ),
                     onPressed: () {
@@ -135,7 +135,6 @@ class CustomDialogUtil {
                     ),
                     Center(
                       child: BaseButton(
-                        child: CustomTextLabel("OK", fontWeight: FontWeight.w500, color: Colors.white, fontSize: 15),
                         decoration: BoxDecoration(
                             color: AppColors.baseColor,
                             borderRadius: BorderRadius.circular(15),
@@ -150,6 +149,7 @@ class CustomDialogUtil {
                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         alignment: Alignment.center,
                         onTap: () => Navigator.of(context).pop(),
+                        child: CustomTextLabel("OK", fontWeight: FontWeight.w500, color: Colors.white, fontSize: 15),
                       ),
                     ),
                     SizedBox(
