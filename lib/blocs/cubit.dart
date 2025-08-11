@@ -6,3 +6,4 @@ export 'news/news.dart';
 export 'theme_cubit.dart';
 export 'category/category_cubit.dart';
 export 'herbal/herbal.dart';
+export 'author/author.dart';

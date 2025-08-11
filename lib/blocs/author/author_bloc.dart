@@ -1,0 +1,128 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/repositories/author_repository.dart';
+
+class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
+  final AuthorRepository _authorRepository;
+
+  AuthorBloc(this._authorRepository) : super(const AuthorInitial()) {
+    on<GetAuthorsEvent>(_onGetAuthors);
+    on<LoadMoreAuthorsEvent>(_onLoadMoreAuthors);
+    on<RefreshAuthorsEvent>(_onRefreshAuthors);
+    on<SearchAuthorsEvent>(_onSearchAuthors);
+    on<GetAuthorByIdEvent>(_onGetAuthorById);
+    on<GetAuthorBySlugEvent>(_onGetAuthorBySlug);
+    on<GetFamousAuthorsEvent>(_onGetFamousAuthors);
+    on<GetAuthorsByEraEvent>(_onGetAuthorsByEra);
+    on<GetAuthorsByDynastyEvent>(_onGetAuthorsByDynasty);
+    on<GetAuthorsBySpecialtyEvent>(_onGetAuthorsBySpecialty);
+  }
+
+  Future<void> _onGetAuthors(GetAuthorsEvent event, Emitter<AuthorState> emit) async {
+    try {
+      if (!event.isRefresh) {
+        emit(const AuthorLoading());
+      }
+      
+      final authors = await _authorRepository.getAuthors();
+      emit(AuthorLoaded(authors: authors));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadMoreAuthors(LoadMoreAuthorsEvent event, Emitter<AuthorState> emit) async {
+    try {
+      final currentState = state;
+      if (currentState is AuthorLoaded) {
+        emit(currentState.copyWith(isLoadingMore: true));
+        
+        // Implement pagination logic here
+        // For now, just emit the same state
+        emit(currentState.copyWith(isLoadingMore: false));
+      }
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onRefreshAuthors(RefreshAuthorsEvent event, Emitter<AuthorState> emit) async {
+    try {
+      final authors = await _authorRepository.getAuthors();
+      emit(AuthorLoaded(authors: authors));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onSearchAuthors(SearchAuthorsEvent event, Emitter<AuthorState> emit) async {
+    try {
+      emit(const AuthorLoading());
+      final authors = await _authorRepository.searchAuthors(event.query);
+      emit(AuthorLoaded(authors: authors));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onGetAuthorById(GetAuthorByIdEvent event, Emitter<AuthorState> emit) async {
+    try {
+      emit(const AuthorLoading());
+      final author = await _authorRepository.getAuthorById(event.id);
+      emit(AuthorDetailLoaded(author));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onGetAuthorBySlug(GetAuthorBySlugEvent event, Emitter<AuthorState> emit) async {
+    try {
+      emit(const AuthorLoading());
+      final author = await _authorRepository.getAuthorBySlug(event.slug);
+      emit(AuthorDetailLoaded(author));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onGetFamousAuthors(GetFamousAuthorsEvent event, Emitter<AuthorState> emit) async {
+    try {
+      emit(const AuthorLoading());
+      final authors = await _authorRepository.getFamousAuthors();
+      emit(AuthorLoaded(authors: authors));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onGetAuthorsByEra(GetAuthorsByEraEvent event, Emitter<AuthorState> emit) async {
+    try {
+      emit(const AuthorLoading());
+      final authors = await _authorRepository.getAuthorsByEra(event.era);
+      emit(AuthorLoaded(authors: authors));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onGetAuthorsByDynasty(GetAuthorsByDynastyEvent event, Emitter<AuthorState> emit) async {
+    try {
+      emit(const AuthorLoading());
+      final authors = await _authorRepository.getAuthorsByDynasty(event.dynasty);
+      emit(AuthorLoaded(authors: authors));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+
+  Future<void> _onGetAuthorsBySpecialty(GetAuthorsBySpecialtyEvent event, Emitter<AuthorState> emit) async {
+    try {
+      emit(const AuthorLoading());
+      final authors = await _authorRepository.getAuthorsBySpecialty(event.specialty);
+      emit(AuthorLoaded(authors: authors));
+    } catch (e) {
+      emit(AuthorError(e.toString()));
+    }
+  }
+} 

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/herbal/herbal.dart';
+import 'package:sotaynamduoc/blocs/author/author.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/screen/library/detail/library_detail_screen.dart';
+import 'package:sotaynamduoc/ui/screen/library/author_detail_screen.dart';
 import 'package:sotaynamduoc/ui/widget/card_item.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 
@@ -16,25 +18,33 @@ class LibraryBodyScreen extends StatefulWidget {
   State<LibraryBodyScreen> createState() => _LibraryBodyScreenState();
 }
 
-class _LibraryBodyScreenState extends State<LibraryBodyScreen> {
-  final ScrollController _scrollController = ScrollController();
+class _LibraryBodyScreenState extends State<LibraryBodyScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  final ScrollController _herbalScrollController = ScrollController();
+  final ScrollController _authorScrollController = ScrollController();
   bool _isDisposed = false;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    
+    // Load initial data
     context.read<HerbalBloc>().add(const GetHerbalsEvent());
-    _scrollController.addListener(_onScroll);
+    context.read<AuthorBloc>().add(const GetAuthorsEvent());
+    
+    _herbalScrollController.addListener(_onHerbalScroll);
+    _authorScrollController.addListener(_onAuthorScroll);
   }
 
-  void _onScroll() {
+  void _onHerbalScroll() {
     if (_isDisposed) return;
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200) {
+    if (_herbalScrollController.position.pixels >=
+        _herbalScrollController.position.maxScrollExtent - 200) {
       final herbalBloc = context.read<HerbalBloc>();
       final state = herbalBloc.state;
       
-      // Chỉ load more nếu đang ở trạng thái loaded, chưa đạt giới hạn và không đang loading
       if (state is HerbalLoaded && 
           !state.hasReachedMax && 
           !state.isLoadingMore && 
@@ -44,20 +54,101 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen> {
     }
   }
 
+  void _onAuthorScroll() {
+    if (_isDisposed) return;
+    if (_authorScrollController.position.pixels >=
+        _authorScrollController.position.maxScrollExtent - 200) {
+      final authorBloc = context.read<AuthorBloc>();
+      final state = authorBloc.state;
+      
+      if (state is AuthorLoaded && 
+          !state.hasReachedMax && 
+          !state.isLoadingMore && 
+          !_isDisposed) {
+        authorBloc.add(LoadMoreAuthorsEvent());
+      }
+    }
+  }
+
   @override
   void dispose() {
     _isDisposed = true;
-    _scrollController.removeListener(_onScroll);
-    _scrollController.dispose();
+    _tabController.dispose();
+    _herbalScrollController.removeListener(_onHerbalScroll);
+    _herbalScrollController.dispose();
+    _authorScrollController.removeListener(_onAuthorScroll);
+    _authorScrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildBody(context);
+    return Column(
+      children: [
+        _buildTabBar(),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              _buildHerbalTab(),
+              _buildAuthorTab(),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildTabBar() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16),
+      decoration: BoxDecoration(
+        color: AppColors.lightGreyBackground,
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+      ),
+      child: TabBar(
+        controller: _tabController,
+        indicator: BoxDecoration(
+          color: AppColors.primaryBrand,
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+        ),
+        labelColor: AppColors.white,
+        unselectedLabelColor: AppColors.textDark,
+        labelStyle: const TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: AppDimens.SIZE_14,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: AppDimens.SIZE_14,
+        ),
+        tabs: [
+          Tab(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.eco, size: AppDimens.SIZE_16),
+                const SizedBox(width: AppDimens.SIZE_8),
+                const Text('Cây thuốc'),
+              ],
+            ),
+          ),
+          Tab(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.person, size: AppDimens.SIZE_16),
+                const SizedBox(width: AppDimens.SIZE_8),
+                const Text('Thầy thuốc'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHerbalTab() {
     return BlocBuilder<HerbalBloc, HerbalState>(
       builder: (context, state) {
         if (state is HerbalLoading) {
@@ -80,7 +171,11 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen> {
                   onPressed: () {
                     context.read<HerbalBloc>().add(const GetHerbalsEvent());
                   },
-                  child: CustomTextLabel(AppLocalizations.current.retry, color: AppColors.white, fontSize: AppDimens.SIZE_14),
+                  child: CustomTextLabel(
+                    AppLocalizations.current.retry ?? 'Thử lại', 
+                    color: AppColors.white, 
+                    fontSize: AppDimens.SIZE_14
+                  ),
                 ),
               ],
             ),
@@ -91,17 +186,70 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen> {
             context.read<HerbalBloc>().add(const GetHerbalsEvent(isRefresh: true));
           },
           child: Center(
-            child: CustomTextLabel(AppLocalizations.current.noDataAvailable, color: AppColors.disabledGrey, fontSize: AppDimens.SIZE_14),
+            child: CustomTextLabel(
+              AppLocalizations.current.noDataAvailable ?? 'Không có dữ liệu', 
+              color: AppColors.disabledGrey, 
+              fontSize: AppDimens.SIZE_14
+            ),
           ),
         );
       },
     );
   }
 
-    Widget _buildHerbalList(List<HerbalModel> herbals) {
+  Widget _buildAuthorTab() {
+    return BlocBuilder<AuthorBloc, AuthorState>(
+      builder: (context, state) {
+        if (state is AuthorLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is AuthorLoaded) {
+          return _buildAuthorList(state.authors);
+        } else if (state is AuthorError) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Error: ${state.message}',
+                  style: const TextStyle(color: Colors.red),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<AuthorBloc>().add(const GetAuthorsEvent());
+                  },
+                  child: CustomTextLabel(
+                    AppLocalizations.current.retry ?? 'Thử lại', 
+                    color: AppColors.white, 
+                    fontSize: AppDimens.SIZE_14
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        return RefreshIndicator(
+          onRefresh: () async {
+            context.read<AuthorBloc>().add(const GetAuthorsEvent(isRefresh: true));
+          },
+          child: Center(
+            child: CustomTextLabel(
+              AppLocalizations.current.noDataAvailable ?? 'Không có dữ liệu', 
+              color: AppColors.disabledGrey, 
+              fontSize: AppDimens.SIZE_14
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildHerbalList(List<HerbalModel> herbals) {
     if (herbals.isEmpty) {
       return const Center(
-        child: Text('No herbals found'),
+        child: Text('Không tìm thấy cây thuốc'),
       );
     }
 
@@ -110,14 +258,13 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen> {
         context.read<HerbalBloc>().add(RefreshHerbalsEvent());
       },
       child: ListView.builder(
-        controller: _scrollController,
+        controller: _herbalScrollController,
         padding: EdgeInsets.symmetric(
           horizontal: AppDimens.SIZE_16,
           vertical: AppDimens.SIZE_4,
         ),
-        itemCount: herbals.length + 1, // +1 cho loading indicator
+        itemCount: herbals.length + 1,
         itemBuilder: (context, index) {
-          // Hiển thị loading indicator ở cuối danh sách
           if (index == herbals.length) {
             return BlocBuilder<HerbalBloc, HerbalState>(
               builder: (context, state) {
@@ -133,45 +280,126 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen> {
               },
             );
           }
-        final herbal = herbals[index];
-        return CardItem(
-          onTap: () {
-            // Navigate to herbal detail screen
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LibraryDetailScreen(herbalData: herbal),
-              ),
-            );
-          },
-          title: herbal.title ?? 'No Title',
-          thumbnail: herbal.thumbnail,
-          createdAt: herbal.createdAt,
-          summary: herbal.summary,
-          listBottomAction: Row(
-            children: [ 
-              if (herbal.viewCount != null)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.visibility, size: AppDimens.SIZE_16),
-                        const SizedBox(width: AppDimens.SIZE_4),
-                        Text('${herbal.viewCount}'),
-                      ],
-                    ),
-                    const SizedBox(width: AppDimens.SIZE_16),
-                    if (herbal.likeCount != null)
+          
+          final herbal = herbals[index];
+          return CardItem(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LibraryDetailScreen(herbalData: herbal),
+                ),
+              );
+            },
+            title: herbal.title ?? 'Không có tiêu đề',
+            thumbnail: herbal.thumbnail,
+            createdAt: herbal.createdAt,
+            summary: herbal.summary,
+            listBottomAction: Row(
+              children: [ 
+                if (herbal.viewCount != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                       Row(
                         children: [
-                          const Icon(Icons.favorite, size: AppDimens.SIZE_16),
+                          const Icon(Icons.visibility, size: AppDimens.SIZE_16),
                           const SizedBox(width: AppDimens.SIZE_4),
-                          Text('${herbal.likeCount}'),
+                          Text('${herbal.viewCount}'),
                         ],
                       ),
-                  ],
+                      const SizedBox(width: AppDimens.SIZE_16),
+                      if (herbal.likeCount != null)
+                        Row(
+                          children: [
+                            const Icon(Icons.favorite, size: AppDimens.SIZE_16),
+                            const SizedBox(width: AppDimens.SIZE_4),
+                            Text('${herbal.likeCount}'),
+                          ],
+                        ),
+                    ],
+                  ),
+              ],
+            ),
+          );
+        }
+      ),
+    );
+  }
+
+  Widget _buildAuthorList(List<AuthorModel> authors) {
+    if (authors.isEmpty) {
+      return const Center(
+        child: Text('Không tìm thấy thầy thuốc'),
+      );
+    }
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<AuthorBloc>().add(const RefreshAuthorsEvent());
+      },
+      child: ListView.builder(
+        controller: _authorScrollController,
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimens.SIZE_16,
+          vertical: AppDimens.SIZE_4,
+        ),
+        itemCount: authors.length + 1,
+        itemBuilder: (context, index) {
+          if (index == authors.length) {
+            return BlocBuilder<AuthorBloc, AuthorState>(
+              builder: (context, state) {
+                if (state is AuthorLoaded && state.isLoadingMore) {
+                  return const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            );
+          }
+          
+          final author = authors[index];
+          return CardItem(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AuthorDetailScreen(author: author),
                 ),
+              );
+            },
+            title: author.name ?? 'Không có tên',
+            thumbnail: author.avatar ?? author.portrait,
+            createdAt: author.createdAt?.toIso8601String(),
+            summary: author.biography ?? author.career ?? 'Không có mô tả',
+            listBottomAction: Row(
+              children: [ 
+                if (author.viewCount != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.visibility, size: AppDimens.SIZE_16),
+                          const SizedBox(width: AppDimens.SIZE_4),
+                          Text('${author.viewCount}'),
+                        ],
+                      ),
+                      const SizedBox(width: AppDimens.SIZE_16),
+                      if (author.likeCount != null)
+                        Row(
+                          children: [
+                            const Icon(Icons.favorite, size: AppDimens.SIZE_16),
+                            const SizedBox(width: AppDimens.SIZE_4),
+                            Text('${author.likeCount}'),
+                          ],
+                        ),
+                    ],
+                  ),
               ],
             ),
           );
