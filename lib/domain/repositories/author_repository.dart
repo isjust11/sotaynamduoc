@@ -1,62 +1,90 @@
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 
-abstract class AuthorRepository {
-  Future<List<AuthorModel>> getAuthors();
-  Future<AuthorModel> getAuthorById(String id);
-  Future<AuthorModel> getAuthorBySlug(String slug);
-  Future<List<AuthorModel>> searchAuthors(String query);
-  Future<List<AuthorModel>> getFamousAuthors();
-  Future<List<AuthorModel>> getAuthorsByEra(String era);
-  Future<List<AuthorModel>> getAuthorsByDynasty(String dynasty);
-  Future<List<AuthorModel>> getAuthorsBySpecialty(String specialty);
-}
 
-class AuthorRepositoryImpl implements AuthorRepository {
-  @override
+
+class AuthorRepository {
+  final AuthorRemoteDataSource dataSource;
+
+  AuthorRepository({required this.dataSource});
+
   Future<List<AuthorModel>> getAuthors() async {
-    // TODO: Implement API call
-    return [];
+    try {
+      return await dataSource.getAuthors();
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  @override
   Future<AuthorModel> getAuthorById(String id) async {
-    // TODO: Implement API call
-    throw UnimplementedError();
+    try {
+      return await dataSource.getAuthorById(id);
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  @override
   Future<AuthorModel> getAuthorBySlug(String slug) async {
-    // TODO: Implement API call
-    throw UnimplementedError();
+    try {
+      return await dataSource.getAuthorBySlug(slug);
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  @override
   Future<List<AuthorModel>> searchAuthors(String query) async {
-    // TODO: Implement API call
-    return [];
+    try {
+      return await dataSource.searchAuthors(query);
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  @override
   Future<List<AuthorModel>> getFamousAuthors() async {
-    // TODO: Implement API call
-    return [];
+    try {
+      return await dataSource.getFamousAuthors();
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  @override
   Future<List<AuthorModel>> getAuthorsByEra(String era) async {
-    // TODO: Implement API call
-    return [];
+    try {
+      return await dataSource.getAuthorsByEra(era);
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  @override
   Future<List<AuthorModel>> getAuthorsByDynasty(String dynasty) async {
-    // TODO: Implement API call
-    return [];
+    try {
+      return await dataSource.getAuthorsByDynasty(dynasty);
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
-  @override
   Future<List<AuthorModel>> getAuthorsBySpecialty(String specialty) async {
-    // TODO: Implement API call
-    return [];
+    try {
+      return await dataSource.getAuthorsBySpecialty(specialty);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<void> incrementViewCount(String id) async {
+    try {
+      await dataSource.incrementViewCount(id);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<void> incrementLikeCount(String id) async {
+    try {
+      await dataSource.incrementLikeCount(id);
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 } 

@@ -26,18 +26,6 @@ class HerbalBloc extends Bloc<HerbalEvent, HerbalState> {
 
   Future<void> _onGetHerbals(GetHerbalsEvent event, Emitter<HerbalState> emit) async {
     try {
-      if (event.isRefresh) {
-        _pageNum = 1;
-        _hasReachedMax = false;
-        emit(HerbalLoading());
-      } else if (state is! HerbalLoading) {
-        emit(HerbalLoading());
-      }
-
-      // if (_hasReachedMax && !event.isRefresh) {
-      //   return;
-      // }
-
       List<HerbalModel> herbals = await repository.getHerbals(
         page: _pageNum,
         limit: _pageSize,
@@ -48,22 +36,9 @@ class HerbalBloc extends Bloc<HerbalEvent, HerbalState> {
         isActive: event.isActive,
       );
 
-      // if (herbals.isEmpty) {
-      //   _hasReachedMax = true;
-      // } else {
-      //   _pageNum++;
-      // }
-
-      List<HerbalModel> currentHerbals = [];
-      if (state is HerbalLoaded && !event.isRefresh) {
-        currentHerbals = (state as HerbalLoaded).herbals;
-      }
-
-      List<HerbalModel> newHerbals = event.isRefresh ? herbals : [...currentHerbals, ...herbals];
-      
       emit(HerbalLoaded(
-        herbals: newHerbals,
-        hasReachedMax: _hasReachedMax,
+        herbals: herbals,
+        hasReachedMax: false,
         isLoadingMore: false,
       ));
     } catch (e) {

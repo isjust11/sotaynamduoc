@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
@@ -13,9 +16,14 @@ class AuthorDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(author.name ?? 'Thầy thuốc'),
-        backgroundColor: AppColors.primaryBrand,
+        title: Text(author.name ?? 'Thầy thuốc', style: TextStyle(color: AppColors.white),),
+        backgroundColor: AppColors.secondaryBrand,
         foregroundColor: AppColors.white,
+        
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white,),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppDimens.SIZE_16),
@@ -65,11 +73,13 @@ class AuthorDetailScreen extends StatelessWidget {
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              color: AppColors.lightGreyBackground,
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
+              border: Border.all(color: AppColors.textHintGrey.withValues(alpha: 0.2)),
             ),
             child: author.avatar != null || author.portrait != null
                 ? Image.network(
-                    author.avatar ?? author.portrait!,
+                    ApiConstant.apiHost + (author.avatar ?? author.portrait!),
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Icon(

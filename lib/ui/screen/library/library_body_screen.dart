@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sotaynamduoc/blocs/herbal/herbal.dart';
 import 'package:sotaynamduoc/blocs/author/author.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/screen/library/detail/library_detail_screen.dart';
-import 'package:sotaynamduoc/ui/screen/library/author_detail_screen.dart';
+import 'package:sotaynamduoc/ui/screen/library/detail/author_detail_screen.dart';
 import 'package:sotaynamduoc/ui/widget/card_item.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 
@@ -19,7 +21,7 @@ class LibraryBodyScreen extends StatefulWidget {
 }
 
 class _LibraryBodyScreenState extends State<LibraryBodyScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabController;
   final ScrollController _herbalScrollController = ScrollController();
   final ScrollController _authorScrollController = ScrollController();
@@ -29,14 +31,24 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    
+
     // Load initial data
-    context.read<HerbalBloc>().add(const GetHerbalsEvent());
-    context.read<AuthorBloc>().add(const GetAuthorsEvent());
-    
+    final herbalBloc = context.read<HerbalBloc>();
+    if (herbalBloc.state is! HerbalLoaded) {
+      herbalBloc.add(const GetHerbalsEvent());
+    }
+
+    final authorBloc = context.read<AuthorBloc>();
+    if (authorBloc.state is! AuthorLoaded) {
+      authorBloc.add(const GetAuthorsEvent());
+    }
+
     _herbalScrollController.addListener(_onHerbalScroll);
     _authorScrollController.addListener(_onAuthorScroll);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   void _onHerbalScroll() {
     if (_isDisposed) return;
@@ -44,10 +56,10 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
         _herbalScrollController.position.maxScrollExtent - 200) {
       final herbalBloc = context.read<HerbalBloc>();
       final state = herbalBloc.state;
-      
-      if (state is HerbalLoaded && 
-          !state.hasReachedMax && 
-          !state.isLoadingMore && 
+
+      if (state is HerbalLoaded &&
+          !state.hasReachedMax &&
+          !state.isLoadingMore &&
           !_isDisposed) {
         herbalBloc.add(LoadMoreHerbalsEvent());
       }
@@ -60,10 +72,10 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
         _authorScrollController.position.maxScrollExtent - 200) {
       final authorBloc = context.read<AuthorBloc>();
       final state = authorBloc.state;
-      
-      if (state is AuthorLoaded && 
-          !state.hasReachedMax && 
-          !state.isLoadingMore && 
+
+      if (state is AuthorLoaded &&
+          !state.hasReachedMax &&
+          !state.isLoadingMore &&
           !_isDisposed) {
         authorBloc.add(LoadMoreAuthorsEvent());
       }
@@ -83,16 +95,14 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         _buildTabBar(),
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: [
-              _buildHerbalTab(),
-              _buildAuthorTab(),
-            ],
+            children: [_buildHerbalTab(), _buildAuthorTab()],
           ),
         ),
       ],
@@ -101,17 +111,23 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
 
   Widget _buildTabBar() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16),
+      margin: const EdgeInsets.symmetric(
+        horizontal: AppDimens.SIZE_16,
+        vertical: AppDimens.SIZE_8,
+      ),
       decoration: BoxDecoration(
-        color: AppColors.lightGreyBackground,
-        borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_4),
       ),
       child: TabBar(
+        padding: EdgeInsets.zero,
         controller: _tabController,
+        indicatorSize: TabBarIndicatorSize.tab,
         indicator: BoxDecoration(
-          color: AppColors.primaryBrand,
-          borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+          color: AppColors.secondaryBrand,
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_4),
         ),
+        dividerColor: Colors.transparent,
         labelColor: AppColors.white,
         unselectedLabelColor: AppColors.textDark,
         labelStyle: const TextStyle(
@@ -122,6 +138,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
           fontWeight: FontWeight.w500,
           fontSize: AppDimens.SIZE_14,
         ),
+        onTap: (value) => _tabController.animateTo(value),
         tabs: [
           Tab(
             child: Row(
@@ -137,7 +154,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.person, size: AppDimens.SIZE_16),
+                SvgPicture.asset(Assets.icons.icCertificate),
                 const SizedBox(width: AppDimens.SIZE_8),
                 const Text('Thầy thuốc'),
               ],
@@ -152,9 +169,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
     return BlocBuilder<HerbalBloc, HerbalState>(
       builder: (context, state) {
         if (state is HerbalLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         } else if (state is HerbalLoaded) {
           return _buildHerbalList(state.herbals);
         } else if (state is HerbalError) {
@@ -172,9 +187,9 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                     context.read<HerbalBloc>().add(const GetHerbalsEvent());
                   },
                   child: CustomTextLabel(
-                    AppLocalizations.current.retry ?? 'Thử lại', 
-                    color: AppColors.white, 
-                    fontSize: AppDimens.SIZE_14
+                    AppLocalizations.current.retry,
+                    color: AppColors.white,
+                    fontSize: AppDimens.SIZE_14,
                   ),
                 ),
               ],
@@ -183,13 +198,15 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
         }
         return RefreshIndicator(
           onRefresh: () async {
-            context.read<HerbalBloc>().add(const GetHerbalsEvent(isRefresh: true));
+            context.read<HerbalBloc>().add(
+              const GetHerbalsEvent(isRefresh: true),
+            );
           },
           child: Center(
             child: CustomTextLabel(
-              AppLocalizations.current.noDataAvailable ?? 'Không có dữ liệu', 
-              color: AppColors.disabledGrey, 
-              fontSize: AppDimens.SIZE_14
+              AppLocalizations.current.noDataAvailable,
+              color: AppColors.disabledGrey,
+              fontSize: AppDimens.SIZE_14,
             ),
           ),
         );
@@ -201,9 +218,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
     return BlocBuilder<AuthorBloc, AuthorState>(
       builder: (context, state) {
         if (state is AuthorLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         } else if (state is AuthorLoaded) {
           return _buildAuthorList(state.authors);
         } else if (state is AuthorError) {
@@ -221,9 +236,9 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                     context.read<AuthorBloc>().add(const GetAuthorsEvent());
                   },
                   child: CustomTextLabel(
-                    AppLocalizations.current.retry ?? 'Thử lại', 
-                    color: AppColors.white, 
-                    fontSize: AppDimens.SIZE_14
+                    AppLocalizations.current.retry,
+                    color: AppColors.white,
+                    fontSize: AppDimens.SIZE_14,
                   ),
                 ),
               ],
@@ -232,13 +247,15 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
         }
         return RefreshIndicator(
           onRefresh: () async {
-            context.read<AuthorBloc>().add(const GetAuthorsEvent(isRefresh: true));
+            context.read<AuthorBloc>().add(
+              const GetAuthorsEvent(isRefresh: true),
+            );
           },
           child: Center(
             child: CustomTextLabel(
-              AppLocalizations.current.noDataAvailable ?? 'Không có dữ liệu', 
-              color: AppColors.disabledGrey, 
-              fontSize: AppDimens.SIZE_14
+              AppLocalizations.current.noDataAvailable,
+              color: AppColors.disabledGrey,
+              fontSize: AppDimens.SIZE_14,
             ),
           ),
         );
@@ -248,9 +265,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
 
   Widget _buildHerbalList(List<HerbalModel> herbals) {
     if (herbals.isEmpty) {
-      return const Center(
-        child: Text('Không tìm thấy cây thuốc'),
-      );
+      return const Center(child: Text('Không tìm thấy cây thuốc'));
     }
 
     return RefreshIndicator(
@@ -271,16 +286,14 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                 if (state is HerbalLoaded && state.isLoadingMore) {
                   return const Padding(
                     padding: EdgeInsets.all(16.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   );
                 }
                 return const SizedBox.shrink();
               },
             );
           }
-          
+
           final herbal = herbals[index];
           return CardItem(
             onTap: () {
@@ -295,8 +308,9 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             thumbnail: herbal.thumbnail,
             createdAt: herbal.createdAt,
             summary: herbal.summary,
+            margin: const EdgeInsets.only(bottom: AppDimens.SIZE_8),
             listBottomAction: Row(
-              children: [ 
+              children: [
                 if (herbal.viewCount != null)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -322,16 +336,14 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
               ],
             ),
           );
-        }
+        },
       ),
     );
   }
 
   Widget _buildAuthorList(List<AuthorModel> authors) {
     if (authors.isEmpty) {
-      return const Center(
-        child: Text('Không tìm thấy thầy thuốc'),
-      );
+      return const Center(child: Text('Không tìm thấy thầy thuốc'));
     }
 
     return RefreshIndicator(
@@ -352,16 +364,14 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                 if (state is AuthorLoaded && state.isLoadingMore) {
                   return const Padding(
                     padding: EdgeInsets.all(16.0),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   );
                 }
                 return const SizedBox.shrink();
               },
             );
           }
-          
+
           final author = authors[index];
           return CardItem(
             onTap: () {
@@ -377,7 +387,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             createdAt: author.createdAt?.toIso8601String(),
             summary: author.biography ?? author.career ?? 'Không có mô tả',
             listBottomAction: Row(
-              children: [ 
+              children: [
                 if (author.viewCount != null)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -403,7 +413,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
               ],
             ),
           );
-        }
+        },
       ),
     );
   }

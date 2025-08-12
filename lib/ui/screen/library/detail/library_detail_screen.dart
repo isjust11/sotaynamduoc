@@ -47,7 +47,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
           IconButton(
             icon: Icon(
               isLiked ? Icons.favorite : Icons.favorite_border,
-              color: AppColors.primaryBrand,
+              color: AppColors.white,
             ),
             onPressed: () {
               setState(() {
@@ -56,7 +56,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.share, color: AppColors.primaryBrand),
+            icon: Icon(Icons.share, color: AppColors.white),
             onPressed: () {
               // TODO: Implement share functionality
             },

@@ -15,7 +15,9 @@ class CardItem extends StatelessWidget {
   final String? createdAt;
   final String? summary;
   final Widget? listBottomAction;
-  const CardItem({super.key, required this.onTap, required this.title, this.thumbnail, this.createdAt, this.summary, this.listBottomAction});
+  final EdgeInsets? margin;
+  const CardItem({super.key,
+   required this.onTap, required this.title, this.thumbnail, this.createdAt, this.summary, this.listBottomAction, this.margin});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class CardItem extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
       child: Container(
+        margin: margin,
         padding: EdgeInsets.symmetric(
           horizontal: AppDimens.SIZE_16,
           vertical: AppDimens.SIZE_12,

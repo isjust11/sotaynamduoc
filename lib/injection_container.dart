@@ -2,8 +2,6 @@ import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/blocs/herbal/herbal.dart';
-import 'package:sotaynamduoc/blocs/author/author.dart';
-import 'package:sotaynamduoc/domain/repositories/author_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -46,7 +44,6 @@ Future<void> init({GetIt? getIt}) async {
 void registerCubit(GetIt getIt) {
   // getIt.registerLazySingleton(() => AuthCubit(repository: getIt.get()));
   getIt.registerLazySingleton(() => HerbalBloc(repository: getIt.get()));
-  getIt.registerLazySingleton(() => AuthorBloc(getIt.get()));
 }
 
 void registerRepositories(GetIt getIt) {
@@ -77,7 +74,7 @@ void registerRepositories(GetIt getIt) {
     () => HerbalRepository(remoteDataSource: getIt.get()),
   );
   getIt.registerLazySingleton(
-    () => AuthorRepositoryImpl(),
+    () => AuthorRepository(dataSource: getIt.get()),
   );
 }
 
@@ -89,6 +86,7 @@ void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(() => CategoryRemoteDataSource(network: getIt.get()));
   getIt.registerLazySingleton(() => FolkMedicineRemoteDataSource(network: getIt.get()));
   getIt.registerLazySingleton(() => HerbalRemoteDataSource(network: getIt.get()));
+  getIt.registerLazySingleton(() => AuthorRemoteDataSource(network: getIt.get()));
 }
 
 void registerNetwork(GetIt getIt) {

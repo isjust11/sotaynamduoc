@@ -26,6 +26,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_caythuoc.svg
   String get icCaythuoc => 'assets/icons/ic_caythuoc.svg';
 
+  /// File path: assets/icons/ic_certificate.svg
+  String get icCertificate => 'assets/icons/ic_certificate.svg';
+
   /// File path: assets/icons/ic_close_circle.svg
   String get icCloseCircle => 'assets/icons/ic_close_circle.svg';
 
@@ -68,6 +71,7 @@ class $AssetsIconsGen {
     icBaithuoc,
     icCalendar,
     icCaythuoc,
+    icCertificate,
     icCloseCircle,
     icComplant,
     icDotHorizontal,

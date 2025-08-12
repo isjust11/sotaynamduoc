@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/repositories/author_repository.dart';
+import 'package:sotaynamduoc/blocs/author/author_event.dart';
+import 'package:sotaynamduoc/blocs/author/author_state.dart';
 
 class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
-  final AuthorRepository _authorRepository;
+  final AuthorRepository repository;
 
-  AuthorBloc(this._authorRepository) : super(const AuthorInitial()) {
+  AuthorBloc({required this.repository}) : super(const AuthorInitial()) {
     on<GetAuthorsEvent>(_onGetAuthors);
     on<LoadMoreAuthorsEvent>(_onLoadMoreAuthors);
     on<RefreshAuthorsEvent>(_onRefreshAuthors);
@@ -25,7 +25,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
         emit(const AuthorLoading());
       }
       
-      final authors = await _authorRepository.getAuthors();
+      final authors = await repository.getAuthors();
       emit(AuthorLoaded(authors: authors));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -49,7 +49,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
 
   Future<void> _onRefreshAuthors(RefreshAuthorsEvent event, Emitter<AuthorState> emit) async {
     try {
-      final authors = await _authorRepository.getAuthors();
+      final authors = await repository.getAuthors();
       emit(AuthorLoaded(authors: authors));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -59,7 +59,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   Future<void> _onSearchAuthors(SearchAuthorsEvent event, Emitter<AuthorState> emit) async {
     try {
       emit(const AuthorLoading());
-      final authors = await _authorRepository.searchAuthors(event.query);
+      final authors = await repository.searchAuthors(event.query);
       emit(AuthorLoaded(authors: authors));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -69,7 +69,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   Future<void> _onGetAuthorById(GetAuthorByIdEvent event, Emitter<AuthorState> emit) async {
     try {
       emit(const AuthorLoading());
-      final author = await _authorRepository.getAuthorById(event.id);
+      final author = await repository.getAuthorById(event.id);
       emit(AuthorDetailLoaded(author));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -79,7 +79,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   Future<void> _onGetAuthorBySlug(GetAuthorBySlugEvent event, Emitter<AuthorState> emit) async {
     try {
       emit(const AuthorLoading());
-      final author = await _authorRepository.getAuthorBySlug(event.slug);
+      final author = await repository.getAuthorBySlug(event.slug);
       emit(AuthorDetailLoaded(author));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -89,7 +89,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   Future<void> _onGetFamousAuthors(GetFamousAuthorsEvent event, Emitter<AuthorState> emit) async {
     try {
       emit(const AuthorLoading());
-      final authors = await _authorRepository.getFamousAuthors();
+      final authors = await repository.getFamousAuthors();
       emit(AuthorLoaded(authors: authors));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -99,7 +99,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   Future<void> _onGetAuthorsByEra(GetAuthorsByEraEvent event, Emitter<AuthorState> emit) async {
     try {
       emit(const AuthorLoading());
-      final authors = await _authorRepository.getAuthorsByEra(event.era);
+      final authors = await repository.getAuthorsByEra(event.era);
       emit(AuthorLoaded(authors: authors));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -109,7 +109,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   Future<void> _onGetAuthorsByDynasty(GetAuthorsByDynastyEvent event, Emitter<AuthorState> emit) async {
     try {
       emit(const AuthorLoading());
-      final authors = await _authorRepository.getAuthorsByDynasty(event.dynasty);
+      final authors = await repository.getAuthorsByDynasty(event.dynasty);
       emit(AuthorLoaded(authors: authors));
     } catch (e) {
       emit(AuthorError(e.toString()));
@@ -119,7 +119,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   Future<void> _onGetAuthorsBySpecialty(GetAuthorsBySpecialtyEvent event, Emitter<AuthorState> emit) async {
     try {
       emit(const AuthorLoading());
-      final authors = await _authorRepository.getAuthorsBySpecialty(event.specialty);
+      final authors = await repository.getAuthorsBySpecialty(event.specialty);
       emit(AuthorLoaded(authors: authors));
     } catch (e) {
       emit(AuthorError(e.toString()));
