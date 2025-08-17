@@ -17,7 +17,7 @@ class BaseCubitDropDown<T extends BaseDropdownModel, C extends Cubit<BaseState>>
   final Key? baseCubitDropDownKey;
   final String? errorRequired;
 
-  const BaseCubitDropDown({
+  const BaseCubitDropDown({super.key, 
     this.baseCubitDropDownKey,
     required this.cubit,
     this.margin = EdgeInsets.zero,
@@ -27,7 +27,7 @@ class BaseCubitDropDown<T extends BaseDropdownModel, C extends Cubit<BaseState>>
     this.isRequired = false,
     this.initData,
     this.errorRequired,
-  }) : super();
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class BaseCubitDropDown<T extends BaseDropdownModel, C extends Cubit<BaseState>>
                 try {
                   didSelected?.call(index, listData![index]);
                 } catch (e) {
-                  print("===build =====${e}");
+                  print("===build =====$e");
                 }
               },
               hintText: hintText,

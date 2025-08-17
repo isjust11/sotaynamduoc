@@ -19,7 +19,7 @@ class BaseButton extends StatelessWidget {
 
   const BaseButton({
     this.child,
-    Key? key,
+    super.key,
     this.decoration,
     this.onTap,
     this.backgroundColor,
@@ -32,7 +32,7 @@ class BaseButton extends StatelessWidget {
     this.height,
     this.wrapChild = false,
     this.title,
-  }) : super(key: key);
+  });
 
 
 

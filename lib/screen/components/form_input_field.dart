@@ -13,8 +13,8 @@ FormInputField(
 */
 
 class FormInputField extends StatelessWidget {
-  FormInputField(
-      {required this.controller,
+  const FormInputField(
+      {super.key, required this.controller,
       required this.labelText,
       required this.validator,
       this.keyboardType = TextInputType.text,

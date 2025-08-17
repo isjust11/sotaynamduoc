@@ -16,7 +16,7 @@ class CustomTextLabel extends StatelessWidget {
   final bool isRequired;
 
   const CustomTextLabel(this.title,
-      {Key? key,
+      {super.key,
       this.fontSize,
       this.fontWeight = FontWeight.normal,
       this.color = Colors.black,
@@ -25,8 +25,7 @@ class CustomTextLabel extends StatelessWidget {
       this.fontHeight,
       this.fontFamily,
       this.formatCurrency = false,
-      this.isRequired = false})
-      : super(key: key);
+      this.isRequired = false});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +88,7 @@ class ErrorTextWidget extends StatelessWidget {
   final Color? errorTextColor;
   final EdgeInsets? margin;
 
-  const ErrorTextWidget({Key? key, this.errorText, this.errorTextColor, this.margin}) : super(key: key);
+  const ErrorTextWidget({super.key, this.errorText, this.errorTextColor, this.margin});
 
   @override
   Widget build(BuildContext context) {
@@ -101,11 +100,11 @@ class ErrorTextWidget extends StatelessWidget {
           Icon(
             Icons.error,
             size: AppDimens.SIZE_13,
-            color: this.errorTextColor ?? Colors.red,
+            color: errorTextColor ?? Colors.red,
           ),
           SizedBox(width: 2),
           Expanded(
-            child: CustomTextLabel(errorText, color: this.errorTextColor ?? Colors.red, fontSize: 14),
+            child: CustomTextLabel(errorText, color: errorTextColor ?? Colors.red, fontSize: 14),
           ),
         ],
       ),

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:sotaynamduoc/constants/constants.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:shared_preferences/shared_preferences.dart';

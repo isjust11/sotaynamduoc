@@ -1,4 +1,3 @@
-import 'package:sotaynamduoc/domain/data/entities/entities.dart';
 import 'package:sotaynamduoc/domain/data/models/user_model.dart';
 
 import 'base_entity.dart';

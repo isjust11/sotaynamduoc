@@ -21,8 +21,7 @@ class Loading extends StatelessWidget {
   final Widget? child;
   final bool darkTheme;
 
-  const Loading({Key? key, this.child, this.darkTheme = false})
-      : super(key: key);
+  const Loading({super.key, this.child, this.darkTheme = false});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +83,7 @@ Future<void> showLoadingIndicator(
     );
   } catch (err) {
     debugPrint('Exception showing loading overlay\n${err.toString()}');
-    throw err;
+    rethrow;
   }
 }
 
@@ -92,7 +91,7 @@ Future<void> hideLoadingIndicator() async {
   try {
     await _hideOverlay();
   } catch (err) {
-    throw err;
+    rethrow;
   }
 }
 
@@ -115,7 +114,7 @@ Future<void> _showOverlay({required Widget child}) async {
     _loaderShown = true;
   } catch (err) {
     debugPrint('Exception inserting loading overlay\n${err.toString()}');
-    throw err;
+    rethrow;
   }
 }
 
@@ -125,6 +124,6 @@ Future<void> _hideOverlay() async {
     _loaderShown = false;
   } catch (err) {
     debugPrint('Exception removing loading overlay\n${err.toString()}');
-    throw err;
+    rethrow;
   }
 }

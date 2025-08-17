@@ -8,7 +8,6 @@ import '../../../gen/i18n/generated_locales/l10n.dart';
 import '../../../res/colors.dart';
 import '../../widget/base_appbar.dart';
 import '../../widget/base_screen.dart';
-import '../../widget/custom_text_label.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});

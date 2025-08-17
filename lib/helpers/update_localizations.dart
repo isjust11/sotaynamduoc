@@ -73,12 +73,12 @@ class Localization extends Translations {
           phraseKey = value;
         } else {
           bool languageAdded = false;
-          localizations.forEach((element) {
+          for (var element in localizations) {
             if (element.language == key) {
               element.phrases.add(PhraseModel(key: phraseKey, phrase: value));
               languageAdded = true;
             }
-          });
+          }
           if (languageAdded == false) {
             localizations.add(LocalizationModel(
                 language: key,
@@ -88,19 +88,19 @@ class Localization extends Translations {
       });
     }
 
-    localizations.forEach((localization) {
+    for (var localization in localizations) {
       String language = localization.language;
       String currentLanguageTextCode = "'$language': {\n";
       localizationFile = localizationFile + currentLanguageTextCode;
-      localization.phrases.forEach((phrase) {
+      for (var phrase in localization.phrases) {
         String phraseKey = phrase.key;
         String phrasePhrase = phrase.phrase.replaceAll(r"'", "\\'");
         String currentPhraseTextCode = "'$phraseKey': '$phrasePhrase',\n";
         localizationFile = localizationFile + currentPhraseTextCode;
-      });
+      }
       String currentLanguageCodeEnding = "},\n";
       localizationFile = localizationFile + currentLanguageCodeEnding;
-    });
+    }
     String fileEnding = """
         };
       }

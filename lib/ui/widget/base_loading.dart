@@ -4,6 +4,8 @@ import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/ui/widget/base_progress_indicator.dart';
 
 class CustomLoading<T extends Cubit<BaseState>> extends StatelessWidget {
+  const CustomLoading({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<T, BaseState>(

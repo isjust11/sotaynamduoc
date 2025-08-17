@@ -13,8 +13,8 @@ FormInputFieldWithIcon(
 */
 
 class FormInputFieldWithIcon extends StatelessWidget {
-  FormInputFieldWithIcon(
-      {required this.controller,
+  const FormInputFieldWithIcon(
+      {super.key, required this.controller,
       required this.iconPrefix,
       required this.labelText,
       required this.validator,

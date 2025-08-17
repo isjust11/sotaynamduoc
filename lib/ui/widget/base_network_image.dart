@@ -11,21 +11,20 @@ class BaseNetworkImage extends StatelessWidget {
   final double? loadingSize;
 
   const BaseNetworkImage(
-      {Key? key, this.url, this.borderRadius = 0, this.width, this.height, this.errorAssetImage, this.loadingSize})
-      : super(key: key);
+      {super.key, this.url, this.borderRadius = 0, this.width, this.height, this.errorAssetImage, this.loadingSize});
 
   @override
   Widget build(BuildContext context) {
     Widget errorWidget = ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius ?? 10),
-      child: Container(
-        width: this.width ?? double.infinity,
-        height: this.height ?? double.infinity,
+      child: SizedBox(
+        width: width ?? double.infinity,
+        height: height ?? double.infinity,
         child: errorAssetImage?.isNotEmpty ?? false
             ? Image.asset(
                 errorAssetImage!,
-                width: this.width,
-                height: this.height,
+                width: width,
+                height: height,
                 fit: BoxFit.cover,
               )
             : Icon(Icons.error),
@@ -34,6 +33,7 @@ class BaseNetworkImage extends StatelessWidget {
     return url == null
         ? errorWidget
         : ClipRRect(
+            borderRadius: BorderRadius.circular(borderRadius),
             child: CachedNetworkImage(
               width: this.width ?? double.infinity,
               height: this.height ?? double.infinity,
@@ -44,7 +44,6 @@ class BaseNetworkImage extends StatelessWidget {
               ),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
-            borderRadius: BorderRadius.circular(borderRadius),
           );
   }
 }

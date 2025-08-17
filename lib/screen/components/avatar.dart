@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 class Avatar extends StatelessWidget {
-  Avatar(
-    this.user,
+  const Avatar(
+    this.user, {super.key},
   );
   final UserModel user;
 

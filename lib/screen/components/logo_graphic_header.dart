@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 
 class LogoGraphicHeader extends StatelessWidget {
-  LogoGraphicHeader();
+  const LogoGraphicHeader({super.key});
   // final ThemeController themeController = ThemeController.to;
 
   @override

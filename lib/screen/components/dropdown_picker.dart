@@ -8,8 +8,8 @@ DropdownPicker(
 */
 
 class DropdownPicker extends StatelessWidget {
-  DropdownPicker(
-      {required this.menuOptions,
+  const DropdownPicker(
+      {super.key, required this.menuOptions,
       required this.selectedOption,
       required this.onChanged});
 
@@ -22,10 +22,10 @@ class DropdownPicker extends StatelessWidget {
     return DropdownButton<String>(
         items: menuOptions
             .map((data) => DropdownMenuItem<String>(
+                  value: data.key,
                   child: Text(
                     data.value,
                   ),
-                  value: data.key,
                 ))
             .toList(),
         value: selectedOption,

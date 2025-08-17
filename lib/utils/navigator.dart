@@ -8,7 +8,7 @@ class NavigationService {
 
   static final NavigationService instance = NavigationService._internal();
 
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   pushReplacement(String routeName) {
     navigatorKey.currentState?.popUntil((route) => route.isFirst);

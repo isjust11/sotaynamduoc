@@ -50,8 +50,8 @@ class CustomTextInput extends StatefulWidget {
   final double? hintTextFontSize;
   final FontWeight? hintTextFontWeight;
 
-  CustomTextInput({
-    Key? key,
+  const CustomTextInput({
+    super.key,
     this.getTextFieldValue,
     this.onSubmitted,
     this.keyboardType = TextInputType.text,
@@ -90,7 +90,7 @@ class CustomTextInput extends StatefulWidget {
     this.hintTextFontSize,
     this.hintTextColor,
     this.hintTextFontWeight
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -109,7 +109,7 @@ class TextFieldState extends State<CustomTextInput> {
     super.initState();
     textController = widget.textController ?? TextEditingController();
     if (widget.initData != null) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         textController.text =
             widget.formatCurrency ? Common.formatPrice(widget.initData, showPrefix: false) : widget.initData.toString();
       });
@@ -193,9 +193,9 @@ class TextFieldState extends State<CustomTextInput> {
                   onEditingComplete: () => FocusScope.of(context).nextFocus(),
                   maxLines: widget.maxLines,
                   minLines: widget.minLines,
-                  onChanged: (String _text) {
+                  onChanged: (String text) {
                     _validate();
-                    String currentText = _text.trim();
+                    String currentText = text.trim();
                     widget.getTextFieldValue?.call(currentText);
                   },
                 ),
@@ -207,7 +207,7 @@ class TextFieldState extends State<CustomTextInput> {
                         bottom: 0,
                         child: InkWell(
                           onTap: () {
-                            if (this.widget.enabled) widget.onTapTextField?.call();
+                            if (widget.enabled) widget.onTapTextField?.call();
                           },
                           child: Container(),
                         ),
@@ -232,12 +232,12 @@ class TextFieldState extends State<CustomTextInput> {
 
   bool _validate() {
     if (widget.validator != null) {
-      String _text = textController.text.trim();
-      String? validate = widget.validator!.call(_text);
+      String text = textController.text.trim();
+      String? validate = widget.validator!.call(text);
       setState(() {
-        this.errorText = validate ?? "";
+        errorText = validate ?? "";
       });
-      return this.errorText.isEmpty;
+      return errorText.isEmpty;
     }
     return true;
   }
@@ -291,7 +291,7 @@ class NumericTextFormatter extends TextInputFormatter {
 }
 
 class DecimalTextInputFormatter extends TextInputFormatter {
-  DecimalTextInputFormatter({required this.decimalRange}) : assert(decimalRange == null || decimalRange > 0);
+  DecimalTextInputFormatter({required this.decimalRange}) : assert(decimalRange > 0);
 
   final int decimalRange;
 
@@ -300,12 +300,13 @@ class DecimalTextInputFormatter extends TextInputFormatter {
     TextSelection newSelection = newValue.selection;
     String truncated = newValue.text;
 
-    if (newValue.text.contains(' '))
+    if (newValue.text.contains(' ')) {
       return TextEditingValue(
         text: oldValue.text,
         selection: oldValue.selection,
         composing: TextRange.empty,
       );
+    }
 
     if (oldValue.text == '0') {
       truncated = newValue.text.replaceFirst('0', '');
@@ -336,26 +337,24 @@ class DecimalTextInputFormatter extends TextInputFormatter {
       }
     }
 
-    if (decimalRange != null) {
-      String value = newValue.text;
-      if (value.contains(".") && value.substring(value.indexOf(".") + 1).length > decimalRange) {
-        truncated = oldValue.text;
-        newSelection = oldValue.selection;
-      } else if (value == ".") {
-        truncated = "0.";
+    String value = newValue.text;
+    if (value.contains(".") && value.substring(value.indexOf(".") + 1).length > decimalRange) {
+      truncated = oldValue.text;
+      newSelection = oldValue.selection;
+    } else if (value == ".") {
+      truncated = "0.";
 
-        newSelection = newValue.selection.copyWith(
-          baseOffset: math.min(truncated.length, truncated.length + 1),
-          extentOffset: math.min(truncated.length, truncated.length + 1),
-        );
-      }
-
-      return TextEditingValue(
-        text: truncated,
-        selection: newSelection,
-        composing: TextRange.empty,
+      newSelection = newValue.selection.copyWith(
+        baseOffset: math.min(truncated.length, truncated.length + 1),
+        extentOffset: math.min(truncated.length, truncated.length + 1),
       );
     }
-    return newValue;
+
+    return TextEditingValue(
+      text: truncated,
+      selection: newSelection,
+      composing: TextRange.empty,
+    );
+      return newValue;
   }
 }

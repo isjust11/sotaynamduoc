@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
-import 'package:sotaynamduoc/blocs/news/news.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';

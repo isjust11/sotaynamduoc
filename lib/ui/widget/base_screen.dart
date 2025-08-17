@@ -14,7 +14,7 @@ class BaseScreen extends StatelessWidget {
   // title của appbar có 2 kiểu String và Widget
   // title là kiểu Widget thì sẽ render widget
   // title là String
-  final dynamic? title;
+  final dynamic title;
 
   // trường hợp có AppBar đặc biệt thì dùng customAppBar
   final Widget? customAppBar;
@@ -45,7 +45,7 @@ class BaseScreen extends StatelessWidget {
   final Color colorBg;
 
   const BaseScreen({
-    Key? key,
+    super.key,
     this.body,
     this.title = "",
     this.customAppBar,
@@ -60,12 +60,12 @@ class BaseScreen extends StatelessWidget {
     this.colorBg = AppColors.white,
     this.systemUiOverlayStyle = SystemUiOverlayStyle.dark,
     this.bottomNavigationBar,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final scaffold = Scaffold(
-        appBar: hideAppBar ? null : (customAppBar == null ? baseAppBar(context) : customAppBar),
+        appBar: hideAppBar ? null : (customAppBar ?? baseAppBar(context)),
         backgroundColor: colorBg,
         body: GestureDetector(
           behavior: HitTestBehavior.translucent,
@@ -86,7 +86,7 @@ class BaseScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: floatingButton ?? null,
+        floatingActionButton: floatingButton,
         bottomNavigationBar: bottomNavigationBar,
     );
     return AnnotatedRegion(
@@ -113,7 +113,7 @@ class BaseScreen extends StatelessWidget {
       widgetTitle = title;
     } else {
       widgetTitle = CustomTextLabel(
-        this.title?.toString(),
+        title?.toString(),
         maxLines: 2,
         fontWeight: FontWeight.w700,
         fontSize: 20,

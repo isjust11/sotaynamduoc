@@ -5,7 +5,7 @@ import 'package:sotaynamduoc/blocs/language_cubit.dart';
 class LocaleWidget extends StatelessWidget {
   final builder;
 
-  const LocaleWidget({Key? key, this.builder}) : super(key: key);
+  const LocaleWidget({super.key, this.builder});
 
   @override
   Widget build(BuildContext context) {

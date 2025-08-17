@@ -7,6 +7,8 @@ import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:scale_size/scale_size.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _SplashState();

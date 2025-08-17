@@ -83,7 +83,7 @@ class CustomDialogUtil {
         builder: (_) => Container(
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10))),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
               height: 500,
               child: Column(
                 children: [
@@ -169,8 +169,7 @@ class OptionItem extends StatelessWidget {
   final String? textKey;
   final Function? onTap;
 
-  const OptionItem({Key? key, this.width, this.height, this.imageSize, this.imageKey, this.textKey, this.onTap})
-      : super(key: key);
+  const OptionItem({super.key, this.width, this.height, this.imageSize, this.imageKey, this.textKey, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +181,8 @@ class OptionItem extends StatelessWidget {
         }
       },
       child: Container(
-        width: width == null ? 300.0 : width,
-        height: height == null ? 60.0 : height,
+        width: width ?? 300.0,
+        height: height ?? 60.0,
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [
           BoxShadow(
             color: Colors.black.withAlpha((0.08 * 255).round()),
@@ -196,14 +195,14 @@ class OptionItem extends StatelessWidget {
             imageKey == null
                 ? Container()
                 : Container(
-                    width: height == null ? 60.0 : height,
-                    height: height == null ? 60.0 : height,
+                    width: height ?? 60.0,
+                    height: height ?? 60.0,
                     decoration: BoxDecoration(color: AppColors.gray, borderRadius: BorderRadius.circular(8)),
                     alignment: Alignment.center,
                     child: Image.asset(
                       imageKey!,
-                      width: imageSize == null ? 24 : imageSize,
-                      height: imageSize == null ? 24 : imageSize,
+                      width: imageSize ?? 24,
+                      height: imageSize ?? 24,
                     ),
                   ),
             Expanded(

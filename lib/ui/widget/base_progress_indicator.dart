@@ -4,14 +4,14 @@ import 'package:sotaynamduoc/res/colors.dart';
 class BaseProgressIndicator extends StatelessWidget {
   final double? size;
 
-  const BaseProgressIndicator({Key? key, this.size}) : super(key: key);
+  const BaseProgressIndicator({super.key, this.size});
 
   @override
   Widget build(BuildContext context) {
     final loading = CircularProgressIndicator(
       strokeWidth: 3,
       backgroundColor: AppColors.baseColor,
-      valueColor: new AlwaysStoppedAnimation<Color>(AppColors.baseColorBorderTextField),
+      valueColor: AlwaysStoppedAnimation<Color>(AppColors.baseColorBorderTextField),
     );
     return size == null
         ? loading

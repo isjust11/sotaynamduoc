@@ -8,7 +8,7 @@ class CustomSnackBar<T extends Cubit<BaseState>> extends StatelessWidget {
   final double? fontSize;
   final Color? textColor;
 
-  const CustomSnackBar({Key? key, this.fontSize, this.textColor}) : super(key: key);
+  const CustomSnackBar({super.key, this.fontSize, this.textColor});
 
   @override
   Widget build(BuildContext context) {
