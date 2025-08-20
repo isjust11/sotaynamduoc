@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginBody> {
           // Đăng nhập thành công, chuyển sang màn hình chính hoặc hiển thị thông báo
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text('Đăng nhập thành công!')));
+          ).showSnackBar(SnackBar(content: CustomSnackBar<AuthCubit>().build(context)));
           Navigator.pushReplacementNamed(context, '/mainScreen');
         } else if (state is ErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(

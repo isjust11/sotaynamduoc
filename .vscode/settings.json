@@ -1,0 +1,15 @@
+{
+  "files.associations": {
+    "*.arb": "json"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["*.arb"],
+      "url": "https://raw.githubusercontent.com/google/flutter/master/packages/flutter_localizations/lib/src/l10n/app_localizations.dart"
+    }
+  ],
+  "json.format.enable": true,
+  "json.validate.enable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "ms-vscode.vscode-json"
+}
