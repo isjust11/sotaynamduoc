@@ -1,0 +1,482 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations_en.dart';
+import 'app_localizations_vi.dart';
+
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'locales/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations? of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  }
+
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('vi'),
+    Locale('en'),
+  ];
+
+  /// No description provided for @appName.
+  ///
+  /// In en, this message translates to:
+  /// **'Số tay nam dược'**
+  String get appName;
+
+  /// No description provided for @error_common.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred. Please try again later'**
+  String get error_common;
+
+  /// No description provided for @error_connection.
+  ///
+  /// In en, this message translates to:
+  /// **'Network connection error'**
+  String get error_connection;
+
+  /// No description provided for @dropdown_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Retrieving data...'**
+  String get dropdown_loading;
+
+  /// No description provided for @inputUserName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter username'**
+  String get inputUserName;
+
+  /// No description provided for @userName.
+  ///
+  /// In en, this message translates to:
+  /// **'Login name'**
+  String get userName;
+
+  /// No description provided for @plsInputUserName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your username'**
+  String get plsInputUserName;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @tokenExpiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The session has expired. Please log in again'**
+  String get tokenExpiredMessage;
+
+  /// No description provided for @changeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Language'**
+  String get changeLanguage;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @hello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello'**
+  String get hello;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @news.
+  ///
+  /// In en, this message translates to:
+  /// **'News'**
+  String get news;
+
+  /// No description provided for @viewMore.
+  ///
+  /// In en, this message translates to:
+  /// **'View More'**
+  String get viewMore;
+
+  /// No description provided for @photo.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get photo;
+
+  /// No description provided for @detail.
+  ///
+  /// In en, this message translates to:
+  /// **'detail'**
+  String get detail;
+
+  /// No description provided for @warningList.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning List'**
+  String get warningList;
+
+  /// No description provided for @notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get notification;
+
+  /// No description provided for @warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get warning;
+
+  /// No description provided for @generalNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'General Notification'**
+  String get generalNotification;
+
+  /// No description provided for @successNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get successNotification;
+
+  /// No description provided for @infoNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get infoNotification;
+
+  /// No description provided for @unread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread'**
+  String get unread;
+
+  /// No description provided for @read.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get read;
+
+  /// No description provided for @markAsRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as read'**
+  String get markAsRead;
+
+  /// No description provided for @markAllAsRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get markAllAsRead;
+
+  /// No description provided for @noNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get noNotifications;
+
+  /// No description provided for @newNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'New notification'**
+  String get newNotification;
+
+  /// No description provided for @allNotificationsLoaded.
+  ///
+  /// In en, this message translates to:
+  /// **'All notifications loaded'**
+  String get allNotificationsLoaded;
+
+  /// No description provided for @noNotificationsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet'**
+  String get noNotificationsYet;
+
+  /// No description provided for @pullToRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to refresh'**
+  String get pullToRefresh;
+
+  /// No description provided for @newsDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'News detail'**
+  String get newsDetail;
+
+  /// No description provided for @newsList.
+  ///
+  /// In en, this message translates to:
+  /// **'News list'**
+  String get newsList;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @library.
+  ///
+  /// In en, this message translates to:
+  /// **'Library'**
+  String get library;
+
+  /// No description provided for @medicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine'**
+  String get medicine;
+
+  /// No description provided for @featuredMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured medicine'**
+  String get featuredMedicine;
+
+  /// No description provided for @searchNews.
+  ///
+  /// In en, this message translates to:
+  /// **'Search news'**
+  String get searchNews;
+
+  /// No description provided for @endOfList.
+  ///
+  /// In en, this message translates to:
+  /// **'End of list'**
+  String get endOfList;
+
+  /// No description provided for @folkMedicineName.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine name'**
+  String get folkMedicineName;
+
+  /// No description provided for @folkMedicineDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get folkMedicineDescription;
+
+  /// No description provided for @folkMedicineIngredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get folkMedicineIngredients;
+
+  /// No description provided for @folkMedicinePreparation.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparation'**
+  String get folkMedicinePreparation;
+
+  /// No description provided for @folkMedicineUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'Usage'**
+  String get folkMedicineUsage;
+
+  /// No description provided for @folkMedicineNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get folkMedicineNote;
+
+  /// No description provided for @herbalDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Herbal detail'**
+  String get herbalDetail;
+
+  /// No description provided for @viewCount.
+  ///
+  /// In en, this message translates to:
+  /// **'View count'**
+  String get viewCount;
+
+  /// No description provided for @likeCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Like count'**
+  String get likeCount;
+
+  /// No description provided for @noDataAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get noDataAvailable;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View all'**
+  String get viewAll;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+}
+
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
+
+  @override
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
+
+  @override
+  bool isSupported(Locale locale) =>
+      <String>['en', 'vi'].contains(locale.languageCode);
+
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+    case 'vi':
+      return AppLocalizationsVi();
+  }
+
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
+}
