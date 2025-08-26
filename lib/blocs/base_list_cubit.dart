@@ -23,7 +23,7 @@ abstract class BaseListCubit<T> extends Cubit<T> {
     _pageNum = 1;
     _endOfPage = false;
     if (refresh != null) {
-      this._refresh = refresh;
+      _refresh = refresh;
     }
   }
 

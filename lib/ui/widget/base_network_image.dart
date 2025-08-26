@@ -35,8 +35,8 @@ class BaseNetworkImage extends StatelessWidget {
         : ClipRRect(
             borderRadius: BorderRadius.circular(borderRadius),
             child: CachedNetworkImage(
-              width: this.width ?? double.infinity,
-              height: this.height ?? double.infinity,
+              width: width ?? double.infinity,
+              height: height ?? double.infinity,
               fit: BoxFit.cover,
               imageUrl: url!,
               placeholder: (context, url) => Center(

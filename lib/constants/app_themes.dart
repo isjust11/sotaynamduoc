@@ -94,7 +94,7 @@ class AppThemes {
       backgroundColor: _lightPrimaryColor,
     ),
     appBarTheme: const AppBarTheme(
-      color: _lightBackgroundAppBarColor,
+      backgroundColor: _lightBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _lightTextColor),
       elevation: 0,
       titleTextStyle: TextStyle(color: _lightTextColor, fontWeight: FontWeight.bold, fontSize: 18),
@@ -147,7 +147,7 @@ class AppThemes {
       backgroundColor: _darkPrimaryColor,
     ),
     appBarTheme: const AppBarTheme(
-      color: _darkBackgroundAppBarColor,
+      backgroundColor: _darkBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _darkTextColor),
       elevation: 0,
       titleTextStyle: TextStyle(color: _darkTextColor, fontWeight: FontWeight.bold, fontSize: 18),

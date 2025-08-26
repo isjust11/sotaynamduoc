@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 

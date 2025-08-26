@@ -289,7 +289,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   _notificationsEnabled = value;
                 });
               },
-              activeColor: AppColors.secondaryBrand,
+              activeThumbColor: AppColors.secondaryBrand,
             ),
           ),
           _buildDivider(),
@@ -304,7 +304,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   _biometricEnabled = value;
                 });
               },
-              activeColor: AppColors.secondaryBrand,
+              activeThumbColor: AppColors.secondaryBrand,
             ),
           ),
         ],
@@ -340,7 +340,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   _autoBackup = value;
                 });
               },
-              activeColor: AppColors.secondaryBrand,
+              activeThumbColor: AppColors.secondaryBrand,
             ),
           ),
           _buildDivider(),
