@@ -3,38 +3,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
-import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/injection_container.dart';
-import 'package:sotaynamduoc/screen/components/form_input_field_with_icon.dart';
-import 'package:sotaynamduoc/screen/components/logo_graphic_header.dart';
-import 'package:sotaynamduoc/screen/components/form_vertical_spacing.dart';
-import 'package:sotaynamduoc/screen/components/primary_button.dart';
-import 'package:sotaynamduoc/screen/components/label_button.dart';
-import 'package:sotaynamduoc/helpers/validator.dart';
-import 'package:sotaynamduoc/ui/widget/custom_snack_bar.dart';
-import 'package:sotaynamduoc/ui/widget/base_screen.dart';
+import 'package:sotaynamduoc/res/resources.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthCubit>(
       create: (_) => AuthCubit(repository: getIt.get<AuthRepository>()),
-      child: LoginBody(),
+      child: SignInBody(),
     );
   }
 }
 
-class LoginBody extends StatefulWidget {
-  const LoginBody({super.key});
+class SignInBody extends StatefulWidget {
+  const SignInBody({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _LoginScreenState extends State<LoginBody> {
+class _SignInScreenState extends State<SignInBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _usernameController;
   late TextEditingController _passwordController;
@@ -59,9 +52,9 @@ class _LoginScreenState extends State<LoginBody> {
       listener: (context, state) {
         if (state is LoadedState) {
           // Đăng nhập thành công, chuyển sang màn hình chính hoặc hiển thị thông báo
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: CustomSnackBar<AuthCubit>().build(context)));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: CustomSnackBar<AuthCubit>().build(context)),
+          );
           Navigator.pushReplacementNamed(context, '/mainScreen');
         } else if (state is ErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -77,47 +70,31 @@ class _LoginScreenState extends State<LoginBody> {
         hideAppBar: true,
         // title: AppLocalizations.current.appName,
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: Assets.images.background.image().image,
-              fit: BoxFit.cover,
-            ),
-          ),
+          decoration: BoxDecoration(color: AppColors.white),
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      LogoGraphicHeader(),
-                      SizedBox(height: 48.0),
-                      FormInputFieldWithIcon(
-                        controller: _usernameController,
-                        iconPrefix: Icons.person,
-                        labelText: AppLocalizations.current.userName,
-                        validator: Validator().username,
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) {},
-                        onSaved: (value) {},
+                      CustomTextLabel(
+                        AppLocalizations.current.login,
+                        fontSize: AppDimens.SIZE_24,
+                        fontWeight: FontWeight.bold,
                       ),
-                      FormVerticalSpace(),
-                      FormInputFieldWithIcon(
-                        controller: _passwordController,
-                        iconPrefix: Icons.lock,
-                        labelText: 'Mật khẩu',
-                        validator: Validator().password,
+                      const SizedBox(height: 48.0),
+                      CustomTextInput(
+                        textController: _usernameController,
                         obscureText: true,
-                        onChanged: (value) {},
-                        onSaved: (value) {},
-                        maxLines: 1,
+                        hintText: 'Tên đăng nhập',
                       ),
-                      FormVerticalSpace(),
-                      PrimaryButton(
-                        labelText: AppLocalizations.current.login,
+                      SizedBox(height: 48.0),
+                      ElevatedButton(
+                        child: Text('Đăng nhập'),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             BlocProvider.of<AuthCubit>(context).doLogin(
@@ -127,19 +104,7 @@ class _LoginScreenState extends State<LoginBody> {
                           }
                         },
                       ),
-                      FormVerticalSpace(),
-                      LabelButton(
-                        labelText: 'Quên mật khẩu?',
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/reset-password');
-                        },
-                      ),
-                      LabelButton(
-                        labelText: 'Đăng ký',
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signup');
-                        },
-                      ),
+                      SizedBox(height: 48.0),
                     ],
                   ),
                 ),

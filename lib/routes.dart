@@ -44,7 +44,7 @@ class Routes {
         );
       case loginScreen:
         return PageTransition(
-          child: LoginScreen(),
+          child: SignInScreen(),
           type: PageTransitionType.fade,
         );
       case settingScreen:

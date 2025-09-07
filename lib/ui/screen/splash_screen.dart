@@ -24,7 +24,11 @@ class _SplashState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScaleSize.init(context, designWidth: 375, designHeight: 812);
+    ScaleSize.init(
+      context,
+      designWidth: double.infinity,
+      designHeight: double.infinity,
+    );
     return Scaffold(
       body: Container(
         color: AppColors.baseColor,

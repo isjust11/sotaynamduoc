@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:sotaynamduoc/screen/splash_screen.dart';
 import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
+import 'package:sotaynamduoc/ui/screen/splash_screen.dart';
 
 class AppRoutes {
   AppRoutes._(); //this is to prevent anyone from instantiating this object

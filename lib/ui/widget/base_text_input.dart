@@ -89,7 +89,7 @@ class CustomTextInput extends StatefulWidget {
     this.fontSize,
     this.hintTextFontSize,
     this.hintTextColor,
-    this.hintTextFontWeight
+    this.hintTextFontWeight,
   });
 
   @override
@@ -110,12 +110,15 @@ class TextFieldState extends State<CustomTextInput> {
     textController = widget.textController ?? TextEditingController();
     if (widget.initData != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        textController.text =
-            widget.formatCurrency ? Common.formatPrice(widget.initData, showPrefix: false) : widget.initData.toString();
+        textController.text = widget.formatCurrency
+            ? Common.formatPrice(widget.initData, showPrefix: false)
+            : widget.initData.toString();
       });
     }
     if (widget.formatNumber || widget.formatCurrency || widget.formatPercent) {
-      inputFormatters = [NumericTextFormatter(widget.formatCurrency, widget.formatPercent)];
+      inputFormatters = [
+        NumericTextFormatter(widget.formatCurrency, widget.formatPercent),
+      ];
     } else if (widget.formatDecimal) {
       inputFormatters = [DecimalTextInputFormatter(decimalRange: 5)];
     } else {
@@ -145,49 +148,75 @@ class TextFieldState extends State<CustomTextInput> {
             height: widget.heightTextInput,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: widget.enabled ? widget.colorBgTextField : widget.colorBgTextFieldDisable,
-                borderRadius: BorderRadius.circular(widget.enabled ? 5 : 0)),
+              color: widget.enabled
+                  ? widget.colorBgTextField
+                  : widget.colorBgTextFieldDisable,
+              borderRadius: BorderRadius.circular(widget.enabled ? 5 : 0),
+            ),
             child: Stack(
               children: [
                 TextField(
                   inputFormatters: inputFormatters,
                   maxLength: widget.maxLength,
-                  cursorColor: AppColors.baseColor,
+                  cursorColor: AppColors.black,
                   autofocus: widget.autoFocus,
                   enabled: widget.enabled,
                   textAlign: widget.align ?? TextAlign.start,
                   textAlignVertical: TextAlignVertical.center,
                   style: TextStyle(
-                      color: widget.colorText,
-                      fontSize: widget.fontSize ?? 14,
-                      fontWeight: widget.fontWeight ?? FontWeight.w400),
+                    color: widget.colorText,
+                    fontSize: widget.fontSize ?? 14,
+                    fontWeight: widget.fontWeight ?? FontWeight.w600,
+                  ),
                   decoration: InputDecoration(
-                      counterText: "",
-                      suffixIcon: (widget.isPasswordTF == true)
-                          ? IconButton(
-                              icon: Icon(!_showText ? Icons.visibility : Icons.visibility_off, color: Colors.grey),
-                              onPressed: () {
-                                setState(() {
-                                  _showText = !_showText;
-                                });
-                              },
-                            )
-                          : widget.suffixIcon,
-                      prefixIcon: widget.prefixIcon,
-                      focusColor: Colors.white,
-                      border: InputBorder.none,
-                      suffixIconConstraints: BoxConstraints(maxHeight: 35),
-                      prefixIconConstraints: BoxConstraints(maxHeight: 35),
-                      disabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.border)),
-                      focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.focusBorder)),
-                      enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppColors.border)),
-                      hintStyle: TextStyle(color: widget.hintTextColor ?? AppColors.hintTextColor, fontWeight: widget.hintTextFontWeight ?? FontWeight.w400, fontSize: widget.hintTextFontSize ?? 14),
-                      hintText: widget.hintText,
-                      isDense: true,
-                      contentPadding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                    counterText: "",
+                    suffixIcon: (widget.isPasswordTF == true)
+                        ? IconButton(
+                            icon: Icon(
+                              !_showText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _showText = !_showText;
+                              });
+                            },
+                          )
+                        : widget.suffixIcon,
+                    prefixIcon: widget.prefixIcon,
+                    focusColor: Colors.white,
+                    border: InputBorder.none,
+                    suffixIconConstraints: BoxConstraints(maxHeight: 35),
+                    prefixIconConstraints: BoxConstraints(maxHeight: 35),
+                    disabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.border),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.focusBorder),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.border),
+                    ),
+                    hintStyle: TextStyle(
+                      color: widget.hintTextColor ?? AppColors.hintTextColor,
+                      fontWeight: widget.hintTextFontWeight ?? FontWeight.w400,
+                      fontSize: widget.hintTextFontSize ?? 14,
+                    ),
+                    hintText: widget.hintText,
+                    isDense: true,
+                    contentPadding:
+                        widget.padding ??
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                  ),
                   controller: textController,
-                  obscureText: widget.isPasswordTF == true ? (_showText) : widget.obscureText,
-                  keyboardType: widget.formatCurrency ? TextInputType.number : widget.keyboardType,
+                  obscureText: widget.isPasswordTF == true
+                      ? (_showText)
+                      : widget.obscureText,
+                  keyboardType: widget.formatCurrency
+                      ? TextInputType.number
+                      : widget.keyboardType,
                   textInputAction: widget.textInputAction,
                   onSubmitted: widget.onSubmitted,
                   onEditingComplete: () => FocusScope.of(context).nextFocus(),
@@ -216,7 +245,9 @@ class TextFieldState extends State<CustomTextInput> {
               ],
             ),
           ),
-          errorText.isNotEmpty ? ErrorTextWidget(errorText: errorText) : Container()
+          errorText.isNotEmpty
+              ? ErrorTextWidget(errorText: errorText)
+              : Container(),
         ],
       ),
     );
@@ -250,7 +281,10 @@ class NumericTextFormatter extends TextInputFormatter {
   NumericTextFormatter(this.isFormatCurrency, this.isFormatPercent);
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (newValue.text.isEmpty) {
       return newValue.copyWith(text: '');
     } else if (newValue.text.compareTo(oldValue.text) != 0) {
@@ -259,7 +293,10 @@ class NumericTextFormatter extends TextInputFormatter {
       }
 
       if (oldValue.text.length < newValue.text.length) {
-        String s = newValue.text.substring(newValue.selection.baseOffset - 1, newValue.selection.baseOffset);
+        String s = newValue.text.substring(
+          newValue.selection.baseOffset - 1,
+          newValue.selection.baseOffset,
+        );
         if (!RegExp("^[0-9]").hasMatch(s)) return oldValue;
       }
 
@@ -268,21 +305,29 @@ class NumericTextFormatter extends TextInputFormatter {
             '.'.allMatches(newValue.text).length > 1 ||
             double.parse(newValue.text) > 100 ||
             newValue.text[0] == "." ||
-            (newValue.text.length > 1 && newValue.text[0] == "0" && newValue.text[1] != ".") ||
-            newValue.text.split(".").length > 1 && newValue.text.split(".")[1].length > 2) {
+            (newValue.text.length > 1 &&
+                newValue.text[0] == "0" &&
+                newValue.text[1] != ".") ||
+            newValue.text.split(".").length > 1 &&
+                newValue.text.split(".")[1].length > 2) {
           return oldValue;
         } else {
           return newValue;
         }
       }
 
-      final int selectionIndexFromTheRight = newValue.text.length - newValue.selection.end;
+      final int selectionIndexFromTheRight =
+          newValue.text.length - newValue.selection.end;
       final f = isFormatCurrency ? NumberFormat("#,###") : NumberFormat('#');
-      final number = int.parse(newValue.text.replaceAll(f.symbols.GROUP_SEP, ''));
+      final number = int.parse(
+        newValue.text.replaceAll(f.symbols.GROUP_SEP, ''),
+      );
       final newString = f.format(number);
       return TextEditingValue(
         text: newString,
-        selection: TextSelection.collapsed(offset: newString.length - selectionIndexFromTheRight),
+        selection: TextSelection.collapsed(
+          offset: newString.length - selectionIndexFromTheRight,
+        ),
       );
     } else {
       return oldValue;
@@ -291,12 +336,16 @@ class NumericTextFormatter extends TextInputFormatter {
 }
 
 class DecimalTextInputFormatter extends TextInputFormatter {
-  DecimalTextInputFormatter({required this.decimalRange}) : assert(decimalRange > 0);
+  DecimalTextInputFormatter({required this.decimalRange})
+    : assert(decimalRange > 0);
 
   final int decimalRange;
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     TextSelection newSelection = newValue.selection;
     String truncated = newValue.text;
 
@@ -325,8 +374,11 @@ class DecimalTextInputFormatter extends TextInputFormatter {
       );
     }
 
-    if (truncated.length > oldValue.text.length && newValue.text.substring(0, 1) == '0' && oldValue.text.length > 1) {
-      if (!(newValue.text.length > 2 && newValue.text.substring(0, 2) == '0.')) {
+    if (truncated.length > oldValue.text.length &&
+        newValue.text.substring(0, 1) == '0' &&
+        oldValue.text.length > 1) {
+      if (!(newValue.text.length > 2 &&
+          newValue.text.substring(0, 2) == '0.')) {
         truncated = oldValue.text;
         newSelection = oldValue.selection;
         return TextEditingValue(
@@ -338,7 +390,8 @@ class DecimalTextInputFormatter extends TextInputFormatter {
     }
 
     String value = newValue.text;
-    if (value.contains(".") && value.substring(value.indexOf(".") + 1).length > decimalRange) {
+    if (value.contains(".") &&
+        value.substring(value.indexOf(".") + 1).length > decimalRange) {
       truncated = oldValue.text;
       newSelection = oldValue.selection;
     } else if (value == ".") {
@@ -355,6 +408,5 @@ class DecimalTextInputFormatter extends TextInputFormatter {
       selection: newSelection,
       composing: TextRange.empty,
     );
-      return newValue;
   }
 }
