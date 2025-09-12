@@ -445,6 +445,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get close;
+
+  /// No description provided for @loginSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Login successfully!'**
+  String get loginSuccess;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @loginWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Google'**
+  String get loginWithGoogle;
+
+  /// No description provided for @loginWithFacebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Facebook'**
+  String get loginWithFacebook;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get or;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAccount;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneNumber;
+
+  /// No description provided for @plsInputEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter email'**
+  String get plsInputEmail;
+
+  /// No description provided for @plsInputFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter full name'**
+  String get plsInputFullName;
+
+  /// No description provided for @plsInputPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter phone number'**
+  String get plsInputPhoneNumber;
+
+  /// No description provided for @plsInputPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter password'**
+  String get plsInputPassword;
+
+  /// No description provided for @plsInputConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm password'**
+  String get plsInputConfirmPassword;
+
+  /// No description provided for @passwordNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordNotMatch;
+
+  /// No description provided for @registerSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration successful!'**
+  String get registerSuccess;
+
+  /// No description provided for @registerWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Register with Google'**
+  String get registerWithGoogle;
+
+  /// No description provided for @registerWithFacebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Register with Facebook'**
+  String get registerWithFacebook;
 }
 
 class _AppLocalizationsDelegate

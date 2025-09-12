@@ -23,24 +23,28 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "agree": MessageLookupByLibrary.simpleMessage("Đồng ý"),
-    "allFeedbackLoaded": MessageLookupByLibrary.simpleMessage(
-      "Đã tải hết phản ánh.",
-    ),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "Đã tải hết thông báo",
     ),
-    "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
-    "authenticateTrust": MessageLookupByLibrary.simpleMessage(
-      "Xác thực uy tín",
+    "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "Đã có tài khoản?",
     ),
+    "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
     "close": MessageLookupByLibrary.simpleMessage("Đóng"),
-    "detail": MessageLookupByLibrary.simpleMessage("chi tiết"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage(
+      "Xác nhận mật khẩu",
+    ),
+    "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
     "done": MessageLookupByLibrary.simpleMessage("Xong"),
+    "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "Chưa có tài khoản?",
+    ),
     "dropdown_loading": MessageLookupByLibrary.simpleMessage(
       "Đang lấy dữ liệu ...",
     ),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "endOfList": MessageLookupByLibrary.simpleMessage("Đã tải hết danh sách"),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "Đã có lỗi xảy ra. Vui lòng thử lại sau",
@@ -61,10 +65,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Cách chế biến",
     ),
     "folkMedicineUsage": MessageLookupByLibrary.simpleMessage("Cách sử dụng"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
+    "fullName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "Thông báo chung",
     ),
-    "globalTrust": MessageLookupByLibrary.simpleMessage("Tin cậy toàn cầu"),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Chi tiết thảo dược"),
     "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
@@ -73,8 +78,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Lượt thích"),
     "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
-    "loginWithPublicSecurityAccount": MessageLookupByLibrary.simpleMessage(
-      "Đăng nhập bằng tài khoản Định danh điện tử cấp bởi Bộ Công an dành cho Công dân",
+    "loginSuccess": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập thành công!",
+    ),
+    "loginWithFacebook": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Facebook",
+    ),
+    "loginWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Google",
     ),
     "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
     "markAllAsRead": MessageLookupByLibrary.simpleMessage(
@@ -93,28 +104,51 @@ class MessageLookup extends MessageLookupByLibrary {
       "Chưa có thông báo nào",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
-    "notificationDetail": MessageLookupByLibrary.simpleMessage(
-      "Chi tiết thông báo",
+    "or": MessageLookupByLibrary.simpleMessage("hoặc"),
+    "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+    "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Mật khẩu không khớp",
     ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
     "photo": MessageLookupByLibrary.simpleMessage("Ảnh"),
+    "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng xác nhận mật khẩu",
+    ),
+    "plsInputEmail": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập email",
+    ),
+    "plsInputFullName": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập họ và tên",
+    ),
+    "plsInputPassword": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập mật khẩu",
+    ),
+    "plsInputPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập số điện thoại",
+    ),
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập tên đăng nhập",
     ),
-    "productIdentification": MessageLookupByLibrary.simpleMessage(
-      "Định danh hàng hóa",
-    ),
     "read": MessageLookupByLibrary.simpleMessage("Đã đọc"),
+    "register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
+    "registerSuccess": MessageLookupByLibrary.simpleMessage(
+      "Đăng ký thành công!",
+    ),
+    "registerWithFacebook": MessageLookupByLibrary.simpleMessage(
+      "Đăng ký bằng Facebook",
+    ),
+    "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Đăng ký bằng Google",
+    ),
     "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),
     "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
     "share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
+    "signUp": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "skip": MessageLookupByLibrary.simpleMessage("Bỏ qua"),
-    "supplyChainTraceability": MessageLookupByLibrary.simpleMessage(
-      "Truy xuất chuỗi cung ứng",
-    ),
     "theme": MessageLookupByLibrary.simpleMessage("Giao diện"),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
-      "Phiên làm việc đã hệt hạn. Vui lòng đăng nhập lại",
+      "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
     ),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
     "userName": MessageLookupByLibrary.simpleMessage("Tên đăng nhập"),

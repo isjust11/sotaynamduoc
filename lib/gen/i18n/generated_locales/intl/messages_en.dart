@@ -22,23 +22,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-    "allFeedbackLoaded": MessageLookupByLibrary.simpleMessage(
-      "All feedback loaded..",
-    ),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "All notifications loaded",
     ),
-    "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
-    "authenticateTrust": MessageLookupByLibrary.simpleMessage(
-      "Authenticate Trust",
+    "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "Already have an account?",
     ),
+    "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Change Language"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
+    "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "detail": MessageLookupByLibrary.simpleMessage("detail"),
+    "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "Don\'t have an account?",
+    ),
     "dropdown_loading": MessageLookupByLibrary.simpleMessage(
       "Retrieving data...",
     ),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "endOfList": MessageLookupByLibrary.simpleMessage("End of list"),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "An error occurred. Please try again later",
@@ -61,10 +63,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Preparation",
     ),
     "folkMedicineUsage": MessageLookupByLibrary.simpleMessage("Usage"),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password?"),
+    "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "General Notification",
     ),
-    "globalTrust": MessageLookupByLibrary.simpleMessage("Global Trust"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Herbal detail"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
@@ -73,8 +76,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
-    "loginWithPublicSecurityAccount": MessageLookupByLibrary.simpleMessage(
-      "Login with Public Security Electronic Identification account for Citizens",
+    "loginSuccess": MessageLookupByLibrary.simpleMessage("Login successfully!"),
+    "loginWithFacebook": MessageLookupByLibrary.simpleMessage(
+      "Login with Facebook",
+    ),
+    "loginWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Login with Google",
     ),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "markAllAsRead": MessageLookupByLibrary.simpleMessage("Mark all as read"),
@@ -91,25 +98,46 @@ class MessageLookup extends MessageLookupByLibrary {
       "No notifications yet",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
-    "notificationDetail": MessageLookupByLibrary.simpleMessage(
-      "Notification Detail",
+    "or": MessageLookupByLibrary.simpleMessage("or"),
+    "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match",
     ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "photo": MessageLookupByLibrary.simpleMessage("Photo"),
+    "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
+      "Please confirm password",
+    ),
+    "plsInputEmail": MessageLookupByLibrary.simpleMessage("Please enter email"),
+    "plsInputFullName": MessageLookupByLibrary.simpleMessage(
+      "Please enter full name",
+    ),
+    "plsInputPassword": MessageLookupByLibrary.simpleMessage(
+      "Please enter password",
+    ),
+    "plsInputPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "Please enter phone number",
+    ),
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Please enter your username",
     ),
-    "productIdentification": MessageLookupByLibrary.simpleMessage(
-      "Product Identification",
-    ),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
+    "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "registerSuccess": MessageLookupByLibrary.simpleMessage(
+      "Registration successful!",
+    ),
+    "registerWithFacebook": MessageLookupByLibrary.simpleMessage(
+      "Register with Facebook",
+    ),
+    "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Register with Google",
+    ),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "share": MessageLookupByLibrary.simpleMessage("Share"),
+    "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
-    "supplyChainTraceability": MessageLookupByLibrary.simpleMessage(
-      "Supply Chain Traceability",
-    ),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "The session has expired. Please log in again",

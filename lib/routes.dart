@@ -3,6 +3,7 @@ import 'package:sotaynamduoc/domain/data/models/news_model.dart';
 import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
+import 'package:sotaynamduoc/ui/screen/auth/signup_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -12,6 +13,7 @@ class Routes {
   //screen name
   static const String splashScreen = "/splashScreen";
   static const String loginScreen = "/loginScreen";
+  static const String signupScreen = "/signupScreen";
   static const String mainScreen = "/mainScreen";
   static const String introScreen = "/introScreen";
   static const String settingScreen = "/settingScreen";
@@ -47,6 +49,11 @@ class Routes {
           child: SignInScreen(),
           type: PageTransitionType.fade,
         );
+      case signupScreen:
+        return PageTransition(
+          child: SignUpScreen(),
+          type: PageTransitionType.fade,
+        );
       case settingScreen:
         return PageTransition(
           child: SettingScreen(),
@@ -65,9 +72,7 @@ class Routes {
       case newsDetailScreen:
         final args = settings.arguments as NewsModel;
         return PageTransition(
-          child: NewsDetailScreen(
-            news: args,
-          ),
+          child: NewsDetailScreen(news: args),
           type: PageTransitionType.fade,
         );
       default:

@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sotaynamduoc/res/colors.dart';
+import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 import 'package:intl/intl.dart';
@@ -49,6 +49,7 @@ class CustomTextInput extends StatefulWidget {
   final Color? hintTextColor;
   final double? hintTextFontSize;
   final FontWeight? hintTextFontWeight;
+  final BorderRadius? borderRadius;
 
   const CustomTextInput({
     super.key,
@@ -90,6 +91,7 @@ class CustomTextInput extends StatefulWidget {
     this.hintTextFontSize,
     this.hintTextColor,
     this.hintTextFontWeight,
+    this.borderRadius,
   });
 
   @override
@@ -140,7 +142,7 @@ class TextFieldState extends State<CustomTextInput> {
               child: CustomTextLabel(
                 widget.title,
                 color: widget.titleStyle?.color ?? AppColors.ff828282,
-                fontSize: widget.titleStyle?.fontSize ?? 14,
+                fontSize: widget.titleStyle?.fontSize ?? 16,
                 fontWeight: widget.titleStyle?.fontWeight ?? FontWeight.w400,
               ),
             ),
@@ -151,7 +153,9 @@ class TextFieldState extends State<CustomTextInput> {
               color: widget.enabled
                   ? widget.colorBgTextField
                   : widget.colorBgTextFieldDisable,
-              borderRadius: BorderRadius.circular(widget.enabled ? 5 : 0),
+              borderRadius:
+                  widget.borderRadius ??
+                  BorderRadius.circular(widget.enabled ? 10 : 0),
             ),
             child: Stack(
               children: [
@@ -165,7 +169,7 @@ class TextFieldState extends State<CustomTextInput> {
                   textAlignVertical: TextAlignVertical.center,
                   style: TextStyle(
                     color: widget.colorText,
-                    fontSize: widget.fontSize ?? 14,
+                    fontSize: widget.fontSize ?? AppDimens.SIZE_14,
                     fontWeight: widget.fontWeight ?? FontWeight.w600,
                   ),
                   decoration: InputDecoration(
@@ -194,7 +198,7 @@ class TextFieldState extends State<CustomTextInput> {
                       borderSide: BorderSide(color: AppColors.border),
                     ),
                     focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.focusBorder),
+                      borderSide: BorderSide(color: AppColors.baseColor),
                     ),
                     enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: AppColors.border),

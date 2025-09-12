@@ -182,4 +182,73 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get close => 'Đóng';
+
+  @override
+  String get loginSuccess => 'Đăng nhập thành công!';
+
+  @override
+  String get password => 'Mật khẩu';
+
+  @override
+  String get forgotPassword => 'Quên mật khẩu?';
+
+  @override
+  String get register => 'Đăng ký';
+
+  @override
+  String get loginWithGoogle => 'Đăng nhập bằng Google';
+
+  @override
+  String get loginWithFacebook => 'Đăng nhập bằng Facebook';
+
+  @override
+  String get or => 'hoặc';
+
+  @override
+  String get dontHaveAccount => 'Chưa có tài khoản?';
+
+  @override
+  String get alreadyHaveAccount => 'Đã có tài khoản?';
+
+  @override
+  String get signUp => 'Đăng ký';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get confirmPassword => 'Xác nhận mật khẩu';
+
+  @override
+  String get fullName => 'Họ và tên';
+
+  @override
+  String get phoneNumber => 'Số điện thoại';
+
+  @override
+  String get plsInputEmail => 'Vui lòng nhập email';
+
+  @override
+  String get plsInputFullName => 'Vui lòng nhập họ và tên';
+
+  @override
+  String get plsInputPhoneNumber => 'Vui lòng nhập số điện thoại';
+
+  @override
+  String get plsInputPassword => 'Vui lòng nhập mật khẩu';
+
+  @override
+  String get plsInputConfirmPassword => 'Vui lòng xác nhận mật khẩu';
+
+  @override
+  String get passwordNotMatch => 'Mật khẩu không khớp';
+
+  @override
+  String get registerSuccess => 'Đăng ký thành công!';
+
+  @override
+  String get registerWithGoogle => 'Đăng ký bằng Google';
+
+  @override
+  String get registerWithFacebook => 'Đăng ký bằng Facebook';
 }
