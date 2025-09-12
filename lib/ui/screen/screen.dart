@@ -1,4 +1,5 @@
 export 'auth/signin_screen.dart';
+export 'auth/signup_screen.dart';
 export 'main_screen.dart';
 export 'splash_screen.dart';
 export 'library/library_screen.dart';

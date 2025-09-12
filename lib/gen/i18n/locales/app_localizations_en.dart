@@ -182,4 +182,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get close => 'Close';
+
+  @override
+  String get loginSuccess => 'Login successfully!';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get loginWithGoogle => 'Login with Google';
+
+  @override
+  String get loginWithFacebook => 'Login with Facebook';
+
+  @override
+  String get or => 'or';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account?';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get signUp => 'Sign Up';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get plsInputEmail => 'Please enter email';
+
+  @override
+  String get plsInputFullName => 'Please enter full name';
+
+  @override
+  String get plsInputPhoneNumber => 'Please enter phone number';
+
+  @override
+  String get plsInputPassword => 'Please enter password';
+
+  @override
+  String get plsInputConfirmPassword => 'Please confirm password';
+
+  @override
+  String get passwordNotMatch => 'Passwords do not match';
+
+  @override
+  String get registerSuccess => 'Registration successful!';
+
+  @override
+  String get registerWithGoogle => 'Register with Google';
+
+  @override
+  String get registerWithFacebook => 'Register with Facebook';
 }

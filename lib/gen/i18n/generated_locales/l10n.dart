@@ -119,10 +119,10 @@ class AppLocalizations {
     return Intl.message('Đăng nhập', name: 'login', desc: '', args: []);
   }
 
-  /// `Phiên làm việc đã hệt hạn. Vui lòng đăng nhập lại`
+  /// `Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại`
   String get tokenExpiredMessage {
     return Intl.message(
-      'Phiên làm việc đã hệt hạn. Vui lòng đăng nhập lại',
+      'Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại',
       name: 'tokenExpiredMessage',
       desc: '',
       args: [],
@@ -152,56 +152,6 @@ class AppLocalizations {
   /// `Bỏ qua`
   String get skip {
     return Intl.message('Bỏ qua', name: 'skip', desc: '', args: []);
-  }
-
-  /// `Xác thực uy tín`
-  String get authenticateTrust {
-    return Intl.message(
-      'Xác thực uy tín',
-      name: 'authenticateTrust',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Tin cậy toàn cầu`
-  String get globalTrust {
-    return Intl.message(
-      'Tin cậy toàn cầu',
-      name: 'globalTrust',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Truy xuất chuỗi cung ứng`
-  String get supplyChainTraceability {
-    return Intl.message(
-      'Truy xuất chuỗi cung ứng',
-      name: 'supplyChainTraceability',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Định danh hàng hóa`
-  String get productIdentification {
-    return Intl.message(
-      'Định danh hàng hóa',
-      name: 'productIdentification',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Đăng nhập bằng tài khoản Định danh điện tử cấp bởi Bộ Công an dành cho Công dân`
-  String get loginWithPublicSecurityAccount {
-    return Intl.message(
-      'Đăng nhập bằng tài khoản Định danh điện tử cấp bởi Bộ Công an dành cho Công dân',
-      name: 'loginWithPublicSecurityAccount',
-      desc: '',
-      args: [],
-    );
   }
 
   /// `Xin chào`
@@ -244,29 +194,9 @@ class AppLocalizations {
     return Intl.message('Xem tất cả', name: 'viewAll', desc: '', args: []);
   }
 
-  /// `chi tiết`
+  /// `Chi tiết`
   String get detail {
-    return Intl.message('chi tiết', name: 'detail', desc: '', args: []);
-  }
-
-  /// `Đã tải hết phản ánh.`
-  String get allFeedbackLoaded {
-    return Intl.message(
-      'Đã tải hết phản ánh.',
-      name: 'allFeedbackLoaded',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Chi tiết thông báo`
-  String get notificationDetail {
-    return Intl.message(
-      'Chi tiết thông báo',
-      name: 'notificationDetail',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Chi tiết', name: 'detail', desc: '', args: []);
   }
 
   /// `Thông báo`
@@ -522,6 +452,206 @@ class AppLocalizations {
   /// `Đóng`
   String get close {
     return Intl.message('Đóng', name: 'close', desc: '', args: []);
+  }
+
+  /// `Đăng nhập thành công!`
+  String get loginSuccess {
+    return Intl.message(
+      'Đăng nhập thành công!',
+      name: 'loginSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu`
+  String get password {
+    return Intl.message('Mật khẩu', name: 'password', desc: '', args: []);
+  }
+
+  /// `Quên mật khẩu?`
+  String get forgotPassword {
+    return Intl.message(
+      'Quên mật khẩu?',
+      name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký`
+  String get register {
+    return Intl.message('Đăng ký', name: 'register', desc: '', args: []);
+  }
+
+  /// `Đăng nhập bằng Google`
+  String get loginWithGoogle {
+    return Intl.message(
+      'Đăng nhập bằng Google',
+      name: 'loginWithGoogle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng Facebook`
+  String get loginWithFacebook {
+    return Intl.message(
+      'Đăng nhập bằng Facebook',
+      name: 'loginWithFacebook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hoặc`
+  String get or {
+    return Intl.message('hoặc', name: 'or', desc: '', args: []);
+  }
+
+  /// `Chưa có tài khoản?`
+  String get dontHaveAccount {
+    return Intl.message(
+      'Chưa có tài khoản?',
+      name: 'dontHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đã có tài khoản?`
+  String get alreadyHaveAccount {
+    return Intl.message(
+      'Đã có tài khoản?',
+      name: 'alreadyHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký`
+  String get signUp {
+    return Intl.message('Đăng ký', name: 'signUp', desc: '', args: []);
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message('Email', name: 'email', desc: '', args: []);
+  }
+
+  /// `Xác nhận mật khẩu`
+  String get confirmPassword {
+    return Intl.message(
+      'Xác nhận mật khẩu',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Họ và tên`
+  String get fullName {
+    return Intl.message('Họ và tên', name: 'fullName', desc: '', args: []);
+  }
+
+  /// `Số điện thoại`
+  String get phoneNumber {
+    return Intl.message(
+      'Số điện thoại',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập email`
+  String get plsInputEmail {
+    return Intl.message(
+      'Vui lòng nhập email',
+      name: 'plsInputEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập họ và tên`
+  String get plsInputFullName {
+    return Intl.message(
+      'Vui lòng nhập họ và tên',
+      name: 'plsInputFullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập số điện thoại`
+  String get plsInputPhoneNumber {
+    return Intl.message(
+      'Vui lòng nhập số điện thoại',
+      name: 'plsInputPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập mật khẩu`
+  String get plsInputPassword {
+    return Intl.message(
+      'Vui lòng nhập mật khẩu',
+      name: 'plsInputPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng xác nhận mật khẩu`
+  String get plsInputConfirmPassword {
+    return Intl.message(
+      'Vui lòng xác nhận mật khẩu',
+      name: 'plsInputConfirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu không khớp`
+  String get passwordNotMatch {
+    return Intl.message(
+      'Mật khẩu không khớp',
+      name: 'passwordNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký thành công!`
+  String get registerSuccess {
+    return Intl.message(
+      'Đăng ký thành công!',
+      name: 'registerSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký bằng Google`
+  String get registerWithGoogle {
+    return Intl.message(
+      'Đăng ký bằng Google',
+      name: 'registerWithGoogle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký bằng Facebook`
+  String get registerWithFacebook {
+    return Intl.message(
+      'Đăng ký bằng Facebook',
+      name: 'registerWithFacebook',
+      desc: '',
+      args: [],
+    );
   }
 }
 

@@ -42,5 +42,38 @@ class AuthCubit extends Cubit<BaseState> {
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
     }
-  } 
+  }
+
+  Future doForgotPassword({String? userName}) async {
+    try {
+      emit(LoadingState());
+      // await repository.forgotPassword(userName);
+      emit(LoadedState(null));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  Future doRegister({
+    String? fullName,
+    String? email,
+    String? phone,
+    String? userName,
+    String? password,
+  }) async {
+    try {
+      emit(LoadingState());
+      var result = await repository.register({
+        "fullName": fullName,
+        "email": email,
+        "phone": phone,
+        "username": userName,
+        "password": password,
+      });
+
+      emit(LoadedState(result));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
 }
