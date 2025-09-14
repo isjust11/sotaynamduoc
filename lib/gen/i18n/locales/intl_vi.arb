@@ -76,5 +76,9 @@
   "passwordNotMatch": "Mật khẩu không khớp",
   "registerSuccess": "Đăng ký thành công!",
   "registerWithGoogle": "Đăng ký bằng Google",
-  "registerWithFacebook": "Đăng ký bằng Facebook"
+  "registerWithFacebook": "Đăng ký bằng Facebook",
+  "emailInvalid": "Email không hợp lệ",
+  "googleRegistrationComingSoon": "Đăng ký bằng Google - Sắp tới!",
+  "facebookRegistrationComingSoon": "Đăng ký bằng Facebook - Sắp tới!",
+  "passwordMin": "Mật khẩu phải có ít nhất 6 ký tự"
 }

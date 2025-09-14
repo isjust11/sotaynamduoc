@@ -5,9 +5,11 @@ import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
+import 'package:sotaynamduoc/ui/screen/auth/confirm_pin_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -64,14 +66,16 @@ class _SignUpScreenState extends State<SignUpBody> {
     return BlocListener<AuthCubit, BaseState>(
       listener: (context, state) {
         if (state is LoadedState) {
-          // Đăng ký thành công, chuyển về trang đăng nhập
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Đăng ký thành công!'),
-              backgroundColor: Colors.green,
+          // Đăng ký thành công, chuyển đến trang xác thực mã PIN
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ConfirmPinScreen(
+                email: _emailController.text,
+                phone: _phoneController.text,
+              ),
             ),
           );
-          Navigator.pop(context);
         } else if (state is ErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -112,30 +116,29 @@ class _SignUpScreenState extends State<SignUpBody> {
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Vui lòng nhập họ và tên';
+                            return AppLocalizations.current.plsInputFullName;
                           }
                           return null;
                         },
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
-
                       // Email
                       CustomTextInput(
                         textController: _emailController,
                         obscureText: false,
-                        hintText: 'Email',
+                        hintText: AppLocalizations.current.email,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Vui lòng nhập email';
+                            return AppLocalizations.current.plsInputEmail;
                           }
                           if (!RegExp(
                             r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
                           ).hasMatch(value)) {
-                            return 'Email không hợp lệ';
+                            return AppLocalizations.current.emailInvalid;
                           }
                           return null;
                         },
@@ -146,14 +149,14 @@ class _SignUpScreenState extends State<SignUpBody> {
                       CustomTextInput(
                         textController: _phoneController,
                         obscureText: false,
-                        hintText: 'Số điện thoại',
+                        hintText: AppLocalizations.current.phoneNumber,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Vui lòng nhập số điện thoại';
+                            return AppLocalizations.current.plsInputPhoneNumber;
                           }
                           return null;
                         },
@@ -187,10 +190,10 @@ class _SignUpScreenState extends State<SignUpBody> {
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Vui lòng nhập mật khẩu';
+                            return AppLocalizations.current.plsInputPassword;
                           }
                           if (value.length < 6) {
-                            return 'Mật khẩu phải có ít nhất 6 ký tự';
+                            return AppLocalizations.current.passwordMin;
                           }
                           return null;
                         },
@@ -201,16 +204,18 @@ class _SignUpScreenState extends State<SignUpBody> {
                       CustomTextInput(
                         textController: _confirmPasswordController,
                         obscureText: true,
-                        hintText: 'Xác nhận mật khẩu',
+                        hintText: AppLocalizations.current.confirmPassword,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Vui lòng xác nhận mật khẩu';
+                            return AppLocalizations
+                                .current
+                                .plsInputConfirmPassword;
                           }
                           if (value != _passwordController.text) {
-                            return 'Mật khẩu không khớp';
+                            return AppLocalizations.current.passwordNotMatch;
                           }
                           return null;
                         },
@@ -232,7 +237,7 @@ class _SignUpScreenState extends State<SignUpBody> {
                           ),
                         ),
                         child: CustomTextLabel(
-                          'Đăng ký',
+                          AppLocalizations.current.register,
                           fontSize: AppDimens.SIZE_16,
                           fontWeight: FontWeight.w600,
                           color: AppColors.white,
@@ -283,16 +288,18 @@ class _SignUpScreenState extends State<SignUpBody> {
 
                       // Nút đăng ký Google
                       _buildSocialRegisterButton(
-                        text: 'Đăng ký bằng Google',
+                        text: AppLocalizations.current.registerWithGoogle,
                         backgroundColor: AppColors.white,
                         textColor: AppColors.textDark,
                         borderColor: AppColors.inputBorderLight,
-                        iconPath: 'assets/icons/ic_google.svg',
+                        iconPath: Assets.icons.icGoogle,
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Google registration - Coming soon!',
+                                AppLocalizations
+                                    .current
+                                    .googleRegistrationComingSoon,
                               ),
                             ),
                           );
@@ -302,16 +309,18 @@ class _SignUpScreenState extends State<SignUpBody> {
 
                       // Nút đăng ký Facebook
                       _buildSocialRegisterButton(
-                        text: 'Đăng ký bằng Facebook',
+                        text: AppLocalizations.current.registerWithFacebook,
                         backgroundColor: Color.fromARGB(255, 38, 93, 164),
                         textColor: AppColors.white,
                         borderColor: Color.fromARGB(255, 6, 38, 77),
-                        iconPath: 'assets/icons/ic_facebook.svg',
+                        iconPath: Assets.icons.icFacebook,
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Facebook registration - Coming soon!',
+                                AppLocalizations
+                                    .current
+                                    .facebookRegistrationComingSoon,
                               ),
                             ),
                           );
@@ -358,7 +367,7 @@ class _SignUpScreenState extends State<SignUpBody> {
   Widget _buildSignUpLabel() {
     return Center(
       child: CustomTextLabel(
-        'Đăng ký',
+        AppLocalizations.current.register,
         fontSize: AppDimens.SIZE_32,
         fontWeight: FontWeight.w700,
         color: AppColors.baseColor,

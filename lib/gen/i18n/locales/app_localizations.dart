@@ -583,6 +583,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register with Facebook'**
   String get registerWithFacebook;
+
+  /// No description provided for @emailInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Email invalid'**
+  String get emailInvalid;
+
+  /// No description provided for @googleRegistrationComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Google registration - Coming soon!'**
+  String get googleRegistrationComingSoon;
+
+  /// No description provided for @facebookRegistrationComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook registration - Coming soon!'**
+  String get facebookRegistrationComingSoon;
+
+  /// No description provided for @passwordMin.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordMin;
 }
 
 class _AppLocalizationsDelegate

@@ -41,12 +41,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Retrieving data...",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
     "endOfList": MessageLookupByLibrary.simpleMessage("End of list"),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "An error occurred. Please try again later",
     ),
     "error_connection": MessageLookupByLibrary.simpleMessage(
       "Network connection error",
+    ),
+    "facebookRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Facebook registration - Coming soon!",
     ),
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Featured medicine",
@@ -67,6 +71,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "General Notification",
+    ),
+    "googleRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Google registration - Coming soon!",
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Herbal detail"),
@@ -100,6 +107,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "passwordMin": MessageLookupByLibrary.simpleMessage(
+      "Password must be at least 6 characters",
+    ),
     "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match",
     ),

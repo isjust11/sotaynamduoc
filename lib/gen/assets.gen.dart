@@ -38,8 +38,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_dot_horizontal.svg
   String get icDotHorizontal => 'assets/icons/ic_dot_horizontal.svg';
 
+  /// File path: assets/icons/ic_facebook.svg
+  String get icFacebook => 'assets/icons/ic_facebook.svg';
+
   /// File path: assets/icons/ic_folder_empty.svg
   String get icFolderEmpty => 'assets/icons/ic_folder_empty.svg';
+
+  /// File path: assets/icons/ic_google.svg
+  String get icGoogle => 'assets/icons/ic_google.svg';
 
   /// File path: assets/icons/ic_history.svg
   String get icHistory => 'assets/icons/ic_history.svg';
@@ -75,7 +81,9 @@ class $AssetsIconsGen {
     icCloseCircle,
     icComplant,
     icDotHorizontal,
+    icFacebook,
     icFolderEmpty,
+    icGoogle,
     icHistory,
     icHome,
     icLibrary,

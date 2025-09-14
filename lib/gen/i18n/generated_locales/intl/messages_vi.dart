@@ -45,12 +45,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đang lấy dữ liệu ...",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "emailInvalid": MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
     "endOfList": MessageLookupByLibrary.simpleMessage("Đã tải hết danh sách"),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "Đã có lỗi xảy ra. Vui lòng thử lại sau",
     ),
     "error_connection": MessageLookupByLibrary.simpleMessage(
       "Lỗi kết nối mạng",
+    ),
+    "facebookRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Đăng ký bằng Facebook - Sắp tới!",
     ),
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Bài thuốc nổi bật",
@@ -69,6 +73,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "Thông báo chung",
+    ),
+    "googleRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
+      "Đăng ký bằng Google - Sắp tới!",
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Chi tiết thảo dược"),
@@ -106,6 +113,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
     "or": MessageLookupByLibrary.simpleMessage("hoặc"),
     "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+    "passwordMin": MessageLookupByLibrary.simpleMessage(
+      "Mật khẩu phải có ít nhất 6 ký tự",
+    ),
     "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
       "Mật khẩu không khớp",
     ),

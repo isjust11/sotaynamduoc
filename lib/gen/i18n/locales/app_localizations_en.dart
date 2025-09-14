@@ -251,4 +251,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registerWithFacebook => 'Register with Facebook';
+
+  @override
+  String get emailInvalid => 'Email invalid';
+
+  @override
+  String get googleRegistrationComingSoon =>
+      'Google registration - Coming soon!';
+
+  @override
+  String get facebookRegistrationComingSoon =>
+      'Facebook registration - Coming soon!';
+
+  @override
+  String get passwordMin => 'Password must be at least 6 characters';
 }

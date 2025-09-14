@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/res/resources.dart';
@@ -184,7 +185,7 @@ class _SignInScreenState extends State<SignInBody> {
                         backgroundColor: AppColors.white,
                         textColor: AppColors.textDark,
                         borderColor: AppColors.inputBorderLight,
-                        iconPath: 'assets/icons/ic_google.svg',
+                        iconPath: Assets.icons.icGoogle,
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -206,7 +207,7 @@ class _SignInScreenState extends State<SignInBody> {
                         ), // Facebook blue
                         textColor: AppColors.white,
                         borderColor: Color.fromARGB(255, 6, 38, 77),
-                        iconPath: 'assets/icons/ic_facebook.svg',
+                        iconPath: Assets.icons.icFacebook,
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

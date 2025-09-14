@@ -76,4 +76,26 @@ class AuthCubit extends Cubit<BaseState> {
       emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
+
+  Future verifyPin({required String email, required String pin}) async {
+    try {
+      emit(LoadingState());
+      var result = await repository.verifyPin({"email": email, "pin": pin});
+
+      emit(LoadedState(result));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  Future resendPin({required String email}) async {
+    try {
+      emit(LoadingState());
+      var result = await repository.resendPin({"email": email});
+
+      emit(LoadedState(result));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
 }

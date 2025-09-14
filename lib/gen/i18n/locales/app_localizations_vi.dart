@@ -251,4 +251,17 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get registerWithFacebook => 'Đăng ký bằng Facebook';
+
+  @override
+  String get emailInvalid => 'Email không hợp lệ';
+
+  @override
+  String get googleRegistrationComingSoon => 'Đăng ký bằng Google - Sắp tới!';
+
+  @override
+  String get facebookRegistrationComingSoon =>
+      'Đăng ký bằng Facebook - Sắp tới!';
+
+  @override
+  String get passwordMin => 'Mật khẩu phải có ít nhất 6 ký tự';
 }

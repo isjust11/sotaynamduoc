@@ -80,5 +80,9 @@
   "passwordNotMatch": "Passwords do not match",
   "registerSuccess": "Registration successful!",
   "registerWithGoogle": "Register with Google",
-  "registerWithFacebook": "Register with Facebook"
+  "registerWithFacebook": "Register with Facebook",
+  "emailInvalid": "Email invalid",
+  "googleRegistrationComingSoon": "Google registration - Coming soon!",
+  "facebookRegistrationComingSoon": "Facebook registration - Coming soon!",
+  "passwordMin": "Password must be at least 6 characters"
 }

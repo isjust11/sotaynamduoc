@@ -17,12 +17,22 @@ class AuthRepository {
     return authModel;
   }
 
-  Future<UserModel> register(Map<String, dynamic> param) {
-    // TODO: implement register
-    throw UnimplementedError();
+  Future<AuthModel> register(Map<String, dynamic> param) async {
+    AuthModel authModel = await remoteDataSource.register(param);
+    return authModel;
   }
 
   Future<UserModel?> getProfile() async {
     return await localDataSource.getUserInfo();
+  }
+
+  Future<Map<String, dynamic>> verifyPin(Map<String, dynamic> param) async {
+    // TODO: implement verifyPin
+    throw UnimplementedError();
+  }
+
+  Future<Map<String, dynamic>> resendPin(Map<String, dynamic> param) async {
+    // TODO: implement resendPin
+    throw UnimplementedError();
   }
 }

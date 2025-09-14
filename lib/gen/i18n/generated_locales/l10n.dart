@@ -653,6 +653,46 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Email không hợp lệ`
+  String get emailInvalid {
+    return Intl.message(
+      'Email không hợp lệ',
+      name: 'emailInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký bằng Google - Sắp tới!`
+  String get googleRegistrationComingSoon {
+    return Intl.message(
+      'Đăng ký bằng Google - Sắp tới!',
+      name: 'googleRegistrationComingSoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký bằng Facebook - Sắp tới!`
+  String get facebookRegistrationComingSoon {
+    return Intl.message(
+      'Đăng ký bằng Facebook - Sắp tới!',
+      name: 'facebookRegistrationComingSoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu phải có ít nhất 6 ký tự`
+  String get passwordMin {
+    return Intl.message(
+      'Mật khẩu phải có ít nhất 6 ký tự',
+      name: 'passwordMin',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
