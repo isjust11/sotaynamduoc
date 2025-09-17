@@ -38,4 +38,15 @@ class AuthRemoteDataSource {
     }
     return Future.error(apiResponse.errMessage);
   }
+
+  Future<AuthModel> mobileSocialLogin(Map<String, dynamic> param) async {
+    ApiResponse apiResponse = await network.post(
+      url: ApiConstant.mobileSocialLogin,
+      body: param,
+    );
+    if (apiResponse.isSuccess) {
+      return AuthModel.fromJson(apiResponse.data);
+    }
+    return Future.error(apiResponse.errMessage);
+  }
 }

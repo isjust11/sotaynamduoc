@@ -4,6 +4,7 @@ import 'package:sotaynamduoc/blocs/utils.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
+import 'package:sotaynamduoc/services/social_login_service.dart';
 
 class AuthCubit extends Cubit<BaseState> {
   final AuthRepository repository;
@@ -94,6 +95,67 @@ class AuthCubit extends Cubit<BaseState> {
       var result = await repository.resendPin({"email": email});
 
       emit(LoadedState(result));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  Future doGoogleLogin() async {
+    try {
+      emit(LoadingState());
+
+      // Test configuration first
+      await SocialLoginService.testGoogleSignInConfig();
+
+      final socialData = await SocialLoginService.signInWithGoogle();
+      if (socialData == null) {
+        emit(InitState()); // User cancelled
+        return;
+      }
+
+      AuthModel authModel = await repository.mobileSocialLogin(socialData);
+      emit(LoadedState(authModel));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  Future doFacebookLogin() async {
+    try {
+      emit(LoadingState());
+
+      final socialData = await SocialLoginService.signInWithFacebook();
+      if (socialData == null) {
+        emit(InitState()); // User cancelled
+        return;
+      }
+
+      AuthModel authModel = await repository.mobileSocialLogin(socialData);
+      emit(LoadedState(authModel));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  Future doMobileSocialLogin({
+    required String platformId,
+    required String email,
+    required String fullName,
+    required String platform,
+    required String accessToken, // Bây giờ là required
+    String? picture,
+  }) async {
+    try {
+      emit(LoadingState());
+      AuthModel authModel = await repository.mobileSocialLogin({
+        "platformId": platformId,
+        "email": email,
+        "fullName": fullName,
+        "platform": platform,
+        "picture": picture,
+        "accessToken": accessToken, // Required cho token verification
+      });
+      emit(LoadedState(authModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
     }

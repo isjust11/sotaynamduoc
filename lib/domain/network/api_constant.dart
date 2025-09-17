@@ -12,4 +12,5 @@ class ApiConstant {
   static final getHerbals = "$apiHost/herbals";
   static final verifyPin = "$apiHost/auth/verify-pin";
   static final resendPin = "$apiHost/auth/resend-pin";
+  static final mobileSocialLogin = "$apiHost/auth/mobile/social-login";
 }

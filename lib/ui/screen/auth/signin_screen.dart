@@ -187,11 +187,7 @@ class _SignInScreenState extends State<SignInBody> {
                         borderColor: AppColors.inputBorderLight,
                         iconPath: Assets.icons.icGoogle,
                         onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Google login - Coming soon!'),
-                            ),
-                          );
+                          context.read<AuthCubit>().doGoogleLogin();
                         },
                       ),
                       SizedBox(height: AppDimens.SIZE_12),
@@ -209,11 +205,7 @@ class _SignInScreenState extends State<SignInBody> {
                         borderColor: Color.fromARGB(255, 6, 38, 77),
                         iconPath: Assets.icons.icFacebook,
                         onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Facebook login - Coming soon!'),
-                            ),
-                          );
+                          context.read<AuthCubit>().doFacebookLogin();
                         },
                       ),
                       SizedBox(height: AppDimens.SIZE_24),

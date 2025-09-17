@@ -35,4 +35,11 @@ class AuthRepository {
     // TODO: implement resendPin
     throw UnimplementedError();
   }
+
+  Future<AuthModel> mobileSocialLogin(Map<String, dynamic> param) async {
+    AuthModel authModel = await remoteDataSource.mobileSocialLogin(param);
+    await localDataSource.saveTokenInfo(authModel);
+    await localDataSource.saveUserInfo(authModel.user!);
+    return authModel;
+  }
 }

@@ -1,4 +1,4 @@
-package com.example.sotaynamduoc
+package com.example.stnd
 
 import io.flutter.embedding.android.FlutterActivity
 
