@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:228679159711:android:d797ff2dc034680c26b7aa",
         "android_client_info": {
-          "package_name": "com.example.stnd"
+          "package_name": "com.example.sotaynamduoc"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "228679159711-k41tgofkrglamkn6khb79ttp772ej4ir.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.stnd",
+            "package_name": "com.example.sotaynamduoc",
             "certificate_hash": "da86a90be758b3dceb87f3cd3e210a9dc4d6e502"
           }
         },

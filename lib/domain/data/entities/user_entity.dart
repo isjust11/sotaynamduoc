@@ -10,7 +10,7 @@ class UserEntity extends BaseEntity {
   String? fullName;
   String? picture;
   List<RoleEntity> roles = [];
-  List<PermissionEntity> permissions = [];
+  List<dynamic> permissions = [];
   @override
   UserEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     id = json['id'];
@@ -22,9 +22,7 @@ class UserEntity extends BaseEntity {
     roles = (json['roles'] as List)
         .map((role) => RoleEntity.fromJson(role as Map<String, dynamic>))
         .toList();
-    permissions = (json['permissions'] as List)
-        .map((permission) => PermissionEntity.fromJson(permission as Map<String, dynamic>))
-        .toList();
+    permissions = json['permissions'] as List<dynamic>;
   }
 
   @override
@@ -37,7 +35,7 @@ class UserEntity extends BaseEntity {
     data['fullName'] = fullName;
     data['picture'] = picture;
     data['roles'] = roles.map((role) => role.toJson()).toList();
-    data['permissions'] = permissions.map((permission) => permission.toJson()).toList();
+    data['permissions'] = permissions;
     return data;
   }
 }
