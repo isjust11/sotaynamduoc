@@ -82,7 +82,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "inputUserName": MessageLookupByLibrary.simpleMessage("Enter username"),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
+    "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "loginFailed": MessageLookupByLibrary.simpleMessage("Login failed!"),
     "loginSuccess": MessageLookupByLibrary.simpleMessage("Login successfully!"),
     "loginWithFacebook": MessageLookupByLibrary.simpleMessage(
       "Login with Facebook",
@@ -107,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "passwordMax": MessageLookupByLibrary.simpleMessage(
+      "Password must be less than 100 characters",
+    ),
     "passwordMin": MessageLookupByLibrary.simpleMessage(
       "Password must be at least 6 characters",
     ),
@@ -115,6 +120,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "photo": MessageLookupByLibrary.simpleMessage("Photo"),
+    "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
+      "Please check login information",
+    ),
+    "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
+      "Please enter password",
+    ),
+    "pleaseEnterUsername": MessageLookupByLibrary.simpleMessage(
+      "Please enter username",
+    ),
     "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Please confirm password",
     ),
@@ -154,6 +168,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unread": MessageLookupByLibrary.simpleMessage("Unread"),
     "userName": MessageLookupByLibrary.simpleMessage("Login name"),
+    "usernameMax": MessageLookupByLibrary.simpleMessage(
+      "Username must be less than 50 characters",
+    ),
+    "usernameMin": MessageLookupByLibrary.simpleMessage(
+      "Username must be at least 3 characters",
+    ),
+    "usernameSpecial": MessageLookupByLibrary.simpleMessage(
+      "Username must contain only letters, numbers, dots, underscores and hyphens",
+    ),
     "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
     "viewCount": MessageLookupByLibrary.simpleMessage("View count"),
     "viewMore": MessageLookupByLibrary.simpleMessage("View More"),

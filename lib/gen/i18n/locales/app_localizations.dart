@@ -158,6 +158,12 @@ abstract class AppLocalizations {
   /// **'Change Language'**
   String get changeLanguage;
 
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
   /// No description provided for @skip.
   ///
   /// In en, this message translates to:
@@ -607,6 +613,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password must be at least 6 characters'**
   String get passwordMin;
+
+  /// No description provided for @loginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed!'**
+  String get loginFailed;
+
+  /// No description provided for @usernameMin.
+  ///
+  /// In en, this message translates to:
+  /// **'Username must be at least 3 characters'**
+  String get usernameMin;
+
+  /// No description provided for @usernameMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Username must be less than 50 characters'**
+  String get usernameMax;
+
+  /// No description provided for @usernameSpecial.
+  ///
+  /// In en, this message translates to:
+  /// **'Username must contain only letters, numbers, dots, underscores and hyphens'**
+  String get usernameSpecial;
+
+  /// No description provided for @passwordMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be less than 100 characters'**
+  String get passwordMax;
+
+  /// No description provided for @pleaseEnterUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter username'**
+  String get pleaseEnterUsername;
+
+  /// No description provided for @pleaseEnterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter password'**
+  String get pleaseEnterPassword;
+
+  /// No description provided for @pleaseCheckLoginInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check login information'**
+  String get pleaseCheckLoginInfo;
 }
 
 class _AppLocalizationsDelegate

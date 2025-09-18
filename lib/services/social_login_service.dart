@@ -16,7 +16,18 @@ class SocialLoginService {
       // Test 2: Check scopes
       print('✅ Scopes: ${_googleSignIn.scopes}');
 
-      // Test 3: Try to get current user (silent)
+      // Test 3: Check Google Play Services availability
+      try {
+        final bool isSignedIn = await _googleSignIn.isSignedIn();
+        print('✅ Google Play Services available: $isSignedIn');
+      } catch (e) {
+        print('❌ Google Play Services not available: $e');
+        print('   - LDPlayer may not have Google Play Services');
+        print('   - Try installing Google Play Services in LDPlayer');
+        return;
+      }
+
+      // Test 4: Try to get current user (silent)
       try {
         final GoogleSignInAccount? currentUser = await _googleSignIn
             .signInSilently();
@@ -25,13 +36,20 @@ class SocialLoginService {
         print('⚠️ Silent sign-in failed: $e');
       }
 
-      // Test 4: Check if signed in
-      final bool isSignedIn = await _googleSignIn.isSignedIn();
-      print('✅ Is signed in: $isSignedIn');
-
       print('=== Configuration Test Complete ===');
     } catch (e) {
       print('❌ Configuration test failed: $e');
+    }
+  }
+
+  /// Kiểm tra Google Play Services có sẵn không
+  static Future<bool> isGooglePlayServicesAvailable() async {
+    try {
+      await _googleSignIn.isSignedIn();
+      return true;
+    } catch (e) {
+      print('Google Play Services not available: $e');
+      return false;
     }
   }
 
@@ -41,22 +59,34 @@ class SocialLoginService {
       print('=== Google Sign-In Debug ===');
       print('Starting Google Sign In...');
 
-      // Kiểm tra xem Google Sign-In có available không
-      final bool isAvailable = await _googleSignIn.isSignedIn();
-      print('Google Sign-In isSignedIn: $isAvailable');
-
-      // Kiểm tra current user
-      final GoogleSignInAccount? currentUser = await _googleSignIn
-          .signInSilently();
-      print('Current user (silent): ${currentUser?.email}');
+      // Kiểm tra Google Play Services availability
+      try {
+        final bool isAvailable = await _googleSignIn.isSignedIn();
+        print('Google Sign-In isSignedIn: $isAvailable');
+      } catch (e) {
+        print('⚠️ Google Play Services check failed: $e');
+      }
 
       // Thử sign out trước để clear session
-      await _googleSignIn.signOut();
-      print('Signed out successfully');
+      try {
+        await _googleSignIn.signOut();
+        print('Signed out successfully');
+      } catch (e) {
+        print('⚠️ Sign out failed (may be normal): $e');
+      }
 
-      // Thử sign in
+      // Thử sign in với timeout
       print('Attempting to sign in...');
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount?
+      googleUser = await _googleSignIn.signIn().timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          throw Exception(
+            'Google Sign-In timeout - LDPlayer may not support Google Play Services',
+          );
+        },
+      );
+
       print('Google Sign-In result: ${googleUser?.email}');
 
       if (googleUser == null) {
@@ -85,23 +115,43 @@ class SocialLoginService {
       print('Error type: ${error.runtimeType}');
       print('Error details: ${error.toString()}');
 
+      // Xử lý các loại lỗi cụ thể
       if (error.toString().contains('sign_in_failed')) {
         print('❌ Sign in failed - check configuration');
         print('   - Bundle ID: com.example.sotaynamduoc');
-        print('   - Check GoogleService-Info.plist');
-        print('   - Check Info.plist URL scheme');
-      } else if (error.toString().contains('network_error')) {
+        print('   - Check google-services.json');
+        print('   - Check SHA-1 fingerprint in Google Console');
+      } else if (error.toString().contains('network_error') ||
+          error.toString().contains('SocketException') ||
+          error.toString().contains('Network is unreachable')) {
         print('❌ Network error - check internet connection');
+        print('   - For LDPlayer: Use 10.0.2.2:4000 as API URL');
+        print('   - For real device: Use your computer IP address');
+        print('   - Check if backend server is running');
       } else if (error.toString().contains('invalid_client')) {
-        print('❌ Invalid client - check GoogleService-Info.plist');
+        print('❌ Invalid client - check google-services.json');
         print(
-          '   - CLIENT_ID: 700663881543-1mk7ocal2m70mgielnjarbhmu9deoddb.apps.googleusercontent.com',
+          '   - CLIENT_ID: 228679159711-k41tgofkrglamkn6khb79ttp772ej4ir.apps.googleusercontent.com',
         );
         print('   - BUNDLE_ID: com.example.sotaynamduoc');
+        print('   - SHA-1: da86a90be758b3dceb87f3cd3e210a9dc4d6e502');
       } else if (error.toString().contains('developer_error')) {
         print('❌ Developer error - check Google Cloud Console');
         print('   - Enable Google Sign-In API');
         print('   - Check OAuth 2.0 credentials');
+        print('   - Verify package name and SHA-1 fingerprint');
+      } else if (error.toString().contains('timeout')) {
+        print('❌ Google Sign-In timeout');
+        print('   - LDPlayer may not support Google Play Services');
+        print('   - Try on real device or different emulator');
+        print('   - Check if Google Play Services is installed');
+      } else if (error.toString().contains('SERVICE_DISABLED') ||
+          error.toString().contains('SERVICE_MISSING') ||
+          error.toString().contains('SERVICE_VERSION_UPDATE_REQUIRED')) {
+        print('❌ Google Play Services issue');
+        print('   - LDPlayer may not have Google Play Services');
+        print('   - Install Google Play Services in LDPlayer');
+        print('   - Or test on real device');
       }
 
       rethrow;

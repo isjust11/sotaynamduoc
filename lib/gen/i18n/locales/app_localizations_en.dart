@@ -40,6 +40,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changeLanguage => 'Change Language';
 
   @override
+  String get loading => 'Loading...';
+
+  @override
   String get skip => 'Skip';
 
   @override
@@ -265,4 +268,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordMin => 'Password must be at least 6 characters';
+
+  @override
+  String get loginFailed => 'Login failed!';
+
+  @override
+  String get usernameMin => 'Username must be at least 3 characters';
+
+  @override
+  String get usernameMax => 'Username must be less than 50 characters';
+
+  @override
+  String get usernameSpecial =>
+      'Username must contain only letters, numbers, dots, underscores and hyphens';
+
+  @override
+  String get passwordMax => 'Password must be less than 100 characters';
+
+  @override
+  String get pleaseEnterUsername => 'Please enter username';
+
+  @override
+  String get pleaseEnterPassword => 'Please enter password';
+
+  @override
+  String get pleaseCheckLoginInfo => 'Please check login information';
 }

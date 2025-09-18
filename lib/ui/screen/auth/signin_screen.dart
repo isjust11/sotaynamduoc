@@ -4,10 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
+import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/res/resources.dart';
+import 'package:sotaynamduoc/ui/widget/base_loading.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -33,12 +35,48 @@ class _SignInScreenState extends State<SignInBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _usernameController;
   late TextEditingController _passwordController;
+  final GlobalKey<TextFieldState> _usernameFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _passwordFieldKey =
+      GlobalKey<TextFieldState>();
 
   @override
   void initState() {
     super.initState();
     _usernameController = TextEditingController();
     _passwordController = TextEditingController();
+  }
+
+  // Hàm validation cho username
+  String? _validateUsername(String value) {
+    if (value.isEmpty) {
+      return AppLocalizations.current.pleaseEnterUsername;
+    }
+    if (value.length < 3) {
+      return AppLocalizations.current.usernameMin;
+    }
+    if (value.length > 20) {
+      return AppLocalizations.current.usernameMax;
+    }
+    // Kiểm tra ký tự đặc biệt không được phép
+    if (!RegExp(r'^[a-zA-Z0-9._-]+$').hasMatch(value)) {
+      return AppLocalizations.current.usernameSpecial;
+    }
+    return null;
+  }
+
+  // Hàm validation cho password
+  String? _validatePassword(String value) {
+    if (value.isEmpty) {
+      return AppLocalizations.current.pleaseEnterPassword;
+    }
+    if (value.length < 6) {
+      return AppLocalizations.current.passwordMin;
+    }
+    if (value.length > 20) {
+      return AppLocalizations.current.passwordMax;
+    }
+    return null;
   }
 
   @override
@@ -53,21 +91,17 @@ class _SignInScreenState extends State<SignInBody> {
     return BlocListener<AuthCubit, BaseState>(
       listener: (context, state) {
         if (state is LoadedState) {
-          // Đăng nhập thành công, chuyển sang màn hình chính hoặc hiển thị thông báo
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: CustomSnackBar<AuthCubit>().build(context)),
-          );
-          Navigator.pushReplacementNamed(context, '/mainScreen');
-        } else if (state is ErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text((state).data ?? 'Đăng nhập thất bại!')),
-          );
-        } else if (state is LoadingState) {
-          CustomSnackBar<AuthCubit>(fontSize: 16).build(context);
+          Navigator.pushReplacementNamed(context, Routes.mainScreen);
         }
       },
       child: BaseScreen(
-        loadingWidget: SizedBox.shrink(),
+        loadingWidget: CustomLoading<AuthCubit>(
+          loadingType: LoadingType.threeArchedCircle,
+          message: AppLocalizations.current.loading,
+          backgroundColor: Colors.black.withValues(alpha: 0.4),
+          indicatorColor: AppColors.baseColor,
+          size: AppDimens.SIZE_32,
+        ),
         messageNotify: CustomSnackBar<AuthCubit>(),
         hideAppBar: true,
         // title: AppLocalizations.current.appName,
@@ -86,21 +120,27 @@ class _SignInScreenState extends State<SignInBody> {
                       _buildLoginLabel(),
                       SizedBox(height: AppDimens.SIZE_40),
                       CustomTextInput(
+                        key: _usernameFieldKey,
                         textController: _usernameController,
                         obscureText: false,
                         hintText: AppLocalizations.current.userName,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
+                        validator: _validateUsername,
+                        isRequired: true,
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
                       CustomTextInput(
+                        key: _passwordFieldKey,
                         textController: _passwordController,
                         obscureText: true,
                         hintText: AppLocalizations.current.password,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
+                        validator: _validatePassword,
+                        isRequired: true,
                       ),
                       SizedBox(height: AppDimens.SIZE_12),
                       InkWell(
@@ -139,10 +179,16 @@ class _SignInScreenState extends State<SignInBody> {
                           color: AppColors.white,
                         ),
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
+                          // Kiểm tra validation của các trường input
+                          bool isUsernameValid =
+                              _usernameFieldKey.currentState?.isValid ?? false;
+                          bool isPasswordValid =
+                              _passwordFieldKey.currentState?.isValid ?? false;
+
+                          if (isUsernameValid && isPasswordValid) {
                             BlocProvider.of<AuthCubit>(context).doLogin(
-                              userName: _usernameController.text,
-                              password: _passwordController.text,
+                              userName: _usernameController.text.trim(),
+                              password: _passwordController.text.trim(),
                             );
                           }
                         },
@@ -223,7 +269,7 @@ class _SignInScreenState extends State<SignInBody> {
                           SizedBox(width: AppDimens.SIZE_4),
                           InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/signupScreen');
+                              Navigator.pushNamed(context, Routes.signupScreen);
                             },
                             child: CustomTextLabel(
                               AppLocalizations.current.register,
@@ -266,7 +312,7 @@ class _SignInScreenState extends State<SignInBody> {
     required VoidCallback onPressed,
   }) {
     return Container(
-      height: 48,
+      height: AppDimens.SIZE_48,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
@@ -282,11 +328,15 @@ class _SignInScreenState extends State<SignInBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // SVG Icon
-            SvgPicture.asset(iconPath, width: 20, height: 20),
+            SvgPicture.asset(
+              iconPath,
+              width: AppDimens.SIZE_20,
+              height: AppDimens.SIZE_20,
+            ),
             SizedBox(width: AppDimens.SIZE_12),
             CustomTextLabel(
               text,
-              fontSize: AppDimens.SIZE_16,
+              fontSize: AppDimens.SIZE_14,
               fontWeight: FontWeight.w600,
               color: textColor,
             ),

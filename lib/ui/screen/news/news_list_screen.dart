@@ -19,7 +19,8 @@ class NewsListScreen extends StatefulWidget {
   State<NewsListScreen> createState() => _NewsListScreenState();
 }
 
-class _NewsListScreenState extends State<NewsListScreen> with AutomaticKeepAliveClientMixin {
+class _NewsListScreenState extends State<NewsListScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -127,13 +128,22 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
 
   Widget _buildSearchBar() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16, vertical: AppDimens.SIZE_10),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppDimens.SIZE_16,
+        vertical: AppDimens.SIZE_10,
+      ),
       child: TextField(
         controller: _searchController,
-        style: TextStyle(fontSize: AppDimens.SIZE_14, color: AppColors.textDark),
+        style: TextStyle(
+          fontSize: AppDimens.SIZE_14,
+          color: AppColors.textDark,
+        ),
         decoration: InputDecoration(
           hintText: AppLocalizations.current.searchNews,
-          hintStyle: TextStyle(fontSize: AppDimens.SIZE_14, color: AppColors.textMediumGrey),
+          hintStyle: TextStyle(
+            fontSize: AppDimens.SIZE_14,
+            color: AppColors.textMediumGrey,
+          ),
           prefixIcon: Icon(Icons.search, color: AppColors.textMediumGrey),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
@@ -148,7 +158,10 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
             borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
             borderSide: BorderSide(color: AppColors.secondaryBrand),
           ),
-          contentPadding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_8, vertical: AppDimens.SIZE_4),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: AppDimens.SIZE_8,
+            vertical: AppDimens.SIZE_4,
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
             borderSide: BorderSide(color: AppColors.secondaryBrand, width: 2),
@@ -170,7 +183,10 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
       },
       child: ListView.separated(
         controller: _scrollController,
-        padding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16, vertical: AppDimens.SIZE_4),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimens.SIZE_16,
+          vertical: AppDimens.SIZE_4,
+        ),
         itemCount:
             state.newsList.length +
             (state.isLoadingMore ? 1 : 0) +
@@ -220,11 +236,16 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
       onTap: () => _navigateToDetail(context, news),
       borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: AppDimens.SIZE_16, vertical: AppDimens.SIZE_12),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppDimens.SIZE_16,
+          vertical: AppDimens.SIZE_12,
+        ),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(AppDimens.SIZE_6),
-          border: Border.all(color: AppColors.textHintGrey.withValues(alpha: 0.2)),
+          border: Border.all(
+            color: AppColors.textHintGrey.withValues(alpha: 0.2),
+          ),
           boxShadow: [
             BoxShadow(
               color: AppColors.textDark.withValues(alpha: 0.1),
@@ -288,27 +309,33 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
                     maxLines: 2,
                   ),
                   SizedBox(height: AppDimens.SIZE_4),
-                 news.summary != null && news.summary!.isNotEmpty ?  CustomTextLabel(
-                    news.summary!.trim(),
-                    fontSize: AppDimens.SIZE_12,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.textDark.withValues(alpha: 0.6),
-                    maxLines: 2,
-                  ) : const SizedBox.shrink(),
-                  SizedBox(height: AppDimens.SIZE_8),
-                    Row(
-                      children: [
-                        SvgPicture.asset(Assets.icons.icTime, width: AppDimens.SIZE_14, height: AppDimens.SIZE_14),
-                        const SizedBox(width: AppDimens.SIZE_2,),
-                        CustomTextLabel(
-                          news.timeString.trim(),
+                  news.summary != null && news.summary!.isNotEmpty
+                      ? CustomTextLabel(
+                          news.summary!.trim(),
                           fontSize: AppDimens.SIZE_12,
                           fontWeight: FontWeight.w400,
                           color: AppColors.textDark.withValues(alpha: 0.6),
-                          maxLines: 1,
-                        ),
-                      ],
-                    ),
+                          maxLines: 2,
+                        )
+                      : const SizedBox.shrink(),
+                  SizedBox(height: AppDimens.SIZE_8),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        Assets.icons.icTime,
+                        width: AppDimens.SIZE_14,
+                        height: AppDimens.SIZE_14,
+                      ),
+                      const SizedBox(width: AppDimens.SIZE_2),
+                      CustomTextLabel(
+                        news.timeString.trim(),
+                        fontSize: AppDimens.SIZE_12,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.textDark.withValues(alpha: 0.6),
+                        maxLines: 1,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -401,11 +428,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
   void _navigateToDetail(BuildContext context, NewsModel news) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => NewsDetailScreen(
-          news: news,
-        ),
-      ),
+      MaterialPageRoute(builder: (context) => NewsDetailScreen(news: news)),
     );
   }
 }

@@ -6,10 +6,11 @@ import 'package:sotaynamduoc/utils/navigator.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 
 class Network {
-  static const int DEFAULT_TIMEOUT = 15000;
+  static const int DEFAULT_TIMEOUT = 30000; // Tăng timeout lên 30 giây
   static BaseOptions options = BaseOptions(
     connectTimeout: DEFAULT_TIMEOUT,
     receiveTimeout: DEFAULT_TIMEOUT,
+    sendTimeout: DEFAULT_TIMEOUT, // Thêm sendTimeout
     baseUrl: ApiConstant.apiHost,
   );
   static final Dio _dio = Dio(options);
@@ -85,11 +86,25 @@ class Network {
     }
     switch (e.type) {
       case DioErrorType.cancel:
+        return ApiResponse.error("Request cancelled");
       case DioErrorType.connectTimeout:
+        return ApiResponse.error(
+          "Connection timeout - check network connection",
+        );
       case DioErrorType.receiveTimeout:
+        return ApiResponse.error("Receive timeout - server response too slow");
       case DioErrorType.sendTimeout:
+        return ApiResponse.error("Send timeout - check network speed");
       case DioErrorType.other:
-        return ApiResponse.error(AppLocalizations.current.error_connection);
+        // Kiểm tra chi tiết lỗi network
+        if (e.message.contains('SocketException') ||
+            e.message.contains('Network is unreachable') ||
+            e.message.contains('No route to host')) {
+          return ApiResponse.error(
+            "Network error - check internet connection and API URL",
+          );
+        }
+        return ApiResponse.error("Network error: ${e.message}");
       default:
         return ApiResponse.error(
           e.message,

@@ -144,6 +144,11 @@ class AppLocalizations {
     return Intl.message('Đồng ý', name: 'agree', desc: '', args: []);
   }
 
+  /// `Đang tải...`
+  String get loading {
+    return Intl.message('Đang tải...', name: 'loading', desc: '', args: []);
+  }
+
   /// `Xong`
   String get done {
     return Intl.message('Xong', name: 'done', desc: '', args: []);
@@ -689,6 +694,86 @@ class AppLocalizations {
     return Intl.message(
       'Mật khẩu phải có ít nhất 6 ký tự',
       name: 'passwordMin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập thất bại!`
+  String get loginFailed {
+    return Intl.message(
+      'Đăng nhập thất bại!',
+      name: 'loginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tên đăng nhập phải có ít nhất 3 ký tự`
+  String get usernameMin {
+    return Intl.message(
+      'Tên đăng nhập phải có ít nhất 3 ký tự',
+      name: 'usernameMin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tên đăng nhập không được quá 20 ký tự`
+  String get usernameMax {
+    return Intl.message(
+      'Tên đăng nhập không được quá 20 ký tự',
+      name: 'usernameMax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tên đăng nhập chỉ được chứa chữ cái, số, dấu chấm, gạch dưới và gạch ngang`
+  String get usernameSpecial {
+    return Intl.message(
+      'Tên đăng nhập chỉ được chứa chữ cái, số, dấu chấm, gạch dưới và gạch ngang',
+      name: 'usernameSpecial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu không được quá 20 ký tự`
+  String get passwordMax {
+    return Intl.message(
+      'Mật khẩu không được quá 20 ký tự',
+      name: 'passwordMax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập tên đăng nhập`
+  String get pleaseEnterUsername {
+    return Intl.message(
+      'Vui lòng nhập tên đăng nhập',
+      name: 'pleaseEnterUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập mật khẩu`
+  String get pleaseEnterPassword {
+    return Intl.message(
+      'Vui lòng nhập mật khẩu',
+      name: 'pleaseEnterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng kiểm tra lại thông tin đăng nhập`
+  String get pleaseCheckLoginInfo {
+    return Intl.message(
+      'Vui lòng kiểm tra lại thông tin đăng nhập',
+      name: 'pleaseCheckLoginInfo',
       desc: '',
       args: [],
     );

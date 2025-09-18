@@ -3,7 +3,6 @@ import 'package:sotaynamduoc/domain/data/models/news_model.dart';
 import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
-import 'package:sotaynamduoc/ui/screen/auth/signup_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:page_transition/page_transition.dart';
 

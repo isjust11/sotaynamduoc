@@ -84,7 +84,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "inputUserName": MessageLookupByLibrary.simpleMessage("Nhập tên đăng nhập"),
     "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Lượt thích"),
+    "loading": MessageLookupByLibrary.simpleMessage("Đang tải..."),
     "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
+    "loginFailed": MessageLookupByLibrary.simpleMessage("Đăng nhập thất bại!"),
     "loginSuccess": MessageLookupByLibrary.simpleMessage(
       "Đăng nhập thành công!",
     ),
@@ -113,6 +115,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
     "or": MessageLookupByLibrary.simpleMessage("hoặc"),
     "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+    "passwordMax": MessageLookupByLibrary.simpleMessage(
+      "Mật khẩu không được quá 20 ký tự",
+    ),
     "passwordMin": MessageLookupByLibrary.simpleMessage(
       "Mật khẩu phải có ít nhất 6 ký tự",
     ),
@@ -121,6 +126,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
     "photo": MessageLookupByLibrary.simpleMessage("Ảnh"),
+    "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng kiểm tra lại thông tin đăng nhập",
+    ),
+    "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập mật khẩu",
+    ),
+    "pleaseEnterUsername": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập tên đăng nhập",
+    ),
     "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Vui lòng xác nhận mật khẩu",
     ),
@@ -162,6 +176,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
     "userName": MessageLookupByLibrary.simpleMessage("Tên đăng nhập"),
+    "usernameMax": MessageLookupByLibrary.simpleMessage(
+      "Tên đăng nhập không được quá 20 ký tự",
+    ),
+    "usernameMin": MessageLookupByLibrary.simpleMessage(
+      "Tên đăng nhập phải có ít nhất 3 ký tự",
+    ),
+    "usernameSpecial": MessageLookupByLibrary.simpleMessage(
+      "Tên đăng nhập chỉ được chứa chữ cái, số, dấu chấm, gạch dưới và gạch ngang",
+    ),
     "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
     "viewCount": MessageLookupByLibrary.simpleMessage("Lượt xem"),
     "viewMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),

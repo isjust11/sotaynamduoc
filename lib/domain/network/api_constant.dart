@@ -1,7 +1,21 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiConstant {
-  static final apiHost = dotenv.env['API_URL'] ?? 'http://192.168.1.17:4000';
+  // Cấu hình API URL cho các môi trường khác nhau
+  static final apiHost = _getApiHost();
+
+  static String _getApiHost() {
+    // Kiểm tra file .env trước
+    final envUrl = dotenv.env['API_URL'];
+    if (envUrl != null && envUrl.isNotEmpty) {
+      return envUrl;
+    }
+
+    // Fallback cho các môi trường khác nhau
+    // LDPlayer/Android Emulator: sử dụng 10.0.2.2 để kết nối với host machine
+    return 'http://10.0.2.2:4000';
+  }
+
   static final login = "$apiHost/auth/login";
   static final register = "$apiHost/auth/register";
   static final getUserInfo = "$apiHost/auth/profile";

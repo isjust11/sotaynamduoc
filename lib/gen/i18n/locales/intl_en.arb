@@ -10,6 +10,7 @@
   "login": "Login",
   "tokenExpiredMessage": "The session has expired. Please log in again",
   "changeLanguage": "Change Language",
+  "loading": "Loading...",
   "skip": "Skip",
   "hello": "Hello",
   "home": "Home",
@@ -84,5 +85,13 @@
   "emailInvalid": "Email invalid",
   "googleRegistrationComingSoon": "Google registration - Coming soon!",
   "facebookRegistrationComingSoon": "Facebook registration - Coming soon!",
-  "passwordMin": "Password must be at least 6 characters"
+  "passwordMin": "Password must be at least 6 characters",
+  "loginFailed": "Login failed!",
+  "usernameMin": "Username must be at least 3 characters",
+  "usernameMax": "Username must be less than 50 characters",
+  "usernameSpecial": "Username must contain only letters, numbers, dots, underscores and hyphens",
+  "passwordMax": "Password must be less than 100 characters",
+  "pleaseEnterUsername": "Please enter username",
+  "pleaseEnterPassword": "Please enter password",
+  "pleaseCheckLoginInfo": "Please check login information"
 }

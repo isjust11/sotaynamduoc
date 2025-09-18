@@ -104,6 +104,19 @@ class AuthCubit extends Cubit<BaseState> {
     try {
       emit(LoadingState());
 
+      // Kiểm tra Google Play Services trước
+      final bool isGooglePlayServicesAvailable =
+          await SocialLoginService.isGooglePlayServicesAvailable();
+
+      if (!isGooglePlayServicesAvailable) {
+        emit(
+          ErrorState(
+            'Google Play Services không khả dụng. Vui lòng thử trên thiết bị thật hoặc cài đặt Google Play Services trong LDPlayer.',
+          ),
+        );
+        return;
+      }
+
       // Test configuration first
       await SocialLoginService.testGoogleSignInConfig();
 
@@ -116,7 +129,19 @@ class AuthCubit extends Cubit<BaseState> {
       AuthModel authModel = await repository.mobileSocialLogin(socialData);
       emit(LoadedState(authModel));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      String errorMessage = BlocUtils.getMessageError(e);
+
+      // Xử lý lỗi cụ thể cho Google Sign-In
+      if (e.toString().contains('timeout') ||
+          e.toString().contains('SERVICE_DISABLED') ||
+          e.toString().contains('SERVICE_MISSING')) {
+        errorMessage =
+            'Google Play Services không khả dụng trên LDPlayer. Vui lòng thử trên thiết bị thật.';
+      } else if (e.toString().contains('network_error')) {
+        errorMessage = 'Lỗi kết nối mạng. Vui lòng kiểm tra kết nối internet.';
+      }
+
+      emit(ErrorState(errorMessage));
     }
   }
 

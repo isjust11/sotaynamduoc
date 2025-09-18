@@ -2,26 +2,22 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInConfig {
   // Cấu hình Google Sign-In
-  // Thay đổi clientId này bằng client ID thực từ Google Cloud Console
+  // Sử dụng client ID từ google-services.json
 
   // Web Client ID (dùng cho server-side verification)
   static const String webClientId =
-      '253093025841-nu14eg05sj43et9bm0njsj9igbl58n46.apps.googleusercontent.com';
+      '228679159711-906v3nfof3sibkre59r394gv44al416o.apps.googleusercontent.com';
 
-  // iOS Client ID (dùng cho iOS app)
-  static const String iosClientId =
-      '700663881543-1mk7ocal2m70mgielnjarbhmu9deoddb.apps.googleusercontent.com';
-
-  // Android Client ID (dùng cho Android app)
+  // Android Client ID (từ google-services.json)
   static const String androidClientId =
-      '253093025841-nu14eg05sj43et9bm0njsj9igbl58n46.apps.googleusercontent.com';
+      '228679159711-k41tgofkrglamkn6khb79ttp772ej4ir.apps.googleusercontent.com';
 
   // Cấu hình GoogleSignIn instance
   static GoogleSignIn get googleSignIn => GoogleSignIn(
     scopes: ['email', 'profile'],
-    // iOS: Client ID sẽ được đọc từ GoogleService-Info.plist
     // Android: Client ID sẽ được đọc từ google-services.json
-    // Web: Có thể dùng webClientId nếu cần
+    // Web: Sử dụng webClientId cho web platform
+    serverClientId: webClientId, // Cần thiết cho server-side verification
   );
 
   // Hướng dẫn cấu hình:

@@ -40,6 +40,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get changeLanguage => 'Đổi ngôn ngữ';
 
   @override
+  String get loading => 'Đang tải...';
+
+  @override
   String get skip => 'Bỏ qua';
 
   @override
@@ -264,4 +267,30 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get passwordMin => 'Mật khẩu phải có ít nhất 6 ký tự';
+
+  @override
+  String get loginFailed => 'Đăng nhập thất bại!';
+
+  @override
+  String get usernameMin => 'Tên đăng nhập phải có ít nhất 3 ký tự';
+
+  @override
+  String get usernameMax => 'Tên đăng nhập không được quá 20 ký tự';
+
+  @override
+  String get usernameSpecial =>
+      'Tên đăng nhập chỉ được chứa chữ cái, số, dấu chấm, gạch dưới và gạch ngang';
+
+  @override
+  String get passwordMax => 'Mật khẩu không được quá 20 ký tự';
+
+  @override
+  String get pleaseEnterUsername => 'Vui lòng nhập tên đăng nhập';
+
+  @override
+  String get pleaseEnterPassword => 'Vui lòng nhập mật khẩu';
+
+  @override
+  String get pleaseCheckLoginInfo =>
+      'Vui lòng kiểm tra lại thông tin đăng nhập';
 }
