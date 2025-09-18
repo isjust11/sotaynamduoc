@@ -39,6 +39,17 @@ class AuthRemoteDataSource {
     return Future.error(apiResponse.errMessage);
   }
 
+  Future<Map<String, dynamic>> resendPin(Map<String, dynamic> param) async {
+    ApiResponse apiResponse = await network.post(
+      url: ApiConstant.resendPin,
+      body: param,
+    );
+    if (apiResponse.isSuccess) {
+      return apiResponse.data;
+    }
+    return Future.error(apiResponse.errMessage);
+  }
+
   Future<AuthModel> mobileSocialLogin(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
       url: ApiConstant.mobileSocialLogin,

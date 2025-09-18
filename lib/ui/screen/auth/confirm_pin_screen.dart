@@ -6,6 +6,7 @@ import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 
 class ConfirmPinScreen extends StatelessWidget {
   final String email;
@@ -139,7 +140,13 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
         }
       },
       child: BaseScreen(
-        loadingWidget: SizedBox.shrink(),
+        loadingWidget: CustomLoading<AuthCubit>(
+          size: AppDimens.SIZE_32,
+          loadingType: LoadingType.threeArchedCircle,
+          message: AppLocalizations.current.loading,
+          backgroundColor: Colors.black.withValues(alpha: 0.4),
+          indicatorColor: AppColors.baseColor,
+        ),
         messageNotify: CustomSnackBar<AuthCubit>(),
         hideAppBar: true,
         body: Container(

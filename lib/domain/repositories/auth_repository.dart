@@ -27,13 +27,14 @@ class AuthRepository {
   }
 
   Future<Map<String, dynamic>> verifyPin(Map<String, dynamic> param) async {
-    // TODO: implement verifyPin
-    throw UnimplementedError();
+    AuthModel authModel = await remoteDataSource.verifyPin(param);
+    await localDataSource.saveTokenInfo(authModel);
+    await localDataSource.saveUserInfo(authModel.user!);
+    return authModel.toJson();
   }
 
   Future<Map<String, dynamic>> resendPin(Map<String, dynamic> param) async {
-    // TODO: implement resendPin
-    throw UnimplementedError();
+    return await remoteDataSource.resendPin(param);
   }
 
   Future<AuthModel> mobileSocialLogin(Map<String, dynamic> param) async {

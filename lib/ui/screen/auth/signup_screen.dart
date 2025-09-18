@@ -38,6 +38,12 @@ class _SignUpScreenState extends State<SignUpBody> {
   late TextEditingController _usernameController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
+  final GlobalKey<TextFieldState> _usernameFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _passwordFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _confirmPasswordFieldKey =
+      GlobalKey<TextFieldState>();
 
   @override
   void initState() {
@@ -76,19 +82,16 @@ class _SignUpScreenState extends State<SignUpBody> {
               ),
             ),
           );
-        } else if (state is ErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text((state).data ?? 'Đăng ký thất bại!'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        } else if (state is LoadingState) {
-          CustomSnackBar<AuthCubit>(fontSize: 16).build(context);
         }
       },
       child: BaseScreen(
-        loadingWidget: SizedBox.shrink(),
+        loadingWidget: CustomLoading<AuthCubit>(
+          size: AppDimens.SIZE_32,
+          loadingType: LoadingType.threeArchedCircle,
+          message: AppLocalizations.current.loading,
+          backgroundColor: Colors.black.withValues(alpha: 0.4),
+          indicatorColor: AppColors.baseColor,
+        ),
         messageNotify: CustomSnackBar<AuthCubit>(),
         hideAppBar: true,
         body: Container(
@@ -114,12 +117,7 @@ class _SignUpScreenState extends State<SignUpBody> {
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return AppLocalizations.current.plsInputFullName;
-                          }
-                          return null;
-                        },
+                        validator: _validateFullName,
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
                       // Email
@@ -154,12 +152,7 @@ class _SignUpScreenState extends State<SignUpBody> {
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
                         keyboardType: TextInputType.phone,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return AppLocalizations.current.plsInputPhoneNumber;
-                          }
-                          return null;
-                        },
+                        validator: _validatePhoneNumber,
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
 
@@ -167,16 +160,13 @@ class _SignUpScreenState extends State<SignUpBody> {
                       CustomTextInput(
                         textController: _usernameController,
                         obscureText: false,
+                        key: _usernameFieldKey,
+                        validator: _validateUsername,
+                        isRequired: true,
                         hintText: AppLocalizations.current.userName,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return AppLocalizations.current.plsInputUserName;
-                          }
-                          return null;
-                        },
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
 
@@ -184,41 +174,26 @@ class _SignUpScreenState extends State<SignUpBody> {
                       CustomTextInput(
                         textController: _passwordController,
                         obscureText: true,
+                        key: _passwordFieldKey,
                         hintText: AppLocalizations.current.password,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return AppLocalizations.current.plsInputPassword;
-                          }
-                          if (value.length < 6) {
-                            return AppLocalizations.current.passwordMin;
-                          }
-                          return null;
-                        },
+                        validator: _validatePassword,
+                        isRequired: true,
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
 
                       // Xác nhận mật khẩu
                       CustomTextInput(
+                        key: _confirmPasswordFieldKey,
                         textController: _confirmPasswordController,
                         obscureText: true,
                         hintText: AppLocalizations.current.confirmPassword,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return AppLocalizations
-                                .current
-                                .plsInputConfirmPassword;
-                          }
-                          if (value != _passwordController.text) {
-                            return AppLocalizations.current.passwordNotMatch;
-                          }
-                          return null;
-                        },
+                        validator: _validateConfirmPassword,
                       ),
                       SizedBox(height: AppDimens.SIZE_24),
 
@@ -243,7 +218,17 @@ class _SignUpScreenState extends State<SignUpBody> {
                           color: AppColors.white,
                         ),
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
+                          bool isUsernameValid =
+                              _usernameFieldKey.currentState?.isValid ?? false;
+                          bool isPasswordValid =
+                              _passwordFieldKey.currentState?.isValid ?? false;
+                          bool isConfirmPasswordValid =
+                              _confirmPasswordFieldKey.currentState?.isValid ??
+                              false;
+
+                          if (isUsernameValid &&
+                              isPasswordValid &&
+                              isConfirmPasswordValid) {
                             BlocProvider.of<AuthCubit>(context).doRegister(
                               fullName: _fullNameController.text,
                               email: _emailController.text,
@@ -368,7 +353,7 @@ class _SignUpScreenState extends State<SignUpBody> {
     required VoidCallback onPressed,
   }) {
     return Container(
-      height: 48,
+      height: AppDimens.SIZE_48,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
@@ -384,11 +369,15 @@ class _SignUpScreenState extends State<SignUpBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // SVG Icon
-            SvgPicture.asset(iconPath, width: 20, height: 20),
+            SvgPicture.asset(
+              iconPath,
+              width: AppDimens.SIZE_20,
+              height: AppDimens.SIZE_20,
+            ),
             SizedBox(width: AppDimens.SIZE_12),
             CustomTextLabel(
               text,
-              fontSize: AppDimens.SIZE_16,
+              fontSize: AppDimens.SIZE_14,
               fontWeight: FontWeight.w600,
               color: textColor,
             ),
@@ -396,5 +385,99 @@ class _SignUpScreenState extends State<SignUpBody> {
         ),
       ),
     );
+  }
+
+  // Validation methods
+  String? _validateUsername(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.current.plsInputUserName;
+    }
+
+    if (value.length < 3) {
+      return AppLocalizations.current.usernameMin;
+    }
+
+    if (value.length > 20) {
+      return AppLocalizations.current.usernameMax;
+    }
+
+    // Check for valid characters: letters, numbers, dots, underscores, hyphens
+    if (!RegExp(r'^[a-zA-Z0-9._-]+$').hasMatch(value)) {
+      return AppLocalizations.current.usernameSpecial;
+    }
+
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.current.plsInputPassword;
+    }
+
+    if (value.length < 6) {
+      return AppLocalizations.current.passwordMin;
+    }
+
+    if (value.length > 20) {
+      return AppLocalizations.current.passwordMax;
+    }
+
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.current.plsInputConfirmPassword;
+    }
+    if (value != _passwordController.text) {
+      return AppLocalizations.current.passwordNotMatch;
+    }
+    return null;
+  }
+
+  String? _validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.current.plsInputPhoneNumber;
+    }
+
+    // Remove all non-digit characters for validation
+    String cleanPhone = value.replaceAll(RegExp(r'[^\d]'), '');
+
+    // Check if phone number has valid length (10-11 digits for Vietnamese phone numbers)
+    if (cleanPhone.length < 10 || cleanPhone.length > 11) {
+      return 'Số điện thoại phải có từ 10-11 chữ số';
+    }
+
+    // Check if phone number starts with valid Vietnamese prefixes
+    if (!RegExp(r'^(0[3|5|7|8|9])').hasMatch(cleanPhone)) {
+      return 'Số điện thoại không hợp lệ';
+    }
+
+    return null;
+  }
+
+  String? _validateFullName(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.current.plsInputFullName;
+    }
+
+    // Trim whitespace and check minimum length
+    String trimmedValue = value.trim();
+    if (trimmedValue.length < 2) {
+      return 'Họ và tên phải có ít nhất 2 ký tự';
+    }
+
+    if (trimmedValue.length > 50) {
+      return 'Họ và tên không được quá 50 ký tự';
+    }
+
+    // Check if name contains only letters, spaces, and Vietnamese characters
+    if (!RegExp(
+      r'^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂÂÊÔưăâêô\s]+$',
+    ).hasMatch(trimmedValue)) {
+      return 'Họ và tên chỉ được chứa chữ cái và khoảng trắng';
+    }
+
+    return null;
   }
 }
