@@ -129,17 +129,7 @@ class _SignUpScreenState extends State<SignUpBody> {
                         fontSize: AppDimens.SIZE_16,
                         borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
                         keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return AppLocalizations.current.plsInputEmail;
-                          }
-                          if (!RegExp(
-                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                          ).hasMatch(value)) {
-                            return AppLocalizations.current.emailInvalid;
-                          }
-                          return null;
-                        },
+                        validator: _validateEmail,
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
 
@@ -453,6 +443,18 @@ class _SignUpScreenState extends State<SignUpBody> {
       return 'Số điện thoại không hợp lệ';
     }
 
+    return null;
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.current.plsInputEmail;
+    }
+    if (!RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    ).hasMatch(value)) {
+      return AppLocalizations.current.emailInvalid;
+    }
     return null;
   }
 

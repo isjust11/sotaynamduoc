@@ -2,7 +2,7 @@
 import 'base_entity.dart';
 
 class RoleEntity extends BaseEntity {
-   String? name = '';
+  String? name = '';
   String? code = '';
   String? description;
 

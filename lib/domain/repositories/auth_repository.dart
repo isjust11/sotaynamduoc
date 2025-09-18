@@ -17,8 +17,8 @@ class AuthRepository {
     return authModel;
   }
 
-  Future<AuthModel> register(Map<String, dynamic> param) async {
-    AuthModel authModel = await remoteDataSource.register(param);
+  Future<RegisterModel> register(Map<String, dynamic> param) async {
+    RegisterModel authModel = await remoteDataSource.register(param);
     return authModel;
   }
 

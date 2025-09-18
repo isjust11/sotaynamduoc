@@ -1,4 +1,4 @@
-import 'package:sotaynamduoc/domain/data/models/auth_model.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 
 class AuthRemoteDataSource {
@@ -17,13 +17,13 @@ class AuthRemoteDataSource {
     return Future.error(apiResponse.errMessage);
   }
 
-  Future<AuthModel> register(Map<String, dynamic> param) async {
+  Future<RegisterModel> register(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
       url: ApiConstant.register,
       body: param,
     );
     if (apiResponse.isSuccess) {
-      return AuthModel.fromJson(apiResponse.data);
+      return RegisterModel.fromJson(apiResponse.data);
     }
     return Future.error(apiResponse.errMessage);
   }

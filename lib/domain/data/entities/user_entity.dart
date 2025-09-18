@@ -11,7 +11,15 @@ class UserEntity extends BaseEntity {
   String? picture;
   List<RoleEntity> roles = [];
   List<dynamic> permissions = [];
-  @override
+  String? email;
+  String? platformId;
+  String? verificationToken;
+  String? pinCode;
+  String? pinExpiresAt;
+  String? lastLogin;
+  String? createdAt;
+  String? updatedAt;
+
   UserEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     id = json['id'];
     username = json['username'];
@@ -22,7 +30,15 @@ class UserEntity extends BaseEntity {
     roles = (json['roles'] as List)
         .map((role) => RoleEntity.fromJson(role as Map<String, dynamic>))
         .toList();
-    permissions = json['permissions'] as List<dynamic>;
+    permissions = json['permissions']  ?? [];
+    email = json['email'];
+    platformId = json['platformId'];
+    verificationToken = json['verificationToken'];
+    pinCode = json['pinCode'];
+    pinExpiresAt = json['pinExpiresAt'];
+    lastLogin = json['lastLogin'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
 
   @override
@@ -36,6 +52,14 @@ class UserEntity extends BaseEntity {
     data['picture'] = picture;
     data['roles'] = roles.map((role) => role.toJson()).toList();
     data['permissions'] = permissions;
+    data['email'] = email;
+    data['platformId'] = platformId;
+    data['verificationToken'] = verificationToken;
+    data['pinCode'] = pinCode;
+    data['pinExpiresAt'] = pinExpiresAt;
+    data['lastLogin'] = lastLogin;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }
