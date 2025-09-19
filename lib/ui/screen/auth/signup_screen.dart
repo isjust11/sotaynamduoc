@@ -38,6 +38,7 @@ class _SignUpScreenState extends State<SignUpBody> {
   late TextEditingController _usernameController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
+  final GlobalKey<TextFieldState> _emailFieldKey = GlobalKey<TextFieldState>();
   final GlobalKey<TextFieldState> _usernameFieldKey =
       GlobalKey<TextFieldState>();
   final GlobalKey<TextFieldState> _passwordFieldKey =
@@ -123,7 +124,9 @@ class _SignUpScreenState extends State<SignUpBody> {
                       // Email
                       CustomTextInput(
                         textController: _emailController,
+                        key: _emailFieldKey,
                         obscureText: false,
+                        isRequired: true,
                         hintText: AppLocalizations.current.email,
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimens.SIZE_16,

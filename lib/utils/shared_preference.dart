@@ -47,7 +47,10 @@ class SharedPreferenceUtil {
 
   static Future<bool> saveUserInfo(UserModel user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(SPrefCache.PREF_KEY_USER_INFO, json.encode(user.toJson()));
+    return prefs.setString(
+      SPrefCache.PREF_KEY_USER_INFO,
+      json.encode(user.toJson()),
+    );
   }
 
   static Future<UserModel?> getUserInfo() async {

@@ -7,12 +7,12 @@ class UserLocalDataSource {
   }
 
   Future<bool> saveTokenInfo(AuthModel authModel) async {
-    try{
+    try {
       await SharedPreferenceUtil.saveAccessToken(authModel.accessToken);
-      await SharedPreferenceUtil.saveRefreshToken(authModel.accessToken);
-    
+      await SharedPreferenceUtil.saveRefreshToken(authModel.refreshToken);
+
       return true;
-    }catch(e){
+    } catch (e) {
       return false;
     }
   }
@@ -21,7 +21,7 @@ class UserLocalDataSource {
     try {
       return await SharedPreferenceUtil.saveUserInfo(userModel);
     } catch (e) {
-      return false;   
+      return false;
     }
   }
 }

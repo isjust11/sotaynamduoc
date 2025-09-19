@@ -661,6 +661,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please check login information'**
   String get pleaseCheckLoginInfo;
+
+  /// No description provided for @verifyAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify account'**
+  String get verifyAccount;
+
+  /// No description provided for @weHaveSentThePinTo.
+  ///
+  /// In en, this message translates to:
+  /// **'We have sent the PIN 4 digits to:'**
+  String get weHaveSentThePinTo;
+
+  /// No description provided for @newPinHasBeenSent.
+  ///
+  /// In en, this message translates to:
+  /// **'New PIN has been sent!'**
+  String get newPinHasBeenSent;
+
+  /// No description provided for @verificationSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification successful!'**
+  String get verificationSuccess;
+
+  /// No description provided for @resend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend PIN'**
+  String get resend;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred. Please try again later'**
+  String get somethingWentWrong;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
 }
 
 class _AppLocalizationsDelegate

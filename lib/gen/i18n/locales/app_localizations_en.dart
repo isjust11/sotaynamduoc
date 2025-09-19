@@ -293,4 +293,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleaseCheckLoginInfo => 'Please check login information';
+
+  @override
+  String get verifyAccount => 'Verify account';
+
+  @override
+  String get weHaveSentThePinTo => 'We have sent the PIN 4 digits to:';
+
+  @override
+  String get newPinHasBeenSent => 'New PIN has been sent!';
+
+  @override
+  String get verificationSuccess => 'Verification successful!';
+
+  @override
+  String get resend => 'Resend PIN';
+
+  @override
+  String get verify => 'Verify';
+
+  @override
+  String get somethingWentWrong => 'An error occurred. Please try again later';
+
+  @override
+  String get success => 'Success';
 }

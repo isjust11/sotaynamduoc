@@ -10,10 +10,7 @@ class AuthorRemoteDataSource {
   Future<List<AuthorModel>> getAuthors({int page = 1, int size = 10}) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.apiHost}/authors',
-      params: {
-        'page': page,
-        'size': size,
-      },
+      params: {'page': page, 'size': size},
     );
     if (apiResponse.isSuccess) {
       if (apiResponse.data is List) {
@@ -27,7 +24,7 @@ class AuthorRemoteDataSource {
       }
       return [];
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Get author by ID
@@ -38,7 +35,7 @@ class AuthorRemoteDataSource {
     if (apiResponse.isSuccess) {
       return AuthorModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Get author by slug
@@ -49,7 +46,7 @@ class AuthorRemoteDataSource {
     if (apiResponse.isSuccess) {
       return AuthorModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Search authors by query
@@ -65,7 +62,7 @@ class AuthorRemoteDataSource {
       }
       return [];
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Get famous authors
@@ -81,7 +78,7 @@ class AuthorRemoteDataSource {
       }
       return [];
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Get authors by era
@@ -97,7 +94,7 @@ class AuthorRemoteDataSource {
       }
       return [];
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Get authors by dynasty
@@ -113,7 +110,7 @@ class AuthorRemoteDataSource {
       }
       return [];
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Get authors by specialty
@@ -129,7 +126,7 @@ class AuthorRemoteDataSource {
       }
       return [];
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   /// Increment view count for an author
@@ -138,7 +135,7 @@ class AuthorRemoteDataSource {
       url: '${ApiConstant.apiHost}/authors/$id/view',
     );
     if (!apiResponse.isSuccess) {
-      return Future.error(apiResponse.errMessage);
+      return Future.error(apiResponse.message);
     }
   }
 
@@ -148,7 +145,7 @@ class AuthorRemoteDataSource {
       url: '${ApiConstant.apiHost}/authors/$id/like',
     );
     if (!apiResponse.isSuccess) {
-      return Future.error(apiResponse.errMessage);
+      return Future.error(apiResponse.message);
     }
   }
 }

@@ -192,8 +192,13 @@ class TextFieldState extends State<CustomTextInput> {
                     prefixIcon: widget.prefixIcon,
                     focusColor: Colors.white,
                     border: InputBorder.none,
-                    suffixIconConstraints: BoxConstraints(maxHeight: 35),
-                    prefixIconConstraints: BoxConstraints(maxHeight: 35),
+                    suffixIconConstraints: BoxConstraints(
+                      maxHeight: AppDimens.SIZE_35,
+                    ),
+                    prefixIconConstraints: BoxConstraints(
+                      maxHeight: AppDimens.SIZE_35,
+                      minWidth: AppDimens.SIZE_35,
+                    ),
                     disabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: AppColors.border),
                     ),

@@ -93,5 +93,13 @@
   "passwordMax": "Password must be less than 100 characters",
   "pleaseEnterUsername": "Please enter username",
   "pleaseEnterPassword": "Please enter password",
-  "pleaseCheckLoginInfo": "Please check login information"
+  "pleaseCheckLoginInfo": "Please check login information",
+  "verifyAccount": "Verify account",
+  "weHaveSentThePinTo": "We have sent the PIN 4 digits to:",
+  "newPinHasBeenSent": "New PIN has been sent!",
+  "verificationSuccess": "Verification successful!",
+  "resend": "Resend PIN",
+  "verify": "Verify",
+  "somethingWentWrong": "An error occurred. Please try again later",
+  "success": "Success"
 }

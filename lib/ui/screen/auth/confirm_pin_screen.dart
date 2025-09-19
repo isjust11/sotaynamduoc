@@ -104,39 +104,9 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
     return BlocListener<AuthCubit, BaseState>(
       listener: (context, state) {
         if (state is LoadedState) {
-          // Kiểm tra xem đây có phải là response từ resendPin không
-          if (state.data != null && state.data.toString().contains('resend')) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Mã PIN mới đã được gửi!'),
-                backgroundColor: Colors.green,
-              ),
-            );
-          } else {
-            // Xác thực thành công
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Xác thực thành công!'),
-                backgroundColor: Colors.green,
-              ),
-            );
-            // Chuyển về trang đăng nhập hoặc trang chính
+          if (state.data?.code == 'verify') {
             Navigator.popUntil(context, (route) => route.isFirst);
           }
-        } else if (state is ErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text((state).data ?? 'Thao tác thất bại!'),
-              backgroundColor: Colors.red,
-            ),
-          );
-          // Xóa mã PIN khi xác thực thất bại
-          for (var controller in _pinControllers) {
-            controller.clear();
-          }
-          _focusNodes[0].requestFocus();
-        } else if (state is LoadingState) {
-          CustomSnackBar<AuthCubit>(fontSize: 16).build(context);
         }
       },
       child: BaseScreen(
@@ -190,7 +160,7 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
           width: 80,
           height: 80,
           decoration: BoxDecoration(
-            color: AppColors.baseColor.withOpacity(0.1),
+            color: AppColors.baseColor.withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: Icon(
@@ -203,7 +173,7 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
 
         // Title
         CustomTextLabel(
-          'Xác thực tài khoản',
+          AppLocalizations.current.verifyAccount,
           fontSize: AppDimens.SIZE_24,
           fontWeight: FontWeight.w700,
           color: AppColors.textDark,
@@ -212,7 +182,7 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
 
         // Description
         CustomTextLabel(
-          'Chúng tôi đã gửi mã PIN 4 chữ số đến:',
+          AppLocalizations.current.weHaveSentThePinTo,
           fontSize: AppDimens.SIZE_16,
           fontWeight: FontWeight.w500,
           color: AppColors.textMediumGrey,
@@ -236,8 +206,8 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: List.generate(4, (index) {
         return Container(
-          width: 60,
-          height: 60,
+          width: AppDimens.SIZE_60,
+          height: AppDimens.SIZE_60,
           child: TextFormField(
             controller: _pinControllers[index],
             focusNode: _focusNodes[index],
@@ -303,15 +273,15 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
           borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
         ),
       ),
+      onPressed: _pinCode.length == 4 ? _verifyPin : null,
       child: CustomTextLabel(
-        'Xác thực',
+        AppLocalizations.current.verify,
         fontSize: AppDimens.SIZE_16,
         fontWeight: FontWeight.w600,
         color: _pinCode.length == 4
             ? AppColors.white
             : AppColors.textMediumGrey,
       ),
-      onPressed: _pinCode.length == 4 ? _verifyPin : null,
     );
   }
 
@@ -319,7 +289,7 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
     return TextButton(
       onPressed: _resendPin,
       child: CustomTextLabel(
-        'Gửi lại mã PIN',
+        AppLocalizations.current.resend,
         fontSize: AppDimens.SIZE_14,
         fontWeight: FontWeight.w600,
         color: AppColors.baseColor,
@@ -332,7 +302,7 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CustomTextLabel(
-          'Đã có tài khoản? ',
+          AppLocalizations.current.alreadyHaveAccount,
           fontSize: AppDimens.SIZE_14,
           fontWeight: FontWeight.w500,
           color: AppColors.textMediumGrey,
@@ -342,7 +312,7 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
             Navigator.popUntil(context, (route) => route.isFirst);
           },
           child: CustomTextLabel(
-            'Đăng nhập',
+            AppLocalizations.current.login,
             fontSize: AppDimens.SIZE_14,
             fontWeight: FontWeight.w600,
             color: AppColors.baseColor,

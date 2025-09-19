@@ -7,12 +7,10 @@ class UserRemoteDataSource {
   UserRemoteDataSource({required this.network});
 
   Future<UserModel> getUserInfo() async {
-    ApiResponse apiResponse = await network.get(
-      url: ApiConstant.getUserInfo,
-    );
+    ApiResponse apiResponse = await network.get(url: ApiConstant.getUserInfo);
     if (apiResponse.isSuccess) {
       return UserModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 }

@@ -22,34 +22,36 @@ class CategoryRemoteDataSource {
       url: ApiConstant.getCategories,
       params: params.isNotEmpty ? params : null,
     );
-    
+
     if (apiResponse.isSuccess) {
       List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
       return data.map((json) => CategoryModel.fromJson(json)).toList();
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<CategoryModel> getCategoryById(String id) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getCategories}/$id',
     );
-    
+
     if (apiResponse.isSuccess) {
       return CategoryModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
-  Future<List<CategoryModel>> getCategoriesByCategoryTypeCode(String categoryTypeCode) async {
+  Future<List<CategoryModel>> getCategoriesByCategoryTypeCode(
+    String categoryTypeCode,
+  ) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getCategoriesByCategoryTypeCode}/$categoryTypeCode',
     );
-    
+
     if (apiResponse.isSuccess) {
       List<dynamic> data = apiResponse.data;
       return data.map((json) => CategoryModel.fromJson(json)).toList();
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 }

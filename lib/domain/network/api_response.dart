@@ -2,11 +2,11 @@ class ApiResponse<T> {
   int? code;
   T? data;
   int? status;
-  String errMessage;
+  String message;
 
-  ApiResponse.success({this.data, this.code, this.status, this.errMessage = ""});
+  ApiResponse.success({this.data, this.code, this.status, this.message = ""});
 
-  ApiResponse.error(this.errMessage, {this.data, this.code});
+  ApiResponse.error(this.message, {this.data, this.code});
 
   bool get isSuccess => code != null && code == 200;
 

@@ -96,6 +96,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "markAllAsRead": MessageLookupByLibrary.simpleMessage("Mark all as read"),
     "markAsRead": MessageLookupByLibrary.simpleMessage("Mark as read"),
     "medicine": MessageLookupByLibrary.simpleMessage("Medicine"),
+    "newPinHasBeenSent": MessageLookupByLibrary.simpleMessage(
+      "New PIN has been sent!",
+    ),
     "news": MessageLookupByLibrary.simpleMessage("News"),
     "newsDetail": MessageLookupByLibrary.simpleMessage("News detail"),
     "newsList": MessageLookupByLibrary.simpleMessage("News list"),
@@ -156,12 +159,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
       "Register with Google",
     ),
+    "resend": MessageLookupByLibrary.simpleMessage("Resend PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "share": MessageLookupByLibrary.simpleMessage("Share"),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "An error occurred. Please try again later",
+    ),
+    "success": MessageLookupByLibrary.simpleMessage("Success"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "The session has expired. Please log in again",
@@ -177,8 +185,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "usernameSpecial": MessageLookupByLibrary.simpleMessage(
       "Username must contain only letters, numbers, dots, underscores and hyphens",
     ),
+    "verificationSuccess": MessageLookupByLibrary.simpleMessage(
+      "Verification successful!",
+    ),
+    "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+    "verifyAccount": MessageLookupByLibrary.simpleMessage("Verify account"),
     "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
     "viewCount": MessageLookupByLibrary.simpleMessage("View count"),
     "viewMore": MessageLookupByLibrary.simpleMessage("View More"),
+    "weHaveSentThePinTo": MessageLookupByLibrary.simpleMessage(
+      "We have sent the PIN 4 digits to:",
+    ),
   };
 }

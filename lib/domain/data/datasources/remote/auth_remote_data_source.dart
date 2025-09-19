@@ -1,4 +1,5 @@
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/data/models/verify_pin_model.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 
 class AuthRemoteDataSource {
@@ -14,7 +15,7 @@ class AuthRemoteDataSource {
     if (apiResponse.isSuccess) {
       return AuthModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<RegisterModel> register(Map<String, dynamic> param) async {
@@ -25,29 +26,29 @@ class AuthRemoteDataSource {
     if (apiResponse.isSuccess) {
       return RegisterModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
-  Future<AuthModel> verifyPin(Map<String, dynamic> param) async {
+  Future<VerifyPINModel> verifyPin(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
       url: ApiConstant.verifyPin,
       body: param,
     );
     if (apiResponse.isSuccess) {
-      return AuthModel.fromJson(apiResponse.data);
+      return VerifyPINModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
-  Future<Map<String, dynamic>> resendPin(Map<String, dynamic> param) async {
+  Future<VerifyPINModel> resendPin(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
       url: ApiConstant.resendPin,
       body: param,
     );
     if (apiResponse.isSuccess) {
-      return apiResponse.data;
+      return VerifyPINModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<AuthModel> mobileSocialLogin(Map<String, dynamic> param) async {
@@ -58,6 +59,6 @@ class AuthRemoteDataSource {
     if (apiResponse.isSuccess) {
       return AuthModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 }

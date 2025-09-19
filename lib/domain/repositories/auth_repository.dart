@@ -1,5 +1,6 @@
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/data/models/verify_pin_model.dart';
 
 class AuthRepository {
   AuthRemoteDataSource remoteDataSource;
@@ -26,15 +27,14 @@ class AuthRepository {
     return await localDataSource.getUserInfo();
   }
 
-  Future<Map<String, dynamic>> verifyPin(Map<String, dynamic> param) async {
-    AuthModel authModel = await remoteDataSource.verifyPin(param);
-    await localDataSource.saveTokenInfo(authModel);
-    await localDataSource.saveUserInfo(authModel.user!);
-    return authModel.toJson();
+  Future<VerifyPINModel> verifyPin(Map<String, dynamic> param) async {
+    VerifyPINModel authModel = await remoteDataSource.verifyPin(param);
+    return authModel;
   }
 
-  Future<Map<String, dynamic>> resendPin(Map<String, dynamic> param) async {
-    return await remoteDataSource.resendPin(param);
+  Future<VerifyPINModel> resendPin(Map<String, dynamic> param) async {
+    VerifyPINModel authModel = await remoteDataSource.resendPin(param);
+    return authModel;
   }
 
   Future<AuthModel> mobileSocialLogin(Map<String, dynamic> param) async {

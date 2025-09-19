@@ -102,6 +102,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "markAsRead": MessageLookupByLibrary.simpleMessage("Đánh dấu đã đọc"),
     "medicine": MessageLookupByLibrary.simpleMessage("Bài thuốc"),
+    "newPinHasBeenSent": MessageLookupByLibrary.simpleMessage(
+      "Mã PIN mới đã được gửi!",
+    ),
     "news": MessageLookupByLibrary.simpleMessage("Bài viết"),
     "newsDetail": MessageLookupByLibrary.simpleMessage("Chi tiết tin tức"),
     "newsList": MessageLookupByLibrary.simpleMessage("Danh sách tin tức"),
@@ -164,12 +167,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
       "Đăng ký bằng Google",
     ),
+    "resend": MessageLookupByLibrary.simpleMessage("Gửi lại mã PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),
     "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
     "share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
     "signUp": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "skip": MessageLookupByLibrary.simpleMessage("Bỏ qua"),
+    "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
+      "Đã có lỗi xảy ra. Vui lòng thử lại sau",
+    ),
+    "success": MessageLookupByLibrary.simpleMessage("Thành công"),
     "theme": MessageLookupByLibrary.simpleMessage("Giao diện"),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
@@ -185,8 +193,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "usernameSpecial": MessageLookupByLibrary.simpleMessage(
       "Tên đăng nhập chỉ được chứa chữ cái, số, dấu chấm, gạch dưới và gạch ngang",
     ),
+    "verificationSuccess": MessageLookupByLibrary.simpleMessage(
+      "Xác thực thành công!",
+    ),
+    "verify": MessageLookupByLibrary.simpleMessage("Xác thực"),
+    "verifyAccount": MessageLookupByLibrary.simpleMessage("Xác thực tài khoản"),
     "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
     "viewCount": MessageLookupByLibrary.simpleMessage("Lượt xem"),
     "viewMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),
+    "weHaveSentThePinTo": MessageLookupByLibrary.simpleMessage(
+      "Chúng tôi đã gửi mã PIN 4 chữ số đến:",
+    ),
   };
 }

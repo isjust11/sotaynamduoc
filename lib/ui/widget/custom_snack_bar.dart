@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart' show AppLocalizations;
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+
 
 class CustomSnackBar<T extends Cubit<BaseState>> extends StatelessWidget {
   final double? fontSize;
@@ -17,10 +19,10 @@ class CustomSnackBar<T extends Cubit<BaseState>> extends StatelessWidget {
       child: Container(),
       listener: (context, state) {
         String? mess;
-        if (state is LoadedState && state.msgError.isNotEmpty) {
-          mess = state.msgError;
+        if (state is LoadedState) {
+          mess = state.data?.message ?? AppLocalizations.current.success;
         } else if (state is ErrorState) {
-          mess = state.data;
+          mess = state.data ?? AppLocalizations.current.somethingWentWrong;
         } else if (state is LoadingState) {
           return;
         }

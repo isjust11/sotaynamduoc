@@ -27,6 +27,7 @@ class Routes {
   static const String historyScreen = "/historyScreen";
   static const String newsListScreen = "/newsListScreen";
   static const String newsDetailScreen = "/newsDetailScreen";
+  static const String forgotPasswordScreen = "/forgotPasswordScreen";
 
   //init screen name
   static String initScreen() => splashScreen;
@@ -72,6 +73,11 @@ class Routes {
         final args = settings.arguments as NewsModel;
         return PageTransition(
           child: NewsDetailScreen(news: args),
+          type: PageTransitionType.fade,
+        );
+      case forgotPasswordScreen:
+        return PageTransition(
+          child: ForgotPasswordScreen(),
           type: PageTransitionType.fade,
         );
       default:

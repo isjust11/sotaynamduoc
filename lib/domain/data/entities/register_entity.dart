@@ -7,12 +7,11 @@ class RegisterEntity extends BaseEntity {
   String message = '';
   UserModel? user;
 
-
   @override
   RegisterEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     code = json['code'];
     message = json['message'];
-    user = UserModel.fromJson (json['data'] as Map<String, dynamic>);
+    user = UserModel.fromJson(json['data'] as Map<String, dynamic>);
   }
 
   @override

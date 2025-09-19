@@ -145,8 +145,9 @@ class _SignInScreenState extends State<SignInBody> {
                       SizedBox(height: AppDimens.SIZE_12),
                       InkWell(
                         onTap: () {
-                          BlocProvider.of<AuthCubit>(context).doForgotPassword(
-                            userName: _usernameController.text,
+                          Navigator.pushNamed(
+                            context,
+                            Routes.forgotPasswordScreen,
                           );
                         },
                         child: CustomTextLabel(

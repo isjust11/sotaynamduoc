@@ -22,33 +22,33 @@ class FolkMedicineRemoteDataSource {
       url: ApiConstant.getFolkMedicines,
       params: params.isNotEmpty ? params : null,
     );
-    
+
     if (apiResponse.isSuccess) {
       List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
       return data.map((json) => FolkMedicineModel.fromJson(json)).toList();
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<FolkMedicineModel> getFolkMedicineById(String id) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getFolkMedicines}/$id',
     );
-    
+
     if (apiResponse.isSuccess) {
       return FolkMedicineModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<FolkMedicineModel> getFolkMedicineBySlug(String slug) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getFolkMedicines}/slug/$slug',
     );
-    
+
     if (apiResponse.isSuccess) {
       return FolkMedicineModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
-} 
+}

@@ -28,68 +28,70 @@ class HerbalRemoteDataSource {
       url: ApiConstant.getHerbals,
       params: params.isNotEmpty ? params : null,
     );
-    
+
     if (apiResponse.isSuccess) {
       List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
       return data.map((json) => HerbalModel.fromJson(json)).toList();
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<HerbalModel> getHerbalById(String id) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getHerbals}/$id',
     );
-    
+
     if (apiResponse.isSuccess) {
       return HerbalModel.fromJson(apiResponse.data);
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<List<HerbalModel>> getHerbalsByCategory(String categoryId) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getHerbals}/category/$categoryId',
     );
-    
+
     if (apiResponse.isSuccess) {
       List<dynamic> data = apiResponse.data;
       return data.map((json) => HerbalModel.fromJson(json)).toList();
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
-  Future<List<HerbalModel>> getHerbalsByScientificName(String scientificName) async {
+  Future<List<HerbalModel>> getHerbalsByScientificName(
+    String scientificName,
+  ) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getHerbals}/scientific-name/$scientificName',
     );
-    
+
     if (apiResponse.isSuccess) {
       List<dynamic> data = apiResponse.data;
       return data.map((json) => HerbalModel.fromJson(json)).toList();
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<List<HerbalModel>> getHerbalsByFamily(String family) async {
     ApiResponse apiResponse = await network.get(
       url: '${ApiConstant.getHerbals}/family/$family',
     );
-    
+
     if (apiResponse.isSuccess) {
       List<dynamic> data = apiResponse.data;
       return data.map((json) => HerbalModel.fromJson(json)).toList();
     }
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<void> incrementViewCount(String id) async {
     ApiResponse apiResponse = await network.post(
       url: '${ApiConstant.getHerbals}/$id/view',
     );
-    
+
     if (!apiResponse.isSuccess) {
-      return Future.error(apiResponse.errMessage);
+      return Future.error(apiResponse.message);
     }
   }
 
@@ -97,9 +99,9 @@ class HerbalRemoteDataSource {
     ApiResponse apiResponse = await network.post(
       url: '${ApiConstant.getHerbals}/$id/like',
     );
-    
+
     if (!apiResponse.isSuccess) {
-      return Future.error(apiResponse.errMessage);
+      return Future.error(apiResponse.message);
     }
   }
-} 
+}

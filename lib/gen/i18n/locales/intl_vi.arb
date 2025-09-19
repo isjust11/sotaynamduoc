@@ -89,5 +89,14 @@
   "passwordMax": "Mật khẩu không được quá 20 ký tự",
   "pleaseEnterUsername": "Vui lòng nhập tên đăng nhập",
   "pleaseEnterPassword": "Vui lòng nhập mật khẩu",
-  "pleaseCheckLoginInfo": "Vui lòng kiểm tra lại thông tin đăng nhập"
+  "pleaseCheckLoginInfo": "Vui lòng kiểm tra lại thông tin đăng nhập",
+  "verifyAccount": "Xác thực tài khoản",
+  "weHaveSentThePinTo": "Chúng tôi đã gửi mã PIN 4 chữ số đến:",
+  "newPinHasBeenSent": "Mã PIN mới đã được gửi!",
+  "verificationSuccess": "Xác thực thành công!",
+  "resend": "Gửi lại mã PIN",
+  "verify": "Xác thực",
+  "somethingWentWrong": "Đã có lỗi xảy ra. Vui lòng thử lại sau",
+  "success": "Thành công"
+
 }

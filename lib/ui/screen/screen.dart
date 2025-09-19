@@ -1,10 +1,11 @@
 export 'auth/signin_screen.dart';
 export 'auth/signup_screen.dart';
+export 'auth/forgot_password_screen.dart';
+export 'auth/confirm_pin_screen.dart';
 export 'main_screen.dart';
 export 'splash_screen.dart';
 export 'library/library_screen.dart';
 export 'qrscanner_screen.dart';
-export 'history/history_screen.dart';
 export 'folk_medicine/folk_medicine_menu_screen.dart';
 export 'folk_medicine/list/folk_medicine_list_screen.dart';
 export 'folk_medicine/detail/folk_medicine_detail_screen.dart';

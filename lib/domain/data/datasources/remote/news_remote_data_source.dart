@@ -27,7 +27,7 @@ class NewsRemoteDataSource {
       return data.map((json) => NewsModel.fromJson(json)).toList();
     }
 
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 
   Future<NewsModel> getNewsDetail(String id) async {
@@ -37,6 +37,6 @@ class NewsRemoteDataSource {
       return NewsModel.fromJson(apiResponse.data);
     }
 
-    return Future.error(apiResponse.errMessage);
+    return Future.error(apiResponse.message);
   }
 }

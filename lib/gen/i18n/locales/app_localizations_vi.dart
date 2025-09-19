@@ -293,4 +293,28 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get pleaseCheckLoginInfo =>
       'Vui lòng kiểm tra lại thông tin đăng nhập';
+
+  @override
+  String get verifyAccount => 'Xác thực tài khoản';
+
+  @override
+  String get weHaveSentThePinTo => 'Chúng tôi đã gửi mã PIN 4 chữ số đến:';
+
+  @override
+  String get newPinHasBeenSent => 'Mã PIN mới đã được gửi!';
+
+  @override
+  String get verificationSuccess => 'Xác thực thành công!';
+
+  @override
+  String get resend => 'Gửi lại mã PIN';
+
+  @override
+  String get verify => 'Xác thực';
+
+  @override
+  String get somethingWentWrong => 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
+
+  @override
+  String get success => 'Thành công';
 }

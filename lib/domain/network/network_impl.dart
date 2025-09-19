@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/utils/navigator.dart';
@@ -14,6 +15,7 @@ class Network {
     baseUrl: ApiConstant.apiHost,
   );
   static final Dio _dio = Dio(options);
+  static bool _isRefreshing = false;
 
   Network._internal() {
     if (kDebugMode) {
@@ -25,7 +27,7 @@ class Network {
       InterceptorsWrapper(
         onRequest:
             (RequestOptions myOption, RequestInterceptorHandler handler) async {
-              String token = await SharedPreferenceUtil.getAccessToken();
+              final String token = await SharedPreferenceUtil.getAccessToken();
               if (token.isNotEmpty) {
                 myOption.headers["Authorization"] = "Bearer $token";
               }
@@ -44,15 +46,17 @@ class Network {
     Map<String, dynamic>? params,
   }) async {
     try {
-      Response response = await _dio.get(
+      final Response response = await _dio.get(
         url,
         queryParameters: BaseParamRequest.request(params),
         options: Options(responseType: ResponseType.json),
       );
       return getApiResponse(response);
     } on DioError catch (e) {
-      //handle error
-      print("DioError: ${e.toString()}");
+      //handle error khác
+      if (kDebugMode) {
+        print("DioError GET: ${e.toString()}");
+      }
       return getError(e);
     }
   }
@@ -64,7 +68,7 @@ class Network {
     String contentType = Headers.jsonContentType,
   }) async {
     try {
-      Response response = await _dio.post(
+      final Response response = await _dio.post(
         url,
         data: BaseParamRequest.request(body),
         queryParameters: params,
@@ -74,9 +78,11 @@ class Network {
         ),
       );
       return getApiResponse(response);
-    } catch (e) {
-      print("===post =====$e");
-      return getError(e as DioError);
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print("DioError POST: ${e.toString()}");
+      }
+      return getError(e);
     }
   }
 
@@ -119,12 +125,56 @@ class Network {
       data: response.data,
       code: response.statusCode,
       status: response.statusCode,
-      errMessage: response.statusMessage ?? "",
+      message: response.statusMessage ?? "",
     );
   }
 
+  Future<bool> _refreshToken() async {
+    if (_isRefreshing) return false;
+    _isRefreshing = true;
+    try {
+      final String refreshToken = await SharedPreferenceUtil.getRefreshToken();
+      if (refreshToken.isEmpty) {
+        _forceLogout();
+        return false;
+      }
+
+      // Sử dụng một Dio riêng không có interceptor để tránh vòng lặp 401
+      final Dio refreshDio = Dio(options);
+      final Response response = await refreshDio.post(
+        ApiConstant.refreshToken,
+        data: {'refreshToken': refreshToken},
+        options: Options(responseType: ResponseType.json),
+      );
+
+      final data = response.data;
+      final String newAccessToken = data['accessToken'] ?? '';
+      final String newRefreshToken = data['refreshToken'] ?? '';
+      if (newAccessToken.isEmpty || newRefreshToken.isEmpty) {
+        _forceLogout();
+        return false;
+      }
+
+      await SharedPreferenceUtil.saveAccessToken(newAccessToken);
+      await SharedPreferenceUtil.saveRefreshToken(newRefreshToken);
+      return true;
+    } catch (err) {
+      if (kDebugMode) {
+        print('Refresh token failed: $err');
+      }
+      _forceLogout();
+      return false;
+    } finally {
+      _isRefreshing = false;
+    }
+  }
+
   void handleTokenExpired() async {
-    NavigationService.instance.showDialogTokenExpired();
+    await _refreshToken();
+  }
+
+  Future<void> _forceLogout() async {
+    await SharedPreferenceUtil.clearData();
   }
 
   getDataReplace(data) {

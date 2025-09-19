@@ -778,6 +778,71 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Xác thực tài khoản`
+  String get verifyAccount {
+    return Intl.message(
+      'Xác thực tài khoản',
+      name: 'verifyAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chúng tôi đã gửi mã PIN 4 chữ số đến:`
+  String get weHaveSentThePinTo {
+    return Intl.message(
+      'Chúng tôi đã gửi mã PIN 4 chữ số đến:',
+      name: 'weHaveSentThePinTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mã PIN mới đã được gửi!`
+  String get newPinHasBeenSent {
+    return Intl.message(
+      'Mã PIN mới đã được gửi!',
+      name: 'newPinHasBeenSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xác thực thành công!`
+  String get verificationSuccess {
+    return Intl.message(
+      'Xác thực thành công!',
+      name: 'verificationSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gửi lại mã PIN`
+  String get resend {
+    return Intl.message('Gửi lại mã PIN', name: 'resend', desc: '', args: []);
+  }
+
+  /// `Xác thực`
+  String get verify {
+    return Intl.message('Xác thực', name: 'verify', desc: '', args: []);
+  }
+
+  /// `Đã có lỗi xảy ra. Vui lòng thử lại sau`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Đã có lỗi xảy ra. Vui lòng thử lại sau',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thành công`
+  String get success {
+    return Intl.message('Thành công', name: 'success', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {
