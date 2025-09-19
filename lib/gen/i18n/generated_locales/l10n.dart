@@ -843,6 +843,161 @@ class AppLocalizations {
   String get success {
     return Intl.message('Thành công', name: 'success', desc: '', args: []);
   }
+
+  /// `Cài đặt ứng dụng`
+  String get appSettings {
+    return Intl.message(
+      'Cài đặt ứng dụng',
+      name: 'appSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ngôn ngữ`
+  String get language {
+    return Intl.message('Ngôn ngữ', name: 'language', desc: '', args: []);
+  }
+
+  /// `Chọn giao diện`
+  String get chooseAppAppearance {
+    return Intl.message(
+      'Chọn giao diện',
+      name: 'chooseAppAppearance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quản lý thông báo`
+  String get manageNotifications {
+    return Intl.message(
+      'Quản lý thông báo',
+      name: 'manageNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng vân tay`
+  String get biometricLogin {
+    return Intl.message(
+      'Đăng nhập bằng vân tay',
+      name: 'biometricLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sử dụng vân tay hoặc Face ID`
+  String get useFingerprintOrFaceID {
+    return Intl.message(
+      'Sử dụng vân tay hoặc Face ID',
+      name: 'useFingerprintOrFaceID',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cập nhật thông tin của bạn`
+  String get updateYourInfo {
+    return Intl.message(
+      'Cập nhật thông tin của bạn',
+      name: 'updateYourInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cài đặt quyền riêng tư`
+  String get privacySettings {
+    return Intl.message(
+      'Cài đặt quyền riêng tư',
+      name: 'privacySettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bảo mật`
+  String get security {
+    return Intl.message('Bảo mật', name: 'security', desc: '', args: []);
+  }
+
+  /// `Chỉnh sửa hồ sơ`
+  String get editProfile {
+    return Intl.message(
+      'Chỉnh sửa hồ sơ',
+      name: 'editProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đổi ngôn ngữ`
+  String get changeAppLanguage {
+    return Intl.message(
+      'Đổi ngôn ngữ',
+      name: 'changeAppLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thông báo`
+  String get notifications {
+    return Intl.message('Thông báo', name: 'notifications', desc: '', args: []);
+  }
+
+  /// `Trung tâm hỗ trợ`
+  String get helpCenter {
+    return Intl.message(
+      'Trung tâm hỗ trợ',
+      name: 'helpCenter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nhận hỗ trợ và hướng dẫn`
+  String get getHelpAndSupport {
+    return Intl.message(
+      'Nhận hỗ trợ và hướng dẫn',
+      name: 'getHelpAndSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gửi phản hồi`
+  String get sendFeedback {
+    return Intl.message(
+      'Gửi phản hồi',
+      name: 'sendFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chia sẻ suy nghĩ của bạn`
+  String get shareYourThoughts {
+    return Intl.message(
+      'Chia sẻ suy nghĩ của bạn',
+      name: 'shareYourThoughts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Về ứng dụng`
+  String get aboutApp {
+    return Intl.message('Về ứng dụng', name: 'aboutApp', desc: '', args: []);
+  }
+
+  /// `Phiên bản`
+  String get version {
+    return Intl.message('Phiên bản', name: 'version', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

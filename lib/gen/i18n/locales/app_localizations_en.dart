@@ -317,4 +317,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get success => 'Success';
+
+  @override
+  String get appSettings => 'App Settings';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get chooseAppAppearance => 'Choose app appearance';
+
+  @override
+  String get manageNotifications => 'Manage notifications';
+
+  @override
+  String get biometricLogin => 'Biometric Login';
+
+  @override
+  String get useFingerprintOrFaceID => 'Use fingerprint or face ID';
+
+  @override
+  String get updateYourInfo => 'Update your info';
+
+  @override
+  String get privacySettings => 'Privacy settings';
+
+  @override
+  String get security => 'Security';
+
+  @override
+  String get editProfile => 'Edit profile';
+
+  @override
+  String get changeAppLanguage => 'Change app language';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get helpCenter => 'Help Center';
+
+  @override
+  String get getHelpAndSupport => 'Get help and support';
+
+  @override
+  String get sendFeedback => 'Send feedback';
+
+  @override
+  String get shareYourThoughts => 'Share your thoughts';
+
+  @override
+  String get aboutApp => 'About app';
+
+  @override
+  String get version => 'Version';
 }

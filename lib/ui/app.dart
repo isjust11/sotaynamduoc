@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sotaynamduoc/blocs/language_cubit.dart';
 import 'package:sotaynamduoc/blocs/theme_cubit.dart';
 import 'package:sotaynamduoc/constants/app_themes.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/routes.dart';
-import 'package:sotaynamduoc/ui/widget/locale_widget.dart';
 import 'package:sotaynamduoc/utils/navigator.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LocaleWidget(
-      builder: (state) {
+    return BlocBuilder<LanguageCubit, String>(
+      builder: (context, languageState) {
         return BlocBuilder<ThemeCubit, String>(
           builder: (context, themeState) {
             return MaterialApp(
@@ -24,16 +24,19 @@ class MyApp extends StatelessWidget {
               navigatorObservers: [routeObserver],
               navigatorKey: NavigationService.instance.navigatorKey,
               localizationsDelegates: [
-                AppLocalizations.delegate, // Add this line
+                AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              locale: Locale(state),
+              locale: Locale(languageState),
               supportedLocales: AppLocalizations.delegate.supportedLocales,
-              localeResolutionCallback: (locale, supportedLocales) => _localeCallback(locale, supportedLocales),
+              localeResolutionCallback: (locale, supportedLocales) =>
+                  _localeCallback(locale, supportedLocales),
               initialRoute: Routes.initScreen(),
-              theme: themeState == 'dark' ? AppThemes.darkTheme : AppThemes.lightTheme,
+              theme: themeState == 'dark'
+                  ? AppThemes.darkTheme
+                  : AppThemes.lightTheme,
               onGenerateRoute: Routes.generateRoute,
             );
           },

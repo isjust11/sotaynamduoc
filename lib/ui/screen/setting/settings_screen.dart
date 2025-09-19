@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/data/models/user_model.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
+import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/routes.dart';
@@ -20,7 +22,6 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   bool _notificationsEnabled = true;
   bool _biometricEnabled = false;
-  bool _autoBackup = true;
 
   @override
   void initState() {
@@ -39,9 +40,9 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-        hideAppBar: true,
-        colorBg: AppColors.lightBackground,
-        body: _buildLayoutSection(context),
+      hideAppBar: true,
+      colorBg: AppColors.lightBackground,
+      body: _buildLayoutSection(context),
     );
   }
 
@@ -62,17 +63,15 @@ class _SettingScreenState extends State<SettingScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildHeader(user),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppDimens.SIZE_12),
               _buildQuickActions(),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppDimens.SIZE_12),
               _buildSettingsSection(context),
-              const SizedBox(height: 24),
-              _buildAccountSection(context),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppDimens.SIZE_12),
               _buildSupportSection(),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppDimens.SIZE_12),
               _buildLogoutButton(context),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppDimens.SIZE_12),
             ],
           ),
         );
@@ -82,22 +81,20 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget _buildHeader(UserModel? user) {
     return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(AppDimens.SIZE_18),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
             AppColors.secondaryBrand,
-            AppColors.secondaryBrand.withOpacity(0.8),
+            AppColors.secondaryBrand.withValues(alpha: 0.8),
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.secondaryBrand.withOpacity(0.3),
-            blurRadius: 20,
+            color: AppColors.secondaryBrand.withValues(alpha: 0.3),
+            blurRadius: AppDimens.SIZE_20,
             offset: const Offset(0, 10),
           ),
         ],
@@ -110,25 +107,29 @@ class _SettingScreenState extends State<SettingScreen> {
               border: Border.all(color: Colors.white, width: 3),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: AppDimens.SIZE_10,
                   offset: const Offset(0, 5),
                 ),
               ],
             ),
             child: CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.white,
+              radius: AppDimens.SIZE_30,
+              backgroundColor: AppColors.statusTextLight,
               backgroundImage:
                   (user?.picture != null && user!.picture!.isNotEmpty)
                   ? NetworkImage(user.picture!)
                   : null,
-              child: (user?.picture == null || user!.picture!.isEmpty)
-                  ? Image.asset(Assets.icons.icAvatar, width: 40, height: 40)
-                  : null,
+              child: SvgPicture.asset(
+                (user?.picture == null || user!.picture!.isEmpty)
+                    ? Assets.icons.icAvatar
+                    : user.picture!,
+                width: AppDimens.SIZE_30,
+                height: AppDimens.SIZE_30,
+              ),
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: AppDimens.SIZE_20),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,29 +137,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 CustomTextLabel(
                   user?.fullName ?? user?.username ?? '---',
                   fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                  color: Colors.white,
+                  fontSize: AppDimens.SIZE_18,
+                  color: AppColors.white,
                 ),
                 const SizedBox(height: 6),
                 CustomTextLabel(
                   user?.username ?? '',
-                  fontSize: 16,
-                  color: Colors.white.withOpacity(0.9),
+                  fontSize: AppDimens.SIZE_14,
+                  color: AppColors.white.withValues(alpha: 0.9),
                 ),
-                const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const CustomTextLabel(
-                    'Premium Member',
-                    fontSize: 12,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                const SizedBox(height: AppDimens.SIZE_8),
               ],
             ),
           ),
@@ -169,14 +157,14 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget _buildQuickActions() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       child: Row(
         children: [
           Expanded(
             child: _buildQuickActionCard(
               icon: Icons.edit,
-              title: 'Edit Profile',
-              subtitle: 'Update your info',
+              title: AppLocalizations.current.editProfile,
+              subtitle: AppLocalizations.current.updateYourInfo,
               color: Colors.blue,
               onTap: () {},
             ),
@@ -185,8 +173,8 @@ class _SettingScreenState extends State<SettingScreen> {
           Expanded(
             child: _buildQuickActionCard(
               icon: Icons.security,
-              title: 'Security',
-              subtitle: 'Privacy settings',
+              title: AppLocalizations.current.security,
+              subtitle: AppLocalizations.current.privacySettings,
               color: Colors.green,
               onTap: () {},
             ),
@@ -206,14 +194,14 @@ class _SettingScreenState extends State<SettingScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppDimens.SIZE_12),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: AppDimens.SIZE_10,
               offset: const Offset(0, 5),
             ),
           ],
@@ -221,24 +209,24 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(AppDimens.SIZE_12),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
+                color: color.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
               ),
-              child: Icon(icon, color: color, size: 24),
+              child: Icon(icon, color: color, size: AppDimens.SIZE_24),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppDimens.SIZE_12),
             CustomTextLabel(
               title,
               fontWeight: FontWeight.w600,
-              fontSize: 14,
+              fontSize: AppDimens.SIZE_14,
               color: AppColors.colorTitle,
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: AppDimens.SIZE_4),
             CustomTextLabel(
               subtitle,
-              fontSize: 12,
+              fontSize: AppDimens.SIZE_12,
               color: AppColors.textMediumGrey,
             ),
           ],
@@ -249,39 +237,38 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget _buildSettingsSection(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
+            color: AppColors.textDark.withValues(alpha: 0.05),
+            blurRadius: AppDimens.SIZE_10,
             offset: const Offset(0, 5),
           ),
         ],
       ),
       child: Column(
         children: [
-          _buildSectionHeader('App Settings', Icons.settings),
           _buildSettingItem(
             icon: Icons.language,
-            title: 'Language',
-            subtitle: 'Change app language',
+            title: AppLocalizations.current.language,
+            subtitle: AppLocalizations.current.changeAppLanguage,
             trailing: _buildLanguageDropdown(context),
           ),
           _buildDivider(),
           _buildSettingItem(
             icon: Icons.palette,
-            title: 'Theme',
-            subtitle: 'Choose app appearance',
+            title: AppLocalizations.current.theme,
+            subtitle: AppLocalizations.current.chooseAppAppearance,
             trailing: _buildThemeDropdown(context),
           ),
           _buildDivider(),
           _buildSettingItem(
             icon: Icons.notifications,
-            title: 'Notifications',
-            subtitle: 'Manage notifications',
+            title: AppLocalizations.current.notifications,
+            subtitle: AppLocalizations.current.manageNotifications,
             trailing: Switch(
               value: _notificationsEnabled,
               onChanged: (value) {
@@ -295,8 +282,8 @@ class _SettingScreenState extends State<SettingScreen> {
           _buildDivider(),
           _buildSettingItem(
             icon: Icons.fingerprint,
-            title: 'Biometric Login',
-            subtitle: 'Use fingerprint or face ID',
+            title: AppLocalizations.current.biometricLogin,
+            subtitle: AppLocalizations.current.useFingerprintOrFaceID,
             trailing: Switch(
               value: _biometricEnabled,
               onChanged: (value) {
@@ -312,58 +299,6 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  Widget _buildAccountSection(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          _buildSectionHeader('Account', Icons.person),
-          _buildSettingItem(
-            icon: Icons.backup,
-            title: 'Auto Backup',
-            subtitle: 'Backup data automatically',
-            trailing: Switch(
-              value: _autoBackup,
-              onChanged: (value) {
-                setState(() {
-                  _autoBackup = value;
-                });
-              },
-              activeThumbColor: AppColors.secondaryBrand,
-            ),
-          ),
-          _buildDivider(),
-          _buildSettingItem(
-            icon: Icons.storage,
-            title: 'Storage',
-            subtitle: 'Manage app storage',
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {},
-          ),
-          _buildDivider(),
-          _buildSettingItem(
-            icon: Icons.history,
-            title: 'Activity History',
-            subtitle: 'View your activity',
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildSupportSection() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -372,7 +307,7 @@ class _SettingScreenState extends State<SettingScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -380,27 +315,26 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       child: Column(
         children: [
-          _buildSectionHeader('Support', Icons.help),
           _buildSettingItem(
             icon: Icons.help_outline,
-            title: 'Help Center',
-            subtitle: 'Get help and support',
+            title: AppLocalizations.current.helpCenter,
+            subtitle: AppLocalizations.current.getHelpAndSupport,
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
           ),
           _buildDivider(),
           _buildSettingItem(
             icon: Icons.feedback,
-            title: 'Send Feedback',
-            subtitle: 'Share your thoughts',
+            title: AppLocalizations.current.sendFeedback,
+            subtitle: AppLocalizations.current.shareYourThoughts,
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
           ),
           _buildDivider(),
           _buildSettingItem(
             icon: Icons.info_outline,
-            title: 'About App',
-            subtitle: 'Version 1.0.0',
+            title: AppLocalizations.current.aboutApp,
+            subtitle: AppLocalizations.current.version,
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
           ),
@@ -417,7 +351,7 @@ class _SettingScreenState extends State<SettingScreen> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: AppColors.secondaryBrand.withOpacity(0.1),
+              color: AppColors.secondaryBrand.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: AppColors.secondaryBrand, size: 20),
@@ -443,20 +377,27 @@ class _SettingScreenState extends State<SettingScreen> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDimens.SIZE_20,
+          vertical: AppDimens.SIZE_12,
+        ),
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(AppDimens.SIZE_8),
               decoration: BoxDecoration(
-                color: AppColors.secondaryBrand.withOpacity(0.1),
+                color: AppColors.secondaryBrand.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: AppColors.secondaryBrand, size: 20),
+              child: Icon(
+                icon,
+                color: AppColors.secondaryBrand,
+                size: AppDimens.SIZE_20,
+              ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppDimens.SIZE_16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -464,13 +405,13 @@ class _SettingScreenState extends State<SettingScreen> {
                   CustomTextLabel(
                     title,
                     fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                    fontSize: AppDimens.SIZE_16,
                     color: AppColors.colorTitle,
                   ),
                   const SizedBox(height: 2),
                   CustomTextLabel(
                     subtitle,
-                    fontSize: 14,
+                    fontSize: AppDimens.SIZE_14,
                     color: AppColors.textMediumGrey,
                   ),
                 ],
@@ -487,7 +428,7 @@ class _SettingScreenState extends State<SettingScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       height: 1,
-      color: Colors.grey.withOpacity(0.2),
+      color: Colors.grey.withValues(alpha: 0.2),
     );
   }
 
@@ -495,16 +436,21 @@ class _SettingScreenState extends State<SettingScreen> {
     return BlocBuilder<LanguageCubit, String>(
       builder: (context, lang) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
           decoration: BoxDecoration(
-            color: AppColors.secondaryBrand.withOpacity(0.1),
+            color: AppColors.secondaryBrand.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.secondaryBrand.withOpacity(0.3)),
+            border: Border.all(
+              color: AppColors.secondaryBrand.withValues(alpha: 0.3),
+            ),
           ),
           child: DropdownButton<String>(
             value: lang,
             underline: const SizedBox(),
-            icon: Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryBrand),
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: AppColors.secondaryBrand,
+            ),
             items: const [
               DropdownMenuItem(value: 'vi', child: Text('Tiếng Việt')),
               DropdownMenuItem(value: 'en', child: Text('English')),
@@ -522,11 +468,13 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget _buildThemeDropdown(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       decoration: BoxDecoration(
-        color: AppColors.secondaryBrand.withOpacity(0.1),
+        color: AppColors.secondaryBrand.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.secondaryBrand.withOpacity(0.3)),
+        border: Border.all(
+          color: AppColors.secondaryBrand.withValues(alpha: 0.3),
+        ),
       ),
       child: DropdownButton<String>(
         value: context.read<ThemeCubit>().state,
@@ -547,23 +495,23 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget _buildLogoutButton(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red.shade400,
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(56),
+          minimumSize: const Size.fromHeight(AppDimens.SIZE_50),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
           ),
           elevation: 0,
-          shadowColor: Colors.red.withOpacity(0.3),
+          shadowColor: Colors.red.withValues(alpha: 0.3),
         ),
-        icon: const Icon(Icons.logout, size: 24),
+        icon: const Icon(Icons.logout, size: AppDimens.SIZE_24),
         label: Text(
           AppLocalizations.current.logout,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: AppDimens.SIZE_16,
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aboutApp": MessageLookupByLibrary.simpleMessage("About app"),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "All notifications loaded",
     ),
@@ -29,8 +30,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Already have an account?",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
+    "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
+    "biometricLogin": MessageLookupByLibrary.simpleMessage("Biometric Login"),
+    "changeAppLanguage": MessageLookupByLibrary.simpleMessage(
+      "Change app language",
+    ),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Change Language"),
+    "chooseAppAppearance": MessageLookupByLibrary.simpleMessage(
+      "Choose app appearance",
+    ),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "detail": MessageLookupByLibrary.simpleMessage("detail"),
@@ -40,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "dropdown_loading": MessageLookupByLibrary.simpleMessage(
       "Retrieving data...",
     ),
+    "editProfile": MessageLookupByLibrary.simpleMessage("Edit profile"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
     "endOfList": MessageLookupByLibrary.simpleMessage("End of list"),
@@ -72,14 +82,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "General Notification",
     ),
+    "getHelpAndSupport": MessageLookupByLibrary.simpleMessage(
+      "Get help and support",
+    ),
     "googleRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
       "Google registration - Coming soon!",
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
+    "helpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Herbal detail"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Enter username"),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
     "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -93,6 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Login with Google",
     ),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "manageNotifications": MessageLookupByLibrary.simpleMessage(
+      "Manage notifications",
+    ),
     "markAllAsRead": MessageLookupByLibrary.simpleMessage("Mark all as read"),
     "markAsRead": MessageLookupByLibrary.simpleMessage("Mark as read"),
     "medicine": MessageLookupByLibrary.simpleMessage("Medicine"),
@@ -110,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "No notifications yet",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+    "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordMax": MessageLookupByLibrary.simpleMessage(
@@ -148,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Please enter your username",
     ),
+    "privacySettings": MessageLookupByLibrary.simpleMessage("Privacy settings"),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -162,8 +182,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "resend": MessageLookupByLibrary.simpleMessage("Resend PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
+    "security": MessageLookupByLibrary.simpleMessage("Security"),
+    "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "share": MessageLookupByLibrary.simpleMessage("Share"),
+    "shareYourThoughts": MessageLookupByLibrary.simpleMessage(
+      "Share your thoughts",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
@@ -175,6 +200,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "The session has expired. Please log in again",
     ),
     "unread": MessageLookupByLibrary.simpleMessage("Unread"),
+    "updateYourInfo": MessageLookupByLibrary.simpleMessage("Update your info"),
+    "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(
+      "Use fingerprint or face ID",
+    ),
     "userName": MessageLookupByLibrary.simpleMessage("Login name"),
     "usernameMax": MessageLookupByLibrary.simpleMessage(
       "Username must be less than 50 characters",
@@ -190,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "verify": MessageLookupByLibrary.simpleMessage("Verify"),
     "verifyAccount": MessageLookupByLibrary.simpleMessage("Verify account"),
+    "version": MessageLookupByLibrary.simpleMessage("Version"),
     "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
     "viewCount": MessageLookupByLibrary.simpleMessage("View count"),
     "viewMore": MessageLookupByLibrary.simpleMessage("View More"),

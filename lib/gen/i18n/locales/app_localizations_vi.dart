@@ -317,4 +317,58 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get success => 'Thành công';
+
+  @override
+  String get appSettings => 'Cài đặt ứng dụng';
+
+  @override
+  String get language => 'Ngôn ngữ';
+
+  @override
+  String get chooseAppAppearance => 'Chọn giao diện';
+
+  @override
+  String get manageNotifications => 'Quản lý thông báo';
+
+  @override
+  String get biometricLogin => 'Đăng nhập bằng vân tay';
+
+  @override
+  String get useFingerprintOrFaceID => 'Sử dụng vân tay hoặc Face ID';
+
+  @override
+  String get updateYourInfo => 'Cập nhật thông tin của bạn';
+
+  @override
+  String get privacySettings => 'Cài đặt quyền riêng tư';
+
+  @override
+  String get security => 'Bảo mật';
+
+  @override
+  String get editProfile => 'Chỉnh sửa hồ sơ';
+
+  @override
+  String get changeAppLanguage => 'Đổi ngôn ngữ';
+
+  @override
+  String get notifications => 'Thông báo';
+
+  @override
+  String get helpCenter => 'Trung tâm hỗ trợ';
+
+  @override
+  String get getHelpAndSupport => 'Nhận hỗ trợ và hướng dẫn';
+
+  @override
+  String get sendFeedback => 'Gửi phản hồi';
+
+  @override
+  String get shareYourThoughts => 'Chia sẻ suy nghĩ của bạn';
+
+  @override
+  String get aboutApp => 'Về ứng dụng';
+
+  @override
+  String get version => 'Phiên bản';
 }

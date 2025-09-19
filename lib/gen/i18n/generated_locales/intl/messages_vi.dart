@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aboutApp": MessageLookupByLibrary.simpleMessage("Về ứng dụng"),
     "agree": MessageLookupByLibrary.simpleMessage("Đồng ý"),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "Đã tải hết thông báo",
@@ -30,8 +31,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đã có tài khoản?",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
+    "appSettings": MessageLookupByLibrary.simpleMessage("Cài đặt ứng dụng"),
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
+    "biometricLogin": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng vân tay",
+    ),
+    "changeAppLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
+    "chooseAppAppearance": MessageLookupByLibrary.simpleMessage(
+      "Chọn giao diện",
+    ),
     "close": MessageLookupByLibrary.simpleMessage("Đóng"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Xác nhận mật khẩu",
@@ -44,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "dropdown_loading": MessageLookupByLibrary.simpleMessage(
       "Đang lấy dữ liệu ...",
     ),
+    "editProfile": MessageLookupByLibrary.simpleMessage("Chỉnh sửa hồ sơ"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
     "endOfList": MessageLookupByLibrary.simpleMessage("Đã tải hết danh sách"),
@@ -74,14 +84,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "Thông báo chung",
     ),
+    "getHelpAndSupport": MessageLookupByLibrary.simpleMessage(
+      "Nhận hỗ trợ và hướng dẫn",
+    ),
     "googleRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
       "Đăng ký bằng Google - Sắp tới!",
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
+    "helpCenter": MessageLookupByLibrary.simpleMessage("Trung tâm hỗ trợ"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Chi tiết thảo dược"),
     "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
     "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Nhập tên đăng nhập"),
+    "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
     "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Lượt thích"),
     "loading": MessageLookupByLibrary.simpleMessage("Đang tải..."),
@@ -97,6 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đăng nhập bằng Google",
     ),
     "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
+    "manageNotifications": MessageLookupByLibrary.simpleMessage(
+      "Quản lý thông báo",
+    ),
     "markAllAsRead": MessageLookupByLibrary.simpleMessage(
       "Đánh dấu tất cả đã đọc",
     ),
@@ -116,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Chưa có thông báo nào",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
+    "notifications": MessageLookupByLibrary.simpleMessage("Thông báo"),
     "or": MessageLookupByLibrary.simpleMessage("hoặc"),
     "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
     "passwordMax": MessageLookupByLibrary.simpleMessage(
@@ -156,6 +175,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập tên đăng nhập",
     ),
+    "privacySettings": MessageLookupByLibrary.simpleMessage(
+      "Cài đặt quyền riêng tư",
+    ),
     "read": MessageLookupByLibrary.simpleMessage("Đã đọc"),
     "register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -170,8 +192,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "resend": MessageLookupByLibrary.simpleMessage("Gửi lại mã PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),
+    "security": MessageLookupByLibrary.simpleMessage("Bảo mật"),
+    "sendFeedback": MessageLookupByLibrary.simpleMessage("Gửi phản hồi"),
     "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
     "share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
+    "shareYourThoughts": MessageLookupByLibrary.simpleMessage(
+      "Chia sẻ suy nghĩ của bạn",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "skip": MessageLookupByLibrary.simpleMessage("Bỏ qua"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
@@ -183,6 +210,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
     ),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
+    "updateYourInfo": MessageLookupByLibrary.simpleMessage(
+      "Cập nhật thông tin của bạn",
+    ),
+    "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(
+      "Sử dụng vân tay hoặc Face ID",
+    ),
     "userName": MessageLookupByLibrary.simpleMessage("Tên đăng nhập"),
     "usernameMax": MessageLookupByLibrary.simpleMessage(
       "Tên đăng nhập không được quá 20 ký tự",
@@ -198,6 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "verify": MessageLookupByLibrary.simpleMessage("Xác thực"),
     "verifyAccount": MessageLookupByLibrary.simpleMessage("Xác thực tài khoản"),
+    "version": MessageLookupByLibrary.simpleMessage("Phiên bản"),
     "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
     "viewCount": MessageLookupByLibrary.simpleMessage("Lượt xem"),
     "viewMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),

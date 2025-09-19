@@ -13,17 +13,37 @@ void main() async {
   await getIt.init();
   String language = await SharedPreferenceUtil.getCurrentLanguage();
   String theme = await SharedPreferenceUtil.getCurrentTheme();
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => LanguageCubit(language)),
         BlocProvider(create: (_) => ThemeCubit(theme)),
-        BlocProvider(create: (_) => NewsBloc(newsRepository: getIt.getIt.get<NewsRepository>())),
-        BlocProvider(create: (_) => AuthCubit(repository: getIt.getIt.get<AuthRepository>())),
-        BlocProvider(create: (_) => CategoryCubit(repository: getIt.getIt.get<CategoryRepository>())),
-        BlocProvider(create: (_) => FolkMedicineBloc(folkMedicineRepository: getIt.getIt.get<FolkMedicineRepository>())),
-        BlocProvider(create: (_) => HerbalBloc(repository: getIt.getIt.get<HerbalRepository>())),
-        BlocProvider(create: (_) => AuthorBloc(repository: getIt.getIt.get<AuthorRepository>())),
+        BlocProvider(
+          create: (_) =>
+              NewsBloc(newsRepository: getIt.getIt.get<NewsRepository>()),
+        ),
+        BlocProvider(
+          create: (_) =>
+              AuthCubit(repository: getIt.getIt.get<AuthRepository>()),
+        ),
+        BlocProvider(
+          create: (_) =>
+              CategoryCubit(repository: getIt.getIt.get<CategoryRepository>()),
+        ),
+        BlocProvider(
+          create: (_) => FolkMedicineBloc(
+            folkMedicineRepository: getIt.getIt.get<FolkMedicineRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) =>
+              HerbalBloc(repository: getIt.getIt.get<HerbalRepository>()),
+        ),
+        BlocProvider(
+          create: (_) =>
+              AuthorBloc(repository: getIt.getIt.get<AuthorRepository>()),
+        ),
       ],
       child: MyApp(),
     ),

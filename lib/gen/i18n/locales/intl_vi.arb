@@ -97,6 +97,23 @@
   "resend": "Gửi lại mã PIN",
   "verify": "Xác thực",
   "somethingWentWrong": "Đã có lỗi xảy ra. Vui lòng thử lại sau",
-  "success": "Thành công"
-
+  "success": "Thành công",
+  "appSettings": "Cài đặt ứng dụng",
+  "language": "Ngôn ngữ",
+  "chooseAppAppearance": "Chọn giao diện",
+  "manageNotifications": "Quản lý thông báo",
+  "biometricLogin": "Đăng nhập bằng vân tay",
+  "useFingerprintOrFaceID": "Sử dụng vân tay hoặc Face ID",
+  "updateYourInfo": "Cập nhật thông tin của bạn",
+  "privacySettings": "Cài đặt quyền riêng tư",
+  "security": "Bảo mật",
+  "editProfile": "Chỉnh sửa hồ sơ",
+  "changeAppLanguage": "Đổi ngôn ngữ",
+  "notifications": "Thông báo",
+  "helpCenter": "Trung tâm hỗ trợ",
+  "getHelpAndSupport": "Nhận hỗ trợ và hướng dẫn",
+  "sendFeedback": "Gửi phản hồi",
+  "shareYourThoughts": "Chia sẻ suy nghĩ của bạn",
+  "aboutApp": "Về ứng dụng",
+  "version": "Phiên bản"
 }
