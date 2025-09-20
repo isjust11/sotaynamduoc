@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scale_size/scale_size.dart';
 
 import '../../gen/i18n/generated_locales/l10n.dart';
-import '../../res/colors.dart';
+import '../../res/resources.dart';
 import 'custom_text_label.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -15,10 +15,11 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onBackTap;
   final String? backButtonText;
   final bool showUndoIcon;
+  final bool? centerTitle;
 
   const BaseAppBar({
-    super.key, 
-    this.title, 
+    super.key,
+    this.title,
     this.showBackButton = true,
     this.customLeading,
     this.actions,
@@ -27,13 +28,14 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onBackTap,
     this.backButtonText,
     this.showUndoIcon = false,
+    this.centerTitle = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: _buildTitle(context),
-      centerTitle: true,
+      centerTitle: centerTitle,
       backgroundColor: backgroundColor ?? AppColors.secondaryBrand,
       elevation: 0,
       automaticallyImplyLeading: false,
@@ -47,31 +49,41 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (customTitle != null) {
       return customTitle;
     }
-    return CustomTextLabel(title,
-          color: AppColors.white, fontSize: 15.sw, fontWeight: FontWeight.w700);
+    return CustomTextLabel(
+      title,
+      color: AppColors.white,
+      fontSize: AppDimens.SIZE_14,
+      fontWeight: FontWeight.w700,
+    );
   }
 
   Widget? _buildLeading(BuildContext context) {
     if (customLeading != null) {
       return customLeading;
     }
-    
+
     if (showBackButton) {
       return Container(
         alignment: Alignment.bottomCenter,
-        padding: EdgeInsets.only(bottom: 10.sw),
+        padding: EdgeInsets.only(bottom: AppDimens.SIZE_10),
         child: InkWell(
-          onTap: onBackTap ?? () {
-            Navigator.pop(context);
-          },
-          child: showUndoIcon 
-            ? Icon(Icons.arrow_back_ios_new, color: AppColors.white)
-            : CustomTextLabel(backButtonText ?? AppLocalizations.current.back,
-                color: AppColors.white, fontSize: 13.sw, fontWeight: FontWeight.w400),
+          onTap:
+              onBackTap ??
+              () {
+                Navigator.pop(context);
+              },
+          child: showUndoIcon
+              ? Icon(Icons.arrow_back_ios_new, color: AppColors.white)
+              : CustomTextLabel(
+                  backButtonText ?? AppLocalizations.current.back,
+                  color: AppColors.white,
+                  fontSize: AppDimens.SIZE_13,
+                  fontWeight: FontWeight.w400,
+                ),
         ),
       );
     }
-    
+
     return null;
   }
 
@@ -79,23 +91,25 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
-class ShareButton extends StatelessWidget {
+class SearchAction extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  const ShareButton({super.key, this.onPressed});
+  const SearchAction({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.bottomCenter,
       // color: Colors.green,
-      padding: EdgeInsets.only(bottom: 10.sw, right: 16.sw),
+      padding: EdgeInsets.only(
+        bottom: AppDimens.SIZE_16,
+        right: AppDimens.SIZE_16,
+      ),
       child: InkWell(
         onTap: () {
-          Navigator.pop(context);
+          onPressed?.call();
         },
-        child: CustomTextLabel(AppLocalizations.current.share,
-            color: AppColors.white, fontSize: 13.sw, fontWeight: FontWeight.w400),
+        child: Icon(Icons.search, color: AppColors.white),
       ),
     );
   }

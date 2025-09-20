@@ -28,7 +28,15 @@ class _NewsListScreenState extends State<NewsListScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return BaseScreen(
+      loadingWidget: CustomBlocLoading<NewsBloc, NewsState>(
+        loadingState: (state) => state is NewsLoading,
+        loadingType: LoadingType.threeArchedCircle,
+        message: AppLocalizations.current.loading,
+        backgroundColor: Colors.black.withValues(alpha: 0.4),
+        indicatorColor: AppColors.baseColor,
+      ),
       colorBg: AppColors.white,
+      title: AppLocalizations.current.news.toUpperCase(),
       customAppBar: _buildAppBar(context),
       body: const NewsListBlocView(),
     );
@@ -40,6 +48,9 @@ class _NewsListScreenState extends State<NewsListScreen>
       showUndoIcon: true,
       showBackButton: false,
       backgroundColor: AppColors.secondaryBrand,
+      actions: [
+        SearchAction(),
+      ],
     );
   }
 }
@@ -105,7 +116,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildSearchBar(),
+        // _buildSearchBar(),
         Expanded(
           child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
@@ -126,55 +137,55 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
     );
   }
 
-  Widget _buildSearchBar() {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppDimens.SIZE_16,
-        vertical: AppDimens.SIZE_10,
-      ),
-      child: TextField(
-        controller: _searchController,
-        style: TextStyle(
-          fontSize: AppDimens.SIZE_14,
-          color: AppColors.textDark,
-        ),
-        decoration: InputDecoration(
-          hintText: AppLocalizations.current.searchNews,
-          hintStyle: TextStyle(
-            fontSize: AppDimens.SIZE_14,
-            color: AppColors.textMediumGrey,
-          ),
-          prefixIcon: Icon(Icons.search, color: AppColors.textMediumGrey),
-          suffixIcon: _searchController.text.isNotEmpty
-              ? IconButton(
-                  icon: Icon(Icons.clear, color: AppColors.textMediumGrey),
-                  onPressed: () {
-                    _searchController.clear();
-                    _addBlocEvent(const LoadNewsList(isRefresh: true));
-                  },
-                )
-              : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-            borderSide: BorderSide(color: AppColors.secondaryBrand),
-          ),
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: AppDimens.SIZE_8,
-            vertical: AppDimens.SIZE_4,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-            borderSide: BorderSide(color: AppColors.secondaryBrand, width: 2),
-          ),
-        ),
-        onSubmitted: (value) {
-          if (value.isNotEmpty) {
-            _addBlocEvent(SearchNews(value));
-          }
-        },
-      ),
-    );
-  }
+  // Widget _buildSearchBar() {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(
+  //       horizontal: AppDimens.SIZE_16,
+  //       vertical: AppDimens.SIZE_10,
+  //     ),
+  //     child: TextField(
+  //       controller: _searchController,
+  //       style: TextStyle(
+  //         fontSize: AppDimens.SIZE_14,
+  //         color: AppColors.textDark,
+  //       ),
+  //       decoration: InputDecoration(
+  //         hintText: AppLocalizations.current.searchNews,
+  //         hintStyle: TextStyle(
+  //           fontSize: AppDimens.SIZE_14,
+  //           color: AppColors.textMediumGrey,
+  //         ),
+  //         prefixIcon: Icon(Icons.search, color: AppColors.textMediumGrey),
+  //         suffixIcon: _searchController.text.isNotEmpty
+  //             ? IconButton(
+  //                 icon: Icon(Icons.clear, color: AppColors.textMediumGrey),
+  //                 onPressed: () {
+  //                   _searchController.clear();
+  //                   _addBlocEvent(const LoadNewsList(isRefresh: true));
+  //                 },
+  //               )
+  //             : null,
+  //         border: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
+  //           borderSide: BorderSide(color: AppColors.secondaryBrand),
+  //         ),
+  //         contentPadding: EdgeInsets.symmetric(
+  //           horizontal: AppDimens.SIZE_8,
+  //           vertical: AppDimens.SIZE_4,
+  //         ),
+  //         focusedBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+  //           borderSide: BorderSide(color: AppColors.secondaryBrand, width: 2),
+  //         ),
+  //       ),
+  //       onSubmitted: (value) {
+  //         if (value.isNotEmpty) {
+  //           _addBlocEvent(SearchNews(value));
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 
   Widget _buildNewsList(NewsListLoaded state) {
     return RefreshIndicator(

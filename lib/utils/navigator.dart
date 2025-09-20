@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
+import 'package:sotaynamduoc/gen/i18n/locales/app_localizations.dart';
 import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/ui/widget/custom_dialog.dart';
 
@@ -32,13 +32,14 @@ class NavigationService {
     if (context == null) {
       return;
     }
-    String? message = AppLocalizations.current.tokenExpiredMessage;
+    final localizations = AppLocalizations.of(context);
+    String? message = localizations?.tokenExpiredMessage;
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => CustomDialog(
         content: message,
-        titleSubmit: AppLocalizations.current.agree,
+        titleSubmit: 'OK',
         onSubmit: () {
           pushReplacement(Routes.loginScreen);
         },

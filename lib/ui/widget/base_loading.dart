@@ -26,9 +26,80 @@ class CustomLoading<T extends Cubit<BaseState>> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<T, BaseState>(
+    return CustomBlocLoading<T, BaseState>(
+      message: message,
+      showMessage: showMessage,
+      backgroundColor: backgroundColor,
+      indicatorColor: indicatorColor,
+      size: size,
+      loadingType: loadingType,
+      loadingState: (state) => state is LoadingState,
+    );
+  }
+}
+
+enum LoadingType {
+  waveDots,
+  inkDrop,
+  twistingDots,
+  threeRotatingDots,
+  staggeredDotsWave,
+  fourRotatingDots,
+  fallingDot,
+  discreteCircle,
+  threeArchedCircle,
+  bouncingBall,
+  flickr,
+  hexagonDots,
+  beat,
+  twoRotatingArc,
+  horizontalRotatingDots,
+  newtonCradle,
+  stretchedDots,
+  halfTriangleDot,
+  dotsTriangle,
+}
+
+// Custom Circular Loading Indicator with smooth animation
+
+/// CustomLoading widget that works with both Bloc and Cubit
+/// Usage with Bloc:
+/// CustomBlocLoading<NewsBloc, NewsState>(
+///   loadingState: (state) => state is NewsLoading,
+///   message: 'Đang tải tin tức...',
+/// )
+///
+/// Usage with Cubit:
+/// CustomBlocLoading<AuthCubit, BaseState>(
+///   loadingState: (state) => state is LoadingState,
+///   message: 'Đang xử lý...',
+/// )
+class CustomBlocLoading<B extends StateStreamable<S>, S>
+    extends StatelessWidget {
+  final String? message;
+  final bool showMessage;
+  final Color? backgroundColor;
+  final Color? indicatorColor;
+  final double? size;
+  final LoadingType loadingType;
+  final bool Function(S state) loadingState;
+
+  const CustomBlocLoading({
+    super.key,
+    this.message,
+    this.showMessage = true,
+    this.backgroundColor,
+    this.indicatorColor,
+    this.size,
+    this.loadingType = LoadingType.bouncingBall,
+    required this.loadingState,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<B, S>(
       builder: (_, state) {
-        if (state is LoadingState) {
+        if (loadingState(state)) {
           return _buildLoadingOverlay(context);
         }
         return const SizedBox.shrink();
@@ -179,10 +250,6 @@ class CustomLoading<T extends Cubit<BaseState>> extends StatelessWidget {
           color: indicatorColor ?? AppColors.baseColor,
           size: size ?? AppDimens.SIZE_32,
         );
-      default:
-        return CircularProgressIndicator(
-          color: indicatorColor ?? AppColors.baseColor,
-        );
     }
   }
 
@@ -197,27 +264,3 @@ class CustomLoading<T extends Cubit<BaseState>> extends StatelessWidget {
     );
   }
 }
-
-enum LoadingType {
-  waveDots,
-  inkDrop,
-  twistingDots,
-  threeRotatingDots,
-  staggeredDotsWave,
-  fourRotatingDots,
-  fallingDot,
-  discreteCircle,
-  threeArchedCircle,
-  bouncingBall,
-  flickr,
-  hexagonDots,
-  beat,
-  twoRotatingArc,
-  horizontalRotatingDots,
-  newtonCradle,
-  stretchedDots,
-  halfTriangleDot,
-  dotsTriangle,
-}
-
-// Custom Circular Loading Indicator with smooth animation

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:sotaynamduoc/domain/data/models/models.dart';
-import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
+import 'package:sotaynamduoc/gen/i18n/locales/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SPrefCache {
@@ -70,7 +70,7 @@ class SharedPreferenceUtil {
   static Future<String> getCurrentLanguage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(SPrefCache.PREF_KEY_LANGUAGE) ??
-        AppLocalizationDelegate().supportedLocales.first.languageCode;
+        AppLocalizations.supportedLocales.first.languageCode;
   }
 
   static Future clearData() async {

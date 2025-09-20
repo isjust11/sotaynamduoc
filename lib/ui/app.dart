@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         return BlocBuilder<ThemeCubit, String>(
           builder: (context, themeState) {
             return MaterialApp(
+              key: ValueKey('${languageState}_$themeState'),
               debugShowCheckedModeBanner: false,
               navigatorObservers: [routeObserver],
               navigatorKey: NavigationService.instance.navigatorKey,

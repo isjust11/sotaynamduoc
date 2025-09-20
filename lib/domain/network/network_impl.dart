@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
-import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
-import 'package:sotaynamduoc/utils/navigator.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 
 class Network {
