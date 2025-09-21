@@ -65,29 +65,29 @@ class BaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scaffold = Scaffold(
-        appBar: hideAppBar ? null : (customAppBar ?? baseAppBar(context)),
-        backgroundColor: colorBg,
-        body: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Stack(
-            children: [
-              body ?? Container(),
-              Positioned(
-                top: AppDimens.SIZE_0,
-                right: AppDimens.SIZE_0,
-                left: AppDimens.SIZE_0,
-                bottom: AppDimens.SIZE_0,
-                child: loadingWidget ?? Container(),
-              ),
-              messageNotify ?? Container()
-            ],
-          ),
+      appBar: hideAppBar ? null : (customAppBar ?? baseAppBar(context)),
+      backgroundColor: colorBg,
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Stack(
+          children: [
+            body ?? Container(),
+            Positioned(
+              top: AppDimens.SIZE_0,
+              right: AppDimens.SIZE_0,
+              left: AppDimens.SIZE_0,
+              bottom: AppDimens.SIZE_0,
+              child: loadingWidget ?? Container(),
+            ),
+            messageNotify ?? Container(),
+          ],
         ),
-        floatingActionButton: floatingButton,
-        bottomNavigationBar: bottomNavigationBar,
+      ),
+      floatingActionButton: floatingButton,
+      bottomNavigationBar: bottomNavigationBar,
     );
     return AnnotatedRegion(
       value: systemUiOverlayStyle,
@@ -101,7 +101,7 @@ class BaseScreen extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
-          scaffold
+          scaffold,
         ],
       ),
     );
@@ -135,8 +135,12 @@ class BaseScreen extends StatelessWidget {
               child: Container(
                 width: 50,
                 alignment: Alignment.center,
-                child:
-                    Assets.images.icBack.image(width: 22, height: 22, fit: BoxFit.contain, color: AppColors.colorTitle),
+                child: Assets.images.icBack.image(
+                  width: 22,
+                  height: 22,
+                  fit: BoxFit.contain,
+                  color: AppColors.colorTitle,
+                ),
               ),
             ),
       centerTitle: true,

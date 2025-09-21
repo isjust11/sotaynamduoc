@@ -20,7 +20,6 @@ class FolkMedicineListScreen extends StatelessWidget {
         onBackPress: () => Navigator.pop(context),
         customAppBar: BaseAppBar(
           title: AppLocalizations.current.featuredMedicine.toUpperCase(),
-          showUndoIcon: true,
           showBackButton: true,
           backgroundColor: AppColors.secondaryBrand,
         ),

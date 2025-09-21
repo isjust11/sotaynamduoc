@@ -39,7 +39,6 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
       customAppBar: BaseAppBar(
         title: AppLocalizations.current.herbalDetail,
         showBackButton: true,
-        showUndoIcon: true,
         onBackTap: () {
           Navigator.pop(context);
         },

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
@@ -13,6 +14,8 @@ class Network {
   );
   static final Dio _dio = Dio(options);
   static bool _isRefreshing = false;
+  static final List<RequestOptions> _requestQueue = [];
+  static Completer<bool>? _refreshCompleter;
 
   Network._internal() {
     if (kDebugMode) {
@@ -23,13 +26,51 @@ class Network {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest:
-            (RequestOptions myOption, RequestInterceptorHandler handler) async {
+            (RequestOptions options, RequestInterceptorHandler handler) async {
               final String token = await SharedPreferenceUtil.getAccessToken();
               if (token.isNotEmpty) {
-                myOption.headers["Authorization"] = "Bearer $token";
+                options.headers["Authorization"] = "Bearer $token";
               }
-              return handler.next(myOption);
+              return handler.next(options);
             },
+        onError: (DioError error, ErrorInterceptorHandler handler) async {
+          if (error.response?.statusCode == 401) {
+            // Nếu đang refresh token, thêm request vào queue
+            if (_isRefreshing) {
+              _requestQueue.add(error.requestOptions);
+              return handler.next(error);
+            }
+
+            // Bắt đầu refresh token
+            final bool refreshSuccess = await _refreshToken();
+
+            if (refreshSuccess) {
+              // Retry request gốc với token mới
+              try {
+                final String newToken =
+                    await SharedPreferenceUtil.getAccessToken();
+                error.requestOptions.headers["Authorization"] =
+                    "Bearer $newToken";
+
+                final Dio retryDio = Dio(options);
+                final Response response = await retryDio.fetch(
+                  error.requestOptions,
+                );
+                return handler.resolve(response);
+              } catch (retryError) {
+                if (kDebugMode) {
+                  print('Retry request failed: $retryError');
+                }
+                return handler.next(error);
+              }
+            } else {
+              // Refresh thất bại, logout
+              _forceLogout();
+              return handler.next(error);
+            }
+          }
+          return handler.next(error);
+        },
       ),
     );
   }
@@ -84,9 +125,6 @@ class Network {
   }
 
   ApiResponse getError(DioError e) {
-    if (e.response?.statusCode == 401) {
-      handleTokenExpired();
-    }
     switch (e.type) {
       case DioErrorType.cancel:
         return ApiResponse.error("Request cancelled");
@@ -127,12 +165,19 @@ class Network {
   }
 
   Future<bool> _refreshToken() async {
-    if (_isRefreshing) return false;
+    if (_isRefreshing) {
+      // Nếu đang refresh, chờ kết quả
+      return await _refreshCompleter?.future ?? false;
+    }
+
     _isRefreshing = true;
+    _refreshCompleter = Completer<bool>();
+
     try {
       final String refreshToken = await SharedPreferenceUtil.getRefreshToken();
       if (refreshToken.isEmpty) {
         _forceLogout();
+        _refreshCompleter!.complete(false);
         return false;
       }
 
@@ -149,25 +194,48 @@ class Network {
       final String newRefreshToken = data['refreshToken'] ?? '';
       if (newAccessToken.isEmpty || newRefreshToken.isEmpty) {
         _forceLogout();
+        _refreshCompleter!.complete(false);
         return false;
       }
 
       await SharedPreferenceUtil.saveAccessToken(newAccessToken);
       await SharedPreferenceUtil.saveRefreshToken(newRefreshToken);
+
+      // Xử lý queue requests
+      await _processRequestQueue();
+
+      _refreshCompleter!.complete(true);
       return true;
     } catch (err) {
       if (kDebugMode) {
         print('Refresh token failed: $err');
       }
       _forceLogout();
+      _refreshCompleter!.complete(false);
       return false;
     } finally {
       _isRefreshing = false;
+      _refreshCompleter = null;
     }
   }
 
-  void handleTokenExpired() async {
-    await _refreshToken();
+  Future<void> _processRequestQueue() async {
+    final List<RequestOptions> queue = List.from(_requestQueue);
+    _requestQueue.clear();
+
+    for (final requestOptions in queue) {
+      try {
+        final String newToken = await SharedPreferenceUtil.getAccessToken();
+        requestOptions.headers["Authorization"] = "Bearer $newToken";
+
+        final Dio retryDio = Dio(options);
+        await retryDio.fetch(requestOptions);
+      } catch (e) {
+        if (kDebugMode) {
+          print('Retry request failed: $e');
+        }
+      }
+    }
   }
 
   Future<void> _forceLogout() async {

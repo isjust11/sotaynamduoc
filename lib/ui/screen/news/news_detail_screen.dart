@@ -20,14 +20,13 @@ class NewsDetailScreen extends StatelessWidget {
   }
 }
 
-class NewsDetailView extends StatelessWidget  {
+class NewsDetailView extends StatelessWidget {
   final NewsModel news;
   const NewsDetailView({super.key, required this.news});
 
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      colorBg: AppColors.white,
       customAppBar: _buildAppBar(context),
       body: _buildNewsDetail(news),
     );
@@ -36,7 +35,7 @@ class NewsDetailView extends StatelessWidget  {
   BaseAppBar _buildAppBar(BuildContext context) {
     return BaseAppBar(
       title: AppLocalizations.current.newsDetail.toUpperCase(),
-      showUndoIcon: true,
+      showBackButton: true,
       onBackTap: () => Navigator.pop(context),
       backgroundColor: AppColors.secondaryBrand,
     );
@@ -128,7 +127,7 @@ class NewsDetailView extends StatelessWidget  {
             SizedBox(height: AppDimens.SIZE_16),
           ],
 
-          // Nội dung 
+          // Nội dung
           Html(
             data: news.content ?? '',
             style: HtmlStyleHelper.getNewsContentStyle(),

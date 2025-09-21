@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,8 +8,8 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/res/resources.dart';
-import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/blocs/news/news.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 
@@ -21,8 +22,16 @@ class NewsListScreen extends StatefulWidget {
 
 class _NewsListScreenState extends State<NewsListScreen>
     with AutomaticKeepAliveClientMixin {
+  Timer? _debounceTimer;
+
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +51,23 @@ class _NewsListScreenState extends State<NewsListScreen>
     );
   }
 
-  BaseAppBar _buildAppBar(BuildContext context) {
-    return BaseAppBar(
+  SearchAppBar _buildAppBar(BuildContext context) {
+    return SearchAppBar(
       title: AppLocalizations.current.news.toUpperCase(),
-      showUndoIcon: true,
       showBackButton: false,
       backgroundColor: AppColors.secondaryBrand,
-      actions: [
-        SearchAction(),
-      ],
+      onSearchChanged: (value) {
+        _debounceTimer?.cancel();
+        _debounceTimer = Timer(const Duration(milliseconds: 1000), () {
+          if (mounted) {
+            context.read<NewsBloc>().add(SearchNews(value.trim()));
+          }
+        });
+      },
+      onSearchCanceled: () {
+        _debounceTimer?.cancel();
+        context.read<NewsBloc>().add(const RefreshNews());
+      },
     );
   }
 }
@@ -137,56 +154,6 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
     );
   }
 
-  // Widget _buildSearchBar() {
-  //   return Container(
-  //     padding: EdgeInsets.symmetric(
-  //       horizontal: AppDimens.SIZE_16,
-  //       vertical: AppDimens.SIZE_10,
-  //     ),
-  //     child: TextField(
-  //       controller: _searchController,
-  //       style: TextStyle(
-  //         fontSize: AppDimens.SIZE_14,
-  //         color: AppColors.textDark,
-  //       ),
-  //       decoration: InputDecoration(
-  //         hintText: AppLocalizations.current.searchNews,
-  //         hintStyle: TextStyle(
-  //           fontSize: AppDimens.SIZE_14,
-  //           color: AppColors.textMediumGrey,
-  //         ),
-  //         prefixIcon: Icon(Icons.search, color: AppColors.textMediumGrey),
-  //         suffixIcon: _searchController.text.isNotEmpty
-  //             ? IconButton(
-  //                 icon: Icon(Icons.clear, color: AppColors.textMediumGrey),
-  //                 onPressed: () {
-  //                   _searchController.clear();
-  //                   _addBlocEvent(const LoadNewsList(isRefresh: true));
-  //                 },
-  //               )
-  //             : null,
-  //         border: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-  //           borderSide: BorderSide(color: AppColors.secondaryBrand),
-  //         ),
-  //         contentPadding: EdgeInsets.symmetric(
-  //           horizontal: AppDimens.SIZE_8,
-  //           vertical: AppDimens.SIZE_4,
-  //         ),
-  //         focusedBorder: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-  //           borderSide: BorderSide(color: AppColors.secondaryBrand, width: 2),
-  //         ),
-  //       ),
-  //       onSubmitted: (value) {
-  //         if (value.isNotEmpty) {
-  //           _addBlocEvent(SearchNews(value));
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
-
   Widget _buildNewsList(NewsListLoaded state) {
     return RefreshIndicator(
       onRefresh: () async {
@@ -272,8 +239,8 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
               borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
               child: news.thumbnail != null
                   ? Image.network(
-                      height: 100.sh,
-                      width: 100.sw,
+                      height: AppDimens.SIZE_100,
+                      width: AppDimens.SIZE_100,
                       ApiConstant.apiHost + (news.thumbnail ?? ''),
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, loadingProgress) {

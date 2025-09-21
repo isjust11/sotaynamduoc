@@ -49,15 +49,27 @@ class AppThemes {
   //Background Colors
   static const Color _darkBackgroundColor = ebonyClay;
   static const Color _darkBackgroundAppBarColor = _darkPrimaryColor;
-  static const Color _darkBackgroundSecondaryColor =
-      Color.fromRGBO(0, 0, 0, .6);
+  static const Color _darkBackgroundSecondaryColor = Color.fromRGBO(
+    0,
+    0,
+    0,
+    .6,
+  );
   static const Color _darkBackgroundAlertColor = blackPearl;
   static const Color _darkBackgroundActionTextColor = white;
 
-  static const Color _darkBackgroundErrorColor =
-      Color.fromRGBO(255, 97, 136, 1);
-  static const Color _darkBackgroundSuccessColor =
-      Color.fromRGBO(186, 215, 97, 1);
+  static const Color _darkBackgroundErrorColor = Color.fromRGBO(
+    255,
+    97,
+    136,
+    1,
+  );
+  static const Color _darkBackgroundSuccessColor = Color.fromRGBO(
+    186,
+    215,
+    97,
+    1,
+  );
 
   //Text Colors
   static const Color _darkTextColor = Colors.white;
@@ -97,7 +109,11 @@ class AppThemes {
       backgroundColor: _lightBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _lightTextColor),
       elevation: 0,
-      titleTextStyle: TextStyle(color: _lightTextColor, fontWeight: FontWeight.bold, fontSize: 18),
+      titleTextStyle: TextStyle(
+        color: _lightTextColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
     ),
     colorScheme: const ColorScheme.light(
       primary: _lightPrimaryColor,
@@ -114,7 +130,7 @@ class AppThemes {
     buttonTheme: const ButtonThemeData(buttonColor: _lightPrimaryColor),
   );
 
-//text theme for dark theme
+  //text theme for dark theme
   /*static final TextStyle _darkScreenHeadingTextStyle =
       _lightScreenHeadingTextStyle.copyWith(color: _darkTextColor);
   static final TextStyle _darkScreenTaskNameTextStyle =
@@ -150,7 +166,11 @@ class AppThemes {
       backgroundColor: _darkBackgroundAppBarColor,
       iconTheme: IconThemeData(color: _darkTextColor),
       elevation: 0,
-      titleTextStyle: TextStyle(color: _darkTextColor, fontWeight: FontWeight.bold, fontSize: 18),
+      titleTextStyle: TextStyle(
+        color: _darkTextColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
     ),
     colorScheme: const ColorScheme.dark(
       primary: _darkPrimaryColor,

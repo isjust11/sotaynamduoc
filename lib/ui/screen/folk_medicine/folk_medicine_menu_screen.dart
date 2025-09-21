@@ -14,7 +14,6 @@ class FolkMedicineMenuScreen extends StatelessWidget {
       colorBg: AppColors.white,
       customAppBar: BaseAppBar(
         title: AppLocalizations.current.featuredMedicine.toUpperCase(),
-        showUndoIcon: true,
         showBackButton: false,
         backgroundColor: AppColors.secondaryBrand,
       ),

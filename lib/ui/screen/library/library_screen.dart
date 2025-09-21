@@ -14,7 +14,6 @@ class LibraryScreen extends StatelessWidget {
       colorBg: AppColors.white,
       customAppBar: BaseAppBar(
         title: AppLocalizations.current.library,
-        showUndoIcon: true,
         showBackButton: false,
         backgroundColor: AppColors.secondaryBrand,
       ),
