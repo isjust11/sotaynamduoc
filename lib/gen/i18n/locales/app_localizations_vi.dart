@@ -130,6 +130,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get medicine => 'Bài thuốc';
 
   @override
+  String get teacher => 'Thầy thuốc';
+
+  @override
+  String get herbal => 'Thảo dược';
+
+  @override
   String get featuredMedicine => 'Bài thuốc nổi bật';
 
   @override

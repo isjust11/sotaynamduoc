@@ -338,6 +338,18 @@ abstract class AppLocalizations {
   /// **'Medicine'**
   String get medicine;
 
+  /// No description provided for @teacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher'**
+  String get teacher;
+
+  /// No description provided for @herbal.
+  ///
+  /// In en, this message translates to:
+  /// **'Herbal'**
+  String get herbal;
+
   /// No description provided for @featuredMedicine.
   ///
   /// In en, this message translates to:

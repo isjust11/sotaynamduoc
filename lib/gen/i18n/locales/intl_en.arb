@@ -40,6 +40,8 @@
   "theme": "Theme",
   "library":"Library",
   "medicine":"Medicine",
+  "teacher":"Teacher",
+  "herbal":"Herbal",
   "featuredMedicine":"Featured medicine",
   "searchNews":"Search news",
   "endOfList":"End of list",

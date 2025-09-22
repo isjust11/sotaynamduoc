@@ -130,6 +130,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get medicine => 'Medicine';
 
   @override
+  String get teacher => 'Teacher';
+
+  @override
+  String get herbal => 'Herbal';
+
+  @override
   String get featuredMedicine => 'Featured medicine';
 
   @override

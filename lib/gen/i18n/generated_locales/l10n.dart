@@ -314,6 +314,16 @@ class AppLocalizations {
     return Intl.message('Bài thuốc', name: 'medicine', desc: '', args: []);
   }
 
+  /// `Thầy thuốc`
+  String get teacher {
+    return Intl.message('Thầy thuốc', name: 'teacher', desc: '', args: []);
+  }
+
+  /// `Thảo dược`
+  String get herbal {
+    return Intl.message('Thảo dược', name: 'herbal', desc: '', args: []);
+  }
+
   /// `Bài thuốc nổi bật`
   String get featuredMedicine {
     return Intl.message(

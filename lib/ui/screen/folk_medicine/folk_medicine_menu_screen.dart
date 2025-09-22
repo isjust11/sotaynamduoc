@@ -11,7 +11,6 @@ class FolkMedicineMenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      colorBg: AppColors.white,
       customAppBar: BaseAppBar(
         title: AppLocalizations.current.featuredMedicine.toUpperCase(),
         showBackButton: false,

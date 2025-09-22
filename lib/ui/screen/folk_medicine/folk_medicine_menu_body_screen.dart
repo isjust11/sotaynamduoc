@@ -7,16 +7,18 @@ import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
-import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class FolkMedicineMenuBodyScreen extends StatefulWidget {
   const FolkMedicineMenuBodyScreen({super.key});
 
   @override
-  State<FolkMedicineMenuBodyScreen> createState() => _FolkMedicineMenuBodyScreenState();
+  State<FolkMedicineMenuBodyScreen> createState() =>
+      _FolkMedicineMenuBodyScreenState();
 }
 
-class _FolkMedicineMenuBodyScreenState extends State<FolkMedicineMenuBodyScreen> {
+class _FolkMedicineMenuBodyScreenState
+    extends State<FolkMedicineMenuBodyScreen> {
   @override
   void initState() {
     super.initState();
@@ -34,6 +36,9 @@ class _FolkMedicineMenuBodyScreenState extends State<FolkMedicineMenuBodyScreen>
     return BlocBuilder<CategoryCubit, BaseState>(
       builder: (context, state) {
         if (state is LoadedState<List<CategoryModel>>) {
+          if (state.data.isEmpty) {
+            return EmptyData();
+          }
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -66,7 +71,13 @@ class _FolkMedicineMenuBodyScreenState extends State<FolkMedicineMenuBodyScreen>
   Widget _buildItem(CategoryModel category) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FolkMedicineListScreen(categoryId: category.id ?? '')));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                FolkMedicineListScreen(categoryId: category.id ?? ''),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -96,7 +107,10 @@ class _FolkMedicineMenuBodyScreenState extends State<FolkMedicineMenuBodyScreen>
                   : SvgPicture.asset(
                       Assets.icons.icBaithuoc,
                       fit: BoxFit.contain,
-                      colorFilter: const ColorFilter.mode(AppColors.secondaryBrand, BlendMode.srcIn),
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.secondaryBrand,
+                        BlendMode.srcIn,
+                      ),
                       width: AppDimens.SIZE_40,
                       height: AppDimens.SIZE_40,
                     ),

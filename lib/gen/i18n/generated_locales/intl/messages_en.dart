@@ -90,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "helpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
+    "herbal": MessageLookupByLibrary.simpleMessage("Herbal"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Herbal detail"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -195,6 +196,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "An error occurred. Please try again later",
     ),
     "success": MessageLookupByLibrary.simpleMessage("Success"),
+    "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "The session has expired. Please log in again",

@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "helpCenter": MessageLookupByLibrary.simpleMessage("Trung tâm hỗ trợ"),
+    "herbal": MessageLookupByLibrary.simpleMessage("Thảo dược"),
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Chi tiết thảo dược"),
     "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
     "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
@@ -205,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đã có lỗi xảy ra. Vui lòng thử lại sau",
     ),
     "success": MessageLookupByLibrary.simpleMessage("Thành công"),
+    "teacher": MessageLookupByLibrary.simpleMessage("Thầy thuốc"),
     "theme": MessageLookupByLibrary.simpleMessage("Giao diện"),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",

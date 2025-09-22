@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sotaynamduoc/blocs/herbal/herbal.dart';
 import 'package:sotaynamduoc/blocs/author/author.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
-import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/screen/library/detail/library_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/library/detail/author_detail_screen.dart';
 import 'package:sotaynamduoc/ui/widget/card_item.dart';
-import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class LibraryBodyScreen extends StatefulWidget {
   const LibraryBodyScreen({super.key});
@@ -26,11 +24,18 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
   final ScrollController _herbalScrollController = ScrollController();
   final ScrollController _authorScrollController = ScrollController();
   bool _isDisposed = false;
+  late VoidCallback _tabListener;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _tabListener = () {
+      if (!_isDisposed) {
+        setState(() {});
+      }
+    };
+    _tabController.addListener(_tabListener);
 
     // Load initial data
     final herbalBloc = context.read<HerbalBloc>();
@@ -85,6 +90,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
   @override
   void dispose() {
     _isDisposed = true;
+    _tabController.removeListener(_tabListener);
     _tabController.dispose();
     _herbalScrollController.removeListener(_onHerbalScroll);
     _herbalScrollController.dispose();
@@ -112,12 +118,12 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
   Widget _buildTabBar() {
     return Container(
       margin: const EdgeInsets.symmetric(
-        horizontal: AppDimens.SIZE_16,
-        vertical: AppDimens.SIZE_8,
+        horizontal: AppDimens.SIZE_12,
+        vertical: AppDimens.SIZE_4,
       ),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppDimens.SIZE_4),
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
       ),
       child: TabBar(
         padding: EdgeInsets.zero,
@@ -125,18 +131,18 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: BoxDecoration(
           color: AppColors.secondaryBrand,
-          borderRadius: BorderRadius.circular(AppDimens.SIZE_4),
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
         ),
         dividerColor: Colors.transparent,
-        labelColor: AppColors.white,
-        unselectedLabelColor: AppColors.textDark,
         labelStyle: const TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: AppDimens.SIZE_14,
+          color: AppColors.white,
         ),
         unselectedLabelStyle: const TextStyle(
           fontWeight: FontWeight.w500,
           fontSize: AppDimens.SIZE_14,
+          color: AppColors.textDark,
         ),
         onTap: (value) => _tabController.animateTo(value),
         tabs: [
@@ -144,9 +150,9 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.eco, size: AppDimens.SIZE_16),
+                Icon(Icons.eco, size: AppDimens.SIZE_24),
                 const SizedBox(width: AppDimens.SIZE_8),
-                const Text('Cây thuốc'),
+                Text(AppLocalizations.current.herbal),
               ],
             ),
           ),
@@ -154,9 +160,9 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(Assets.icons.icCertificate),
+                Icon(Icons.admin_panel_settings, size: AppDimens.SIZE_24),
                 const SizedBox(width: AppDimens.SIZE_8),
-                const Text('Thầy thuốc'),
+                Text(AppLocalizations.current.teacher),
               ],
             ),
           ),
@@ -177,9 +183,10 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Error: ${state.message}',
-                  style: const TextStyle(color: Colors.red),
+                ErrorTemplate(
+                  onRetry: () {
+                    context.read<HerbalBloc>().add(const GetHerbalsEvent());
+                  },
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
@@ -226,9 +233,10 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Error: ${state.message}',
-                  style: const TextStyle(color: Colors.red),
+                ErrorTemplate(
+                  onRetry: () {
+                    context.read<AuthorBloc>().add(const GetAuthorsEvent());
+                  },
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
@@ -265,7 +273,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
 
   Widget _buildHerbalList(List<HerbalModel> herbals) {
     if (herbals.isEmpty) {
-      return const Center(child: Text('Không tìm thấy cây thuốc'));
+      return EmptyData();
     }
 
     return RefreshIndicator(
@@ -304,7 +312,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                 ),
               );
             },
-            title: herbal.title ?? 'Không có tiêu đề',
+            title: herbal.title ?? AppLocalizations.current.noDataAvailable,
             thumbnail: herbal.thumbnail,
             createdAt: herbal.createdAt,
             summary: herbal.summary,
@@ -319,7 +327,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                         children: [
                           const Icon(Icons.visibility, size: AppDimens.SIZE_16),
                           const SizedBox(width: AppDimens.SIZE_4),
-                          Text('${herbal.viewCount}'),
+                          CustomTextLabel('${herbal.viewCount}'),
                         ],
                       ),
                       const SizedBox(width: AppDimens.SIZE_16),
@@ -328,7 +336,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                           children: [
                             const Icon(Icons.favorite, size: AppDimens.SIZE_16),
                             const SizedBox(width: AppDimens.SIZE_4),
-                            Text('${herbal.likeCount}'),
+                            CustomTextLabel('${herbal.likeCount}'),
                           ],
                         ),
                     ],
@@ -343,7 +351,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
 
   Widget _buildAuthorList(List<AuthorModel> authors) {
     if (authors.isEmpty) {
-      return const Center(child: Text('Không tìm thấy thầy thuốc'));
+      return EmptyData();
     }
 
     return RefreshIndicator(
@@ -382,10 +390,13 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                 ),
               );
             },
-            title: author.name ?? 'Không có tên',
+            title: author.name ?? AppLocalizations.current.noDataAvailable,
             thumbnail: author.avatar ?? author.portrait,
             createdAt: author.createdAt?.toIso8601String(),
-            summary: author.biography ?? author.career ?? 'Không có mô tả',
+            summary:
+                author.biography ??
+                author.career ??
+                AppLocalizations.current.noDataAvailable,
             listBottomAction: Row(
               children: [
                 if (author.viewCount != null)
@@ -396,7 +407,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                         children: [
                           const Icon(Icons.visibility, size: AppDimens.SIZE_16),
                           const SizedBox(width: AppDimens.SIZE_4),
-                          Text('${author.viewCount}'),
+                          CustomTextLabel('${author.viewCount}'),
                         ],
                       ),
                       const SizedBox(width: AppDimens.SIZE_16),
@@ -405,7 +416,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                           children: [
                             const Icon(Icons.favorite, size: AppDimens.SIZE_16),
                             const SizedBox(width: AppDimens.SIZE_4),
-                            Text('${author.likeCount}'),
+                            CustomTextLabel('${author.likeCount}'),
                           ],
                         ),
                     ],

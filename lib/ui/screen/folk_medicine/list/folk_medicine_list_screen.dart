@@ -14,16 +14,17 @@ class FolkMedicineListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return _buildBody(context);
   }
+
   Widget _buildBody(BuildContext context) {
     return BaseScreen(
-        colorBg: AppColors.white,
-        onBackPress: () => Navigator.pop(context),
-        customAppBar: BaseAppBar(
-          title: AppLocalizations.current.featuredMedicine.toUpperCase(),
-          showBackButton: true,
-          backgroundColor: AppColors.secondaryBrand,
-        ),
-        body: FolkMedicineListBodyScreen(categoryId: categoryId),
-      );
+      colorBg: AppColors.white,
+      onBackPress: () => Navigator.pop(context),
+      customAppBar: BaseAppBar(
+        title: AppLocalizations.current.featuredMedicine.toUpperCase(),
+        showBackButton: true,
+        backgroundColor: AppColors.secondaryBrand,
+      ),
+      body: FolkMedicineListBodyScreen(categoryId: categoryId),
+    );
   }
 }
