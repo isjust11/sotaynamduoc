@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/language_cubit.dart';
 import 'package:sotaynamduoc/blocs/theme_cubit.dart';
 import 'package:sotaynamduoc/constants/app_themes.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, String>(
       builder: (context, languageState) {
+        ScaleSize.init(context, designWidth: 360, designHeight: 640);
         return BlocBuilder<ThemeCubit, String>(
           builder: (context, themeState) {
             return MaterialApp(

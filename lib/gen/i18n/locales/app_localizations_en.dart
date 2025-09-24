@@ -377,4 +377,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get version => 'Version';
+
+  @override
+  String get loginWithBiometric => 'Login with Biometric';
+
+  @override
+  String get setupBiometric => 'Setup Biometric';
+
+  @override
+  String get setupBiometricDesc =>
+      'Would you like to setup biometric login for faster authentication?';
+
+  @override
+  String get setup => 'Setup';
+
+  @override
+  String get biometricSetupSuccess => 'Biometric setup successful';
+
+  @override
+  String get biometricNotAvailable => 'Biometric not available';
+
+  @override
+  String get enterCredentials => 'Enter Credentials';
+
+  @override
+  String get pleaseEnterCredentials => 'Please enter your credentials';
+
+  @override
+  String get biometricDisabled => 'Biometric login disabled';
+
+  @override
+  String get cancel => 'Cancel';
 }

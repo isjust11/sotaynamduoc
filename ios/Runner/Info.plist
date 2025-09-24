@@ -88,5 +88,7 @@
 	<string>1:700663881543:ios:3736612bd259ed13feb662</string>
 	<key>GIDClientID</key>
 	<string>700663881543-1mk7ocal2m70mgielnjarbhmu9deoddb.apps.googleusercontent.com</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This app uses Face ID for biometric authentication</string>
 </dict>
 </plist>

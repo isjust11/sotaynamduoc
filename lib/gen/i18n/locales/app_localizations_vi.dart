@@ -377,4 +377,36 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get version => 'Phiên bản';
+
+  @override
+  String get loginWithBiometric => 'Đăng nhập bằng sinh trắc học';
+
+  @override
+  String get setupBiometric => 'Thiết lập sinh trắc học';
+
+  @override
+  String get setupBiometricDesc =>
+      'Bạn có muốn thiết lập đăng nhập bằng sinh trắc học để đăng nhập nhanh hơn không?';
+
+  @override
+  String get setup => 'Thiết lập';
+
+  @override
+  String get biometricSetupSuccess => 'Thiết lập sinh trắc học thành công';
+
+  @override
+  String get biometricNotAvailable => 'Sinh trắc học không khả dụng';
+
+  @override
+  String get enterCredentials => 'Nhập thông tin đăng nhập';
+
+  @override
+  String get pleaseEnterCredentials =>
+      'Vui lòng nhập đầy đủ thông tin đăng nhập';
+
+  @override
+  String get biometricDisabled => 'Đã tắt đăng nhập bằng sinh trắc học';
+
+  @override
+  String get cancel => 'Hủy';
 }

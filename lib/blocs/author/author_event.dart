@@ -80,4 +80,11 @@ class GetAuthorsBySpecialtyEvent extends AuthorEvent {
 
   @override
   List<Object?> get props => [specialty];
-} 
+}
+
+class ClearAuthorStateEvent extends AuthorEvent {
+  const ClearAuthorStateEvent();
+
+  @override
+  List<Object?> get props => [];
+}

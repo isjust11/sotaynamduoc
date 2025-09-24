@@ -33,9 +33,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
     "appSettings": MessageLookupByLibrary.simpleMessage("Cài đặt ứng dụng"),
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
+    "biometricDisabled": MessageLookupByLibrary.simpleMessage(
+      "Đã tắt đăng nhập bằng sinh trắc học",
+    ),
     "biometricLogin": MessageLookupByLibrary.simpleMessage(
       "Đăng nhập bằng vân tay",
     ),
+    "biometricNotAvailable": MessageLookupByLibrary.simpleMessage(
+      "Sinh trắc học không khả dụng",
+    ),
+    "biometricSetupSuccess": MessageLookupByLibrary.simpleMessage(
+      "Thiết lập sinh trắc học thành công",
+    ),
+    "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
     "chooseAppAppearance": MessageLookupByLibrary.simpleMessage(
@@ -57,6 +67,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
     "endOfList": MessageLookupByLibrary.simpleMessage("Đã tải hết danh sách"),
+    "enterCredentials": MessageLookupByLibrary.simpleMessage(
+      "Nhập thông tin đăng nhập",
+    ),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "Đã có lỗi xảy ra. Vui lòng thử lại sau",
     ),
@@ -106,6 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginSuccess": MessageLookupByLibrary.simpleMessage(
       "Đăng nhập thành công!",
     ),
+    "loginWithBiometric": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng sinh trắc học",
+    ),
     "loginWithFacebook": MessageLookupByLibrary.simpleMessage(
       "Đăng nhập bằng Facebook",
     ),
@@ -152,6 +168,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
       "Vui lòng kiểm tra lại thông tin đăng nhập",
     ),
+    "pleaseEnterCredentials": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập đầy đủ thông tin đăng nhập",
+    ),
     "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập mật khẩu",
     ),
@@ -196,6 +215,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "security": MessageLookupByLibrary.simpleMessage("Bảo mật"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Gửi phản hồi"),
     "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
+    "setup": MessageLookupByLibrary.simpleMessage("Thiết lập"),
+    "setupBiometric": MessageLookupByLibrary.simpleMessage(
+      "Thiết lập sinh trắc học",
+    ),
+    "setupBiometricDesc": MessageLookupByLibrary.simpleMessage(
+      "Bạn có muốn thiết lập đăng nhập bằng sinh trắc học để đăng nhập nhanh hơn không?",
+    ),
     "share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
     "shareYourThoughts": MessageLookupByLibrary.simpleMessage(
       "Chia sẻ suy nghĩ của bạn",

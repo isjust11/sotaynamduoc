@@ -8,9 +8,9 @@ class AuthorRepository {
 
   AuthorRepository({required this.dataSource});
 
-  Future<List<AuthorModel>> getAuthors() async {
+  Future<List<AuthorModel>> getAuthors({int page = 1, int size = 10}) async {
     try {
-      return await dataSource.getAuthors();
+      return await dataSource.getAuthors( page: page, size: size);
     } catch (e) {
       return Future.error(e);
     }

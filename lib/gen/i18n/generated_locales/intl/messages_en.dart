@@ -32,7 +32,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
     "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
+    "biometricDisabled": MessageLookupByLibrary.simpleMessage(
+      "Biometric login disabled",
+    ),
     "biometricLogin": MessageLookupByLibrary.simpleMessage("Biometric Login"),
+    "biometricNotAvailable": MessageLookupByLibrary.simpleMessage(
+      "Biometric not available",
+    ),
+    "biometricSetupSuccess": MessageLookupByLibrary.simpleMessage(
+      "Biometric setup successful",
+    ),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage(
       "Change app language",
     ),
@@ -53,6 +63,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
     "endOfList": MessageLookupByLibrary.simpleMessage("End of list"),
+    "enterCredentials": MessageLookupByLibrary.simpleMessage(
+      "Enter Credentials",
+    ),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "An error occurred. Please try again later",
     ),
@@ -102,6 +115,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "loginFailed": MessageLookupByLibrary.simpleMessage("Login failed!"),
     "loginSuccess": MessageLookupByLibrary.simpleMessage("Login successfully!"),
+    "loginWithBiometric": MessageLookupByLibrary.simpleMessage(
+      "Login with Biometric",
+    ),
     "loginWithFacebook": MessageLookupByLibrary.simpleMessage(
       "Login with Facebook",
     ),
@@ -146,6 +162,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
       "Please check login information",
     ),
+    "pleaseEnterCredentials": MessageLookupByLibrary.simpleMessage(
+      "Please enter your credentials",
+    ),
     "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
       "Please enter password",
     ),
@@ -186,6 +205,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "security": MessageLookupByLibrary.simpleMessage("Security"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "setup": MessageLookupByLibrary.simpleMessage("Setup"),
+    "setupBiometric": MessageLookupByLibrary.simpleMessage("Setup Biometric"),
+    "setupBiometricDesc": MessageLookupByLibrary.simpleMessage(
+      "Would you like to setup biometric login for faster authentication?",
+    ),
     "share": MessageLookupByLibrary.simpleMessage("Share"),
     "shareYourThoughts": MessageLookupByLibrary.simpleMessage(
       "Share your thoughts",

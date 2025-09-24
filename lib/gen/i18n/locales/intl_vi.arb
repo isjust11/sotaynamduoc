@@ -117,5 +117,15 @@
   "sendFeedback": "Gửi phản hồi",
   "shareYourThoughts": "Chia sẻ suy nghĩ của bạn",
   "aboutApp": "Về ứng dụng",
-  "version": "Phiên bản"
+  "version": "Phiên bản",
+  "loginWithBiometric": "Đăng nhập bằng sinh trắc học",
+  "setupBiometric": "Thiết lập sinh trắc học",
+  "setupBiometricDesc": "Bạn có muốn thiết lập đăng nhập bằng sinh trắc học để đăng nhập nhanh hơn không?",
+  "setup": "Thiết lập",
+  "biometricSetupSuccess": "Thiết lập sinh trắc học thành công",
+  "biometricNotAvailable": "Sinh trắc học không khả dụng",
+  "enterCredentials": "Nhập thông tin đăng nhập",
+  "pleaseEnterCredentials": "Vui lòng nhập đầy đủ thông tin đăng nhập",
+  "biometricDisabled": "Đã tắt đăng nhập bằng sinh trắc học",
+  "cancel": "Hủy"
 }

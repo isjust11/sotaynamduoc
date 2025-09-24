@@ -829,6 +829,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version'**
   String get version;
+
+  /// No description provided for @loginWithBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Biometric'**
+  String get loginWithBiometric;
+
+  /// No description provided for @setupBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup Biometric'**
+  String get setupBiometric;
+
+  /// No description provided for @setupBiometricDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like to setup biometric login for faster authentication?'**
+  String get setupBiometricDesc;
+
+  /// No description provided for @setup.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup'**
+  String get setup;
+
+  /// No description provided for @biometricSetupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric setup successful'**
+  String get biometricSetupSuccess;
+
+  /// No description provided for @biometricNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric not available'**
+  String get biometricNotAvailable;
+
+  /// No description provided for @enterCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Credentials'**
+  String get enterCredentials;
+
+  /// No description provided for @pleaseEnterCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your credentials'**
+  String get pleaseEnterCredentials;
+
+  /// No description provided for @biometricDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric login disabled'**
+  String get biometricDisabled;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
 }
 
 class _AppLocalizationsDelegate
