@@ -345,7 +345,11 @@ class _HomeBodyState extends State<HomeBody> {
 
   Widget _buildNewsItem(BuildContext context, NewsModel news) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, Routes.newsDetailScreen, arguments: news),
+      onTap: () => Navigator.pushNamed(
+        context,
+        Routes.newsDetailScreen,
+        arguments: news,
+      ),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.6,
         decoration: BoxDecoration(
@@ -358,8 +362,8 @@ class _HomeBodyState extends State<HomeBody> {
           children: [
             Center(
               child: Container(
-                height: 180.sh,
-                width: double.infinity,
+                height: 100.sh,
+                width: 180.sw,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
                 ),
@@ -375,7 +379,8 @@ class _HomeBodyState extends State<HomeBody> {
                             }
                             return Center(
                               child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes != null
+                                value:
+                                    loadingProgress.expectedTotalBytes != null
                                     ? loadingProgress.cumulativeBytesLoaded /
                                           loadingProgress.expectedTotalBytes!
                                     : null,
@@ -407,7 +412,10 @@ class _HomeBodyState extends State<HomeBody> {
             SizedBox(height: AppDimens.SIZE_4),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppDimens.SIZE_2, horizontal: AppDimens.SIZE_2),
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppDimens.SIZE_4,
+                  horizontal: AppDimens.SIZE_16,
+                ),
                 child: CustomTextLabel(
                   news.title ?? '',
                   maxLines: 2,

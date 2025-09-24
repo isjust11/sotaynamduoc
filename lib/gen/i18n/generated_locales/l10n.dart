@@ -1008,6 +1008,96 @@ class AppLocalizations {
   String get version {
     return Intl.message('Phiên bản', name: 'version', desc: '', args: []);
   }
+
+  /// `Đăng nhập bằng sinh trắc học`
+  String get loginWithBiometric {
+    return Intl.message(
+      'Đăng nhập bằng sinh trắc học',
+      name: 'loginWithBiometric',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thiết lập sinh trắc học`
+  String get setupBiometric {
+    return Intl.message(
+      'Thiết lập sinh trắc học',
+      name: 'setupBiometric',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bạn có muốn thiết lập đăng nhập bằng sinh trắc học để đăng nhập nhanh hơn không?`
+  String get setupBiometricDesc {
+    return Intl.message(
+      'Bạn có muốn thiết lập đăng nhập bằng sinh trắc học để đăng nhập nhanh hơn không?',
+      name: 'setupBiometricDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thiết lập`
+  String get setup {
+    return Intl.message('Thiết lập', name: 'setup', desc: '', args: []);
+  }
+
+  /// `Thiết lập sinh trắc học thành công`
+  String get biometricSetupSuccess {
+    return Intl.message(
+      'Thiết lập sinh trắc học thành công',
+      name: 'biometricSetupSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sinh trắc học không khả dụng`
+  String get biometricNotAvailable {
+    return Intl.message(
+      'Sinh trắc học không khả dụng',
+      name: 'biometricNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nhập thông tin đăng nhập`
+  String get enterCredentials {
+    return Intl.message(
+      'Nhập thông tin đăng nhập',
+      name: 'enterCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập đầy đủ thông tin đăng nhập`
+  String get pleaseEnterCredentials {
+    return Intl.message(
+      'Vui lòng nhập đầy đủ thông tin đăng nhập',
+      name: 'pleaseEnterCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đã tắt đăng nhập bằng sinh trắc học`
+  String get biometricDisabled {
+    return Intl.message(
+      'Đã tắt đăng nhập bằng sinh trắc học',
+      name: 'biometricDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hủy`
+  String get cancel {
+    return Intl.message('Hủy', name: 'cancel', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

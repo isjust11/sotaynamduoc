@@ -121,5 +121,15 @@
   "sendFeedback": "Send feedback",
   "shareYourThoughts": "Share your thoughts",
   "aboutApp": "About app",
-  "version": "Version"
+  "version": "Version",
+  "loginWithBiometric": "Login with Biometric",
+  "setupBiometric": "Setup Biometric",
+  "setupBiometricDesc": "Would you like to setup biometric login for faster authentication?",
+  "setup": "Setup",
+  "biometricSetupSuccess": "Biometric setup successful",
+  "biometricNotAvailable": "Biometric not available",
+  "enterCredentials": "Enter Credentials",
+  "pleaseEnterCredentials": "Please enter your credentials",
+  "biometricDisabled": "Biometric login disabled",
+  "cancel": "Cancel"
 }

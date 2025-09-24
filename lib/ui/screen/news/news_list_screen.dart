@@ -239,8 +239,8 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
               borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
               child: news.thumbnail != null
                   ? Image.network(
-                      height: AppDimens.SIZE_100,
-                      width: AppDimens.SIZE_100,
+                      height: 60.sh,
+                      width: 100.sw,
                       ApiConstant.apiHost + (news.thumbnail ?? ''),
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, loadingProgress) {

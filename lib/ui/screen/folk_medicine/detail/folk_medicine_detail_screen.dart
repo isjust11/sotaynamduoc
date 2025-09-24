@@ -10,14 +10,16 @@ class FolkMedicineDetailScreen extends StatelessWidget {
   final FolkMedicineModel folkMedicine;
   const FolkMedicineDetailScreen({super.key, required this.folkMedicine});
 
-
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
       colorBg: AppColors.white,
       onBackPress: () => Navigator.pop(context),
       customAppBar: BaseAppBar(
-        title: AppLocalizations.current.featuredMedicine.toUpperCase(),
+        centerTitle: false,
+        title:
+            folkMedicine.title ??
+            AppLocalizations.current.featuredMedicine.toUpperCase(),
         showBackButton: true,
         backgroundColor: AppColors.secondaryBrand,
       ),

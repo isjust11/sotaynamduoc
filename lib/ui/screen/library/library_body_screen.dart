@@ -96,6 +96,8 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
     _herbalScrollController.dispose();
     _authorScrollController.removeListener(_onAuthorScroll);
     _authorScrollController.dispose();
+    context.read<HerbalBloc>().add(ClearHerbalStateEvent());
+    context.read<AuthorBloc>().add(ClearAuthorStateEvent());
     super.dispose();
   }
 

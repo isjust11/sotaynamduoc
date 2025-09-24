@@ -5,6 +5,7 @@ import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/services/social_login_service.dart';
+import 'package:sotaynamduoc/services/biometric_auth_service.dart';
 
 class AuthCubit extends Cubit<BaseState> {
   final AuthRepository repository;
@@ -184,5 +185,95 @@ class AuthCubit extends Cubit<BaseState> {
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
     }
+  }
+
+  /// Đăng nhập bằng sinh trắc học
+  Future doBiometricLogin() async {
+    try {
+      emit(LoadingState());
+
+      final result = await BiometricAuthService.loginWithBiometrics();
+      if (result.isSuccess && result.data != null) {
+        // Sử dụng thông tin đăng nhập đã lưu để đăng nhập
+        final credentials = result.data!;
+        await doLogin(
+          userName: credentials['username'],
+          password: credentials['password'],
+        );
+      } else {
+        emit(ErrorState(result.message ?? 'Đăng nhập sinh trắc học thất bại'));
+      }
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  /// Bật/tắt sinh trắc học và lưu thông tin đăng nhập
+  Future toggleBiometric(
+    bool enabled, {
+    String? username,
+    String? password,
+  }) async {
+    try {
+      if (enabled) {
+        // Kiểm tra khả năng sinh trắc học
+        final capability =
+            await BiometricAuthService.checkBiometricCapability();
+        if (capability != BiometricCapability.available) {
+          String message;
+          switch (capability) {
+            case BiometricCapability.notSupported:
+              message = 'Thiết bị không hỗ trợ sinh trắc học';
+              break;
+            case BiometricCapability.notEnrolled:
+              message =
+                  'Chưa thiết lập sinh trắc học. Vui lòng thiết lập trong Cài đặt thiết bị';
+              break;
+            case BiometricCapability.notAvailable:
+              message = 'Sinh trắc học không khả dụng';
+              break;
+            default:
+              message = 'Lỗi không xác định';
+          }
+          throw Exception(message);
+        }
+
+        // Xác thực sinh trắc học trước khi bật
+        final authResult =
+            await BiometricAuthService.authenticateWithBiometrics(
+              localizedReason: 'Xác thực để bật đăng nhập bằng sinh trắc học',
+            );
+
+        if (!authResult.isSuccess) {
+          throw Exception(
+            authResult.message ?? 'Xác thực sinh trắc học thất bại',
+          );
+        }
+
+        // Lưu thông tin đăng nhập nếu có
+        if (username != null && password != null) {
+          await BiometricAuthService.storeCredentials(username, password);
+        }
+
+        // Bật sinh trắc học
+        await BiometricAuthService.setBiometricEnabledInApp(true);
+      } else {
+        // Tắt sinh trắc học và xóa thông tin đăng nhập
+        await BiometricAuthService.setBiometricEnabledInApp(false);
+        await BiometricAuthService.clearStoredCredentials();
+      }
+    } catch (e) {
+      throw Exception(BlocUtils.getMessageError(e));
+    }
+  }
+
+  /// Kiểm tra trạng thái sinh trắc học
+  Future<bool> isBiometricEnabled() async {
+    return await BiometricAuthService.isBiometricEnabledInApp();
+  }
+
+  /// Kiểm tra khả năng sử dụng sinh trắc học
+  Future<BiometricCapability> checkBiometricCapability() async {
+    return await BiometricAuthService.checkBiometricCapability();
   }
 }

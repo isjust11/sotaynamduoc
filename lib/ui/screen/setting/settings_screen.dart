@@ -11,6 +11,9 @@ import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/services/biometric_auth_service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:sotaynamduoc/services/biometric_test_helper.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -22,11 +25,23 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   bool _notificationsEnabled = true;
   bool _biometricEnabled = false;
+  bool _biometricAvailable = false;
 
   @override
   void initState() {
     super.initState();
     context.read<AuthCubit>().getProfile();
+    _loadBiometricStatus();
+  }
+
+  Future<void> _loadBiometricStatus() async {
+    final capability = await BiometricAuthService.checkBiometricCapability();
+    final enabled = await BiometricAuthService.isBiometricEnabledInApp();
+
+    setState(() {
+      _biometricAvailable = capability == BiometricCapability.available;
+      _biometricEnabled = enabled;
+    });
   }
 
   void _onLogout() async {
@@ -283,17 +298,32 @@ class _SettingScreenState extends State<SettingScreen> {
           _buildSettingItem(
             icon: Icons.fingerprint,
             title: AppLocalizations.current.biometricLogin,
-            subtitle: AppLocalizations.current.useFingerprintOrFaceID,
+            subtitle: _getBiometricSubtitle(),
             trailing: Switch(
               value: _biometricEnabled,
-              onChanged: (value) {
-                setState(() {
-                  _biometricEnabled = value;
-                });
-              },
+              onChanged: _biometricAvailable ? _onBiometricToggle : null,
               activeThumbColor: AppColors.secondaryBrand,
             ),
           ),
+          // Debug section chỉ hiển thị trong debug mode
+          if (kDebugMode) ...[
+            _buildDivider(),
+            _buildSettingItem(
+              icon: Icons.bug_report,
+              title: 'Debug: Test Secure Storage',
+              subtitle:
+                  'Test flutter_secure_storage and biometric capabilities',
+              trailing: IconButton(
+                icon: Icon(Icons.play_arrow, color: AppColors.secondaryBrand),
+                onPressed: () async {
+                  await BiometricTestHelper.runAllTests();
+                  _showSuccessMessage(
+                    'Debug test completed. Check console logs.',
+                  );
+                },
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -337,31 +367,6 @@ class _SettingScreenState extends State<SettingScreen> {
             subtitle: AppLocalizations.current.version,
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.secondaryBrand.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(icon, color: AppColors.secondaryBrand, size: 20),
-          ),
-          const SizedBox(width: 12),
-          CustomTextLabel(
-            title,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-            color: AppColors.colorTitle,
           ),
         ],
       ),
@@ -516,6 +521,253 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
         onPressed: _onLogout,
+      ),
+    );
+  }
+
+  String _getBiometricSubtitle() {
+    if (!_biometricAvailable) {
+      return AppLocalizations.current.biometricNotAvailable;
+    }
+    return AppLocalizations.current.useFingerprintOrFaceID;
+  }
+
+  Future<void> _onBiometricToggle(bool value) async {
+    if (value) {
+      _showBiometricSetupDialog();
+    } else {
+      _disableBiometric();
+    }
+  }
+
+  void _showBiometricSetupDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(
+                Icons.fingerprint,
+                color: AppColors.secondaryBrand,
+                size: AppDimens.SIZE_24,
+              ),
+              SizedBox(width: AppDimens.SIZE_8),
+              Expanded(
+                child: CustomTextLabel(
+                  AppLocalizations.current.setupBiometric,
+                  fontSize: AppDimens.SIZE_18,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.colorTitle,
+                ),
+              ),
+            ],
+          ),
+          content: CustomTextLabel(
+            AppLocalizations.current.setupBiometricDesc,
+            fontSize: AppDimens.SIZE_14,
+            color: AppColors.textMediumGrey,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: CustomTextLabel(
+                AppLocalizations.current.cancel,
+                fontSize: AppDimens.SIZE_14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textMediumGrey,
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondaryBrand,
+                foregroundColor: AppColors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+                ),
+              ),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await _enableBiometric();
+              },
+              child: CustomTextLabel(
+                AppLocalizations.current.setup,
+                fontSize: AppDimens.SIZE_14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _enableBiometric() async {
+    try {
+      final authCubit = context.read<AuthCubit>();
+
+      // Kiểm tra xem có thông tin đăng nhập đã lưu không
+      final credentials = await BiometricAuthService.getStoredCredentials();
+
+      if (credentials == null) {
+        // Hiển thị dialog để nhập thông tin đăng nhập
+        _showCredentialsDialog();
+        return;
+      }
+
+      // Bật sinh trắc học với thông tin đăng nhập hiện có
+      await authCubit.toggleBiometric(true);
+
+      setState(() {
+        _biometricEnabled = true;
+      });
+
+      _showSuccessMessage(AppLocalizations.current.biometricSetupSuccess);
+    } catch (e) {
+      _showErrorMessage(e.toString());
+    }
+  }
+
+  void _showCredentialsDialog() {
+    final usernameController = TextEditingController();
+    final passwordController = TextEditingController();
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: CustomTextLabel(
+            AppLocalizations.current.enterCredentials,
+            fontSize: AppDimens.SIZE_18,
+            fontWeight: FontWeight.w600,
+            color: AppColors.colorTitle,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: usernameController,
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.current.userName,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: AppDimens.SIZE_16),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.current.password,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: CustomTextLabel(
+                AppLocalizations.current.cancel,
+                fontSize: AppDimens.SIZE_14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textMediumGrey,
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.secondaryBrand,
+                foregroundColor: AppColors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+                ),
+              ),
+              onPressed: () async {
+                final username = usernameController.text.trim();
+                final password = passwordController.text.trim();
+
+                if (username.isEmpty || password.isEmpty) {
+                  _showErrorMessage(
+                    AppLocalizations.current.pleaseEnterCredentials,
+                  );
+                  return;
+                }
+
+                Navigator.of(context).pop();
+                await _setupBiometricWithCredentials(username, password);
+              },
+              child: CustomTextLabel(
+                AppLocalizations.current.setup,
+                fontSize: AppDimens.SIZE_14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _setupBiometricWithCredentials(
+    String username,
+    String password,
+  ) async {
+    try {
+      final authCubit = context.read<AuthCubit>();
+      await authCubit.toggleBiometric(
+        true,
+        username: username,
+        password: password,
+      );
+
+      setState(() {
+        _biometricEnabled = true;
+      });
+
+      _showSuccessMessage(AppLocalizations.current.biometricSetupSuccess);
+    } catch (e) {
+      _showErrorMessage(e.toString());
+    }
+  }
+
+  Future<void> _disableBiometric() async {
+    try {
+      final authCubit = context.read<AuthCubit>();
+      await authCubit.toggleBiometric(false);
+
+      setState(() {
+        _biometricEnabled = false;
+      });
+
+      _showSuccessMessage(AppLocalizations.current.biometricDisabled);
+    } catch (e) {
+      _showErrorMessage(e.toString());
+    }
+  }
+
+  void _showSuccessMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: CustomTextLabel(message, color: AppColors.white),
+        backgroundColor: AppColors.successGreen,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: CustomTextLabel(message, color: AppColors.white),
+        backgroundColor: AppColors.errorRed,
+        duration: Duration(seconds: 3),
       ),
     );
   }

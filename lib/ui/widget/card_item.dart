@@ -16,8 +16,16 @@ class CardItem extends StatelessWidget {
   final String? summary;
   final Widget? listBottomAction;
   final EdgeInsets? margin;
-  const CardItem({super.key,
-   required this.onTap, required this.title, this.thumbnail, this.createdAt, this.summary, this.listBottomAction, this.margin});
+  const CardItem({
+    super.key,
+    required this.onTap,
+    required this.title,
+    this.thumbnail,
+    this.createdAt,
+    this.summary,
+    this.listBottomAction,
+    this.margin,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +59,7 @@ class CardItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
               child: thumbnail != null
                   ? Image.network(
-                      height: 100.sh,
+                      height: 60.sh,
                       width: 100.sw,
                       ApiConstant.apiHost + (thumbnail ?? ''),
                       fit: BoxFit.cover,
@@ -99,8 +107,7 @@ class CardItem extends StatelessWidget {
                     maxLines: 2,
                   ),
                   SizedBox(height: AppDimens.SIZE_4),
-                  summary != null &&
-                          summary!.isNotEmpty
+                  summary != null && summary!.isNotEmpty
                       ? CustomTextLabel(
                           summary!.trim(),
                           fontSize: AppDimens.SIZE_12,
@@ -119,7 +126,10 @@ class CardItem extends StatelessWidget {
                       ),
                       const SizedBox(width: AppDimens.SIZE_2),
                       CustomTextLabel(
-                        Common.formatDate(createdAt, format: 'dd/MM/yyyy HH:mm'),
+                        Common.formatDate(
+                          createdAt,
+                          format: 'dd/MM/yyyy HH:mm',
+                        ),
                         fontSize: AppDimens.SIZE_12,
                         fontWeight: FontWeight.w400,
                         color: AppColors.textDark.withValues(alpha: 0.6),

@@ -23,7 +23,13 @@ class LoadFolkMedicineList extends FolkMedicineEvent {
   });
 
   @override
-  List<Object> get props => [page, size, search ?? '', categoryId ?? '', isRefresh];
+  List<Object> get props => [
+    page,
+    size,
+    search ?? '',
+    categoryId ?? '',
+    isRefresh,
+  ];
 }
 
 class LoadFolkMedicineDetail extends FolkMedicineEvent {
@@ -68,4 +74,4 @@ class RefreshFolkMedicine extends FolkMedicineEvent {
 
   @override
   List<Object> get props => [categoryId ?? ''];
-} 
+}
