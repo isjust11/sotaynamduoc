@@ -19,7 +19,8 @@ class AuthCubit extends Cubit<BaseState> {
         "username": userName,
         "password": password,
       });
-
+      //save secure storage
+      await BiometricAuthService.storeCredentials(userName!, password!);
       emit(LoadedState(userModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));

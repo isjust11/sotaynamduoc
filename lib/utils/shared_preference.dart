@@ -75,7 +75,10 @@ class SharedPreferenceUtil {
 
   static Future clearData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    prefs.remove(SPrefCache.ACCESS_TOKEN);
+    prefs.remove(SPrefCache.REFRESH_TOKEN);
+    prefs.remove(SPrefCache.PREF_KEY_USER_INFO);
+    // await prefs.clear();
   }
 
   static Future setCurrentTheme(String theme) async {

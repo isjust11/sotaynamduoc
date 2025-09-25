@@ -534,76 +534,10 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Future<void> _onBiometricToggle(bool value) async {
     if (value) {
-      _showBiometricSetupDialog();
+      await _enableBiometric();
     } else {
       _disableBiometric();
     }
-  }
-
-  void _showBiometricSetupDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Row(
-            children: [
-              Icon(
-                Icons.fingerprint,
-                color: AppColors.secondaryBrand,
-                size: AppDimens.SIZE_24,
-              ),
-              SizedBox(width: AppDimens.SIZE_8),
-              Expanded(
-                child: CustomTextLabel(
-                  AppLocalizations.current.setupBiometric,
-                  fontSize: AppDimens.SIZE_18,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.colorTitle,
-                ),
-              ),
-            ],
-          ),
-          content: CustomTextLabel(
-            AppLocalizations.current.setupBiometricDesc,
-            fontSize: AppDimens.SIZE_14,
-            color: AppColors.textMediumGrey,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: CustomTextLabel(
-                AppLocalizations.current.cancel,
-                fontSize: AppDimens.SIZE_14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textMediumGrey,
-              ),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.secondaryBrand,
-                foregroundColor: AppColors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                ),
-              ),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                await _enableBiometric();
-              },
-              child: CustomTextLabel(
-                AppLocalizations.current.setup,
-                fontSize: AppDimens.SIZE_14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.white,
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Future<void> _enableBiometric() async {
@@ -612,119 +546,11 @@ class _SettingScreenState extends State<SettingScreen> {
 
       // Kiểm tra xem có thông tin đăng nhập đã lưu không
       final credentials = await BiometricAuthService.getStoredCredentials();
-
-      if (credentials == null) {
-        // Hiển thị dialog để nhập thông tin đăng nhập
-        _showCredentialsDialog();
-        return;
-      }
-
       // Bật sinh trắc học với thông tin đăng nhập hiện có
-      await authCubit.toggleBiometric(true);
-
-      setState(() {
-        _biometricEnabled = true;
-      });
-
-      _showSuccessMessage(AppLocalizations.current.biometricSetupSuccess);
-    } catch (e) {
-      _showErrorMessage(e.toString());
-    }
-  }
-
-  void _showCredentialsDialog() {
-    final usernameController = TextEditingController();
-    final passwordController = TextEditingController();
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: CustomTextLabel(
-            AppLocalizations.current.enterCredentials,
-            fontSize: AppDimens.SIZE_18,
-            fontWeight: FontWeight.w600,
-            color: AppColors.colorTitle,
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.current.userName,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: AppDimens.SIZE_16),
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.current.password,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: CustomTextLabel(
-                AppLocalizations.current.cancel,
-                fontSize: AppDimens.SIZE_14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textMediumGrey,
-              ),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.secondaryBrand,
-                foregroundColor: AppColors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                ),
-              ),
-              onPressed: () async {
-                final username = usernameController.text.trim();
-                final password = passwordController.text.trim();
-
-                if (username.isEmpty || password.isEmpty) {
-                  _showErrorMessage(
-                    AppLocalizations.current.pleaseEnterCredentials,
-                  );
-                  return;
-                }
-
-                Navigator.of(context).pop();
-                await _setupBiometricWithCredentials(username, password);
-              },
-              child: CustomTextLabel(
-                AppLocalizations.current.setup,
-                fontSize: AppDimens.SIZE_14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.white,
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _setupBiometricWithCredentials(
-    String username,
-    String password,
-  ) async {
-    try {
-      final authCubit = context.read<AuthCubit>();
       await authCubit.toggleBiometric(
         true,
-        username: username,
-        password: password,
+        username: credentials?['username'],
+        password: credentials?['password'],
       );
 
       setState(() {
