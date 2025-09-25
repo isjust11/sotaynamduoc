@@ -15,9 +15,9 @@ class FolkMedicineMenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
       stateWidget: CustomLoading<CategoryCubit>(
-        loadingType: LoadingType.threeArchedCircle,
         loadingState: (state) => state is LoadingState,
         errorState: (state) => state is ErrorState,
+        emptyState: (state) => state is EmptyState,
         onRefresh: () => context.read<CategoryCubit>().getCategories(
           categoryTypeCode: 'FolkMedicine',
         ),

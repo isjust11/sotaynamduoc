@@ -12,9 +12,13 @@ class CategoryCubit extends Cubit<BaseState> {
   Future getCategories({String? categoryTypeCode}) async {
     try {
       emit(LoadingState());
-      List<CategoryModel> categories = await repository.getCategoriesByCategoryTypeCode(categoryTypeCode ?? "");
-
-      emit(LoadedState(categories));
+      List<CategoryModel> categories = await repository
+          .getCategoriesByCategoryTypeCode(categoryTypeCode ?? "");
+      if (categories.isEmpty) {
+        emit(EmptyState());
+      } else {
+        emit(LoadedState(categories));
+      }
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
     }

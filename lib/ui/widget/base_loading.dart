@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
@@ -44,7 +46,8 @@ class CustomLoading<T extends Cubit<BaseState>> extends StatelessWidget {
       loadingType: loadingType,
       loadingState: (state) => state is LoadingState,
       errorState: (state) => state is ErrorState,
-      onRefresh: () => null,
+      emptyState: (state) => state is EmptyState,
+      onRefresh: onRefresh,
     );
   }
 }
@@ -140,10 +143,14 @@ class CustomBlocResult<B extends StateStreamable<S>, S>
           Center(
             child: Column(
               children: [
-                Icon(
-                  Icons.article_outlined,
-                  size: 64.sw,
-                  color: AppColors.textDark.withValues(alpha: 0.3),
+                SvgPicture.asset(
+                  Assets.icons.icFolderEmpty,
+                  width: 64.sw,
+                  height: 64.sw,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.textDark.withValues(alpha: 0.6),
+                    BlendMode.srcIn,
+                  ),
                 ),
                 SizedBox(height: AppDimens.SIZE_16),
                 CustomTextLabel(
