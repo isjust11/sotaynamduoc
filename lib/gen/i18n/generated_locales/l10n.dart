@@ -54,9 +54,9 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  /// `Số tay nam dược`
+  /// `Sổ tay nam dược`
   String get appName {
-    return Intl.message('Số tay nam dược', name: 'appName', desc: '', args: []);
+    return Intl.message('Sổ tay nam dược', name: 'appName', desc: '', args: []);
   }
 
   /// `Đã có lỗi xảy ra. Vui lòng thử lại sau`
@@ -1097,6 +1097,36 @@ class AppLocalizations {
   /// `Hủy`
   String get cancel {
     return Intl.message('Hủy', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Chào mừng đến`
+  String get welcomeTo {
+    return Intl.message('Chào mừng đến', name: 'welcomeTo', desc: '', args: []);
+  }
+
+  /// `Kéo xuống để làm mới`
+  String get pullToRefresh {
+    return Intl.message(
+      'Kéo xuống để làm mới',
+      name: 'pullToRefresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Có lỗi xảy ra`
+  String get error {
+    return Intl.message('Có lỗi xảy ra', name: 'error', desc: '', args: []);
+  }
+
+  /// `Thử lại`
+  String get tryAgain {
+    return Intl.message('Thử lại', name: 'tryAgain', desc: '', args: []);
+  }
+
+  /// `Không có dữ liệu`
+  String get empty {
+    return Intl.message('Không có dữ liệu', name: 'empty', desc: '', args: []);
   }
 }
 

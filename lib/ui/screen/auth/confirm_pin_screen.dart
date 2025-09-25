@@ -110,7 +110,7 @@ class _ConfirmPinBodyState extends State<ConfirmPinBody> {
         }
       },
       child: BaseScreen(
-        loadingWidget: CustomLoading<AuthCubit>(
+        stateWidget: CustomLoading<AuthCubit>(
           size: AppDimens.SIZE_32,
           loadingType: LoadingType.threeArchedCircle,
           message: AppLocalizations.current.loading,

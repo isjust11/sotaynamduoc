@@ -9,7 +9,7 @@ class AppLocalizationsVi extends AppLocalizations {
   AppLocalizationsVi([String locale = 'vi']) : super(locale);
 
   @override
-  String get appName => 'Số tay nam dược';
+  String get appName => 'Sổ tay nam dược';
 
   @override
   String get error_common => 'Đã có lỗi xảy ra. Vui lòng thử lại sau';
@@ -110,9 +110,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noNotificationsYet => 'Chưa có thông báo nào';
-
-  @override
-  String get pullToRefresh => 'Pull to refresh';
 
   @override
   String get newsDetail => 'Chi tiết tin tức';
@@ -409,4 +406,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get cancel => 'Hủy';
+
+  @override
+  String get welcomeTo => 'Chào mừng đến';
+
+  @override
+  String get pullToRefresh => 'Kéo xuống để làm mới';
+
+  @override
+  String get error => 'Có lỗi xảy ra';
+
+  @override
+  String get tryAgain => 'Thử lại';
+
+  @override
+  String get empty => 'Không có dữ liệu';
 }

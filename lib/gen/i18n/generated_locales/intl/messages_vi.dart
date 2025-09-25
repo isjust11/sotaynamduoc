@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Đã có tài khoản?",
     ),
-    "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
+    "appName": MessageLookupByLibrary.simpleMessage("Sổ tay nam dược"),
     "appSettings": MessageLookupByLibrary.simpleMessage("Cài đặt ứng dụng"),
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
     "biometricDisabled": MessageLookupByLibrary.simpleMessage(
@@ -66,10 +66,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "editProfile": MessageLookupByLibrary.simpleMessage("Chỉnh sửa hồ sơ"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
+    "empty": MessageLookupByLibrary.simpleMessage("Không có dữ liệu"),
     "endOfList": MessageLookupByLibrary.simpleMessage("Đã tải hết danh sách"),
     "enterCredentials": MessageLookupByLibrary.simpleMessage(
       "Nhập thông tin đăng nhập",
     ),
+    "error": MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "Đã có lỗi xảy ra. Vui lòng thử lại sau",
     ),
@@ -198,6 +200,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacySettings": MessageLookupByLibrary.simpleMessage(
       "Cài đặt quyền riêng tư",
     ),
+    "pullToRefresh": MessageLookupByLibrary.simpleMessage(
+      "Kéo xuống để làm mới",
+    ),
     "read": MessageLookupByLibrary.simpleMessage("Đã đọc"),
     "register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -237,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
     ),
+    "tryAgain": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
     "updateYourInfo": MessageLookupByLibrary.simpleMessage(
       "Cập nhật thông tin của bạn",
@@ -266,5 +272,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "weHaveSentThePinTo": MessageLookupByLibrary.simpleMessage(
       "Chúng tôi đã gửi mã PIN 4 chữ số đến:",
     ),
+    "welcomeTo": MessageLookupByLibrary.simpleMessage("Chào mừng đến"),
   };
 }

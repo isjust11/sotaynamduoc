@@ -34,7 +34,6 @@
   "newNotification": "New notification",
   "allNotificationsLoaded": "All notifications loaded",
   "noNotificationsYet": "No notifications yet",
-  "pullToRefresh": "Pull to refresh",
   "newsDetail":"News detail",
   "newsList": "News list",
   "theme": "Theme",
@@ -131,5 +130,10 @@
   "enterCredentials": "Enter Credentials",
   "pleaseEnterCredentials": "Please enter your credentials",
   "biometricDisabled": "Biometric login disabled",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "welcomeTo": "Welcome to",
+  "pullToRefresh": "Pull to refresh",
+  "error": "An error occurred",
+  "tryAgain": "Try again",
+  "empty": "No data available"
 }

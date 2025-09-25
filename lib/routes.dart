@@ -37,22 +37,34 @@ class Routes {
       case mainScreen:
         return PageTransition(
           child: MainScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 350),
+          reverseDuration: const Duration(milliseconds: 300),
+          curve: Curves.easeOutCubic,
         );
       case splashScreen:
         return PageTransition(
+          duration: const Duration(milliseconds: 350),
+          reverseDuration: const Duration(milliseconds: 300),
+          curve: Curves.easeOutCubic,
           child: SplashScreen(),
           type: PageTransitionType.fade,
         );
       case loginScreen:
         return PageTransition(
           child: SignInScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 350),
+          reverseDuration: const Duration(milliseconds: 300),
+          curve: Curves.easeOutCubic,
         );
       case signupScreen:
         return PageTransition(
           child: SignUpScreen(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 350),
+          reverseDuration: const Duration(milliseconds: 300),
+          curve: Curves.easeOutCubic,
         );
       case settingScreen:
         return PageTransition(

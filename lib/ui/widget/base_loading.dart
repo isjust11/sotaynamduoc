@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
@@ -13,27 +16,38 @@ class CustomLoading<T extends Cubit<BaseState>> extends StatelessWidget {
   final Color? indicatorColor;
   final double? size;
   final LoadingType loadingType;
+  final bool Function(BaseState state)? loadingState;
+  final bool Function(BaseState state)? errorState;
+  final bool Function(BaseState state)? emptyState;
+  final Function()? onRefresh;
 
   const CustomLoading({
     super.key,
     this.message,
     this.showMessage = true,
-    this.backgroundColor,
-    this.indicatorColor,
+    this.backgroundColor = const Color.fromRGBO(0, 0, 0, 0.4),
+    this.indicatorColor = AppColors.baseColor,
     this.size,
-    this.loadingType = LoadingType.bouncingBall,
+    this.loadingType = LoadingType.threeArchedCircle,
+    this.loadingState,
+    this.errorState,
+    this.emptyState,
+    this.onRefresh,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocLoading<T, BaseState>(
-      message: message,
+    return CustomBlocResult<T, BaseState>(
+      message: AppLocalizations.current.loading,
       showMessage: showMessage,
       backgroundColor: backgroundColor,
       indicatorColor: indicatorColor,
       size: size,
       loadingType: loadingType,
       loadingState: (state) => state is LoadingState,
+      errorState: (state) => state is ErrorState,
+      emptyState: (state) => state is EmptyState,
+      onRefresh: onRefresh,
     );
   }
 }
@@ -74,7 +88,7 @@ enum LoadingType {
 ///   loadingState: (state) => state is LoadingState,
 ///   message: 'Đang xử lý...',
 /// )
-class CustomBlocLoading<B extends StateStreamable<S>, S>
+class CustomBlocResult<B extends StateStreamable<S>, S>
     extends StatelessWidget {
   final String? message;
   final bool showMessage;
@@ -83,8 +97,10 @@ class CustomBlocLoading<B extends StateStreamable<S>, S>
   final double? size;
   final LoadingType loadingType;
   final bool Function(S state) loadingState;
-
-  const CustomBlocLoading({
+  final bool Function(S state)? errorState;
+  final bool Function(S state)? emptyState;
+  final Function()? onRefresh;
+  const CustomBlocResult({
     super.key,
     this.message,
     this.showMessage = true,
@@ -93,6 +109,9 @@ class CustomBlocLoading<B extends StateStreamable<S>, S>
     this.size,
     this.loadingType = LoadingType.bouncingBall,
     required this.loadingState,
+    this.errorState,
+    this.emptyState,
+    this.onRefresh,
   });
 
   @override
@@ -102,8 +121,100 @@ class CustomBlocLoading<B extends StateStreamable<S>, S>
         if (loadingState(state)) {
           return _buildLoadingOverlay(context);
         }
+        if (errorState != null && errorState!(state)) {
+          return _buildErrorContent(context);
+        }
+        if (emptyState != null && emptyState!(state)) {
+          return _buildEmptyContent(context);
+        }
         return const SizedBox.shrink();
       },
+    );
+  }
+
+  Widget _buildEmptyContent(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        onRefresh?.call();
+      },
+      child: ListView(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+          Center(
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  Assets.icons.icFolderEmpty,
+                  width: 64.sw,
+                  height: 64.sw,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.textDark.withValues(alpha: 0.6),
+                    BlendMode.srcIn,
+                  ),
+                ),
+                SizedBox(height: AppDimens.SIZE_16),
+                CustomTextLabel(
+                  AppLocalizations.current.empty,
+                  fontSize: AppDimens.SIZE_16,
+                  color: AppColors.textDark.withValues(alpha: 0.6),
+                ),
+                SizedBox(height: AppDimens.SIZE_8),
+                CustomTextLabel(
+                  AppLocalizations.current.pullToRefresh,
+                  fontSize: AppDimens.SIZE_14,
+                  color: AppColors.textDark.withValues(alpha: 0.4),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildErrorContent(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => onRefresh?.call(),
+      child: ListView(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+          Center(
+            child: Column(
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 64.sw,
+                  color: AppColors.errorRed,
+                ),
+                SizedBox(height: AppDimens.SIZE_16),
+                CustomTextLabel(
+                  AppLocalizations.current.error,
+                  fontSize: AppDimens.SIZE_16,
+                  color: AppColors.errorRed,
+                ),
+                SizedBox(height: AppDimens.SIZE_8),
+                CustomTextLabel(
+                  message ?? AppLocalizations.current.error,
+                  fontSize: AppDimens.SIZE_14,
+                  color: AppColors.textDark.withValues(alpha: 0.6),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: AppDimens.SIZE_16),
+                ElevatedButton(
+                  onPressed: () {
+                    onRefresh?.call();
+                  },
+                  child: CustomTextLabel(
+                    AppLocalizations.current.tryAgain,
+                    fontSize: AppDimens.SIZE_14,
+                    color: AppColors.colorTitle,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -128,7 +239,7 @@ class CustomBlocLoading<B extends StateStreamable<S>, S>
     return Container(
       padding: const EdgeInsets.all(AppDimens.SIZE_16),
       decoration: BoxDecoration(
-        color: AppColors.white.withValues(alpha: 0.9),
+        color: AppColors.white.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(AppDimens.SIZE_18),
         boxShadow: [
           BoxShadow(
@@ -254,7 +365,7 @@ class CustomBlocLoading<B extends StateStreamable<S>, S>
   }
 
   Widget _buildMessage(BuildContext context) {
-    final displayMessage = message ?? AppLocalizations.current.dropdown_loading;
+    final displayMessage = AppLocalizations.current.loading;
     return CustomTextLabel(
       displayMessage,
       fontSize: AppDimens.SIZE_14,

@@ -112,9 +112,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noNotificationsYet => 'No notifications yet';
 
   @override
-  String get pullToRefresh => 'Pull to refresh';
-
-  @override
   String get newsDetail => 'News detail';
 
   @override
@@ -408,4 +405,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get welcomeTo => 'Welcome to';
+
+  @override
+  String get pullToRefresh => 'Pull to refresh';
+
+  @override
+  String get error => 'An error occurred';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get empty => 'No data available';
 }

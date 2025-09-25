@@ -26,7 +26,7 @@ class BaseScreen extends StatelessWidget {
   final List<Widget>? rightWidgets;
 
   // loadingWidget để show loading toàn màn hình
-  final Widget? loadingWidget;
+  final Widget? stateWidget;
 
   // show thông báo
   final Widget? messageNotify;
@@ -53,7 +53,7 @@ class BaseScreen extends StatelessWidget {
     this.rightWidgets,
     this.hiddenIconBack = false,
     this.colorTitle = AppColors.colorTitle,
-    this.loadingWidget,
+    this.stateWidget,
     this.hideAppBar = false,
     this.messageNotify,
     this.floatingButton,
@@ -75,13 +75,15 @@ class BaseScreen extends StatelessWidget {
         child: Stack(
           children: [
             body ?? Container(),
-            Positioned(
-              top: AppDimens.SIZE_0,
-              right: AppDimens.SIZE_0,
-              left: AppDimens.SIZE_0,
-              bottom: AppDimens.SIZE_0,
-              child: loadingWidget ?? Container(),
-            ),
+            // nếu có message notify thì không cần message trong content
+            messageNotify ??
+                Positioned(
+                  top: AppDimens.SIZE_0,
+                  right: AppDimens.SIZE_0,
+                  left: AppDimens.SIZE_0,
+                  bottom: AppDimens.SIZE_0,
+                  child: stateWidget ?? Container(),
+                ),
             messageNotify ?? Container(),
           ],
         ),

@@ -36,9 +36,6 @@ class _FolkMedicineMenuBodyScreenState
     return BlocBuilder<CategoryCubit, BaseState>(
       builder: (context, state) {
         if (state is LoadedState<List<CategoryModel>>) {
-          if (state.data.isEmpty) {
-            return EmptyData();
-          }
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -56,12 +53,6 @@ class _FolkMedicineMenuBodyScreenState
               return _buildItem(state.data[index]);
             },
           );
-        }
-        if (state is LoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state is ErrorState) {
-          return Center(child: Text(state.data.toString()));
         }
         return const SizedBox.shrink();
       },
