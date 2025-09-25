@@ -197,7 +197,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                   },
                   child: CustomTextLabel(
                     AppLocalizations.current.retry,
-                    color: AppColors.white,
+                    color: AppColors.textDark,
                     fontSize: AppDimens.SIZE_14,
                   ),
                 ),
@@ -247,7 +247,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                   },
                   child: CustomTextLabel(
                     AppLocalizations.current.retry,
-                    color: AppColors.white,
+                    color: AppColors.textDark,
                     fontSize: AppDimens.SIZE_14,
                   ),
                 ),

@@ -67,14 +67,8 @@ class _FolkMedicineListBodyScreenState
   Widget build(BuildContext context) {
     return BlocBuilder<FolkMedicineBloc, FolkMedicineState>(
       builder: (context, state) {
-        if (state is FolkMedicineLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is FolkMedicineListLoaded) {
+        if (state is FolkMedicineListLoaded) {
           return _buildFolkMedicineList(state);
-        } else if (state is FolkMedicineEmpty) {
-          return _buildEmptyState(state.message);
-        } else if (state is FolkMedicineError) {
-          return _buildErrorState(state.message);
         }
         return const SizedBox.shrink();
       },
@@ -149,92 +143,6 @@ class _FolkMedicineListBodyScreenState
       thumbnail: folkMedicine.thumbnail,
       createdAt: folkMedicine.createdAt,
       summary: folkMedicine.summary,
-    );
-  }
-
-  Widget _buildEmptyState(String message) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        _addBlocEvent(RefreshFolkMedicine(categoryId: widget.categoryId));
-      },
-      child: ListView(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-          Center(
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  Assets.icons.icFolderEmpty,
-                  width: 64.sw,
-                  height: 64.sw,
-                  colorFilter: ColorFilter.mode(
-                    AppColors.textDark.withValues(alpha: 0.6),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                SizedBox(height: AppDimens.SIZE_16),
-                CustomTextLabel(
-                  message,
-                  fontSize: AppDimens.SIZE_16,
-                  color: AppColors.textDark.withValues(alpha: 0.6),
-                ),
-                SizedBox(height: AppDimens.SIZE_8),
-                CustomTextLabel(
-                  'Kéo xuống để làm mới',
-                  fontSize: AppDimens.SIZE_14,
-                  color: AppColors.textDark.withValues(alpha: 0.4),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildErrorState(String message) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        _addBlocEvent(RefreshFolkMedicine(categoryId: widget.categoryId));
-      },
-      child: ListView(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-          Center(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 64.sw,
-                  color: AppColors.errorRed,
-                ),
-                SizedBox(height: AppDimens.SIZE_16),
-                CustomTextLabel(
-                  'Có lỗi xảy ra',
-                  fontSize: AppDimens.SIZE_16,
-                  color: AppColors.errorRed,
-                ),
-                SizedBox(height: AppDimens.SIZE_8),
-                CustomTextLabel(
-                  message,
-                  fontSize: AppDimens.SIZE_14,
-                  color: AppColors.textDark.withValues(alpha: 0.6),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: AppDimens.SIZE_16),
-                ElevatedButton(
-                  onPressed: () {
-                    _addBlocEvent(
-                      RefreshFolkMedicine(categoryId: widget.categoryId),
-                    );
-                  },
-                  child: const Text('Thử lại'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 

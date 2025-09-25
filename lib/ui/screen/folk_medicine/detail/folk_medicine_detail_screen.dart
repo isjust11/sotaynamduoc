@@ -13,7 +13,6 @@ class FolkMedicineDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      colorBg: AppColors.white,
       onBackPress: () => Navigator.pop(context),
       customAppBar: BaseAppBar(
         centerTitle: false,

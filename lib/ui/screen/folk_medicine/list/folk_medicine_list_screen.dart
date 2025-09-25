@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
-import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class FolkMedicineListScreen extends StatelessWidget {
@@ -17,7 +18,14 @@ class FolkMedicineListScreen extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return BaseScreen(
-      colorBg: AppColors.white,
+      stateWidget: CustomBlocResult<FolkMedicineBloc, FolkMedicineState>(
+        loadingState: (state) => state is FolkMedicineLoading,
+        errorState: (state) => state is FolkMedicineError,
+        emptyState: (state) => state is FolkMedicineEmpty,
+        onRefresh: () => context.read<FolkMedicineBloc>().add(
+          RefreshFolkMedicine(categoryId: categoryId),
+        ),
+      ),
       onBackPress: () => Navigator.pop(context),
       customAppBar: BaseAppBar(
         title: AppLocalizations.current.featuredMedicine.toUpperCase(),

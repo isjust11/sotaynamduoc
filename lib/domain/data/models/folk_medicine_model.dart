@@ -38,8 +38,8 @@ class FolkMedicineModel extends FolkMedicineEntity {
       viewCount: json['viewCount']?.toInt(),
       likeCount: json['likeCount']?.toInt(),
       authorId: json['authorId']?.toString(),
-      category: (json['category'] != null) 
-          ? CategoryModel.fromJson(json['category']) 
+      category: (json['category'] != null)
+          ? CategoryModel.fromJson(json['category'])
           : null,
       categoryId: json['categoryId']?.toString(),
       isActive: json['isActive'],
@@ -63,8 +63,8 @@ class FolkMedicineModel extends FolkMedicineEntity {
       viewCount: entity.viewCount,
       likeCount: entity.likeCount,
       authorId: entity.authorId,
-      category: entity.category != null 
-          ? CategoryModel.fromEntity(entity.category!) 
+      category: entity.category != null
+          ? CategoryModel.fromEntity(entity.category!)
           : null,
       categoryId: entity.categoryId,
       isActive: entity.isActive,
@@ -95,4 +95,4 @@ class FolkMedicineModel extends FolkMedicineEntity {
       updatedAt: updatedAt,
     );
   }
-} 
+}
