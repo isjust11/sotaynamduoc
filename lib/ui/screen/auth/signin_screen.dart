@@ -9,7 +9,6 @@ import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/res/resources.dart';
-import 'package:sotaynamduoc/ui/widget/base_loading.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/services/biometric_auth_service.dart';
 
@@ -134,6 +133,12 @@ class _SignInScreenState extends State<SignInBody> {
                       _buildLoginLabel(),
                       SizedBox(height: AppDimens.SIZE_40),
                       CustomTextInput(
+                        prefixIcon: SvgPicture.asset(
+                          Assets.icons.icEmail,
+                          width: AppDimens.SIZE_20,
+                          height: AppDimens.SIZE_20,
+                          color: AppColors.textMediumGrey,
+                        ),
                         key: _usernameFieldKey,
                         textController: _usernameController,
                         obscureText: false,
@@ -146,6 +151,12 @@ class _SignInScreenState extends State<SignInBody> {
                       ),
                       SizedBox(height: AppDimens.SIZE_16),
                       CustomTextInput(
+                        prefixIcon: SvgPicture.asset(
+                          Assets.icons.icLockPassword,
+                          width: AppDimens.SIZE_20,
+                          height: AppDimens.SIZE_20,
+                          color: AppColors.textMediumGrey,
+                        ),
                         key: _passwordFieldKey,
                         textController: _passwordController,
                         obscureText: true,
@@ -342,7 +353,7 @@ class _SignInScreenState extends State<SignInBody> {
     required String iconPath,
     required VoidCallback onPressed,
   }) {
-    return Container(
+    return SizedBox(
       height: AppDimens.SIZE_48,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -378,7 +389,7 @@ class _SignInScreenState extends State<SignInBody> {
   }
 
   Widget _buildBiometricLoginButton() {
-    return Container(
+    return SizedBox(
       height: AppDimens.SIZE_48,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

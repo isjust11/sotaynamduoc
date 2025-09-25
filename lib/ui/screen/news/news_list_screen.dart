@@ -137,14 +137,8 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
         Expanded(
           child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
-              if (state is NewsLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is NewsListLoaded) {
+              if (state is NewsListLoaded) {
                 return _buildNewsList(state);
-              } else if (state is NewsEmpty) {
-                return _buildEmptyState(state.message);
-              } else if (state is NewsError) {
-                return _buildErrorState(state.message);
               }
               return const SizedBox.shrink();
             },

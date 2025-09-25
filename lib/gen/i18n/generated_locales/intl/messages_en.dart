@@ -252,5 +252,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "weHaveSentThePinTo": MessageLookupByLibrary.simpleMessage(
       "We have sent the PIN 4 digits to:",
     ),
+    "welcomeTo": MessageLookupByLibrary.simpleMessage("Welcome to"),
   };
 }

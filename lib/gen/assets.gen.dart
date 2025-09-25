@@ -41,6 +41,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_dot_horizontal.svg
   String get icDotHorizontal => 'assets/icons/ic_dot_horizontal.svg';
 
+  /// File path: assets/icons/ic_email.svg
+  String get icEmail => 'assets/icons/ic_email.svg';
+
   /// File path: assets/icons/ic_facebook.svg
   String get icFacebook => 'assets/icons/ic_facebook.svg';
 
@@ -58,6 +61,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/ic_library.svg
   String get icLibrary => 'assets/icons/ic_library.svg';
+
+  /// File path: assets/icons/ic_lock_password.svg
+  String get icLockPassword => 'assets/icons/ic_lock_password.svg';
 
   /// File path: assets/icons/ic_news.svg
   String get icNews => 'assets/icons/ic_news.svg';
@@ -85,12 +91,14 @@ class $AssetsIconsGen {
     icCloseCircle,
     icComplant,
     icDotHorizontal,
+    icEmail,
     icFacebook,
     icFolderEmpty,
     icGoogle,
     icHistory,
     icHome,
     icLibrary,
+    icLockPassword,
     icNews,
     icQrcode,
     icRing,
@@ -118,10 +126,6 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/ic_back_svg.svg
   String get icBackSvg => 'assets/images/ic_back_svg.svg';
-
-  /// File path: assets/images/ic_bg_splash.png
-  AssetGenImage get icBgSplash =>
-      const AssetGenImage('assets/images/ic_bg_splash.png');
 
   /// File path: assets/images/ic_gallery.png
   AssetGenImage get icGallery =>
@@ -174,6 +178,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/video.png
   AssetGenImage get video => const AssetGenImage('assets/images/video.png');
 
+  /// File path: assets/images/welcome.png
+  AssetGenImage get welcome => const AssetGenImage('assets/images/welcome.png');
+
   /// List of all assets
   List<dynamic> get values => [
     appBarBackground,
@@ -181,7 +188,6 @@ class $AssetsImagesGen {
     camera,
     icBack,
     icBackSvg,
-    icBgSplash,
     icGallery,
     icIntro1,
     icIntro2,
@@ -196,6 +202,7 @@ class $AssetsImagesGen {
     sampleMedicine,
     sampleProduct,
     video,
+    welcome,
   ];
 }
 

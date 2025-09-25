@@ -131,5 +131,6 @@
   "enterCredentials": "Enter Credentials",
   "pleaseEnterCredentials": "Please enter your credentials",
   "biometricDisabled": "Biometric login disabled",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "welcomeTo": "Welcome to"
 }

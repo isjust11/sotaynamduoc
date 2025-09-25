@@ -189,7 +189,12 @@ class TextFieldState extends State<CustomTextInput> {
                             },
                           )
                         : widget.suffixIcon,
-                    prefixIcon: widget.prefixIcon,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimens.SIZE_12,
+                      ),
+                      child: widget.prefixIcon,
+                    ),
                     focusColor: Colors.white,
                     border: InputBorder.none,
                     suffixIconConstraints: BoxConstraints(

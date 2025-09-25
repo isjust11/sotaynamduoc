@@ -148,7 +148,7 @@ class Network {
         return ApiResponse.error("Network error: ${e.message}");
       default:
         return ApiResponse.error(
-          e.message,
+          e.response?.data["message"] ?? e.message,
           data: getDataReplace(e.response?.data),
           code: e.response?.statusCode,
         );

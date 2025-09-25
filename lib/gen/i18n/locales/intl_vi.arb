@@ -1,6 +1,6 @@
 {
   "@@locale": "vi",
-  "appName": "Số tay nam dược",
+  "appName": "Sổ tay nam dược",
   "error_common": "Đã có lỗi xảy ra. Vui lòng thử lại sau",
   "error_connection": "Lỗi kết nối mạng",
   "dropdown_loading": "Đang lấy dữ liệu ...",
@@ -127,5 +127,6 @@
   "enterCredentials": "Nhập thông tin đăng nhập",
   "pleaseEnterCredentials": "Vui lòng nhập đầy đủ thông tin đăng nhập",
   "biometricDisabled": "Đã tắt đăng nhập bằng sinh trắc học",
-  "cancel": "Hủy"
+  "cancel": "Hủy",
+  "welcomeTo": "Chào mừng đến"
 }

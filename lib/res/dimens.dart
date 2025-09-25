@@ -67,6 +67,8 @@ class AppDimens {
   static const double SIZE_157 = 157;
   static const double SIZE_162 = 162;
   static const double SIZE_172 = 172;
+  static const double SIZE_240 = 240;
+  static const double SIZE_480 = 480;
   static const double SIZE_200 = 200;
   static const double SIZE_236 = 236;
   static const double SIZE_260 = 260;

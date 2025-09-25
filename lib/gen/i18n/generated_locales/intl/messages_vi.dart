@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Đã có tài khoản?",
     ),
-    "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
+    "appName": MessageLookupByLibrary.simpleMessage("Sổ tay nam dược"),
     "appSettings": MessageLookupByLibrary.simpleMessage("Cài đặt ứng dụng"),
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
     "biometricDisabled": MessageLookupByLibrary.simpleMessage(
@@ -266,5 +266,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "weHaveSentThePinTo": MessageLookupByLibrary.simpleMessage(
       "Chúng tôi đã gửi mã PIN 4 chữ số đến:",
     ),
+    "welcomeTo": MessageLookupByLibrary.simpleMessage("Chào mừng đến"),
   };
 }

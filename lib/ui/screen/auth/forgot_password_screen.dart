@@ -100,13 +100,17 @@ class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
     return Column(
       children: [
         Container(
-          width: 80,
-          height: 80,
+          width: AppDimens.SIZE_80,
+          height: AppDimens.SIZE_80,
           decoration: BoxDecoration(
             color: AppColors.baseColor.withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
-          child: Icon(Icons.lock_reset, size: 40, color: AppColors.baseColor),
+          child: Icon(
+            Icons.lock_reset,
+            size: AppDimens.SIZE_40,
+            color: AppColors.baseColor,
+          ),
         ),
         SizedBox(height: AppDimens.SIZE_24),
         CustomTextLabel(
@@ -179,6 +183,7 @@ class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
           fontWeight: FontWeight.w500,
           color: AppColors.textMediumGrey,
         ),
+        SizedBox(width: AppDimens.SIZE_4),
         InkWell(
           onTap: () {
             Navigator.popUntil(context, (route) => route.isFirst);
