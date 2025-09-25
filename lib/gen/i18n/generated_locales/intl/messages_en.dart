@@ -62,10 +62,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit profile"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
+    "empty": MessageLookupByLibrary.simpleMessage("No data available"),
     "endOfList": MessageLookupByLibrary.simpleMessage("End of list"),
     "enterCredentials": MessageLookupByLibrary.simpleMessage(
       "Enter Credentials",
     ),
+    "error": MessageLookupByLibrary.simpleMessage("An error occurred"),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "An error occurred. Please try again later",
     ),
@@ -188,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please enter your username",
     ),
     "privacySettings": MessageLookupByLibrary.simpleMessage("Privacy settings"),
+    "pullToRefresh": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -225,6 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "The session has expired. Please log in again",
     ),
+    "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
     "unread": MessageLookupByLibrary.simpleMessage("Unread"),
     "updateYourInfo": MessageLookupByLibrary.simpleMessage("Update your info"),
     "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(

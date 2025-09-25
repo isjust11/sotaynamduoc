@@ -128,5 +128,9 @@
   "pleaseEnterCredentials": "Vui lòng nhập đầy đủ thông tin đăng nhập",
   "biometricDisabled": "Đã tắt đăng nhập bằng sinh trắc học",
   "cancel": "Hủy",
-  "welcomeTo": "Chào mừng đến"
+  "welcomeTo": "Chào mừng đến",
+  "pullToRefresh": "Kéo xuống để làm mới",
+  "error": "Có lỗi xảy ra",
+  "tryAgain": "Thử lại",
+  "empty": "Không có dữ liệu"
 }

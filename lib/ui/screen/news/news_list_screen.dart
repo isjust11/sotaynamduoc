@@ -37,12 +37,22 @@ class _NewsListScreenState extends State<NewsListScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return BaseScreen(
-      loadingWidget: CustomBlocLoading<NewsBloc, NewsState>(
+      stateWidget: CustomBlocResult<NewsBloc, NewsState>(
         loadingState: (state) => state is NewsLoading,
+        errorState: (state) => state is NewsError,
+        emptyState: (state) => state is NewsEmpty,
         loadingType: LoadingType.threeArchedCircle,
-        message: AppLocalizations.current.loading,
+        showMessage: true,
+        message: context.read<NewsBloc>().state is NewsLoading
+            ? AppLocalizations.current.loading
+            : context.read<NewsBloc>().state is NewsError
+            ? (context.read<NewsBloc>().state as NewsError).message
+            : context.read<NewsBloc>().state is NewsEmpty
+            ? AppLocalizations.current.empty
+            : null,
         backgroundColor: Colors.black.withValues(alpha: 0.4),
         indicatorColor: AppColors.baseColor,
+        onRefresh: () => context.read<NewsBloc>().add(const RefreshNews()),
       ),
       colorBg: AppColors.white,
       title: AppLocalizations.current.news.toUpperCase(),
@@ -313,86 +323,6 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildEmptyState(String message) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        _addBlocEvent(const RefreshNews());
-      },
-      child: ListView(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-          Center(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.article_outlined,
-                  size: 64.sw,
-                  color: AppColors.textDark.withValues(alpha: 0.3),
-                ),
-                SizedBox(height: AppDimens.SIZE_16),
-                CustomTextLabel(
-                  message,
-                  fontSize: AppDimens.SIZE_16,
-                  color: AppColors.textDark.withValues(alpha: 0.6),
-                ),
-                SizedBox(height: AppDimens.SIZE_8),
-                CustomTextLabel(
-                  'Kéo xuống để làm mới',
-                  fontSize: AppDimens.SIZE_14,
-                  color: AppColors.textDark.withValues(alpha: 0.4),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildErrorState(String message) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        _addBlocEvent(const RefreshNews());
-      },
-      child: ListView(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-          Center(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 64.sw,
-                  color: AppColors.errorRed,
-                ),
-                SizedBox(height: AppDimens.SIZE_16),
-                CustomTextLabel(
-                  'Có lỗi xảy ra',
-                  fontSize: AppDimens.SIZE_16,
-                  color: AppColors.errorRed,
-                ),
-                SizedBox(height: AppDimens.SIZE_8),
-                CustomTextLabel(
-                  message,
-                  fontSize: AppDimens.SIZE_14,
-                  color: AppColors.textDark.withValues(alpha: 0.6),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: AppDimens.SIZE_16),
-                ElevatedButton(
-                  onPressed: () {
-                    _addBlocEvent(const RefreshNews());
-                  },
-                  child: const Text('Thử lại'),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

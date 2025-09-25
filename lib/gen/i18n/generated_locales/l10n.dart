@@ -1103,6 +1103,31 @@ class AppLocalizations {
   String get welcomeTo {
     return Intl.message('Chào mừng đến', name: 'welcomeTo', desc: '', args: []);
   }
+
+  /// `Kéo xuống để làm mới`
+  String get pullToRefresh {
+    return Intl.message(
+      'Kéo xuống để làm mới',
+      name: 'pullToRefresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Có lỗi xảy ra`
+  String get error {
+    return Intl.message('Có lỗi xảy ra', name: 'error', desc: '', args: []);
+  }
+
+  /// `Thử lại`
+  String get tryAgain {
+    return Intl.message('Thử lại', name: 'tryAgain', desc: '', args: []);
+  }
+
+  /// `Không có dữ liệu`
+  String get empty {
+    return Intl.message('Không có dữ liệu', name: 'empty', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

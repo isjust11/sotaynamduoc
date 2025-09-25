@@ -302,12 +302,6 @@ abstract class AppLocalizations {
   /// **'No notifications yet'**
   String get noNotificationsYet;
 
-  /// No description provided for @pullToRefresh.
-  ///
-  /// In en, this message translates to:
-  /// **'Pull to refresh'**
-  String get pullToRefresh;
-
   /// No description provided for @newsDetail.
   ///
   /// In en, this message translates to:
@@ -895,6 +889,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome to'**
   String get welcomeTo;
+
+  /// No description provided for @pullToRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to refresh'**
+  String get pullToRefresh;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred'**
+  String get error;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get empty;
 }
 
 class _AppLocalizationsDelegate

@@ -112,9 +112,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noNotificationsYet => 'Chưa có thông báo nào';
 
   @override
-  String get pullToRefresh => 'Pull to refresh';
-
-  @override
   String get newsDetail => 'Chi tiết tin tức';
 
   @override
@@ -412,4 +409,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get welcomeTo => 'Chào mừng đến';
+
+  @override
+  String get pullToRefresh => 'Kéo xuống để làm mới';
+
+  @override
+  String get error => 'Có lỗi xảy ra';
+
+  @override
+  String get tryAgain => 'Thử lại';
+
+  @override
+  String get empty => 'Không có dữ liệu';
 }

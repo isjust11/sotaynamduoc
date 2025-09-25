@@ -108,7 +108,7 @@ class _SignInScreenState extends State<SignInBody> {
         }
       },
       child: BaseScreen(
-        loadingWidget: CustomLoading<AuthCubit>(
+        stateWidget: CustomLoading<AuthCubit>(
           loadingType: LoadingType.threeArchedCircle,
           message: AppLocalizations.current.loading,
           backgroundColor: Colors.black.withValues(alpha: 0.4),
