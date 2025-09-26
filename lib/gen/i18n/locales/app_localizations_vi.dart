@@ -421,4 +421,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get empty => 'Không có dữ liệu';
+
+  @override
+  String get rememberMe => 'Nhớ đăng nhập';
 }

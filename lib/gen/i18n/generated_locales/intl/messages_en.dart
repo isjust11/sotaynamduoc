@@ -202,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
       "Register with Google",
     ),
+    "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
     "resend": MessageLookupByLibrary.simpleMessage("Resend PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),

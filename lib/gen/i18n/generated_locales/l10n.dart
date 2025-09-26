@@ -1128,6 +1128,16 @@ class AppLocalizations {
   String get empty {
     return Intl.message('Không có dữ liệu', name: 'empty', desc: '', args: []);
   }
+
+  /// `Nhớ đăng nhập`
+  String get rememberMe {
+    return Intl.message(
+      'Nhớ đăng nhập',
+      name: 'rememberMe',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

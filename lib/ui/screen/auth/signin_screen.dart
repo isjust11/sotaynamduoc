@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
@@ -11,6 +12,7 @@ import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/services/biometric_auth_service.dart';
+import 'package:sotaynamduoc/utils/shared_preference.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -41,19 +43,35 @@ class _SignInScreenState extends State<SignInBody> {
       GlobalKey<TextFieldState>();
   bool _biometricAvailable = false;
   bool _biometricEnabled = false;
+  bool _rememberMe = false;
+  BiometricType _biometricType = BiometricType.fingerprint;
 
   @override
   void initState() {
     super.initState();
     _usernameController = TextEditingController();
     _passwordController = TextEditingController();
+    _getRememberPassword();
     _checkBiometricAvailability();
+  }
+
+  Future<void> _getRememberPassword() async {
+    _rememberMe = await SharedPreferenceUtil.getRememberPassword();
+    if (_rememberMe) {
+      final credentials = await BiometricAuthService.getStoredCredentials();
+      _usernameController.text = credentials?["username"] ?? "";
+      _passwordController.text = credentials?["password"] ?? "";
+    }
+    setState(() {});
   }
 
   Future<void> _checkBiometricAvailability() async {
     final capability = await BiometricAuthService.checkBiometricCapability();
     final enabled = await BiometricAuthService.isBiometricEnabledInApp();
-
+    final biometricType = await BiometricAuthService.getAvailableBiometrics();
+    if (biometricType.isNotEmpty) {
+      _biometricType = biometricType.first;
+    }
     setState(() {
       _biometricAvailable = capability == BiometricCapability.available;
       _biometricEnabled = enabled;
@@ -108,7 +126,7 @@ class _SignInScreenState extends State<SignInBody> {
         }
       },
       child: BaseScreen(
-        stateWidget: CustomLoading<AuthCubit>(
+        stateWidget: CustomBlocResult<AuthCubit, BaseState>(
           loadingType: LoadingType.threeArchedCircle,
           loadingState: (state) => state is LoadingState,
           message: AppLocalizations.current.loading,
@@ -168,76 +186,69 @@ class _SignInScreenState extends State<SignInBody> {
                         validator: _validatePassword,
                         isRequired: true,
                       ),
-                      SizedBox(height: AppDimens.SIZE_12),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.forgotPasswordScreen,
-                          );
-                        },
-                        child: CustomTextLabel(
-                          AppLocalizations.current.forgotPassword,
-                          fontSize: AppDimens.SIZE_16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.baseColor,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                      SizedBox(height: AppDimens.SIZE_16),
-
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.baseColor,
-                          foregroundColor: AppColors.white,
-                          padding: EdgeInsets.symmetric(
-                            vertical: AppDimens.SIZE_14,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: _rememberMe,
+                                activeColor: AppColors.baseColor,
+                                checkColor: AppColors.white,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _rememberMe = value ?? false;
+                                    SharedPreferenceUtil.setRememberPassword(
+                                      _rememberMe,
+                                    );
+                                  });
+                                },
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _rememberMe = !_rememberMe;
+                                    SharedPreferenceUtil.setRememberPassword(
+                                      _rememberMe,
+                                    );
+                                  });
+                                },
+                                child: CustomTextLabel(
+                                  AppLocalizations.current.rememberMe,
+                                  fontSize: AppDimens.SIZE_16,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.textMediumGrey,
+                                ),
+                              ),
+                            ],
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              AppDimens.SIZE_16,
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.forgotPasswordScreen,
+                              );
+                            },
+                            child: CustomTextLabel(
+                              AppLocalizations.current.forgotPassword,
+                              fontSize: AppDimens.SIZE_16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.baseColor,
+                              textAlign: TextAlign.end,
                             ),
                           ),
-                        ),
-                        child: CustomTextLabel(
-                          AppLocalizations.current.login,
-                          fontSize: AppDimens.SIZE_16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.white,
-                        ),
-                        onPressed: () async {
-                          // Kiểm tra validation của các trường input
-                          bool isUsernameValid =
-                              _usernameFieldKey.currentState?.isValid ?? false;
-                          bool isPasswordValid =
-                              _passwordFieldKey.currentState?.isValid ?? false;
-
-                          if (isUsernameValid && isPasswordValid) {
-                            final authCubit = BlocProvider.of<AuthCubit>(
-                              context,
-                            );
-                            await authCubit.doLogin(
-                              userName: _usernameController.text.trim(),
-                              password: _passwordController.text.trim(),
-                            );
-
-                            // Nếu đăng nhập thành công và sinh trắc học khả dụng, lưu thông tin
-                            if (authCubit.state is LoadedState &&
-                                _biometricAvailable) {
-                              _showBiometricSetupDialog();
-                            }
-                          }
-                        },
+                        ],
                       ),
+                      _biometricAvailable && _biometricEnabled
+                          ? Row(
+                              children: [
+                                Expanded(child: _buildLoginButton()),
+                                SizedBox(width: AppDimens.SIZE_12),
+                                _buildBiometricLoginButton(),
+                              ],
+                            )
+                          : _buildLoginButton(),
                       SizedBox(height: AppDimens.SIZE_16),
-
-                      // Nút đăng nhập sinh trắc học
-                      if (_biometricAvailable && _biometricEnabled)
-                        _buildBiometricLoginButton(),
-
-                      if (_biometricAvailable && _biometricEnabled)
-                        SizedBox(height: AppDimens.SIZE_24),
-
                       // Divider với text "hoặc"
                       Row(
                         children: [
@@ -266,7 +277,7 @@ class _SignInScreenState extends State<SignInBody> {
                           ),
                         ],
                       ),
-                      SizedBox(height: AppDimens.SIZE_24),
+                      SizedBox(height: AppDimens.SIZE_16),
 
                       // Nút đăng nhập Google
                       _buildSocialLoginButton(
@@ -362,7 +373,7 @@ class _SignInScreenState extends State<SignInBody> {
           foregroundColor: textColor,
           side: BorderSide(color: borderColor, width: 1),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
+            borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
           ),
           elevation: 0,
         ),
@@ -389,145 +400,75 @@ class _SignInScreenState extends State<SignInBody> {
     );
   }
 
-  Widget _buildBiometricLoginButton() {
-    return SizedBox(
-      height: AppDimens.SIZE_48,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.secondaryBrand,
-          foregroundColor: AppColors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
-          ),
-          elevation: 2,
+  Widget _buildLoginButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.baseColor,
+        foregroundColor: AppColors.white,
+        padding: EdgeInsets.symmetric(vertical: AppDimens.SIZE_14),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
         ),
-        onPressed: () {
-          context.read<AuthCubit>().doBiometricLogin();
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.fingerprint,
-              size: AppDimens.SIZE_20,
-              color: AppColors.white,
-            ),
-            SizedBox(width: AppDimens.SIZE_12),
-            CustomTextLabel(
-              AppLocalizations.current.loginWithBiometric,
-              fontSize: AppDimens.SIZE_14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.white,
+      ),
+      child: CustomTextLabel(
+        AppLocalizations.current.login,
+        fontSize: AppDimens.SIZE_16,
+        fontWeight: FontWeight.w600,
+        color: AppColors.white,
+      ),
+      onPressed: () async {
+        // Kiểm tra validation của các trường input
+        bool isUsernameValid = _usernameFieldKey.currentState?.isValid ?? false;
+        bool isPasswordValid = _passwordFieldKey.currentState?.isValid ?? false;
+        // ẩn bàn phím khi click đăng nhập
+        FocusScope.of(context).unfocus();
+        if (isUsernameValid && isPasswordValid) {
+          final authCubit = BlocProvider.of<AuthCubit>(context);
+          await authCubit.doLogin(
+            userName: _usernameController.text.trim(),
+            password: _passwordController.text.trim(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildBiometricLoginButton() {
+    return InkWell(
+      onTap: () {
+        context.read<AuthCubit>().doBiometricLogin();
+      },
+      child: Container(
+        height: AppDimens.SIZE_48,
+        width: AppDimens.SIZE_48,
+        decoration: BoxDecoration(
+          color: AppColors.lightBackgroundAlt,
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.secondaryBrand.withValues(alpha: 0.2),
+              blurRadius: AppDimens.SIZE_4,
+              offset: Offset(0, AppDimens.SIZE_2),
             ),
           ],
         ),
+        child: Center(child: _buildBiometricIcon()),
       ),
     );
   }
 
-  void _showBiometricSetupDialog() {
-    if (!_biometricEnabled) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Row(
-              children: [
-                Icon(
-                  Icons.fingerprint,
-                  color: AppColors.secondaryBrand,
-                  size: AppDimens.SIZE_24,
-                ),
-                SizedBox(width: AppDimens.SIZE_8),
-                Expanded(
-                  child: CustomTextLabel(
-                    AppLocalizations.current.setupBiometric,
-                    fontSize: AppDimens.SIZE_18,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.colorTitle,
-                  ),
-                ),
-              ],
-            ),
-            content: CustomTextLabel(
-              AppLocalizations.current.setupBiometricDesc,
-              fontSize: AppDimens.SIZE_14,
-              color: AppColors.textMediumGrey,
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: CustomTextLabel(
-                  AppLocalizations.current.skip,
-                  fontSize: AppDimens.SIZE_14,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textMediumGrey,
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.secondaryBrand,
-                  foregroundColor: AppColors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                  ),
-                ),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  await _setupBiometric();
-                },
-                child: CustomTextLabel(
-                  AppLocalizations.current.setup,
-                  fontSize: AppDimens.SIZE_14,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.white,
-                ),
-              ),
-            ],
-          );
-        },
+  Widget _buildBiometricIcon() {
+    if (_biometricType == BiometricType.face) {
+      return SvgPicture.asset(
+        Assets.icons.icFaceId,
+        width: AppDimens.SIZE_20,
+        height: AppDimens.SIZE_20,
       );
     }
-  }
-
-  Future<void> _setupBiometric() async {
-    if (!mounted) return;
-
-    try {
-      final authCubit = context.read<AuthCubit>();
-      await authCubit.toggleBiometric(
-        true,
-        username: _usernameController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-
-      if (!mounted) return;
-
-      setState(() {
-        _biometricEnabled = true;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: CustomTextLabel(
-            AppLocalizations.current.biometricSetupSuccess,
-            color: AppColors.white,
-          ),
-          backgroundColor: AppColors.successGreen,
-        ),
-      );
-    } catch (e) {
-      if (!mounted) return;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: CustomTextLabel(e.toString(), color: AppColors.white),
-          backgroundColor: AppColors.errorRed,
-        ),
-      );
-    }
+    return Icon(
+      Icons.fingerprint,
+      size: AppDimens.SIZE_20,
+      color: AppColors.gray,
+    );
   }
 }

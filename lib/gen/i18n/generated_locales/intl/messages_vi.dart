@@ -214,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
       "Đăng ký bằng Google",
     ),
+    "rememberMe": MessageLookupByLibrary.simpleMessage("Nhớ đăng nhập"),
     "resend": MessageLookupByLibrary.simpleMessage("Gửi lại mã PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),

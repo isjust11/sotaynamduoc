@@ -74,16 +74,14 @@ class BaseScreen extends StatelessWidget {
         },
         child: Stack(
           children: [
-            body ?? Container(),
-            // nếu có message notify thì không cần message trong content
-            messageNotify ??
-                Positioned(
-                  top: AppDimens.SIZE_0,
-                  right: AppDimens.SIZE_0,
-                  left: AppDimens.SIZE_0,
-                  bottom: AppDimens.SIZE_0,
-                  child: stateWidget ?? Container(),
-                ),
+            body ?? Container(), // luôn hiển thị stateWidget (overlay) nếu có
+            Positioned(
+              top: AppDimens.SIZE_0,
+              right: AppDimens.SIZE_0,
+              left: AppDimens.SIZE_0,
+              bottom: AppDimens.SIZE_0,
+              child: stateWidget ?? Container(),
+            ),
             messageNotify ?? Container(),
           ],
         ),

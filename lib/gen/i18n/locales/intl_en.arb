@@ -135,5 +135,6 @@
   "pullToRefresh": "Pull to refresh",
   "error": "An error occurred",
   "tryAgain": "Try again",
-  "empty": "No data available"
+  "empty": "No data available",
+  "rememberMe": "Remember me"
 }

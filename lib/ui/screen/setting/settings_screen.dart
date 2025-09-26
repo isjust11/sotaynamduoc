@@ -7,6 +7,7 @@ import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
+import 'package:sotaynamduoc/ui/widget/base_loading.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/routes.dart';
@@ -55,6 +56,11 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
+      stateWidget: CustomLoading<AuthCubit>(
+        loadingState: (state) => state is LoadingState,
+        message: AppLocalizations.current.loading,
+        size: AppDimens.SIZE_32,
+      ),
       hideAppBar: true,
       colorBg: AppColors.lightBackground,
       body: _buildLayoutSection(context),
@@ -68,10 +74,6 @@ class _SettingScreenState extends State<SettingScreen> {
         UserModel? user;
         if (state is LoadedState) {
           user = state.data;
-        } else if (state is LoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ErrorState) {
-          return Center(child: Text(state.data.toString()));
         }
         return SingleChildScrollView(
           child: Column(
@@ -255,7 +257,7 @@ class _SettingScreenState extends State<SettingScreen> {
       margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppDimens.SIZE_20),
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
         boxShadow: [
           BoxShadow(
             color: AppColors.textDark.withValues(alpha: 0.05),
@@ -331,14 +333,14 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget _buildSupportSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
+            blurRadius: AppDimens.SIZE_10,
             offset: const Offset(0, 5),
           ),
         ],
@@ -349,7 +351,10 @@ class _SettingScreenState extends State<SettingScreen> {
             icon: Icons.help_outline,
             title: AppLocalizations.current.helpCenter,
             subtitle: AppLocalizations.current.getHelpAndSupport,
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: AppDimens.SIZE_16,
+            ),
             onTap: () {},
           ),
           _buildDivider(),
@@ -357,7 +362,10 @@ class _SettingScreenState extends State<SettingScreen> {
             icon: Icons.feedback,
             title: AppLocalizations.current.sendFeedback,
             subtitle: AppLocalizations.current.shareYourThoughts,
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: AppDimens.SIZE_16,
+            ),
             onTap: () {},
           ),
           _buildDivider(),
@@ -365,7 +373,10 @@ class _SettingScreenState extends State<SettingScreen> {
             icon: Icons.info_outline,
             title: AppLocalizations.current.aboutApp,
             subtitle: AppLocalizations.current.version,
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: AppDimens.SIZE_16,
+            ),
             onTap: () {},
           ),
         ],
@@ -394,7 +405,7 @@ class _SettingScreenState extends State<SettingScreen> {
               padding: const EdgeInsets.all(AppDimens.SIZE_8),
               decoration: BoxDecoration(
                 color: AppColors.secondaryBrand.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
               ),
               child: Icon(
                 icon,
@@ -444,7 +455,7 @@ class _SettingScreenState extends State<SettingScreen> {
           padding: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
           decoration: BoxDecoration(
             color: AppColors.secondaryBrand.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
             border: Border.all(
               color: AppColors.secondaryBrand.withValues(alpha: 0.3),
             ),
@@ -476,7 +487,7 @@ class _SettingScreenState extends State<SettingScreen> {
       padding: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       decoration: BoxDecoration(
         color: AppColors.secondaryBrand.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
         border: Border.all(
           color: AppColors.secondaryBrand.withValues(alpha: 0.3),
         ),
@@ -502,25 +513,24 @@ class _SettingScreenState extends State<SettingScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
       child: ElevatedButton.icon(
+        onPressed: _onLogout,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red.shade400,
+          backgroundColor: AppColors.errorRed,
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(AppDimens.SIZE_50),
+          minimumSize: const Size.fromHeight(AppDimens.SIZE_48),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
+            borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
           ),
           elevation: 0,
           shadowColor: Colors.red.withValues(alpha: 0.3),
         ),
         icon: const Icon(Icons.logout, size: AppDimens.SIZE_24),
-        label: Text(
+        label: CustomTextLabel(
           AppLocalizations.current.logout,
-          style: const TextStyle(
-            fontSize: AppDimens.SIZE_16,
-            fontWeight: FontWeight.bold,
-          ),
+          fontSize: AppDimens.SIZE_16,
+          fontWeight: FontWeight.bold,
+          color: AppColors.white,
         ),
-        onPressed: _onLogout,
       ),
     );
   }

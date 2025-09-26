@@ -420,4 +420,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get empty => 'No data available';
+
+  @override
+  String get rememberMe => 'Remember me';
 }

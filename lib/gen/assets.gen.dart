@@ -44,6 +44,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_email.svg
   String get icEmail => 'assets/icons/ic_email.svg';
 
+  /// File path: assets/icons/ic_face_id.svg
+  String get icFaceId => 'assets/icons/ic_face_id.svg';
+
   /// File path: assets/icons/ic_facebook.svg
   String get icFacebook => 'assets/icons/ic_facebook.svg';
 
@@ -92,6 +95,7 @@ class $AssetsIconsGen {
     icComplant,
     icDotHorizontal,
     icEmail,
+    icFaceId,
     icFacebook,
     icFolderEmpty,
     icGoogle,
