@@ -3,11 +3,13 @@ import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 
 class BiometricAuthService {
   static final LocalAuthentication _localAuth = LocalAuthentication();
   static const String _biometricEnabledKey = 'biometric_enabled';
   static const String _storedCredentialsKey = 'stored_credentials';
+  static const String _storedSocialLoginKey = 'stored_social_login';
 
   // Cấu hình Flutter Secure Storage với bảo mật cao
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage(
@@ -223,6 +225,94 @@ class BiometricAuthService {
     }
   }
 
+  /// Lưu thông tin đăng nhập social (Google/Facebook)
+  static Future<void> storeSocialLoginInfo(
+    Map<String, dynamic> socialData,
+  ) async {
+    try {
+      await _secureStorage.write(
+        key: _storedSocialLoginKey,
+        value: jsonEncode(socialData),
+      );
+    } catch (e) {
+      // Fallback to SharedPreferences nếu secure storage thất bại
+      assert(() {
+        print(
+          'Error writing social login to secure storage, falling back to SharedPreferences: $e',
+        );
+        return true;
+      }());
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_storedSocialLoginKey, jsonEncode(socialData));
+    }
+  }
+
+  /// Lấy thông tin đăng nhập social đã lưu
+  static Future<Map<String, dynamic>?> getStoredSocialLoginInfo() async {
+    try {
+      // Thử lấy từ Secure Storage trước
+      final socialData = await _secureStorage.read(key: _storedSocialLoginKey);
+      if (socialData != null) {
+        return jsonDecode(socialData);
+      }
+    } catch (e) {
+      // Nếu lỗi, thử fallback to SharedPreferences
+      assert(() {
+        print(
+          'Error reading social login from secure storage, falling back to SharedPreferences: $e',
+        );
+        return true;
+      }());
+    }
+
+    // Fallback to SharedPreferences (cho các thiết bị cũ hoặc khi có lỗi)
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final socialData = prefs.getString(_storedSocialLoginKey);
+
+      if (socialData != null) {
+        return jsonDecode(socialData);
+      }
+    } catch (e) {
+      assert(() {
+        print('Error reading social login from SharedPreferences: $e');
+        return true;
+      }());
+    }
+
+    return null;
+  }
+
+  /// Xóa thông tin đăng nhập social đã lưu
+  static Future<void> clearStoredSocialLoginInfo() async {
+    try {
+      // Xóa từ Secure Storage
+      await _secureStorage.delete(key: _storedSocialLoginKey);
+    } catch (e) {
+      assert(() {
+        print('Error clearing social login from secure storage: $e');
+        return true;
+      }());
+    }
+
+    // Cũng xóa từ SharedPreferences để đảm bảo
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_storedSocialLoginKey);
+    } catch (e) {
+      assert(() {
+        print('Error clearing social login from SharedPreferences: $e');
+        return true;
+      }());
+    }
+  }
+
+  /// Xóa tất cả thông tin đăng nhập (cả traditional và social)
+  static Future<void> clearAllStoredLoginInfo() async {
+    await Future.wait([clearStoredCredentials(), clearStoredSocialLoginInfo()]);
+  }
+
   /// Migration helper: chuyển dữ liệu từ SharedPreferences sang Secure Storage
   static Future<void> _migrateToSecureStorage(
     String username,
@@ -286,24 +376,36 @@ class BiometricAuthService {
         return BiometricAuthResult.failure(_getCapabilityMessage(capability));
       }
 
-      // Kiểm tra thông tin đăng nhập đã lưu
-      final credentials = await getStoredCredentials();
-      if (credentials == null) {
-        return BiometricAuthResult.failure(
-          'Chưa có thông tin đăng nhập được lưu',
-        );
-      }
-
       // Thực hiện xác thực sinh trắc học
       final authResult = await authenticateWithBiometrics(
         localizedReason: 'Xác thực để đăng nhập vào ứng dụng',
       );
 
-      if (authResult.isSuccess) {
-        return BiometricAuthResult.success(data: credentials);
-      } else {
+      if (!authResult.isSuccess) {
         return authResult;
       }
+
+      // Kiểm tra social login info trước
+      final socialInfo = await getStoredSocialLoginInfo();
+      if (socialInfo != null) {
+        return BiometricAuthResult.success(
+          data: socialInfo,
+          isSocialLogin: true,
+        );
+      }
+
+      // Fallback to traditional credentials
+      final credentials = await getStoredCredentials();
+      if (credentials != null) {
+        return BiometricAuthResult.success(
+          data: credentials,
+          isSocialLogin: false,
+        );
+      }
+
+      return BiometricAuthResult.failure(
+        'Chưa có thông tin đăng nhập được lưu',
+      );
     } catch (e) {
       return BiometricAuthResult.failure('Lỗi đăng nhập: $e');
     }
@@ -330,12 +432,25 @@ enum BiometricCapability { available, notSupported, notEnrolled, notAvailable }
 class BiometricAuthResult {
   final bool isSuccess;
   final String? message;
-  final Map<String, String>? data;
+  final Map<String, dynamic>? data;
+  final bool isSocialLogin;
 
-  BiometricAuthResult._({required this.isSuccess, this.message, this.data});
+  BiometricAuthResult._({
+    required this.isSuccess,
+    this.message,
+    this.data,
+    this.isSocialLogin = false,
+  });
 
-  factory BiometricAuthResult.success({Map<String, String>? data}) {
-    return BiometricAuthResult._(isSuccess: true, data: data);
+  factory BiometricAuthResult.success({
+    Map<String, dynamic>? data,
+    bool isSocialLogin = false,
+  }) {
+    return BiometricAuthResult._(
+      isSuccess: true,
+      data: data,
+      isSocialLogin: isSocialLogin,
+    );
   }
 
   factory BiometricAuthResult.failure(String message) {

@@ -78,8 +78,35 @@ class MessageLookup extends MessageLookupByLibrary {
     "error_connection": MessageLookupByLibrary.simpleMessage(
       "Lỗi kết nối mạng",
     ),
+    "facebookAccessTokenFormatInvalid": MessageLookupByLibrary.simpleMessage(
+      "Format access token Facebook không hợp lệ",
+    ),
+    "facebookAccessTokenIsNull": MessageLookupByLibrary.simpleMessage(
+      "Access token Facebook không được trả về",
+    ),
+    "facebookAccessTokenValidationFailed": MessageLookupByLibrary.simpleMessage(
+      "Validation access token Facebook thất bại",
+    ),
+    "facebookDeveloperError": MessageLookupByLibrary.simpleMessage(
+      "Lỗi phát triển",
+    ),
+    "facebookInvalidClient": MessageLookupByLibrary.simpleMessage(
+      "Client ID không hợp lệ",
+    ),
+    "facebookLoginFailed": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Facebook thất bại",
+    ),
+    "facebookLoginSuccess": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Facebook thành công",
+    ),
+    "facebookNetworkError": MessageLookupByLibrary.simpleMessage(
+      "Lỗi kết nối mạng",
+    ),
     "facebookRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
       "Đăng ký bằng Facebook - Sắp tới!",
+    ),
+    "facebookTimeout": MessageLookupByLibrary.simpleMessage(
+      "Thời gian đăng nhập hết hạn",
     ),
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Bài thuốc nổi bật",
@@ -102,8 +129,29 @@ class MessageLookup extends MessageLookupByLibrary {
     "getHelpAndSupport": MessageLookupByLibrary.simpleMessage(
       "Nhận hỗ trợ và hướng dẫn",
     ),
+    "googleDeveloperError": MessageLookupByLibrary.simpleMessage(
+      "Lỗi phát triển",
+    ),
+    "googleInvalidClient": MessageLookupByLibrary.simpleMessage(
+      "Client ID không hợp lệ",
+    ),
+    "googleNetworkError": MessageLookupByLibrary.simpleMessage(
+      "Lỗi kết nối mạng",
+    ),
+    "googlePlayServicesNotAvailable": MessageLookupByLibrary.simpleMessage(
+      "Google Play Services không khả dụng. Vui lòng thử trên thiết bị thật hoặc cài đặt Google Play Services trong LDPlayer.",
+    ),
     "googleRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
       "Đăng ký bằng Google - Sắp tới!",
+    ),
+    "googleSignInFailed": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Google thất bại",
+    ),
+    "googleSignInSuccess": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Google thành công",
+    ),
+    "googleTimeout": MessageLookupByLibrary.simpleMessage(
+      "Thời gian đăng nhập hết hạn",
     ),
     "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
     "helpCenter": MessageLookupByLibrary.simpleMessage("Trung tâm hỗ trợ"),
@@ -250,6 +298,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(
       "Sử dụng vân tay hoặc Face ID",
+    ),
+    "userCancelledFacebookSignIn": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Facebook đã bị hủy",
+    ),
+    "userCancelledGoogleSignIn": MessageLookupByLibrary.simpleMessage(
+      "Đăng nhập bằng Google đã bị hủy",
     ),
     "userName": MessageLookupByLibrary.simpleMessage("Tên đăng nhập"),
     "usernameMax": MessageLookupByLibrary.simpleMessage(

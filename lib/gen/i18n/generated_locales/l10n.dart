@@ -1138,6 +1138,186 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Google Play Services không khả dụng. Vui lòng thử trên thiết bị thật hoặc cài đặt Google Play Services trong LDPlayer.`
+  String get googlePlayServicesNotAvailable {
+    return Intl.message(
+      'Google Play Services không khả dụng. Vui lòng thử trên thiết bị thật hoặc cài đặt Google Play Services trong LDPlayer.',
+      name: 'googlePlayServicesNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng Google thành công`
+  String get googleSignInSuccess {
+    return Intl.message(
+      'Đăng nhập bằng Google thành công',
+      name: 'googleSignInSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng Google thất bại`
+  String get googleSignInFailed {
+    return Intl.message(
+      'Đăng nhập bằng Google thất bại',
+      name: 'googleSignInFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lỗi kết nối mạng`
+  String get googleNetworkError {
+    return Intl.message(
+      'Lỗi kết nối mạng',
+      name: 'googleNetworkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Client ID không hợp lệ`
+  String get googleInvalidClient {
+    return Intl.message(
+      'Client ID không hợp lệ',
+      name: 'googleInvalidClient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lỗi phát triển`
+  String get googleDeveloperError {
+    return Intl.message(
+      'Lỗi phát triển',
+      name: 'googleDeveloperError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thời gian đăng nhập hết hạn`
+  String get googleTimeout {
+    return Intl.message(
+      'Thời gian đăng nhập hết hạn',
+      name: 'googleTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng Google đã bị hủy`
+  String get userCancelledGoogleSignIn {
+    return Intl.message(
+      'Đăng nhập bằng Google đã bị hủy',
+      name: 'userCancelledGoogleSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng Facebook thành công`
+  String get facebookLoginSuccess {
+    return Intl.message(
+      'Đăng nhập bằng Facebook thành công',
+      name: 'facebookLoginSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng Facebook thất bại`
+  String get facebookLoginFailed {
+    return Intl.message(
+      'Đăng nhập bằng Facebook thất bại',
+      name: 'facebookLoginFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lỗi kết nối mạng`
+  String get facebookNetworkError {
+    return Intl.message(
+      'Lỗi kết nối mạng',
+      name: 'facebookNetworkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Client ID không hợp lệ`
+  String get facebookInvalidClient {
+    return Intl.message(
+      'Client ID không hợp lệ',
+      name: 'facebookInvalidClient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lỗi phát triển`
+  String get facebookDeveloperError {
+    return Intl.message(
+      'Lỗi phát triển',
+      name: 'facebookDeveloperError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thời gian đăng nhập hết hạn`
+  String get facebookTimeout {
+    return Intl.message(
+      'Thời gian đăng nhập hết hạn',
+      name: 'facebookTimeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập bằng Facebook đã bị hủy`
+  String get userCancelledFacebookSignIn {
+    return Intl.message(
+      'Đăng nhập bằng Facebook đã bị hủy',
+      name: 'userCancelledFacebookSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Access token Facebook không được trả về`
+  String get facebookAccessTokenIsNull {
+    return Intl.message(
+      'Access token Facebook không được trả về',
+      name: 'facebookAccessTokenIsNull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Format access token Facebook không hợp lệ`
+  String get facebookAccessTokenFormatInvalid {
+    return Intl.message(
+      'Format access token Facebook không hợp lệ',
+      name: 'facebookAccessTokenFormatInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Validation access token Facebook thất bại`
+  String get facebookAccessTokenValidationFailed {
+    return Intl.message(
+      'Validation access token Facebook thất bại',
+      name: 'facebookAccessTokenValidationFailed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

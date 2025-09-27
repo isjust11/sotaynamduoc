@@ -424,4 +424,62 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get rememberMe => 'Nhớ đăng nhập';
+
+  @override
+  String get googlePlayServicesNotAvailable =>
+      'Google Play Services không khả dụng. Vui lòng thử trên thiết bị thật hoặc cài đặt Google Play Services trong LDPlayer.';
+
+  @override
+  String get googleSignInSuccess => 'Đăng nhập bằng Google thành công';
+
+  @override
+  String get googleSignInFailed => 'Đăng nhập bằng Google thất bại';
+
+  @override
+  String get googleNetworkError => 'Lỗi kết nối mạng';
+
+  @override
+  String get googleInvalidClient => 'Client ID không hợp lệ';
+
+  @override
+  String get googleDeveloperError => 'Lỗi phát triển';
+
+  @override
+  String get googleTimeout => 'Thời gian đăng nhập hết hạn';
+
+  @override
+  String get userCancelledGoogleSignIn => 'Đăng nhập bằng Google đã bị hủy';
+
+  @override
+  String get facebookLoginSuccess => 'Đăng nhập bằng Facebook thành công';
+
+  @override
+  String get facebookLoginFailed => 'Đăng nhập bằng Facebook thất bại';
+
+  @override
+  String get facebookNetworkError => 'Lỗi kết nối mạng';
+
+  @override
+  String get facebookInvalidClient => 'Client ID không hợp lệ';
+
+  @override
+  String get facebookDeveloperError => 'Lỗi phát triển';
+
+  @override
+  String get facebookTimeout => 'Thời gian đăng nhập hết hạn';
+
+  @override
+  String get userCancelledFacebookSignIn => 'Đăng nhập bằng Facebook đã bị hủy';
+
+  @override
+  String get facebookAccessTokenIsNull =>
+      'Access token Facebook không được trả về';
+
+  @override
+  String get facebookAccessTokenFormatInvalid =>
+      'Format access token Facebook không hợp lệ';
+
+  @override
+  String get facebookAccessTokenValidationFailed =>
+      'Validation access token Facebook thất bại';
 }

@@ -3,6 +3,7 @@ import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/blocs/utils.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/services/social_login_service.dart';
 import 'package:sotaynamduoc/services/biometric_auth_service.dart';
@@ -112,37 +113,25 @@ class AuthCubit extends Cubit<BaseState> {
 
       if (!isGooglePlayServicesAvailable) {
         emit(
-          ErrorState(
-            'Google Play Services không khả dụng. Vui lòng thử trên thiết bị thật hoặc cài đặt Google Play Services trong LDPlayer.',
-          ),
+          ErrorState(AppLocalizations.current.googlePlayServicesNotAvailable),
         );
         return;
       }
 
-      // Test configuration first
-      await SocialLoginService.testGoogleSignInConfig();
-
       final socialData = await SocialLoginService.signInWithGoogle();
       if (socialData == null) {
-        emit(InitState()); // User cancelled
+        emit(ErrorState(AppLocalizations.current.googleSignInFailed));
         return;
       }
 
       AuthModel authModel = await repository.mobileSocialLogin(socialData);
+
+      // Lưu thông tin social login cho sinh trắc học
+      await BiometricAuthService.storeSocialLoginInfo(socialData);
+
       emit(LoadedState(authModel));
     } catch (e) {
       String errorMessage = BlocUtils.getMessageError(e);
-
-      // Xử lý lỗi cụ thể cho Google Sign-In
-      if (e.toString().contains('timeout') ||
-          e.toString().contains('SERVICE_DISABLED') ||
-          e.toString().contains('SERVICE_MISSING')) {
-        errorMessage =
-            'Google Play Services không khả dụng trên LDPlayer. Vui lòng thử trên thiết bị thật.';
-      } else if (e.toString().contains('network_error')) {
-        errorMessage = 'Lỗi kết nối mạng. Vui lòng kiểm tra kết nối internet.';
-      }
-
       emit(ErrorState(errorMessage));
     }
   }
@@ -158,6 +147,10 @@ class AuthCubit extends Cubit<BaseState> {
       }
 
       AuthModel authModel = await repository.mobileSocialLogin(socialData);
+
+      // Lưu thông tin social login cho sinh trắc học
+      await BiometricAuthService.storeSocialLoginInfo(socialData);
+
       emit(LoadedState(authModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
@@ -195,12 +188,19 @@ class AuthCubit extends Cubit<BaseState> {
 
       final result = await BiometricAuthService.loginWithBiometrics();
       if (result.isSuccess && result.data != null) {
-        // Sử dụng thông tin đăng nhập đã lưu để đăng nhập
-        final credentials = result.data!;
-        await doLogin(
-          userName: credentials['username'],
-          password: credentials['password'],
-        );
+        if (result.isSocialLogin) {
+          // Đăng nhập lại bằng social
+          final socialData = result.data!;
+          AuthModel authModel = await repository.mobileSocialLogin(socialData);
+          emit(LoadedState(authModel));
+        } else {
+          // Đăng nhập bằng username/password
+          final credentials = result.data!;
+          await doLogin(
+            userName: credentials['username'],
+            password: credentials['password'],
+          );
+        }
       } else {
         emit(ErrorState(result.message ?? 'Đăng nhập sinh trắc học thất bại'));
       }
@@ -259,9 +259,9 @@ class AuthCubit extends Cubit<BaseState> {
         // Bật sinh trắc học
         await BiometricAuthService.setBiometricEnabledInApp(true);
       } else {
-        // Tắt sinh trắc học và xóa thông tin đăng nhập
+        // Tắt sinh trắc học và xóa tất cả thông tin đăng nhập
         await BiometricAuthService.setBiometricEnabledInApp(false);
-        await BiometricAuthService.clearStoredCredentials();
+        await BiometricAuthService.clearAllStoredLoginInfo();
       }
     } catch (e) {
       throw Exception(BlocUtils.getMessageError(e));

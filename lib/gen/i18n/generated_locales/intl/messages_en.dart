@@ -74,9 +74,34 @@ class MessageLookup extends MessageLookupByLibrary {
     "error_connection": MessageLookupByLibrary.simpleMessage(
       "Network connection error",
     ),
+    "facebookAccessTokenFormatInvalid": MessageLookupByLibrary.simpleMessage(
+      "Facebook access token format invalid",
+    ),
+    "facebookAccessTokenIsNull": MessageLookupByLibrary.simpleMessage(
+      "Facebook access token is null",
+    ),
+    "facebookAccessTokenValidationFailed": MessageLookupByLibrary.simpleMessage(
+      "Facebook access token validation failed",
+    ),
+    "facebookDeveloperError": MessageLookupByLibrary.simpleMessage(
+      "Facebook developer error",
+    ),
+    "facebookInvalidClient": MessageLookupByLibrary.simpleMessage(
+      "Facebook invalid client",
+    ),
+    "facebookLoginFailed": MessageLookupByLibrary.simpleMessage(
+      "Facebook sign in failed",
+    ),
+    "facebookLoginSuccess": MessageLookupByLibrary.simpleMessage(
+      "Facebook sign in successfully",
+    ),
+    "facebookNetworkError": MessageLookupByLibrary.simpleMessage(
+      "Facebook network error",
+    ),
     "facebookRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
       "Facebook registration - Coming soon!",
     ),
+    "facebookTimeout": MessageLookupByLibrary.simpleMessage("Facebook timeout"),
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Featured medicine",
     ),
@@ -100,9 +125,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "getHelpAndSupport": MessageLookupByLibrary.simpleMessage(
       "Get help and support",
     ),
+    "googleDeveloperError": MessageLookupByLibrary.simpleMessage(
+      "Google developer error",
+    ),
+    "googleInvalidClient": MessageLookupByLibrary.simpleMessage(
+      "Google invalid client",
+    ),
+    "googleNetworkError": MessageLookupByLibrary.simpleMessage(
+      "Google network error",
+    ),
+    "googlePlayServicesNotAvailable": MessageLookupByLibrary.simpleMessage(
+      "Google Play Services is not available. Please try on a real device or install Google Play Services in LDPlayer.",
+    ),
     "googleRegistrationComingSoon": MessageLookupByLibrary.simpleMessage(
       "Google registration - Coming soon!",
     ),
+    "googleSignInFailed": MessageLookupByLibrary.simpleMessage(
+      "Google sign in failed",
+    ),
+    "googleSignInSuccess": MessageLookupByLibrary.simpleMessage(
+      "Google sign in successfully",
+    ),
+    "googleTimeout": MessageLookupByLibrary.simpleMessage("Google timeout"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "helpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
     "herbal": MessageLookupByLibrary.simpleMessage("Herbal"),
@@ -234,6 +278,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "updateYourInfo": MessageLookupByLibrary.simpleMessage("Update your info"),
     "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(
       "Use fingerprint or face ID",
+    ),
+    "userCancelledFacebookSignIn": MessageLookupByLibrary.simpleMessage(
+      "Facebook sign in cancelled",
+    ),
+    "userCancelledGoogleSignIn": MessageLookupByLibrary.simpleMessage(
+      "Google sign in cancelled",
     ),
     "userName": MessageLookupByLibrary.simpleMessage("Login name"),
     "usernameMax": MessageLookupByLibrary.simpleMessage(

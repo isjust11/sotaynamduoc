@@ -423,4 +423,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rememberMe => 'Remember me';
+
+  @override
+  String get googlePlayServicesNotAvailable =>
+      'Google Play Services is not available. Please try on a real device or install Google Play Services in LDPlayer.';
+
+  @override
+  String get googleSignInSuccess => 'Google sign in successfully';
+
+  @override
+  String get googleSignInFailed => 'Google sign in failed';
+
+  @override
+  String get googleNetworkError => 'Google network error';
+
+  @override
+  String get googleInvalidClient => 'Google invalid client';
+
+  @override
+  String get googleDeveloperError => 'Google developer error';
+
+  @override
+  String get googleTimeout => 'Google timeout';
+
+  @override
+  String get userCancelledGoogleSignIn => 'Google sign in cancelled';
+
+  @override
+  String get facebookLoginSuccess => 'Facebook sign in successfully';
+
+  @override
+  String get facebookLoginFailed => 'Facebook sign in failed';
+
+  @override
+  String get facebookNetworkError => 'Facebook network error';
+
+  @override
+  String get facebookInvalidClient => 'Facebook invalid client';
+
+  @override
+  String get facebookDeveloperError => 'Facebook developer error';
+
+  @override
+  String get facebookTimeout => 'Facebook timeout';
+
+  @override
+  String get userCancelledFacebookSignIn => 'Facebook sign in cancelled';
+
+  @override
+  String get facebookAccessTokenIsNull => 'Facebook access token is null';
+
+  @override
+  String get facebookAccessTokenFormatInvalid =>
+      'Facebook access token format invalid';
+
+  @override
+  String get facebookAccessTokenValidationFailed =>
+      'Facebook access token validation failed';
 }

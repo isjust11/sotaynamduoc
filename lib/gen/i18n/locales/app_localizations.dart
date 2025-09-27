@@ -919,6 +919,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remember me'**
   String get rememberMe;
+
+  /// No description provided for @googlePlayServicesNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play Services is not available. Please try on a real device or install Google Play Services in LDPlayer.'**
+  String get googlePlayServicesNotAvailable;
+
+  /// No description provided for @googleSignInSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign in successfully'**
+  String get googleSignInSuccess;
+
+  /// No description provided for @googleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign in failed'**
+  String get googleSignInFailed;
+
+  /// No description provided for @googleNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Google network error'**
+  String get googleNetworkError;
+
+  /// No description provided for @googleInvalidClient.
+  ///
+  /// In en, this message translates to:
+  /// **'Google invalid client'**
+  String get googleInvalidClient;
+
+  /// No description provided for @googleDeveloperError.
+  ///
+  /// In en, this message translates to:
+  /// **'Google developer error'**
+  String get googleDeveloperError;
+
+  /// No description provided for @googleTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Google timeout'**
+  String get googleTimeout;
+
+  /// No description provided for @userCancelledGoogleSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign in cancelled'**
+  String get userCancelledGoogleSignIn;
+
+  /// No description provided for @facebookLoginSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook sign in successfully'**
+  String get facebookLoginSuccess;
+
+  /// No description provided for @facebookLoginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook sign in failed'**
+  String get facebookLoginFailed;
+
+  /// No description provided for @facebookNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook network error'**
+  String get facebookNetworkError;
+
+  /// No description provided for @facebookInvalidClient.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook invalid client'**
+  String get facebookInvalidClient;
+
+  /// No description provided for @facebookDeveloperError.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook developer error'**
+  String get facebookDeveloperError;
+
+  /// No description provided for @facebookTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook timeout'**
+  String get facebookTimeout;
+
+  /// No description provided for @userCancelledFacebookSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook sign in cancelled'**
+  String get userCancelledFacebookSignIn;
+
+  /// No description provided for @facebookAccessTokenIsNull.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook access token is null'**
+  String get facebookAccessTokenIsNull;
+
+  /// No description provided for @facebookAccessTokenFormatInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook access token format invalid'**
+  String get facebookAccessTokenFormatInvalid;
+
+  /// No description provided for @facebookAccessTokenValidationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook access token validation failed'**
+  String get facebookAccessTokenValidationFailed;
 }
 
 class _AppLocalizationsDelegate

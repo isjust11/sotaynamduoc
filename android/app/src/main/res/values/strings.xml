@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">sotaynamduoc</string>
+    <string name="facebook_app_id">813066197726121</string>
+    <string name="facebook_client_token">6064fbfe150ea34e0ded01209b0b08cd</string>
+    <string name="fb_login_protocol_scheme">fb813066197726121</string>
+</resources>

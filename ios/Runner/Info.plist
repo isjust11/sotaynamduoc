@@ -55,6 +55,14 @@
 				<string>com.googleusercontent.apps.700663881543-1mk7ocal2m70mgielnjarbhmu9deoddb</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>facebook</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb813066197726121sotaynamduoc</string>
+			</array>
+		</dict>
 	</array>
 	<key>CLIENT_ID</key>
 	<string>700663881543-1mk7ocal2m70mgielnjarbhmu9deoddb.apps.googleusercontent.com</string>
@@ -90,5 +98,22 @@
 	<string>700663881543-1mk7ocal2m70mgielnjarbhmu9deoddb.apps.googleusercontent.com</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app uses Face ID for biometric authentication</string>
+	<key>FacebookAppID</key>
+	<string>813066197726121</string>
+	<key>FacebookClientToken</key>
+	<string>6064fbfe150ea34e0ded01209b0b08cd</string>
+	<key>FacebookDisplayName</key>
+	<string>Sotaynamduoc</string>
+	<key>FacebookUrlSchemeSuffix</key>
+	<string>sotaynamduoc</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>App needs your permission to personalize ads and improve experience.</string>
 </dict>
 </plist>

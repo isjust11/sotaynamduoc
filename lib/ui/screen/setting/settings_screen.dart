@@ -8,6 +8,7 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_loading.dart';
+import 'package:sotaynamduoc/ui/widget/base_network_image.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/routes.dart';
@@ -133,17 +134,11 @@ class _SettingScreenState extends State<SettingScreen> {
             child: CircleAvatar(
               radius: AppDimens.SIZE_30,
               backgroundColor: AppColors.statusTextLight,
-              backgroundImage:
-                  (user?.picture != null && user!.picture!.isNotEmpty)
-                  ? NetworkImage(user.picture!)
-                  : null,
-              child: SvgPicture.asset(
-                (user?.picture == null || user!.picture!.isEmpty)
-                    ? Assets.icons.icAvatar
-                    : user.picture!,
-                width: AppDimens.SIZE_30,
-                height: AppDimens.SIZE_30,
-              ),
+              child: (user?.picture == null || user!.picture!.isEmpty)
+                  ? SvgPicture.asset(Assets.icons.icAvatar)
+                  : ClipOval(
+                      child: Image.network(user.picture!, fit: BoxFit.cover),
+                    ),
             ),
           ),
           const SizedBox(width: AppDimens.SIZE_20),
@@ -554,14 +549,23 @@ class _SettingScreenState extends State<SettingScreen> {
     try {
       final authCubit = context.read<AuthCubit>();
 
-      // Kiểm tra xem có thông tin đăng nhập đã lưu không
+      // Kiểm tra xem có thông tin đăng nhập nào không
       final credentials = await BiometricAuthService.getStoredCredentials();
-      // Bật sinh trắc học với thông tin đăng nhập hiện có
-      await authCubit.toggleBiometric(
-        true,
-        username: credentials?['username'],
-        password: credentials?['password'],
-      );
+      final socialInfo = await BiometricAuthService.getStoredSocialLoginInfo();
+
+      if (credentials != null) {
+        // Bật sinh trắc học với thông tin đăng nhập thông thường
+        await authCubit.toggleBiometric(
+          true,
+          username: credentials['username'],
+          password: credentials['password'],
+        );
+      } else if (socialInfo != null) {
+        // Bật sinh trắc học với thông tin social login
+        await authCubit.toggleBiometric(true);
+      } else {
+        throw Exception('Chưa có thông tin đăng nhập để bật sinh trắc học');
+      }
 
       setState(() {
         _biometricEnabled = true;
