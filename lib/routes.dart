@@ -5,6 +5,7 @@ import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:sotaynamduoc/ui/screen/test/fcm_test_screen.dart';
 
 class Routes {
   Routes._();
@@ -28,6 +29,7 @@ class Routes {
   static const String newsListScreen = "/newsListScreen";
   static const String newsDetailScreen = "/newsDetailScreen";
   static const String forgotPasswordScreen = "/forgotPasswordScreen";
+  static const String fcmTestScreen = "/fcmTestScreen";
 
   //init screen name
   static String initScreen() => splashScreen;
@@ -90,6 +92,11 @@ class Routes {
       case forgotPasswordScreen:
         return PageTransition(
           child: ForgotPasswordScreen(),
+          type: PageTransitionType.fade,
+        );
+      case fcmTestScreen:
+        return PageTransition(
+          child: FCMTestScreen(),
           type: PageTransitionType.fade,
         );
       default:

@@ -14,6 +14,7 @@ import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/services/biometric_auth_service.dart';
+import 'package:sotaynamduoc/services/fcm_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sotaynamduoc/services/biometric_test_helper.dart';
 
@@ -34,6 +35,7 @@ class _SettingScreenState extends State<SettingScreen> {
     super.initState();
     context.read<AuthCubit>().getProfile();
     _loadBiometricStatus();
+    _loadNotificationStatus();
   }
 
   Future<void> _loadBiometricStatus() async {
@@ -43,6 +45,13 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(() {
       _biometricAvailable = capability == BiometricCapability.available;
       _biometricEnabled = enabled;
+    });
+  }
+
+  Future<void> _loadNotificationStatus() async {
+    final fcmService = FCMService();
+    setState(() {
+      _notificationsEnabled = fcmService.notificationsEnabled;
     });
   }
 
@@ -283,10 +292,11 @@ class _SettingScreenState extends State<SettingScreen> {
             subtitle: AppLocalizations.current.manageNotifications,
             trailing: Switch(
               value: _notificationsEnabled,
-              onChanged: (value) {
+              onChanged: (value) async {
                 setState(() {
                   _notificationsEnabled = value;
                 });
+                await FCMService().toggleNotifications(value);
               },
               activeThumbColor: AppColors.secondaryBrand,
             ),
@@ -317,6 +327,18 @@ class _SettingScreenState extends State<SettingScreen> {
                   _showSuccessMessage(
                     'Debug test completed. Check console logs.',
                   );
+                },
+              ),
+            ),
+            _buildDivider(),
+            _buildSettingItem(
+              icon: Icons.notifications,
+              title: 'Debug: Test FCM',
+              subtitle: 'Test FCM notifications',
+              trailing: IconButton(
+                icon: Icon(Icons.arrow_forward_ios, color: AppColors.secondaryBrand),
+                onPressed: () async {
+                  Navigator.of(context).pushNamed(Routes.fcmTestScreen);
                 },
               ),
             ),

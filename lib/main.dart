@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/ui/app.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/injection_container.dart' as getIt;
+import 'package:sotaynamduoc/services/fcm_service.dart';
+import 'package:sotaynamduoc/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await getIt.init();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Initialize FCM Service
+  await FCMService().initialize();
+
   String language = await SharedPreferenceUtil.getCurrentLanguage();
   String theme = await SharedPreferenceUtil.getCurrentTheme();
 
