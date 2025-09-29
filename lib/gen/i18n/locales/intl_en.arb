@@ -154,5 +154,10 @@
   "userCancelledFacebookSignIn": "Facebook sign in cancelled",
   "facebookAccessTokenIsNull": "Facebook access token is null",
   "facebookAccessTokenFormatInvalid": "Facebook access token format invalid",
-  "facebookAccessTokenValidationFailed": "Facebook access token validation failed"
+  "facebookAccessTokenValidationFailed": "Facebook access token validation failed",
+  "tips": "Tips",
+  "youKnow": "You know?",
+  "discovery": "Discovery",
+  "todayYouFeel": "Today you feel like?",
+  "youCanSearch": "You can search for medicine name, symptom ..."
 }

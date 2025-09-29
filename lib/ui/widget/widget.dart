@@ -14,3 +14,4 @@ export 'keep_alive_page_widget.dart';
 export 'locale_widget.dart';
 export 'empty_data.dart';
 export 'error_template.dart';
+export 'loading_template.dart';

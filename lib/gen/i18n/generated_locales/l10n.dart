@@ -1318,6 +1318,41 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Mẹo vặt`
+  String get tips {
+    return Intl.message('Mẹo vặt', name: 'tips', desc: '', args: []);
+  }
+
+  /// `Bạn có biết?`
+  String get youKnow {
+    return Intl.message('Bạn có biết?', name: 'youKnow', desc: '', args: []);
+  }
+
+  /// `Khám phá`
+  String get discovery {
+    return Intl.message('Khám phá', name: 'discovery', desc: '', args: []);
+  }
+
+  /// `Hôm nay bạn thấy thế nào?`
+  String get todayYouFeel {
+    return Intl.message(
+      'Hôm nay bạn thấy thế nào?',
+      name: 'todayYouFeel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bạn có thể tìm tên bài thuốc, triệu chứng bệnh ...`
+  String get youCanSearch {
+    return Intl.message(
+      'Bạn có thể tìm tên bài thuốc, triệu chứng bệnh ...',
+      name: 'youCanSearch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

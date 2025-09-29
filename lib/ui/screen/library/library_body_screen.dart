@@ -177,7 +177,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
     return BlocBuilder<HerbalBloc, HerbalState>(
       builder: (context, state) {
         if (state is HerbalLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return LoadingTemplate(message: AppLocalizations.current.loading);
         } else if (state is HerbalLoaded) {
           return _buildHerbalList(state.herbals);
         } else if (state is HerbalError) {
@@ -189,17 +189,6 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                   onRetry: () {
                     context.read<HerbalBloc>().add(const GetHerbalsEvent());
                   },
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<HerbalBloc>().add(const GetHerbalsEvent());
-                  },
-                  child: CustomTextLabel(
-                    AppLocalizations.current.retry,
-                    color: AppColors.textDark,
-                    fontSize: AppDimens.SIZE_14,
-                  ),
                 ),
               ],
             ),
@@ -227,7 +216,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
     return BlocBuilder<AuthorBloc, AuthorState>(
       builder: (context, state) {
         if (state is AuthorLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return LoadingTemplate(message: AppLocalizations.current.loading);
         } else if (state is AuthorLoaded) {
           return _buildAuthorList(state.authors);
         } else if (state is AuthorError) {
@@ -239,17 +228,6 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
                   onRetry: () {
                     context.read<AuthorBloc>().add(const GetAuthorsEvent());
                   },
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<AuthorBloc>().add(const GetAuthorsEvent());
-                  },
-                  child: CustomTextLabel(
-                    AppLocalizations.current.retry,
-                    color: AppColors.textDark,
-                    fontSize: AppDimens.SIZE_14,
-                  ),
                 ),
               ],
             ),
@@ -274,10 +252,6 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
   }
 
   Widget _buildHerbalList(List<HerbalModel> herbals) {
-    if (herbals.isEmpty) {
-      return EmptyData();
-    }
-
     return RefreshIndicator(
       onRefresh: () async {
         context.read<HerbalBloc>().add(RefreshHerbalsEvent());
@@ -291,17 +265,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
         itemCount: herbals.length + 1,
         itemBuilder: (context, index) {
           if (index == herbals.length) {
-            return BlocBuilder<HerbalBloc, HerbalState>(
-              builder: (context, state) {
-                if (state is HerbalLoaded && state.isLoadingMore) {
-                  return const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            );
+            return const SizedBox.shrink();
           }
 
           final herbal = herbals[index];
@@ -352,10 +316,6 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
   }
 
   Widget _buildAuthorList(List<AuthorModel> authors) {
-    if (authors.isEmpty) {
-      return EmptyData();
-    }
-
     return RefreshIndicator(
       onRefresh: () async {
         context.read<AuthorBloc>().add(const RefreshAuthorsEvent());
@@ -369,17 +329,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
         itemCount: authors.length + 1,
         itemBuilder: (context, index) {
           if (index == authors.length) {
-            return BlocBuilder<AuthorBloc, AuthorState>(
-              builder: (context, state) {
-                if (state is AuthorLoaded && state.isLoadingMore) {
-                  return const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            );
+            return const SizedBox.shrink();
           }
 
           final author = authors[index];

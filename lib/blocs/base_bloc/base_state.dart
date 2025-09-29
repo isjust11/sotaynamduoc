@@ -28,16 +28,16 @@ class LoadedState<T> extends BaseState {
   List<Object> get props => [data as Object, timeEmit ?? ""];
 }
 
-class ErrorState<T> extends BaseState {
-  final T data;
+class ErrorState extends BaseState {
+  final String message;
   final timeEmit;
   final bool isLocalizeMessage;
 
-  const ErrorState(this.data, {this.isLocalizeMessage = true, this.timeEmit})
-    : assert(data != null);
+  const ErrorState(this.message, {this.isLocalizeMessage = true, this.timeEmit})
+    : assert(message != null || message != "");
 
   @override
-  List<Object> get props => [data?.toString() ?? "", timeEmit];
+  List<Object> get props => [message ?? "", timeEmit ?? ""];
 }
 
 class EmptyState extends BaseState {}

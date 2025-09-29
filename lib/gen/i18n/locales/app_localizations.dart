@@ -1027,6 +1027,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Facebook access token validation failed'**
   String get facebookAccessTokenValidationFailed;
+
+  /// No description provided for @tips.
+  ///
+  /// In en, this message translates to:
+  /// **'Tips'**
+  String get tips;
+
+  /// No description provided for @youKnow.
+  ///
+  /// In en, this message translates to:
+  /// **'You know?'**
+  String get youKnow;
+
+  /// No description provided for @discovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Discovery'**
+  String get discovery;
+
+  /// No description provided for @todayYouFeel.
+  ///
+  /// In en, this message translates to:
+  /// **'Today you feel like?'**
+  String get todayYouFeel;
+
+  /// No description provided for @youCanSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'You can search for medicine name, symptom ...'**
+  String get youCanSearch;
 }
 
 class _AppLocalizationsDelegate

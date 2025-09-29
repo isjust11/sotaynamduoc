@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "detail": MessageLookupByLibrary.simpleMessage("detail"),
+    "discovery": MessageLookupByLibrary.simpleMessage("Discovery"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
@@ -270,6 +271,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "success": MessageLookupByLibrary.simpleMessage("Success"),
     "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+    "tips": MessageLookupByLibrary.simpleMessage("Tips"),
+    "todayYouFeel": MessageLookupByLibrary.simpleMessage(
+      "Today you feel like?",
+    ),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "The session has expired. Please log in again",
     ),
@@ -308,5 +313,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "We have sent the PIN 4 digits to:",
     ),
     "welcomeTo": MessageLookupByLibrary.simpleMessage("Welcome to"),
+    "youCanSearch": MessageLookupByLibrary.simpleMessage(
+      "You can search for medicine name, symptom ...",
+    ),
+    "youKnow": MessageLookupByLibrary.simpleMessage("You know?"),
   };
 }

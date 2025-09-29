@@ -100,7 +100,6 @@
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>remote-notification</string>
 		<string>processing</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
@@ -120,5 +119,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartobservatory._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Ứng dụng sử dụng mạng cục bộ để phục vụ gỡ lỗi và khám phá dịch vụ trong quá trình phát triển.</string>
 </dict>
 </plist>

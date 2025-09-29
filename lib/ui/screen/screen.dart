@@ -11,3 +11,5 @@ export 'folk_medicine/list/folk_medicine_list_screen.dart';
 export 'folk_medicine/detail/folk_medicine_detail_screen.dart';
 export 'folk_medicine/detail/folk_medicine_detail_body_screen.dart';
 export 'folk_medicine/list/folk_medicine_list_body_screen.dart';
+export 'search/search_screen.dart';
+export 'search/search_body_screen.dart';

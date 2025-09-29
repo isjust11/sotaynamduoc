@@ -5,6 +5,7 @@ import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/injection_container.dart';
 import 'package:sotaynamduoc/res/resources.dart';
+import 'package:sotaynamduoc/ui/widget/loading_template.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 

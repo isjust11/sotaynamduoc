@@ -30,7 +30,7 @@ class Routes {
   static const String newsDetailScreen = "/newsDetailScreen";
   static const String forgotPasswordScreen = "/forgotPasswordScreen";
   static const String fcmTestScreen = "/fcmTestScreen";
-
+  static const String searchScreen = "/searchScreen";
   //init screen name
   static String initScreen() => splashScreen;
 
@@ -97,6 +97,11 @@ class Routes {
       case fcmTestScreen:
         return PageTransition(
           child: FCMTestScreen(),
+          type: PageTransitionType.fade,
+        );
+      case searchScreen:
+        return PageTransition(
+          child: SearchScreen(),
           type: PageTransitionType.fade,
         );
       default:

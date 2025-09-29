@@ -33,6 +33,10 @@ class FCMService {
   String? get fcmToken => _fcmToken;
   bool get notificationsEnabled => _notificationsEnabled;
 
+  // Temporarily disable APNs-dependent logic on iOS when Apple push
+  // certificates/keys are not yet configured.
+  static const bool kDisableIosApns = true;
+
   /// Initialize FCM service
   Future<void> initialize() async {
     try {
@@ -46,7 +50,7 @@ class FCMService {
       await _requestPermission();
 
       // For iOS, ensure APNS token is ready before getting FCM token
-      if (Platform.isIOS) {
+      if (Platform.isIOS && !kDisableIosApns) {
         await _ensureAPNSTokenReady();
       }
 
@@ -143,7 +147,7 @@ class FCMService {
     );
 
     // For iOS, ensure APNS token is available
-    if (Platform.isIOS) {
+    if (Platform.isIOS && !kDisableIosApns) {
       await _setupAPNSToken();
     }
   }
@@ -302,6 +306,12 @@ class FCMService {
   /// Subscribe to topic
   Future<void> subscribeToTopic(String topic) async {
     try {
+      if (Platform.isIOS && kDisableIosApns) {
+        debugPrint(
+          'APNS disabled on iOS: skipping topic subscription for "$topic"',
+        );
+        return;
+      }
       // For iOS, ensure APNS token is available before subscribing
       if (Platform.isIOS) {
         final apnsToken = await _messaging.getAPNSToken();
@@ -385,6 +395,7 @@ class FCMService {
   /// Check APNS token status (iOS only)
   Future<bool> isAPNSTokenReady() async {
     if (!Platform.isIOS) return true;
+    if (kDisableIosApns) return false;
 
     try {
       final apnsToken = await _messaging.getAPNSToken();
@@ -398,6 +409,7 @@ class FCMService {
   /// Get APNS token (iOS only)
   Future<String?> getAPNSToken() async {
     if (!Platform.isIOS) return null;
+    if (kDisableIosApns) return null;
 
     try {
       return await _messaging.getAPNSToken();

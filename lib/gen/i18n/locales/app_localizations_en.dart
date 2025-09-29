@@ -480,4 +480,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get facebookAccessTokenValidationFailed =>
       'Facebook access token validation failed';
+
+  @override
+  String get tips => 'Tips';
+
+  @override
+  String get youKnow => 'You know?';
+
+  @override
+  String get discovery => 'Discovery';
+
+  @override
+  String get todayYouFeel => 'Today you feel like?';
+
+  @override
+  String get youCanSearch => 'You can search for medicine name, symptom ...';
 }

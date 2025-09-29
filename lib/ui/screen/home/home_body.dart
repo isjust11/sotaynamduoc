@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
-import 'package:sotaynamduoc/blocs/news/news.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_event.dart';
+import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_state.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
-import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/routes.dart';
-import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -21,36 +22,23 @@ class HomeBody extends StatefulWidget {
 
 class _HomeBodyState extends State<HomeBody>
     with SingleTickerProviderStateMixin {
-  final List<String> carouselImages = [
-    Assets.images.icIntro1.path,
-    Assets.images.icIntro2.path,
-  ];
-
-  final List<Map<String, String>> fakeProducts = List.generate(
-    12,
-    (i) => {
-      'name': 'Bài thuốc nổi bật ${i + 1}',
-      'image': Assets.images.sampleMedicine.path,
-    },
-  );
-
   // Thêm biến cho nhóm sản phẩm
   int _currentProductGroup = 0;
-  late final int _productGroupCount;
   final PageController _productPageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    _productGroupCount = (fakeProducts.length / 6).ceil();
     context.read<NewsBloc>().add(LoadNewsList(page: 1, size: 10, search: ''));
+    context.read<FolkMedicineBloc>().add(
+      LoadFolkMedicineList(page: 1, size: 10, search: ''),
+    );
     _startTypewriter();
   }
 
   // Typewriter effect state
-  final String _typewriterFullText = 'Hôm nay bạn thấy thế nào?';
-  final String _typewriterDescription =
-      'Bạn có thể tìm kiếm tên bài thuốc, triệu chứng bệnh ...';
+  final String _typewriterFullText = AppLocalizations.current.todayYouFeel;
+  final String _typewriterDescription = AppLocalizations.current.youCanSearch;
   late final List<String> _typewriterMessages = [
     _typewriterFullText,
     _typewriterDescription,
@@ -129,12 +117,9 @@ class _HomeBodyState extends State<HomeBody>
             ),
             child: _buildFolkMedicine(context),
           ),
-          SizedBox(height: AppDimens.SIZE_24),
+          // SizedBox(height: AppDimens.SIZE_12),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimens.SIZE_12,
-              vertical: AppDimens.SIZE_12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppDimens.SIZE_12),
             child: _buildNews(context),
           ),
         ],
@@ -154,7 +139,7 @@ class _HomeBodyState extends State<HomeBody>
         children: [
           _buildDiscoveryItem(
             context,
-            'Mẹo vặt',
+            AppLocalizations.current.tips,
             Icons.lightbulb_outline,
             AppColors.yellowMaterial,
             () {},
@@ -162,7 +147,7 @@ class _HomeBodyState extends State<HomeBody>
           SizedBox(width: AppDimens.SIZE_8),
           _buildDiscoveryItem(
             context,
-            'Bạn có biết?',
+            AppLocalizations.current.youKnow,
             Icons.medical_information,
             AppColors.baseColor,
             () {},
@@ -170,7 +155,7 @@ class _HomeBodyState extends State<HomeBody>
           SizedBox(width: AppDimens.SIZE_8),
           _buildDiscoveryItem(
             context,
-            'Khám phá',
+            AppLocalizations.current.discovery,
             Icons.explore,
             AppColors.primaryBlue,
             () {},
@@ -190,7 +175,7 @@ class _HomeBodyState extends State<HomeBody>
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 100.sw,
+        width: 105.sw,
         padding: EdgeInsets.symmetric(
           horizontal: AppDimens.SIZE_12,
           vertical: AppDimens.SIZE_12,
@@ -227,12 +212,7 @@ class _HomeBodyState extends State<HomeBody>
       children: [
         InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const FolkMedicineMenuScreen(),
-              ),
-            );
+            Navigator.pushNamed(context, Routes.searchScreen);
           },
           child: Container(
             width: double.infinity,
@@ -358,150 +338,201 @@ class _HomeBodyState extends State<HomeBody>
               fontSize: AppDimens.SIZE_14,
               color: AppColors.secondaryTextDark,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.fakeProductScreen);
-              },
-              child: Row(
-                children: [
-                  CustomTextLabel(
-                    AppLocalizations.current.viewMore,
-                    color: AppColors.primaryBlue,
-                    fontSize: AppDimens.SIZE_11,
-                  ),
-                  SizedBox(width: AppDimens.SIZE_4),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: AppColors.primaryBlue,
-                    size: AppDimens.SIZE_14,
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
         SizedBox(height: AppDimens.SIZE_12),
-        // BẮT ĐẦU: Sản phẩm giả với điều hướng trái/phải
-        SizedBox(
-          height: AppDimens.SIZE_280,
-          child: Stack(
-            children: [
-              PageView.builder(
-                controller: _productPageController,
-                itemCount: _productGroupCount,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentProductGroup = index;
-                  });
-                },
-                itemBuilder: (context, groupIdx) {
-                  final start = groupIdx * 6;
-                  final end = (start + 6).clamp(0, fakeProducts.length);
-                  final group = fakeProducts.sublist(start, end);
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
+            color: AppColors.lightBackgroundAlt,
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppDimens.SIZE_12,
+            vertical: AppDimens.SIZE_12,
+          ),
+          height: AppDimens.SIZE_300,
+          child: BlocBuilder<FolkMedicineBloc, FolkMedicineState>(
+            builder: (context, state) {
+              if (state is FolkMedicineListLoaded &&
+                  state.folkMedicineList.isNotEmpty) {
+                final items = state.folkMedicineList;
+                final int groupCount = (items.length / 4).ceil();
 
-                  // Chia group thành 2 hàng, mỗi hàng 3 sản phẩm
-                  List<Widget> rows = [];
-                  for (int row = 0; row < 2; row++) {
-                    final rowStart = row * 3;
-                    final rowEnd = (rowStart + 3).clamp(0, group.length);
-                    if (rowStart < group.length) {
-                      rows.add(
-                        Row(
-                          children: group
-                              .sublist(rowStart, rowEnd)
-                              .map(
-                                (product) => Expanded(
-                                  child: Container(
-                                    width: AppDimens.SIZE_120,
-                                    margin: EdgeInsets.only(
-                                      bottom: AppDimens.SIZE_12,
-                                      right: AppDimens.SIZE_8,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          product['image'] ?? '',
-                                          height: AppDimens.SIZE_90,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(height: AppDimens.SIZE_4),
-                                        CustomTextLabel(
-                                          product['name'] ?? '',
-                                          fontSize: AppDimens.SIZE_12,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.secondaryTextDark,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      );
-                    }
-                  }
+                return Stack(
+                  children: [
+                    PageView.builder(
+                      controller: _productPageController,
+                      itemCount: groupCount,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentProductGroup = index;
+                        });
+                      },
+                      itemBuilder: (context, groupIdx) {
+                        final start = groupIdx * 4;
+                        final end = (start + 4) > items.length
+                            ? items.length
+                            : (start + 4);
+                        final group = items.sublist(start, end);
 
-                  return Container(
-                    padding: EdgeInsets.only(
-                      right: _currentProductGroup < _productGroupCount - 1
-                          ? AppDimens.SIZE_14
-                          : AppDimens.SIZE_0,
-                      left: _currentProductGroup > 0
-                          ? AppDimens.SIZE_14
-                          : AppDimens.SIZE_0,
+                        List<Widget> rows = [];
+                        for (int row = 0; row < 2; row++) {
+                          final rowStart = row * 2;
+                          final rowEnd = (rowStart + 2) > group.length
+                              ? group.length
+                              : (rowStart + 2);
+                          if (rowStart < group.length) {
+                            rows.add(
+                              Row(
+                                children: group
+                                    .sublist(rowStart, rowEnd)
+                                    .map(
+                                      (item) => Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FolkMedicineDetailScreen(
+                                                      folkMedicine: item,
+                                                    ),
+                                              ),
+                                            );
+                                          },
+
+                                          child: Container(
+                                            width: AppDimens.SIZE_140,
+                                            margin: EdgeInsets.only(
+                                              bottom: AppDimens.SIZE_12,
+                                              right: AppDimens.SIZE_8,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child:
+                                                      item.thumbnail != null &&
+                                                          item
+                                                              .thumbnail!
+                                                              .isNotEmpty
+                                                      ? Image.network(
+                                                          ApiConstant.apiHost +
+                                                              (item.thumbnail ??
+                                                                  ''),
+                                                          height:
+                                                              AppDimens.SIZE_90,
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                      : Container(
+                                                          height:
+                                                              AppDimens.SIZE_90,
+                                                          color: AppColors
+                                                              .lightGreyBackground,
+                                                          child: Icon(
+                                                            Icons
+                                                                .image_not_supported,
+                                                            color: AppColors
+                                                                .textMediumGrey,
+                                                          ),
+                                                        ),
+                                                ),
+                                                SizedBox(
+                                                  height: AppDimens.SIZE_4,
+                                                ),
+                                                SizedBox(
+                                                  width: AppDimens.SIZE_140,
+                                                  child: CustomTextLabel(
+                                                    item.title ?? '',
+                                                    fontSize: AppDimens.SIZE_12,
+                                                    fontWeight: FontWeight.bold,
+                                                    maxLines: 2,
+                                                    color: AppColors
+                                                        .secondaryTextDark,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            );
+                          }
+                        }
+
+                        return Container(
+                          padding: EdgeInsets.only(
+                            right: _currentProductGroup < groupCount - 1
+                                ? AppDimens.SIZE_14
+                                : AppDimens.SIZE_0,
+                            left: _currentProductGroup > 0
+                                ? AppDimens.SIZE_14
+                                : AppDimens.SIZE_0,
+                          ),
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.only(bottom: AppDimens.SIZE_12),
+                          child: Column(children: rows),
+                        );
+                      },
                     ),
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(bottom: AppDimens.SIZE_12),
-                    child: Column(children: rows),
-                  );
-                },
-              ),
-              // Nút sang trái
-              if (_currentProductGroup > 0)
-                Positioned(
-                  left: 0,
-                  top: AppDimens.SIZE_100,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    iconSize: AppDimens.SIZE_26,
-                    color: AppColors.baseColor,
-                    onPressed: () {
-                      if (_currentProductGroup > 0) {
-                        _productPageController.previousPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.ease,
-                        );
-                      }
-                    },
-                  ),
-                ),
-              // Nút sang phải
-              if (_currentProductGroup < _productGroupCount - 1)
-                Positioned(
-                  right: 0,
-                  top: AppDimens.SIZE_100,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_forward_ios),
-                    iconSize: AppDimens.SIZE_26,
-                    color: AppColors.baseColor,
-                    onPressed: () {
-                      if (_currentProductGroup < _productGroupCount - 1) {
-                        _productPageController.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.ease,
-                        );
-                      }
-                    },
-                  ),
-                ),
-            ],
+                    if (_currentProductGroup > 0)
+                      Positioned(
+                        left: 0,
+                        top: AppDimens.SIZE_100,
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back_ios),
+                          iconSize: AppDimens.SIZE_26,
+                          color: AppColors.baseColor,
+                          onPressed: () {
+                            if (_currentProductGroup > 0) {
+                              _productPageController.previousPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    if (_currentProductGroup < groupCount - 1)
+                      Positioned(
+                        right: 0,
+                        top: AppDimens.SIZE_100,
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_forward_ios),
+                          iconSize: AppDimens.SIZE_26,
+                          color: AppColors.baseColor,
+                          onPressed: () {
+                            if (_currentProductGroup < groupCount - 1) {
+                              _productPageController.nextPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                  ],
+                );
+              }
+              if (state is FolkMedicineLoading) {
+                return Center(child: LoadingTemplate());
+              }
+              return const EmptyData();
+            },
           ),
         ),
-        // KẾT THÚC: Sản phẩm giả với điều hướng trái/phải
       ],
     );
   }

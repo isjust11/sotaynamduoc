@@ -24,7 +24,7 @@ class FolkMedicineMenuScreen extends StatelessWidget {
         message: context.read<CategoryCubit>().state is LoadingState
             ? AppLocalizations.current.loading
             : context.read<CategoryCubit>().state is ErrorState
-            ? (context.read<CategoryCubit>().state as ErrorState).data
+            ? (context.read<CategoryCubit>().state as ErrorState).message
                   .toString()
             : AppLocalizations.current.empty,
       ),

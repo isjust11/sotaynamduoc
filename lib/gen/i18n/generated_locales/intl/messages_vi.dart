@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Xác nhận mật khẩu",
     ),
     "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
+    "discovery": MessageLookupByLibrary.simpleMessage("Khám phá"),
     "done": MessageLookupByLibrary.simpleMessage("Xong"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Chưa có tài khoản?",
@@ -288,6 +289,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "success": MessageLookupByLibrary.simpleMessage("Thành công"),
     "teacher": MessageLookupByLibrary.simpleMessage("Thầy thuốc"),
     "theme": MessageLookupByLibrary.simpleMessage("Giao diện"),
+    "tips": MessageLookupByLibrary.simpleMessage("Mẹo vặt"),
+    "todayYouFeel": MessageLookupByLibrary.simpleMessage(
+      "Hôm nay bạn thấy thế nào?",
+    ),
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
     ),
@@ -328,5 +333,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Chúng tôi đã gửi mã PIN 4 chữ số đến:",
     ),
     "welcomeTo": MessageLookupByLibrary.simpleMessage("Chào mừng đến"),
+    "youCanSearch": MessageLookupByLibrary.simpleMessage(
+      "Bạn có thể tìm tên bài thuốc, triệu chứng bệnh ...",
+    ),
+    "youKnow": MessageLookupByLibrary.simpleMessage("Bạn có biết?"),
   };
 }

@@ -7,7 +7,6 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
-import 'package:intl/intl.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 import 'package:sotaynamduoc/utils/html_style_helper.dart';
 

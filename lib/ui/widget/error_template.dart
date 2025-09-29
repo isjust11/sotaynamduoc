@@ -13,7 +13,11 @@ class ErrorTemplate extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomTextLabel(message ?? AppLocalizations.current.error_common),
+        CustomTextLabel(
+          message ?? AppLocalizations.current.error_common,
+          color: AppColors.errorRed,
+          fontSize: AppDimens.SIZE_14,
+        ),
         const SizedBox(height: AppDimens.SIZE_8),
         ElevatedButton(
           onPressed: () {

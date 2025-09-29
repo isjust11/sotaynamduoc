@@ -151,5 +151,10 @@
   "userCancelledFacebookSignIn": "Đăng nhập bằng Facebook đã bị hủy",
   "facebookAccessTokenIsNull": "Access token Facebook không được trả về",
   "facebookAccessTokenFormatInvalid": "Format access token Facebook không hợp lệ",
-  "facebookAccessTokenValidationFailed": "Validation access token Facebook thất bại"
+  "facebookAccessTokenValidationFailed": "Validation access token Facebook thất bại",
+  "tips": "Mẹo vặt",
+  "youKnow": "Bạn có biết?",
+  "discovery": "Khám phá",
+  "todayYouFeel": "Hôm nay bạn thấy thế nào?",
+  "youCanSearch": "Bạn có thể tìm tên bài thuốc, triệu chứng bệnh ..."
 }

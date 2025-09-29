@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_event.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_state.dart';
 import 'package:sotaynamduoc/domain/data/models/folk_medicine_model.dart';
-import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';

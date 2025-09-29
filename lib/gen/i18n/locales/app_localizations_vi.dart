@@ -482,4 +482,20 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get facebookAccessTokenValidationFailed =>
       'Validation access token Facebook thất bại';
+
+  @override
+  String get tips => 'Mẹo vặt';
+
+  @override
+  String get youKnow => 'Bạn có biết?';
+
+  @override
+  String get discovery => 'Khám phá';
+
+  @override
+  String get todayYouFeel => 'Hôm nay bạn thấy thế nào?';
+
+  @override
+  String get youCanSearch =>
+      'Bạn có thể tìm tên bài thuốc, triệu chứng bệnh ...';
 }
