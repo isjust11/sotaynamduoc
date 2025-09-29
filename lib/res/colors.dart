@@ -117,6 +117,10 @@ class AppColors {
   static const Color lightOrangeDot = Color(
     0xFFFFD294,
   ); // Chấm tròn màu cam nhạt (FFD294FF)
+  // yellow material design
+  static const Color yellowMaterial = Color(
+    0xFFFFC107,
+  ); // Màu vàng material design (FFFFC107FF)
   static const Color transparentOrangeOverlay = Color(
     0x24DA9B81,
   ); // Lớp phủ cam trong suốt (DA9B8124)

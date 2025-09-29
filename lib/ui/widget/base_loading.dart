@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
@@ -173,6 +174,8 @@ class CustomBlocResult<B extends StateStreamable<S>, S>
   }
 
   Widget _buildErrorContent(BuildContext context) {
+    final state = context.read<B>().state as dynamic;
+    final messageError = state.message;
     return RefreshIndicator(
       onRefresh: () => onRefresh?.call(),
       child: ListView(
@@ -194,7 +197,7 @@ class CustomBlocResult<B extends StateStreamable<S>, S>
                 ),
                 SizedBox(height: AppDimens.SIZE_8),
                 CustomTextLabel(
-                  message ?? AppLocalizations.current.error,
+                  messageError,
                   fontSize: AppDimens.SIZE_14,
                   color: AppColors.textDark.withValues(alpha: 0.6),
                   textAlign: TextAlign.center,

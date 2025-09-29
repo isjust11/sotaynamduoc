@@ -39,14 +39,14 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
 
     // Load initial data
     final herbalBloc = context.read<HerbalBloc>();
-    if (herbalBloc.state is! HerbalLoaded) {
-      herbalBloc.add(const GetHerbalsEvent());
-    }
+    // if (herbalBloc.state is! HerbalLoaded) {
+    herbalBloc.add(const GetHerbalsEvent());
+    // }
 
     final authorBloc = context.read<AuthorBloc>();
-    if (authorBloc.state is! AuthorLoaded) {
-      authorBloc.add(const GetAuthorsEvent());
-    }
+    // if (authorBloc.state is! AuthorLoaded) {
+    authorBloc.add(const GetAuthorsEvent());
+    // }
 
     _herbalScrollController.addListener(_onHerbalScroll);
     _authorScrollController.addListener(_onAuthorScroll);
