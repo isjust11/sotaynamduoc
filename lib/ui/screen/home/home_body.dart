@@ -302,9 +302,6 @@ class _HomeBodyState extends State<HomeBody>
           child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
               if (state is NewsListLoaded) {
-                if (state.newsList.isEmpty) {
-                  return const EmptyData();
-                }
                 return ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.newsList.length,
@@ -315,6 +312,10 @@ class _HomeBodyState extends State<HomeBody>
                     return _buildNewsItem(context, news);
                   },
                 );
+              } else if (state is NewsLoading) {
+                return const LoadingTemplate();
+              } else if (state is NewsError) {
+                return const EmptyData();
               }
               return const SizedBox.shrink();
             },
@@ -350,7 +351,7 @@ class _HomeBodyState extends State<HomeBody>
             horizontal: AppDimens.SIZE_12,
             vertical: AppDimens.SIZE_12,
           ),
-          height: AppDimens.SIZE_300,
+          height: AppDimens.SIZE_310,
           child: BlocBuilder<FolkMedicineBloc, FolkMedicineState>(
             builder: (context, state) {
               if (state is FolkMedicineListLoaded &&
