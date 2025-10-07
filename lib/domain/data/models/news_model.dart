@@ -1,7 +1,7 @@
 import 'package:sotaynamduoc/domain/data/models/category_model.dart';
 
 class NewsModel {
-  final int? id;
+  final String? id;
   final String? title;
   final String? content;
   final String? summary;
@@ -9,9 +9,9 @@ class NewsModel {
   final String? thumbnail;
   final int? view;
   final int? like;
-  final int? categoryId;
+  final String? categoryId;
   final CategoryModel? status;
-  final int? statusId;
+  final String? statusId;
   const NewsModel({
     this.id,
     required this.title,
@@ -28,7 +28,7 @@ class NewsModel {
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
-      id: json['id'],
+      id: json['id'].toString(),
       title: json['title'] ?? '',
       content: json['content'] ?? '',
       summary: json['summary'] ?? '',
@@ -38,17 +38,17 @@ class NewsModel {
       thumbnail: json['thumbnail'] ?? '',
       view: json['view'] ?? 0,
       like: json['like'] ?? 0,
-      categoryId: json['categoryId'] ?? 0,
+      categoryId: json['categoryId']?.toString() ?? '',
       status: json['status'] is Map<String, dynamic>
           ? CategoryModel.fromJson(json['status'] as Map<String, dynamic>)
           : null,
-      statusId: json['statusId'] ?? 0,
+      statusId: json['statusId']?.toString() ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'id': id?.toString(),
       'title': title,
       'content': content,
       'summary': summary,
@@ -56,9 +56,9 @@ class NewsModel {
       'thumbnail': thumbnail,
       'view': view,
       'like': like,
-      'categoryId': categoryId,
+      'categoryId': categoryId?.toString(),
       // Only include statusId in JSON; nested objects are often omitted in writes
-      'statusId': statusId,
+      'statusId': statusId?.toString() ?? '',
       // Keep 'status' out to avoid serializing complex object without a toJson
     };
   }

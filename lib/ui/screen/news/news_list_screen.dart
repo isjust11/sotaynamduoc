@@ -9,7 +9,6 @@ import 'package:sotaynamduoc/domain/data/models/news_model.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
-import 'package:sotaynamduoc/ui/widget/loading_template.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/blocs/news/news.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';

@@ -427,9 +427,7 @@ class _HomeBodyState extends State<HomeBody>
                                                               .thumbnail!
                                                               .isNotEmpty
                                                       ? Image.network(
-                                                          ApiConstant.apiHost +
-                                                              (item.thumbnail ??
-                                                                  ''),
+                                                          item.thumbnail ?? '',
                                                           height:
                                                               AppDimens.SIZE_90,
                                                           fit: BoxFit.cover,
@@ -566,7 +564,7 @@ class _HomeBodyState extends State<HomeBody>
                   borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
                   child: news.thumbnail != null
                       ? Image.network(
-                          ApiConstant.apiHost + (news.thumbnail ?? ''),
+                          news.thumbnail ?? '',
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) {

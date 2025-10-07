@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:sotaynamduoc/blocs/news/news_bloc.dart';
+import 'package:sotaynamduoc/blocs/news/news_event.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
@@ -16,6 +20,8 @@ class NewsDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // add view
+    context.read<NewsBloc>().add(UpdateNewsView(news.id ?? ''));
     return NewsDetailView(news: news);
   }
 }
@@ -38,6 +44,25 @@ class NewsDetailView extends StatelessWidget {
       showBackButton: true,
       onBackTap: () => Navigator.pop(context),
       backgroundColor: AppColors.secondaryBrand,
+      actions: [
+        _buildActionButton(Icons.share, _onShare),
+        _buildActionButton(Icons.favorite, () => _onFavorite(context)),
+      ],
+    );
+  }
+
+  Future<void> _onFavorite(BuildContext context) async {
+    context.read<NewsBloc>().add(UpdateNewsLike(news.id ?? ''));
+  }
+
+  Future<void> _onShare() async {
+    await SharePlus.instance.share(ShareParams(text: news.title ?? ''));
+  }
+
+  Widget _buildActionButton(IconData icon, VoidCallback onPressed) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(icon, color: AppColors.white),
     );
   }
 

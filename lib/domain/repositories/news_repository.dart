@@ -21,4 +21,12 @@ class NewsRepository {
   Future<NewsModel> getNewsDetail(String id) async {
     return await remoteDataSource.getNewsDetail(id);
   }
+
+  Future<void> updateNewsView(String id) async {
+    return await remoteDataSource.updateNewsView(id);
+  }
+
+  Future<void> updateNewsLike(String id) async {
+    return await remoteDataSource.updateNewsLike(id);
+  }
 }

@@ -3,7 +3,7 @@ import 'package:sotaynamduoc/domain/data/entities/entities.dart';
 import 'base_entity.dart';
 
 class UserEntity extends BaseEntity {
-  int? id;
+  String? id;
   String? username;
   bool? isAdmin;
   bool? isBlock;
@@ -21,7 +21,7 @@ class UserEntity extends BaseEntity {
   String? updatedAt;
 
   UserEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    id = json['id'];
+    id = json['id'].toString();
     username = json['username'];
     isAdmin = json['isAdmin'];
     isBlock = json['isBlock'];
@@ -30,7 +30,7 @@ class UserEntity extends BaseEntity {
     roles = (json['roles'] as List)
         .map((role) => RoleEntity.fromJson(role as Map<String, dynamic>))
         .toList();
-    permissions = json['permissions']  ?? [];
+    permissions = json['permissions'] ?? [];
     email = json['email'];
     platformId = json['platformId'];
     verificationToken = json['verificationToken'];
@@ -44,7 +44,7 @@ class UserEntity extends BaseEntity {
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
+    data['id'] = id.toString();
     data['username'] = username;
     data['isAdmin'] = isAdmin;
     data['isBlock'] = isBlock;

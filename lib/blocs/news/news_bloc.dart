@@ -15,6 +15,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<LoadNewsDetail>(_onLoadNewsDetail);
     on<SearchNews>(_onSearchNews);
     on<RefreshNews>(_onRefreshNews);
+    on<UpdateNewsView>(_onUpdateNewsView);
+    on<UpdateNewsLike>(_onUpdateNewsLike);
   }
 
   Future<void> _onLoadNewsList(
@@ -92,6 +94,28 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       emit(NewsLoading());
       final news = await newsRepository.getNewsDetail(event.id);
       emit(NewsDetailLoaded(news));
+    } catch (e) {
+      emit(NewsError(e.toString()));
+    }
+  }
+
+  Future<void> _onUpdateNewsView(
+    UpdateNewsView event,
+    Emitter<NewsState> emit,
+  ) async {
+    try {
+      await newsRepository.updateNewsView(event.id);
+    } catch (e) {
+      emit(NewsError(e.toString()));
+    }
+  }
+
+  Future<void> _onUpdateNewsLike(
+    UpdateNewsLike event,
+    Emitter<NewsState> emit,
+  ) async {
+    try {
+      await newsRepository.updateNewsLike(event.id);
     } catch (e) {
       emit(NewsError(e.toString()));
     }

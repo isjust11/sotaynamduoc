@@ -39,4 +39,20 @@ class NewsRemoteDataSource {
 
     return Future.error(apiResponse.message);
   }
+
+  Future<void> updateNewsView(String id) async {
+    ApiResponse apiResponse = await network.post(url: '/article/view/$id');
+
+    if (apiResponse.isSuccess) {
+      return;
+    }
+  }
+
+  Future<void> updateNewsLike(String id) async {
+    ApiResponse apiResponse = await network.post(url: '/article/like/$id');
+
+    if (apiResponse.isSuccess) {
+      return;
+    }
+  }
 }

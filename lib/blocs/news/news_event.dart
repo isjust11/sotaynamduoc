@@ -45,3 +45,21 @@ class SearchNews extends NewsEvent {
 class RefreshNews extends NewsEvent {
   const RefreshNews();
 }
+
+class UpdateNewsView extends NewsEvent {
+  final String id;
+
+  const UpdateNewsView(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
+
+class UpdateNewsLike extends NewsEvent {
+  final String id;
+
+  const UpdateNewsLike(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
