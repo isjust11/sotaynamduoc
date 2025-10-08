@@ -8,4 +8,4 @@ export 'package:sotaynamduoc/domain/data/datasources/remote/category_remote_data
 export 'package:sotaynamduoc/domain/data/datasources/remote/folk_medicine_remote_data_source.dart';
 export 'package:sotaynamduoc/domain/data/datasources/remote/herbal_remote_data_source.dart';
 export 'package:sotaynamduoc/domain/data/datasources/remote/author_remote_data_source.dart';
-
+export 'package:sotaynamduoc/domain/data/datasources/remote/page_remote_data_source.dart';

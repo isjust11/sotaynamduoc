@@ -28,4 +28,5 @@ class ApiConstant {
   static final resendPin = "$apiHost/auth/resend-pin";
   static final mobileSocialLogin = "$apiHost/auth/mobile/social-login";
   static final refreshToken = "$apiHost/auth/refresh-token";
+  static final getPage = "$apiHost/pages";
 }

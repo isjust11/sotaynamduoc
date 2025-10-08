@@ -10,3 +10,4 @@ export 'folk_medicine_model.dart';
 export 'herbal_model.dart';
 export 'author_model.dart';
 export 'register_model.dart';
+export 'page_model.dart';

@@ -495,4 +495,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get youCanSearch => 'You can search for medicine name, symptom ...';
+
+  @override
+  String get privacyAndSecurity => 'Privacy and Security';
 }

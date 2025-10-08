@@ -59,10 +59,16 @@ class HtmlStyleHelper {
         alignment: Alignment.center,
       ),
       "ul": Style(
-        margin: Margins.only(left: AppDimens.SIZE_16, bottom: AppDimens.SIZE_12),
+        margin: Margins.only(
+          left: AppDimens.SIZE_16,
+          bottom: AppDimens.SIZE_12,
+        ),
       ),
       "ol": Style(
-        margin: Margins.only(left: AppDimens.SIZE_16, bottom: AppDimens.SIZE_12),
+        margin: Margins.only(
+          left: AppDimens.SIZE_16,
+          bottom: AppDimens.SIZE_12,
+        ),
       ),
       "li": Style(
         fontSize: FontSize(AppDimens.SIZE_14),
@@ -79,28 +85,13 @@ class HtmlStyleHelper {
           bottom: AppDimens.SIZE_12,
         ),
         border: Border(
-          left: BorderSide(
-            color: AppColors.secondaryBrand,
-            width: 4,
-          ),
+          left: BorderSide(color: AppColors.secondaryBrand, width: 4),
         ),
       ),
-      "strong": Style(
-        fontWeight: FontWeight.bold,
-        color: AppColors.textDark,
-      ),
-      "b": Style(
-        fontWeight: FontWeight.bold,
-        color: AppColors.textDark,
-      ),
-      "em": Style(
-        fontStyle: FontStyle.italic,
-        color: AppColors.textDark,
-      ),
-      "i": Style(
-        fontStyle: FontStyle.italic,
-        color: AppColors.textDark,
-      ),
+      "strong": Style(fontWeight: FontWeight.bold, color: AppColors.textDark),
+      "b": Style(fontWeight: FontWeight.bold, color: AppColors.textDark),
+      "em": Style(fontStyle: FontStyle.italic, color: AppColors.textDark),
+      "i": Style(fontStyle: FontStyle.italic, color: AppColors.textDark),
       "u": Style(
         textDecoration: TextDecoration.underline,
         color: AppColors.textDark,
@@ -159,4 +150,4 @@ class HtmlStyleHelper {
       ),
     };
   }
-} 
+}

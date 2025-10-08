@@ -4,6 +4,8 @@ import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/blocs/herbal/herbal.dart';
 import 'package:get_it/get_it.dart';
 
+import 'blocs/page_cubit.dart';
+
 final getIt = GetIt.instance;
 /*
 Factory — Creates a new instance in every call
@@ -38,13 +40,13 @@ Future<void> init({GetIt? getIt}) async {
   // repositories
   registerRepositories(getIt);
   // bloc cubit
-  registerCubit(getIt);
+  // registerCubit(getIt);
 }
 
-void registerCubit(GetIt getIt) {
-  // getIt.registerLazySingleton(() => AuthCubit(repository: getIt.get()));
-  getIt.registerLazySingleton(() => HerbalBloc(repository: getIt.get()));
-}
+// void registerCubit(GetIt getIt) {
+//   // getIt.registerLazySingleton(() => AuthCubit(repository: getIt.get()));
+//   getIt.registerLazySingleton(() => HerbalBloc(repository: getIt.get()));
+// }
 
 void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
@@ -73,8 +75,9 @@ void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
     () => HerbalRepository(remoteDataSource: getIt.get()),
   );
+  getIt.registerLazySingleton(() => AuthorRepository(dataSource: getIt.get()));
   getIt.registerLazySingleton(
-    () => AuthorRepository(dataSource: getIt.get()),
+    () => PageRepository(pageRemoteDataSource: getIt.get()),
   );
 }
 
@@ -83,10 +86,19 @@ void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(() => UserLocalDataSource());
   getIt.registerLazySingleton(() => UserRemoteDataSource(network: getIt.get()));
   getIt.registerLazySingleton(() => NewsRemoteDataSource(network: getIt.get()));
-  getIt.registerLazySingleton(() => CategoryRemoteDataSource(network: getIt.get()));
-  getIt.registerLazySingleton(() => FolkMedicineRemoteDataSource(network: getIt.get()));
-  getIt.registerLazySingleton(() => HerbalRemoteDataSource(network: getIt.get()));
-  getIt.registerLazySingleton(() => AuthorRemoteDataSource(network: getIt.get()));
+  getIt.registerLazySingleton(
+    () => CategoryRemoteDataSource(network: getIt.get()),
+  );
+  getIt.registerLazySingleton(
+    () => FolkMedicineRemoteDataSource(network: getIt.get()),
+  );
+  getIt.registerLazySingleton(
+    () => HerbalRemoteDataSource(network: getIt.get()),
+  );
+  getIt.registerLazySingleton(
+    () => AuthorRemoteDataSource(network: getIt.get()),
+  );
+  getIt.registerLazySingleton(() => PageRemoteDataSource(network: getIt.get()));
 }
 
 void registerNetwork(GetIt getIt) {

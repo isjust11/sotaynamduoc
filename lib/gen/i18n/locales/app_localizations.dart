@@ -1057,6 +1057,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can search for medicine name, symptom ...'**
   String get youCanSearch;
+
+  /// No description provided for @privacyAndSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy and Security'**
+  String get privacyAndSecurity;
 }
 
 class _AppLocalizationsDelegate

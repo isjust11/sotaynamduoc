@@ -234,6 +234,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Please enter your username",
     ),
+    "privacyAndSecurity": MessageLookupByLibrary.simpleMessage(
+      "Privacy and Security",
+    ),
     "privacySettings": MessageLookupByLibrary.simpleMessage("Privacy settings"),
     "pullToRefresh": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
     "read": MessageLookupByLibrary.simpleMessage("Read"),

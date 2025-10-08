@@ -498,4 +498,7 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get youCanSearch =>
       'Bạn có thể tìm tên bài thuốc, triệu chứng bệnh ...';
+
+  @override
+  String get privacyAndSecurity => 'Quyền riêng tư và Bảo mật';
 }

@@ -1353,6 +1353,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Quyền riêng tư và Bảo mật`
+  String get privacyAndSecurity {
+    return Intl.message(
+      'Quyền riêng tư và Bảo mật',
+      name: 'privacyAndSecurity',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

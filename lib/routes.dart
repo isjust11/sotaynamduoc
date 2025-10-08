@@ -31,6 +31,9 @@ class Routes {
   static const String forgotPasswordScreen = "/forgotPasswordScreen";
   static const String fcmTestScreen = "/fcmTestScreen";
   static const String searchScreen = "/searchScreen";
+  static const String privacySecurityScreen = "/privacySecurityScreen";
+  static const String supportCenterScreen = "/supportCenterScreen";
+  static const String aboutAppScreen = "/aboutAppScreen";
   //init screen name
   static String initScreen() => splashScreen;
 
@@ -102,6 +105,21 @@ class Routes {
       case searchScreen:
         return PageTransition(
           child: SearchScreen(),
+          type: PageTransitionType.fade,
+        );
+      case privacySecurityScreen:
+        return PageTransition(
+          child: PrivacySecurityScreen(),
+          type: PageTransitionType.fade,
+        );
+      case supportCenterScreen:
+        return PageTransition(
+          child: SupportCenterScreen(),
+          type: PageTransitionType.fade,
+        );
+      case aboutAppScreen:
+        return PageTransition(
+          child: AboutAppScreen(),
           type: PageTransitionType.fade,
         );
       default:

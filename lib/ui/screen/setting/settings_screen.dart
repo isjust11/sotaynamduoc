@@ -8,7 +8,6 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_loading.dart';
-import 'package:sotaynamduoc/ui/widget/base_network_image.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/routes.dart';
@@ -197,7 +196,9 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppLocalizations.current.security,
               subtitle: AppLocalizations.current.privacySettings,
               color: Colors.green,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(Routes.privacySecurityScreen);
+              },
             ),
           ),
         ],
@@ -336,7 +337,10 @@ class _SettingScreenState extends State<SettingScreen> {
               title: 'Debug: Test FCM',
               subtitle: 'Test FCM notifications',
               trailing: IconButton(
-                icon: Icon(Icons.arrow_forward_ios, color: AppColors.secondaryBrand),
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppColors.secondaryBrand,
+                ),
                 onPressed: () async {
                   Navigator.of(context).pushNamed(Routes.fcmTestScreen);
                 },
@@ -372,7 +376,9 @@ class _SettingScreenState extends State<SettingScreen> {
               Icons.arrow_forward_ios,
               size: AppDimens.SIZE_16,
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(Routes.supportCenterScreen);
+            },
           ),
           _buildDivider(),
           _buildSettingItem(
@@ -394,7 +400,9 @@ class _SettingScreenState extends State<SettingScreen> {
               Icons.arrow_forward_ios,
               size: AppDimens.SIZE_16,
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(Routes.aboutAppScreen);
+            },
           ),
         ],
       ),

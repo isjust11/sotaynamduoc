@@ -54,6 +54,10 @@ void main() async {
           create: (_) =>
               AuthorBloc(repository: getIt.getIt.get<AuthorRepository>()),
         ),
+        BlocProvider(
+          create: (_) =>
+              PageCubit(repository: getIt.getIt.get<PageRepository>()),
+        ),
       ],
       child: MyApp(),
     ),

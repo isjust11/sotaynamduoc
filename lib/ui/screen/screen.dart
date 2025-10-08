@@ -13,3 +13,6 @@ export 'folk_medicine/detail/folk_medicine_detail_body_screen.dart';
 export 'folk_medicine/list/folk_medicine_list_body_screen.dart';
 export 'search/search_screen.dart';
 export 'search/search_body_screen.dart';
+export 'setting/page/pravicy_security_screen.dart';
+export 'setting/page/support_center_screen.dart';
+export 'setting/page/about_app_screen.dart';

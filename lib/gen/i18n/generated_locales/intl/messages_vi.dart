@@ -246,6 +246,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập tên đăng nhập",
     ),
+    "privacyAndSecurity": MessageLookupByLibrary.simpleMessage(
+      "Quyền riêng tư và Bảo mật",
+    ),
     "privacySettings": MessageLookupByLibrary.simpleMessage(
       "Cài đặt quyền riêng tư",
     ),
