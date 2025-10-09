@@ -58,6 +58,10 @@ void main() async {
           create: (_) =>
               PageCubit(repository: getIt.getIt.get<PageRepository>()),
         ),
+        BlocProvider(
+          create: (_) =>
+              FeedbackCubit(repository: getIt.getIt.get<FeedbackRepository>()),
+        ),
       ],
       child: MyApp(),
     ),

@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutApp": MessageLookupByLibrary.simpleMessage("About app"),
+    "address": MessageLookupByLibrary.simpleMessage("Address"),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "All notifications loaded",
     ),
@@ -42,16 +43,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "biometricSetupSuccess": MessageLookupByLibrary.simpleMessage(
       "Biometric setup successful",
     ),
+    "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage(
       "Change app language",
     ),
+    "changeAvatar": MessageLookupByLibrary.simpleMessage("Change Avatar"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Change Language"),
     "chooseAppAppearance": MessageLookupByLibrary.simpleMessage(
       "Choose app appearance",
     ),
+    "city": MessageLookupByLibrary.simpleMessage("City"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "createdAt": MessageLookupByLibrary.simpleMessage("Created at"),
     "detail": MessageLookupByLibrary.simpleMessage("detail"),
     "discovery": MessageLookupByLibrary.simpleMessage("Discovery"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
@@ -106,6 +111,36 @@ class MessageLookup extends MessageLookupByLibrary {
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Featured medicine",
     ),
+    "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
+    "feedbackAnonymous": MessageLookupByLibrary.simpleMessage(
+      "Feedback anonymous",
+    ),
+    "feedbackAnonymousDescription": MessageLookupByLibrary.simpleMessage(
+      "Feedback anonymous description",
+    ),
+    "feedbackContent": MessageLookupByLibrary.simpleMessage("Feedback content"),
+    "feedbackDescription": MessageLookupByLibrary.simpleMessage(
+      "We are very grateful for your feedback to improve the application.",
+    ),
+    "feedbackEmail": MessageLookupByLibrary.simpleMessage("Feedback email"),
+    "feedbackError": MessageLookupByLibrary.simpleMessage("Feedback error"),
+    "feedbackErrorButton": MessageLookupByLibrary.simpleMessage(
+      "Feedback error button",
+    ),
+    "feedbackErrorDescription": MessageLookupByLibrary.simpleMessage(
+      "Feedback error description",
+    ),
+    "feedbackErrorTitle": MessageLookupByLibrary.simpleMessage(
+      "Feedback error title",
+    ),
+    "feedbackName": MessageLookupByLibrary.simpleMessage("Feedback name"),
+    "feedbackPhone": MessageLookupByLibrary.simpleMessage("Feedback phone"),
+    "feedbackPriority": MessageLookupByLibrary.simpleMessage(
+      "Feedback priority",
+    ),
+    "feedbackSuccess": MessageLookupByLibrary.simpleMessage("Feedback success"),
+    "feedbackTitle": MessageLookupByLibrary.simpleMessage("Feedback title"),
+    "feedbackType": MessageLookupByLibrary.simpleMessage("Feedback type"),
     "folkMedicineDescription": MessageLookupByLibrary.simpleMessage(
       "Description",
     ),
@@ -120,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "folkMedicineUsage": MessageLookupByLibrary.simpleMessage("Usage"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot password?"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
+    "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "General Notification",
     ),
@@ -156,6 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Enter username"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
+    "lastLogin": MessageLookupByLibrary.simpleMessage("Last login"),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
     "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -178,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "markAllAsRead": MessageLookupByLibrary.simpleMessage("Mark all as read"),
     "markAsRead": MessageLookupByLibrary.simpleMessage("Mark as read"),
     "medicine": MessageLookupByLibrary.simpleMessage("Medicine"),
+    "myProfile": MessageLookupByLibrary.simpleMessage("My profile"),
     "newPinHasBeenSent": MessageLookupByLibrary.simpleMessage(
       "New PIN has been sent!",
     ),
@@ -204,6 +242,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
       "Passwords do not match",
     ),
+    "permissions": MessageLookupByLibrary.simpleMessage("Permissions"),
+    "phone": MessageLookupByLibrary.simpleMessage("Phone"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "photo": MessageLookupByLibrary.simpleMessage("Photo"),
     "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
@@ -212,11 +252,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseEnterCredentials": MessageLookupByLibrary.simpleMessage(
       "Please enter your credentials",
     ),
+    "pleaseEnterFullName": MessageLookupByLibrary.simpleMessage(
+      "Please enter full name",
+    ),
     "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
       "Please enter password",
     ),
     "pleaseEnterUsername": MessageLookupByLibrary.simpleMessage(
       "Please enter username",
+    ),
+    "pleaseEnterValidEmail": MessageLookupByLibrary.simpleMessage(
+      "Please enter valid email",
     ),
     "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Please confirm password",
@@ -238,6 +284,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Privacy and Security",
     ),
     "privacySettings": MessageLookupByLibrary.simpleMessage("Privacy settings"),
+    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Failed to update profile",
+    ),
+    "profileUpdated": MessageLookupByLibrary.simpleMessage(
+      "Profile updated successfully",
+    ),
     "pullToRefresh": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
@@ -253,8 +305,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
     "resend": MessageLookupByLibrary.simpleMessage("Resend PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
+    "roles": MessageLookupByLibrary.simpleMessage("Roles"),
+    "save": MessageLookupByLibrary.simpleMessage("Save"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
     "security": MessageLookupByLibrary.simpleMessage("Security"),
+    "selectImage": MessageLookupByLibrary.simpleMessage("Select Image"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "setup": MessageLookupByLibrary.simpleMessage("Setup"),
@@ -283,7 +338,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
     "unread": MessageLookupByLibrary.simpleMessage("Unread"),
+    "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
     "updateYourInfo": MessageLookupByLibrary.simpleMessage("Update your info"),
+    "updatedAt": MessageLookupByLibrary.simpleMessage("Updated at"),
     "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(
       "Use fingerprint or face ID",
     ),
@@ -294,6 +351,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Google sign in cancelled",
     ),
     "userName": MessageLookupByLibrary.simpleMessage("Login name"),
+    "username": MessageLookupByLibrary.simpleMessage("Username"),
     "usernameMax": MessageLookupByLibrary.simpleMessage(
       "Username must be less than 50 characters",
     ),

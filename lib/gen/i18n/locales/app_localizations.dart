@@ -1063,6 +1063,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Privacy and Security'**
   String get privacyAndSecurity;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @feedbackDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We are very grateful for your feedback to improve the application.'**
+  String get feedbackDescription;
+
+  /// No description provided for @feedbackType.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback type'**
+  String get feedbackType;
+
+  /// No description provided for @feedbackPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback priority'**
+  String get feedbackPriority;
+
+  /// No description provided for @feedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback title'**
+  String get feedbackTitle;
+
+  /// No description provided for @feedbackContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback content'**
+  String get feedbackContent;
+
+  /// No description provided for @feedbackEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback email'**
+  String get feedbackEmail;
+
+  /// No description provided for @feedbackPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback phone'**
+  String get feedbackPhone;
+
+  /// No description provided for @feedbackName.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback name'**
+  String get feedbackName;
+
+  /// No description provided for @feedbackAnonymous.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback anonymous'**
+  String get feedbackAnonymous;
+
+  /// No description provided for @feedbackAnonymousDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback anonymous description'**
+  String get feedbackAnonymousDescription;
+
+  /// No description provided for @feedbackSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback success'**
+  String get feedbackSuccess;
+
+  /// No description provided for @feedbackError.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error'**
+  String get feedbackError;
+
+  /// No description provided for @feedbackErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error title'**
+  String get feedbackErrorTitle;
+
+  /// No description provided for @feedbackErrorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error description'**
+  String get feedbackErrorDescription;
+
+  /// No description provided for @feedbackErrorButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error button'**
+  String get feedbackErrorButton;
+
+  /// No description provided for @myProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'My profile'**
+  String get myProfile;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @city.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get city;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @createdAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created at'**
+  String get createdAt;
+
+  /// No description provided for @updatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated at'**
+  String get updatedAt;
+
+  /// No description provided for @roles.
+  ///
+  /// In en, this message translates to:
+  /// **'Roles'**
+  String get roles;
+
+  /// No description provided for @permissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions'**
+  String get permissions;
+
+  /// No description provided for @lastLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Last login'**
+  String get lastLogin;
+
+  /// No description provided for @updateProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Profile'**
+  String get updateProfile;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @changeAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Avatar'**
+  String get changeAvatar;
+
+  /// No description provided for @selectImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Image'**
+  String get selectImage;
+
+  /// No description provided for @camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @profileUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileUpdated;
+
+  /// No description provided for @profileUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update profile'**
+  String get profileUpdateFailed;
+
+  /// No description provided for @pleaseEnterFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter full name'**
+  String get pleaseEnterFullName;
+
+  /// No description provided for @pleaseEnterValidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter valid email'**
+  String get pleaseEnterValidEmail;
 }
 
 class _AppLocalizationsDelegate

@@ -16,19 +16,20 @@ class CustomSmartRefresher extends StatelessWidget {
   final EdgeInsets padding;
   final EdgeInsets marginSeparator;
 
-  const CustomSmartRefresher(
-      {super.key,
-      this.refreshController,
-      this.onRefresh,
-      this.onLoadMore,
-      this.enablePullUp = false,
-      this.enablePullDown = true,
-      required this.listData,
-      required this.itemBuilder,
-      this.heightSeparator = AppDimens.SIZE_0,
-      this.colorSeparator = Colors.transparent,
-      this.padding = const EdgeInsets.all(0),
-      this.marginSeparator = const EdgeInsets.all(0)});
+  const CustomSmartRefresher({
+    super.key,
+    this.refreshController,
+    this.onRefresh,
+    this.onLoadMore,
+    this.enablePullUp = false,
+    this.enablePullDown = true,
+    required this.listData,
+    required this.itemBuilder,
+    this.heightSeparator = AppDimens.SIZE_0,
+    this.colorSeparator = Colors.transparent,
+    this.padding = const EdgeInsets.all(0),
+    this.marginSeparator = const EdgeInsets.all(0),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +49,7 @@ class CustomSmartRefresher extends StatelessWidget {
               child: Center(child: CupertinoActivityIndicator()),
             );
           } else if (mode == LoadStatus.idle) {
-            body = SizedBox(
-              height: AppDimens.SIZE_0,
-              child: Center(),
-            );
+            body = SizedBox(height: AppDimens.SIZE_0, child: Center());
           }
           return body;
         },
@@ -60,13 +58,10 @@ class CustomSmartRefresher extends StatelessWidget {
         primary: false,
         shrinkWrap: true,
         padding: padding,
-        itemCount: listData.length ?? 0,
+        itemCount: listData.length,
         separatorBuilder: (context, index) => Container(
           margin: marginSeparator,
-          child: Divider(
-            height: heightSeparator,
-            color: colorSeparator,
-          ),
+          child: Divider(height: heightSeparator, color: colorSeparator),
         ),
         itemBuilder: itemBuilder,
       ),

@@ -86,6 +86,10 @@
 	<true/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This app uses Face ID for biometric authentication</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to camera to take photos for your profile</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photo library to select images for your profile</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>App needs your permission to personalize ads and improve experience.</string>
 	<key>PLIST_VERSION</key>

@@ -389,7 +389,9 @@ class _SettingScreenState extends State<SettingScreen> {
               Icons.arrow_forward_ios,
               size: AppDimens.SIZE_16,
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(Routes.feedbackScreen);
+            },
           ),
           _buildDivider(),
           _buildSettingItem(

@@ -43,4 +43,10 @@ class AuthRepository {
     await localDataSource.saveUserInfo(authModel.user!);
     return authModel;
   }
+
+  Future<UserModel> updateProfile(Map<String, dynamic> param) async {
+    UserModel userModel = await remoteDataSource.updateProfile(param);
+    await localDataSource.saveUserInfo(userModel);
+    return userModel;
+  }
 }

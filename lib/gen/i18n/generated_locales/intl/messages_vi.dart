@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutApp": MessageLookupByLibrary.simpleMessage("Về ứng dụng"),
+    "address": MessageLookupByLibrary.simpleMessage("Địa chỉ"),
     "agree": MessageLookupByLibrary.simpleMessage("Đồng ý"),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "Đã tải hết thông báo",
@@ -45,16 +46,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "biometricSetupSuccess": MessageLookupByLibrary.simpleMessage(
       "Thiết lập sinh trắc học thành công",
     ),
+    "camera": MessageLookupByLibrary.simpleMessage("Máy ảnh"),
     "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
+    "changeAvatar": MessageLookupByLibrary.simpleMessage("Đổi ảnh đại diện"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
     "chooseAppAppearance": MessageLookupByLibrary.simpleMessage(
       "Chọn giao diện",
     ),
+    "city": MessageLookupByLibrary.simpleMessage("Thành phố"),
     "close": MessageLookupByLibrary.simpleMessage("Đóng"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Xác nhận mật khẩu",
     ),
+    "createdAt": MessageLookupByLibrary.simpleMessage("Ngày tạo"),
     "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
     "discovery": MessageLookupByLibrary.simpleMessage("Khám phá"),
     "done": MessageLookupByLibrary.simpleMessage("Xong"),
@@ -112,6 +117,55 @@ class MessageLookup extends MessageLookupByLibrary {
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Bài thuốc nổi bật",
     ),
+    "feedback": MessageLookupByLibrary.simpleMessage("Phản hồi"),
+    "feedbackAnonymous": MessageLookupByLibrary.simpleMessage("Gửi ẩn danh"),
+    "feedbackAnonymousDescription": MessageLookupByLibrary.simpleMessage(
+      "Thông tin cá nhân sẽ không được hiển thị",
+    ),
+    "feedbackContact": MessageLookupByLibrary.simpleMessage(
+      "Thông tin liên hệ",
+    ),
+    "feedbackContent": MessageLookupByLibrary.simpleMessage("Nội dung"),
+    "feedbackContentMinLength": MessageLookupByLibrary.simpleMessage(
+      "Nội dung phải có ít nhất 10 ký tự",
+    ),
+    "feedbackContentRequired": MessageLookupByLibrary.simpleMessage(
+      "Nội dung là bắt buộc",
+    ),
+    "feedbackDescription": MessageLookupByLibrary.simpleMessage(
+      "Chúng tôi rất mong nhận được ý kiến đóng góp từ bạn để cải thiện ứng dụng.",
+    ),
+    "feedbackEmail": MessageLookupByLibrary.simpleMessage("Email"),
+    "feedbackEmailInvalid": MessageLookupByLibrary.simpleMessage(
+      "Email không hợp lệ",
+    ),
+    "feedbackError": MessageLookupByLibrary.simpleMessage(
+      "Gửi phản hồi thất bại! Vui lòng thử lại sau.",
+    ),
+    "feedbackErrorButton": MessageLookupByLibrary.simpleMessage("Thử lại"),
+    "feedbackErrorDescription": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng thử lại sau.",
+    ),
+    "feedbackErrorTitle": MessageLookupByLibrary.simpleMessage("Lỗi"),
+    "feedbackName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
+    "feedbackOptions": MessageLookupByLibrary.simpleMessage("Tùy chọn"),
+    "feedbackPhone": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
+    "feedbackPhoneInvalid": MessageLookupByLibrary.simpleMessage(
+      "Số điện thoại không hợp lệ",
+    ),
+    "feedbackPriority": MessageLookupByLibrary.simpleMessage("Mức độ ưu tiên"),
+    "feedbackSend": MessageLookupByLibrary.simpleMessage("Gửi phản hồi"),
+    "feedbackSuccess": MessageLookupByLibrary.simpleMessage(
+      "Gửi phản hồi thành công! Cảm ơn bạn đã đóng góp ý kiến.",
+    ),
+    "feedbackTitle": MessageLookupByLibrary.simpleMessage("Tiêu đề"),
+    "feedbackTitleMinLength": MessageLookupByLibrary.simpleMessage(
+      "Tiêu đề phải có ít nhất 5 ký tự",
+    ),
+    "feedbackTitleRequired": MessageLookupByLibrary.simpleMessage(
+      "Tiêu đề là bắt buộc",
+    ),
+    "feedbackType": MessageLookupByLibrary.simpleMessage("Loại phản hồi"),
     "folkMedicineDescription": MessageLookupByLibrary.simpleMessage("Mô tả"),
     "folkMedicineIngredients": MessageLookupByLibrary.simpleMessage(
       "Nguyên liệu",
@@ -124,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "folkMedicineUsage": MessageLookupByLibrary.simpleMessage("Cách sử dụng"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khẩu?"),
     "fullName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
+    "gallery": MessageLookupByLibrary.simpleMessage("Thư viện ảnh"),
     "generalNotification": MessageLookupByLibrary.simpleMessage(
       "Thông báo chung",
     ),
@@ -162,6 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Nhập tên đăng nhập"),
     "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
+    "lastLogin": MessageLookupByLibrary.simpleMessage("Lần đăng nhập cuối"),
     "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Lượt thích"),
     "loading": MessageLookupByLibrary.simpleMessage("Đang tải..."),
@@ -188,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "markAsRead": MessageLookupByLibrary.simpleMessage("Đánh dấu đã đọc"),
     "medicine": MessageLookupByLibrary.simpleMessage("Bài thuốc"),
+    "myProfile": MessageLookupByLibrary.simpleMessage("Hồ sơ của tôi"),
     "newPinHasBeenSent": MessageLookupByLibrary.simpleMessage(
       "Mã PIN mới đã được gửi!",
     ),
@@ -214,6 +271,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordNotMatch": MessageLookupByLibrary.simpleMessage(
       "Mật khẩu không khớp",
     ),
+    "permissions": MessageLookupByLibrary.simpleMessage("Quyền"),
+    "phone": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
     "photo": MessageLookupByLibrary.simpleMessage("Ảnh"),
     "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
@@ -222,11 +281,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseEnterCredentials": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập đầy đủ thông tin đăng nhập",
     ),
+    "pleaseEnterFullName": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập họ và tên",
+    ),
     "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập mật khẩu",
     ),
     "pleaseEnterUsername": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập tên đăng nhập",
+    ),
+    "pleaseEnterValidEmail": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập email hợp lệ",
     ),
     "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Vui lòng xác nhận mật khẩu",
@@ -252,6 +317,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacySettings": MessageLookupByLibrary.simpleMessage(
       "Cài đặt quyền riêng tư",
     ),
+    "profileUpdateFailed": MessageLookupByLibrary.simpleMessage(
+      "Cập nhật hồ sơ thất bại",
+    ),
+    "profileUpdated": MessageLookupByLibrary.simpleMessage(
+      "Cập nhật hồ sơ thành công",
+    ),
     "pullToRefresh": MessageLookupByLibrary.simpleMessage(
       "Kéo xuống để làm mới",
     ),
@@ -269,8 +340,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "rememberMe": MessageLookupByLibrary.simpleMessage("Nhớ đăng nhập"),
     "resend": MessageLookupByLibrary.simpleMessage("Gửi lại mã PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
+    "roles": MessageLookupByLibrary.simpleMessage("Vai trò"),
+    "save": MessageLookupByLibrary.simpleMessage("Lưu"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),
     "security": MessageLookupByLibrary.simpleMessage("Bảo mật"),
+    "selectImage": MessageLookupByLibrary.simpleMessage("Chọn ảnh"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Gửi phản hồi"),
     "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
     "setup": MessageLookupByLibrary.simpleMessage("Thiết lập"),
@@ -301,9 +375,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
+    "updateProfile": MessageLookupByLibrary.simpleMessage("Cập nhật hồ sơ"),
     "updateYourInfo": MessageLookupByLibrary.simpleMessage(
-      "Cập nhật thông tin của bạn",
+      "Cập nhật thông tin",
     ),
+    "updatedAt": MessageLookupByLibrary.simpleMessage("Ngày cập nhật"),
     "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(
       "Sử dụng vân tay hoặc Face ID",
     ),
@@ -314,6 +390,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Đăng nhập bằng Google đã bị hủy",
     ),
     "userName": MessageLookupByLibrary.simpleMessage("Tên đăng nhập"),
+    "username": MessageLookupByLibrary.simpleMessage("Tên đăng nhập"),
     "usernameMax": MessageLookupByLibrary.simpleMessage(
       "Tên đăng nhập không được quá 20 ký tự",
     ),

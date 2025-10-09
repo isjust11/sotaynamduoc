@@ -277,4 +277,23 @@ class AuthCubit extends Cubit<BaseState> {
   Future<BiometricCapability> checkBiometricCapability() async {
     return await BiometricAuthService.checkBiometricCapability();
   }
+
+  /// Cập nhật thông tin profile
+  Future updateProfile({
+    String? fullName,
+    String? email,
+    String? picture,
+  }) async {
+    try {
+      emit(LoadingState());
+      UserModel userModel = await repository.updateProfile({
+        if (fullName != null) "fullName": fullName,
+        if (email != null) "email": email,
+        if (picture != null) "picture": picture,
+      });
+      emit(LoadedState(userModel));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
 }

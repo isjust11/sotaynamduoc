@@ -340,7 +340,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get useFingerprintOrFaceID => 'Sử dụng vân tay hoặc Face ID';
 
   @override
-  String get updateYourInfo => 'Cập nhật thông tin của bạn';
+  String get updateYourInfo => 'Cập nhật thông tin';
 
   @override
   String get privacySettings => 'Cài đặt quyền riêng tư';
@@ -501,4 +501,115 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get privacyAndSecurity => 'Quyền riêng tư và Bảo mật';
+
+  @override
+  String get feedback => 'Phản hồi';
+
+  @override
+  String get feedbackDescription =>
+      'Chúng tôi rất mong nhận được ý kiến đóng góp từ bạn để cải thiện ứng dụng.';
+
+  @override
+  String get feedbackType => 'Loại phản hồi';
+
+  @override
+  String get feedbackPriority => 'Mức độ ưu tiên';
+
+  @override
+  String get feedbackTitle => 'Tiêu đề';
+
+  @override
+  String get feedbackContent => 'Nội dung';
+
+  @override
+  String get feedbackEmail => 'Email';
+
+  @override
+  String get feedbackPhone => 'Số điện thoại';
+
+  @override
+  String get feedbackName => 'Họ và tên';
+
+  @override
+  String get feedbackAnonymous => 'Gửi ẩn danh';
+
+  @override
+  String get feedbackAnonymousDescription =>
+      'Thông tin cá nhân sẽ không được hiển thị';
+
+  @override
+  String get feedbackSuccess =>
+      'Gửi phản hồi thành công! Cảm ơn bạn đã đóng góp ý kiến.';
+
+  @override
+  String get feedbackError => 'Gửi phản hồi thất bại! Vui lòng thử lại sau.';
+
+  @override
+  String get feedbackErrorTitle => 'Lỗi';
+
+  @override
+  String get feedbackErrorDescription => 'Vui lòng thử lại sau.';
+
+  @override
+  String get feedbackErrorButton => 'Thử lại';
+
+  @override
+  String get myProfile => 'Hồ sơ của tôi';
+
+  @override
+  String get phone => 'Số điện thoại';
+
+  @override
+  String get address => 'Địa chỉ';
+
+  @override
+  String get city => 'Thành phố';
+
+  @override
+  String get username => 'Tên đăng nhập';
+
+  @override
+  String get createdAt => 'Ngày tạo';
+
+  @override
+  String get updatedAt => 'Ngày cập nhật';
+
+  @override
+  String get roles => 'Vai trò';
+
+  @override
+  String get permissions => 'Quyền';
+
+  @override
+  String get lastLogin => 'Lần đăng nhập cuối';
+
+  @override
+  String get updateProfile => 'Cập nhật hồ sơ';
+
+  @override
+  String get save => 'Lưu';
+
+  @override
+  String get changeAvatar => 'Đổi ảnh đại diện';
+
+  @override
+  String get selectImage => 'Chọn ảnh';
+
+  @override
+  String get camera => 'Máy ảnh';
+
+  @override
+  String get gallery => 'Thư viện ảnh';
+
+  @override
+  String get profileUpdated => 'Cập nhật hồ sơ thành công';
+
+  @override
+  String get profileUpdateFailed => 'Cập nhật hồ sơ thất bại';
+
+  @override
+  String get pleaseEnterFullName => 'Vui lòng nhập họ và tên';
+
+  @override
+  String get pleaseEnterValidEmail => 'Vui lòng nhập email hợp lệ';
 }

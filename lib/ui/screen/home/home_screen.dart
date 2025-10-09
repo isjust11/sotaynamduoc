@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserModel? user;
-  
+
   void _navigateToNotificationList(BuildContext context) {
     Navigator.pushNamed(context, Routes.newsListScreen);
   }
@@ -45,34 +45,53 @@ class _HomeScreenState extends State<HomeScreen> {
         customTitle: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-              BlocBuilder<AuthCubit, BaseState>(
-                builder: (context, state) {
-                  if (state is LoadingState) {
-                    return SizedBox(
-                      width: AppDimens.SIZE_40,
-                      height: AppDimens.SIZE_40,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.white),
+          children: [
+            BlocBuilder<AuthCubit, BaseState>(
+              builder: (context, state) {
+                if (state is LoadingState) {
+                  return SizedBox(
+                    width: AppDimens.SIZE_40,
+                    height: AppDimens.SIZE_40,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        AppColors.white,
                       ),
-                    );
-                  } else if (state is ErrorState) {
-                    return CircleAvatar(
-                      radius: AppDimens.SIZE_20,
-                      backgroundColor: AppColors.inputBorderLight,
-                      child: Icon(Icons.error, color: AppColors.white, size: AppDimens.SIZE_20),
-                    );
-                  }
-                  final user = state is LoadedState ? state.data : null;
-                  if (user?.picture == null) {
-                    return CircleAvatar(
-                      radius: AppDimens.SIZE_20,
-                      backgroundColor: AppColors.inputBorderLight,
-                      child: Icon(Icons.person, color: AppColors.white, size: AppDimens.SIZE_20),
-                    );
-                  }
+                    ),
+                  );
+                } else if (state is ErrorState) {
                   return CircleAvatar(
+                    radius: AppDimens.SIZE_20,
+                    backgroundColor: AppColors.inputBorderLight,
+                    child: Icon(
+                      Icons.error,
+                      color: AppColors.white,
+                      size: AppDimens.SIZE_20,
+                    ),
+                  );
+                }
+                final user = state is LoadedState ? state.data : null;
+                if (user?.picture == null) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.profileScreen);
+                    },
+                    child: CircleAvatar(
+                      radius: AppDimens.SIZE_20,
+                      backgroundColor: AppColors.inputBorderLight,
+                      child: Icon(
+                        Icons.person,
+                        color: AppColors.white,
+                        size: AppDimens.SIZE_20,
+                      ),
+                    ),
+                  );
+                }
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.profileScreen);
+                  },
+                  child: CircleAvatar(
                     radius: AppDimens.SIZE_20,
                     backgroundColor: AppColors.inputBorderLight,
                     child: ClipOval(
@@ -82,41 +101,51 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: AppDimens.SIZE_40,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return Icon(Icons.person, color: AppColors.white, size: AppDimens.SIZE_20);
+                          return Icon(
+                            Icons.person,
+                            color: AppColors.white,
+                            size: AppDimens.SIZE_20,
+                          );
                         },
                       ),
                     ),
-                  );
-                }
-              ),
-              SizedBox(width: AppDimens.SIZE_10),
-              BlocBuilder<AuthCubit, BaseState>(
-                builder: (context, state) {
-                  final user = state is LoadedState ? state.data : null;
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomTextLabel(AppLocalizations.current.hello, color: AppColors.white, fontSize: AppDimens.SIZE_12, fontWeight: FontWeight.w400),
-                      SizedBox(height: AppDimens.SIZE_4),
-                      CustomTextLabel(
-                        user?.fullName ?? user?.username ?? 'Guest',
-                        color: AppColors.white,
-                        fontSize: AppDimens.SIZE_16,
-                        fontWeight: FontWeight.w500
-                      ),
-                    ],
-                  );
-                }
-              )
-            ],
+                  ),
+                );
+              },
+            ),
+            SizedBox(width: AppDimens.SIZE_10),
+            BlocBuilder<AuthCubit, BaseState>(
+              builder: (context, state) {
+                final user = state is LoadedState ? state.data : null;
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextLabel(
+                      AppLocalizations.current.hello,
+                      color: AppColors.white,
+                      fontSize: AppDimens.SIZE_12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    SizedBox(height: AppDimens.SIZE_4),
+                    CustomTextLabel(
+                      user?.fullName ?? user?.username ?? 'Guest',
+                      color: AppColors.white,
+                      fontSize: AppDimens.SIZE_16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
         ),
         actions: [
           IconButton(
             onPressed: () {
               _navigateToNotificationList(context);
             },
-            
+
             icon: Icon(Icons.notifications_none, color: AppColors.white),
           ),
         ],

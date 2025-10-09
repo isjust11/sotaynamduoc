@@ -8,7 +8,6 @@ import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sotaynamduoc/ui/widget/loading_template.dart';
 
 class CustomLoading<T extends Cubit<BaseState>> extends StatelessWidget {
