@@ -552,4 +552,64 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get feedbackErrorButton => 'Thử lại';
+
+  @override
+  String get myProfile => 'Hồ sơ của tôi';
+
+  @override
+  String get phone => 'Số điện thoại';
+
+  @override
+  String get address => 'Địa chỉ';
+
+  @override
+  String get city => 'Thành phố';
+
+  @override
+  String get username => 'Tên đăng nhập';
+
+  @override
+  String get createdAt => 'Ngày tạo';
+
+  @override
+  String get updatedAt => 'Ngày cập nhật';
+
+  @override
+  String get roles => 'Vai trò';
+
+  @override
+  String get permissions => 'Quyền';
+
+  @override
+  String get lastLogin => 'Lần đăng nhập cuối';
+
+  @override
+  String get updateProfile => 'Cập nhật hồ sơ';
+
+  @override
+  String get save => 'Lưu';
+
+  @override
+  String get changeAvatar => 'Đổi ảnh đại diện';
+
+  @override
+  String get selectImage => 'Chọn ảnh';
+
+  @override
+  String get camera => 'Máy ảnh';
+
+  @override
+  String get gallery => 'Thư viện ảnh';
+
+  @override
+  String get profileUpdated => 'Cập nhật hồ sơ thành công';
+
+  @override
+  String get profileUpdateFailed => 'Cập nhật hồ sơ thất bại';
+
+  @override
+  String get pleaseEnterFullName => 'Vui lòng nhập họ và tên';
+
+  @override
+  String get pleaseEnterValidEmail => 'Vui lòng nhập email hợp lệ';
 }

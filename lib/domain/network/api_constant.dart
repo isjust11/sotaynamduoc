@@ -30,4 +30,5 @@ class ApiConstant {
   static final refreshToken = "$apiHost/auth/refresh-token";
   static final getPage = "$apiHost/pages";
   static final createFeedback = "$apiHost/feedback";
+  static final updateProfile = "$apiHost/auth/update-profile";
 }

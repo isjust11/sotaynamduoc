@@ -6,7 +6,6 @@ import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_event.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_state.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
-import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/routes.dart';

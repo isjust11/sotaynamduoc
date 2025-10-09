@@ -547,4 +547,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedbackErrorButton => 'Feedback error button';
+
+  @override
+  String get myProfile => 'My profile';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get city => 'City';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get createdAt => 'Created at';
+
+  @override
+  String get updatedAt => 'Updated at';
+
+  @override
+  String get roles => 'Roles';
+
+  @override
+  String get permissions => 'Permissions';
+
+  @override
+  String get lastLogin => 'Last login';
+
+  @override
+  String get updateProfile => 'Update Profile';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get changeAvatar => 'Change Avatar';
+
+  @override
+  String get selectImage => 'Select Image';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get profileUpdated => 'Profile updated successfully';
+
+  @override
+  String get profileUpdateFailed => 'Failed to update profile';
+
+  @override
+  String get pleaseEnterFullName => 'Please enter full name';
+
+  @override
+  String get pleaseEnterValidEmail => 'Please enter valid email';
 }

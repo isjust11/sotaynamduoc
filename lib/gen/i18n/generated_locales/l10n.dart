@@ -1588,6 +1588,141 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Hồ sơ của tôi`
+  String get myProfile {
+    return Intl.message('Hồ sơ của tôi', name: 'myProfile', desc: '', args: []);
+  }
+
+  /// `Số điện thoại`
+  String get phone {
+    return Intl.message('Số điện thoại', name: 'phone', desc: '', args: []);
+  }
+
+  /// `Địa chỉ`
+  String get address {
+    return Intl.message('Địa chỉ', name: 'address', desc: '', args: []);
+  }
+
+  /// `Thành phố`
+  String get city {
+    return Intl.message('Thành phố', name: 'city', desc: '', args: []);
+  }
+
+  /// `Tên đăng nhập`
+  String get username {
+    return Intl.message('Tên đăng nhập', name: 'username', desc: '', args: []);
+  }
+
+  /// `Ngày tạo`
+  String get createdAt {
+    return Intl.message('Ngày tạo', name: 'createdAt', desc: '', args: []);
+  }
+
+  /// `Ngày cập nhật`
+  String get updatedAt {
+    return Intl.message('Ngày cập nhật', name: 'updatedAt', desc: '', args: []);
+  }
+
+  /// `Vai trò`
+  String get roles {
+    return Intl.message('Vai trò', name: 'roles', desc: '', args: []);
+  }
+
+  /// `Quyền`
+  String get permissions {
+    return Intl.message('Quyền', name: 'permissions', desc: '', args: []);
+  }
+
+  /// `Lần đăng nhập cuối`
+  String get lastLogin {
+    return Intl.message(
+      'Lần đăng nhập cuối',
+      name: 'lastLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cập nhật hồ sơ`
+  String get updateProfile {
+    return Intl.message(
+      'Cập nhật hồ sơ',
+      name: 'updateProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lưu`
+  String get save {
+    return Intl.message('Lưu', name: 'save', desc: '', args: []);
+  }
+
+  /// `Đổi ảnh đại diện`
+  String get changeAvatar {
+    return Intl.message(
+      'Đổi ảnh đại diện',
+      name: 'changeAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chọn ảnh`
+  String get selectImage {
+    return Intl.message('Chọn ảnh', name: 'selectImage', desc: '', args: []);
+  }
+
+  /// `Máy ảnh`
+  String get camera {
+    return Intl.message('Máy ảnh', name: 'camera', desc: '', args: []);
+  }
+
+  /// `Thư viện ảnh`
+  String get gallery {
+    return Intl.message('Thư viện ảnh', name: 'gallery', desc: '', args: []);
+  }
+
+  /// `Cập nhật hồ sơ thành công`
+  String get profileUpdated {
+    return Intl.message(
+      'Cập nhật hồ sơ thành công',
+      name: 'profileUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cập nhật hồ sơ thất bại`
+  String get profileUpdateFailed {
+    return Intl.message(
+      'Cập nhật hồ sơ thất bại',
+      name: 'profileUpdateFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập họ và tên`
+  String get pleaseEnterFullName {
+    return Intl.message(
+      'Vui lòng nhập họ và tên',
+      name: 'pleaseEnterFullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập email hợp lệ`
+  String get pleaseEnterValidEmail {
+    return Intl.message(
+      'Vui lòng nhập email hợp lệ',
+      name: 'pleaseEnterValidEmail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -124,6 +124,56 @@ class Network {
     }
   }
 
+  Future<ApiResponse> put({
+    required String url,
+    Map<String, dynamic>? body,
+    Map<String, dynamic> params = const {},
+    String contentType = Headers.jsonContentType,
+  }) async {
+    try {
+      final Response response = await _dio.put(
+        url,
+        data: BaseParamRequest.request(body),
+        queryParameters: params,
+        options: Options(
+          responseType: ResponseType.json,
+          contentType: contentType,
+        ),
+      );
+      return getApiResponse(response);
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print("DioError PUT: ${e.toString()}");
+      }
+      return getError(e);
+    }
+  }
+
+  Future<ApiResponse> delete({
+    required String url,
+    Map<String, dynamic>? body,
+    Map<String, dynamic> params = const {},
+    String contentType = Headers.jsonContentType,
+  }) async {
+    try {
+      final Response response = await _dio.delete(
+        url,
+        data: BaseParamRequest.request(body),
+        queryParameters: params,
+        options: Options(
+          responseType: ResponseType.json,
+          contentType: contentType,
+        ),
+      );
+      return getApiResponse(response);
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print("DioError DELETE: ${e.toString()}");
+      }
+      return getError(e);
+    }
+  }
+
   ApiResponse getError(DioError e) {
     switch (e.type) {
       case DioErrorType.cancel:

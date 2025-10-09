@@ -34,6 +34,8 @@ class Routes {
   static const String supportCenterScreen = "/supportCenterScreen";
   static const String aboutAppScreen = "/aboutAppScreen";
   static const String feedbackScreen = "/feedbackScreen";
+  static const String profileScreen = "/profileScreen";
+  static const String updateProfileScreen = "/updateProfileScreen";
   //init screen name
   static String initScreen() => splashScreen;
 
@@ -75,11 +77,6 @@ class Routes {
         return PageTransition(
           child: SettingScreen(),
           type: PageTransitionType.fade,
-        );
-      case qrScannerScreen:
-        return PageTransition(
-          child: QRScannerScreen(),
-          type: PageTransitionType.rightToLeft,
         );
       case newsListScreen:
         return PageTransition(
@@ -125,6 +122,16 @@ class Routes {
       case feedbackScreen:
         return PageTransition(
           child: FeedbackScreen(),
+          type: PageTransitionType.fade,
+        );
+      case profileScreen:
+        return PageTransition(
+          child: ProfileScreen(),
+          type: PageTransitionType.fade,
+        );
+      case updateProfileScreen:
+        return PageTransition(
+          child: UpdateProfileScreen(),
           type: PageTransitionType.fade,
         );
       default:

@@ -61,4 +61,15 @@ class AuthRemoteDataSource {
     }
     return Future.error(apiResponse.message);
   }
+
+  Future<UserModel> updateProfile(Map<String, dynamic> param) async {
+    ApiResponse apiResponse = await network.put(
+      url: ApiConstant.updateProfile,
+      body: param,
+    );
+    if (apiResponse.isSuccess) {
+      return UserModel.fromJson(apiResponse.data);
+    }
+    return Future.error(apiResponse.message);
+  }
 }
