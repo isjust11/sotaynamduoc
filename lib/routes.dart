@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
-import 'package:sotaynamduoc/ui/screen/setting/settings_screen.dart';
+import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
-import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sotaynamduoc/ui/screen/test/fcm_test_screen.dart';
 
@@ -34,6 +33,7 @@ class Routes {
   static const String privacySecurityScreen = "/privacySecurityScreen";
   static const String supportCenterScreen = "/supportCenterScreen";
   static const String aboutAppScreen = "/aboutAppScreen";
+  static const String feedbackScreen = "/feedbackScreen";
   //init screen name
   static String initScreen() => splashScreen;
 
@@ -120,6 +120,11 @@ class Routes {
       case aboutAppScreen:
         return PageTransition(
           child: AboutAppScreen(),
+          type: PageTransitionType.fade,
+        );
+      case feedbackScreen:
+        return PageTransition(
+          child: FeedbackScreen(),
           type: PageTransitionType.fade,
         );
       default:

@@ -16,3 +16,5 @@ export 'search/search_body_screen.dart';
 export 'setting/page/pravicy_security_screen.dart';
 export 'setting/page/support_center_screen.dart';
 export 'setting/page/about_app_screen.dart';
+export 'setting/page/feedback_screen.dart';
+export 'setting/settings_screen.dart';

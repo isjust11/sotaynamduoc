@@ -498,4 +498,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyAndSecurity => 'Privacy and Security';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get feedbackDescription =>
+      'We are very grateful for your feedback to improve the application.';
+
+  @override
+  String get feedbackType => 'Feedback type';
+
+  @override
+  String get feedbackPriority => 'Feedback priority';
+
+  @override
+  String get feedbackTitle => 'Feedback title';
+
+  @override
+  String get feedbackContent => 'Feedback content';
+
+  @override
+  String get feedbackEmail => 'Feedback email';
+
+  @override
+  String get feedbackPhone => 'Feedback phone';
+
+  @override
+  String get feedbackName => 'Feedback name';
+
+  @override
+  String get feedbackAnonymous => 'Feedback anonymous';
+
+  @override
+  String get feedbackAnonymousDescription => 'Feedback anonymous description';
+
+  @override
+  String get feedbackSuccess => 'Feedback success';
+
+  @override
+  String get feedbackError => 'Feedback error';
+
+  @override
+  String get feedbackErrorTitle => 'Feedback error title';
+
+  @override
+  String get feedbackErrorDescription => 'Feedback error description';
+
+  @override
+  String get feedbackErrorButton => 'Feedback error button';
 }

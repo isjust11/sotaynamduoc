@@ -909,10 +909,10 @@ class AppLocalizations {
     );
   }
 
-  /// `Cập nhật thông tin của bạn`
+  /// `Cập nhật thông tin`
   String get updateYourInfo {
     return Intl.message(
-      'Cập nhật thông tin của bạn',
+      'Cập nhật thông tin',
       name: 'updateYourInfo',
       desc: '',
       args: [],
@@ -1359,6 +1359,231 @@ class AppLocalizations {
     return Intl.message(
       'Quyền riêng tư và Bảo mật',
       name: 'privacyAndSecurity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phản hồi`
+  String get feedback {
+    return Intl.message('Phản hồi', name: 'feedback', desc: '', args: []);
+  }
+
+  /// `Chúng tôi rất mong nhận được ý kiến đóng góp từ bạn để cải thiện ứng dụng.`
+  String get feedbackDescription {
+    return Intl.message(
+      'Chúng tôi rất mong nhận được ý kiến đóng góp từ bạn để cải thiện ứng dụng.',
+      name: 'feedbackDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loại phản hồi`
+  String get feedbackType {
+    return Intl.message(
+      'Loại phản hồi',
+      name: 'feedbackType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mức độ ưu tiên`
+  String get feedbackPriority {
+    return Intl.message(
+      'Mức độ ưu tiên',
+      name: 'feedbackPriority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tiêu đề`
+  String get feedbackTitle {
+    return Intl.message('Tiêu đề', name: 'feedbackTitle', desc: '', args: []);
+  }
+
+  /// `Nội dung`
+  String get feedbackContent {
+    return Intl.message(
+      'Nội dung',
+      name: 'feedbackContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get feedbackEmail {
+    return Intl.message('Email', name: 'feedbackEmail', desc: '', args: []);
+  }
+
+  /// `Số điện thoại`
+  String get feedbackPhone {
+    return Intl.message(
+      'Số điện thoại',
+      name: 'feedbackPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Họ và tên`
+  String get feedbackName {
+    return Intl.message('Họ và tên', name: 'feedbackName', desc: '', args: []);
+  }
+
+  /// `Gửi ẩn danh`
+  String get feedbackAnonymous {
+    return Intl.message(
+      'Gửi ẩn danh',
+      name: 'feedbackAnonymous',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thông tin cá nhân sẽ không được hiển thị`
+  String get feedbackAnonymousDescription {
+    return Intl.message(
+      'Thông tin cá nhân sẽ không được hiển thị',
+      name: 'feedbackAnonymousDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gửi phản hồi thành công! Cảm ơn bạn đã đóng góp ý kiến.`
+  String get feedbackSuccess {
+    return Intl.message(
+      'Gửi phản hồi thành công! Cảm ơn bạn đã đóng góp ý kiến.',
+      name: 'feedbackSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gửi phản hồi thất bại! Vui lòng thử lại sau.`
+  String get feedbackError {
+    return Intl.message(
+      'Gửi phản hồi thất bại! Vui lòng thử lại sau.',
+      name: 'feedbackError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lỗi`
+  String get feedbackErrorTitle {
+    return Intl.message('Lỗi', name: 'feedbackErrorTitle', desc: '', args: []);
+  }
+
+  /// `Vui lòng thử lại sau.`
+  String get feedbackErrorDescription {
+    return Intl.message(
+      'Vui lòng thử lại sau.',
+      name: 'feedbackErrorDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thử lại`
+  String get feedbackErrorButton {
+    return Intl.message(
+      'Thử lại',
+      name: 'feedbackErrorButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thông tin liên hệ`
+  String get feedbackContact {
+    return Intl.message(
+      'Thông tin liên hệ',
+      name: 'feedbackContact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tùy chọn`
+  String get feedbackOptions {
+    return Intl.message(
+      'Tùy chọn',
+      name: 'feedbackOptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gửi phản hồi`
+  String get feedbackSend {
+    return Intl.message(
+      'Gửi phản hồi',
+      name: 'feedbackSend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tiêu đề là bắt buộc`
+  String get feedbackTitleRequired {
+    return Intl.message(
+      'Tiêu đề là bắt buộc',
+      name: 'feedbackTitleRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tiêu đề phải có ít nhất 5 ký tự`
+  String get feedbackTitleMinLength {
+    return Intl.message(
+      'Tiêu đề phải có ít nhất 5 ký tự',
+      name: 'feedbackTitleMinLength',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nội dung là bắt buộc`
+  String get feedbackContentRequired {
+    return Intl.message(
+      'Nội dung là bắt buộc',
+      name: 'feedbackContentRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nội dung phải có ít nhất 10 ký tự`
+  String get feedbackContentMinLength {
+    return Intl.message(
+      'Nội dung phải có ít nhất 10 ký tự',
+      name: 'feedbackContentMinLength',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email không hợp lệ`
+  String get feedbackEmailInvalid {
+    return Intl.message(
+      'Email không hợp lệ',
+      name: 'feedbackEmailInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Số điện thoại không hợp lệ`
+  String get feedbackPhoneInvalid {
+    return Intl.message(
+      'Số điện thoại không hợp lệ',
+      name: 'feedbackPhoneInvalid',
       desc: '',
       args: [],
     );

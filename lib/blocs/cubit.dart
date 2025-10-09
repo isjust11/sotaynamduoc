@@ -8,3 +8,4 @@ export 'category/category_cubit.dart';
 export 'herbal/herbal.dart';
 export 'author/author.dart';
 export 'page_cubit.dart';
+export 'feedback_cubit.dart';

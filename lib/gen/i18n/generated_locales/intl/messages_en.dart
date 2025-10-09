@@ -106,6 +106,36 @@ class MessageLookup extends MessageLookupByLibrary {
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Featured medicine",
     ),
+    "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
+    "feedbackAnonymous": MessageLookupByLibrary.simpleMessage(
+      "Feedback anonymous",
+    ),
+    "feedbackAnonymousDescription": MessageLookupByLibrary.simpleMessage(
+      "Feedback anonymous description",
+    ),
+    "feedbackContent": MessageLookupByLibrary.simpleMessage("Feedback content"),
+    "feedbackDescription": MessageLookupByLibrary.simpleMessage(
+      "We are very grateful for your feedback to improve the application.",
+    ),
+    "feedbackEmail": MessageLookupByLibrary.simpleMessage("Feedback email"),
+    "feedbackError": MessageLookupByLibrary.simpleMessage("Feedback error"),
+    "feedbackErrorButton": MessageLookupByLibrary.simpleMessage(
+      "Feedback error button",
+    ),
+    "feedbackErrorDescription": MessageLookupByLibrary.simpleMessage(
+      "Feedback error description",
+    ),
+    "feedbackErrorTitle": MessageLookupByLibrary.simpleMessage(
+      "Feedback error title",
+    ),
+    "feedbackName": MessageLookupByLibrary.simpleMessage("Feedback name"),
+    "feedbackPhone": MessageLookupByLibrary.simpleMessage("Feedback phone"),
+    "feedbackPriority": MessageLookupByLibrary.simpleMessage(
+      "Feedback priority",
+    ),
+    "feedbackSuccess": MessageLookupByLibrary.simpleMessage("Feedback success"),
+    "feedbackTitle": MessageLookupByLibrary.simpleMessage("Feedback title"),
+    "feedbackType": MessageLookupByLibrary.simpleMessage("Feedback type"),
     "folkMedicineDescription": MessageLookupByLibrary.simpleMessage(
       "Description",
     ),

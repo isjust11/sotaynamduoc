@@ -7,3 +7,4 @@ export 'herbal_repository.dart';
 export 'author_repository.dart';
 export 'user_interaction_repository.dart';
 export 'page_repository.dart';
+export 'feedback_repository.dart';

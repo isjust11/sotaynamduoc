@@ -1063,6 +1063,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Privacy and Security'**
   String get privacyAndSecurity;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @feedbackDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We are very grateful for your feedback to improve the application.'**
+  String get feedbackDescription;
+
+  /// No description provided for @feedbackType.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback type'**
+  String get feedbackType;
+
+  /// No description provided for @feedbackPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback priority'**
+  String get feedbackPriority;
+
+  /// No description provided for @feedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback title'**
+  String get feedbackTitle;
+
+  /// No description provided for @feedbackContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback content'**
+  String get feedbackContent;
+
+  /// No description provided for @feedbackEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback email'**
+  String get feedbackEmail;
+
+  /// No description provided for @feedbackPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback phone'**
+  String get feedbackPhone;
+
+  /// No description provided for @feedbackName.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback name'**
+  String get feedbackName;
+
+  /// No description provided for @feedbackAnonymous.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback anonymous'**
+  String get feedbackAnonymous;
+
+  /// No description provided for @feedbackAnonymousDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback anonymous description'**
+  String get feedbackAnonymousDescription;
+
+  /// No description provided for @feedbackSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback success'**
+  String get feedbackSuccess;
+
+  /// No description provided for @feedbackError.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error'**
+  String get feedbackError;
+
+  /// No description provided for @feedbackErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error title'**
+  String get feedbackErrorTitle;
+
+  /// No description provided for @feedbackErrorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error description'**
+  String get feedbackErrorDescription;
+
+  /// No description provided for @feedbackErrorButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback error button'**
+  String get feedbackErrorButton;
 }
 
 class _AppLocalizationsDelegate

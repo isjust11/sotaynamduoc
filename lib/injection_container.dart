@@ -1,10 +1,8 @@
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
-import 'package:sotaynamduoc/blocs/herbal/herbal.dart';
+import 'package:sotaynamduoc/blocs/feedback_cubit.dart';
 import 'package:get_it/get_it.dart';
-
-import 'blocs/page_cubit.dart';
 
 final getIt = GetIt.instance;
 /*
@@ -79,6 +77,10 @@ void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
     () => PageRepository(pageRemoteDataSource: getIt.get()),
   );
+  getIt.registerLazySingleton(
+    () => FeedbackRepository(remoteDataSource: getIt.get()),
+  );
+  getIt.registerFactory(() => FeedbackCubit(repository: getIt.get()));
 }
 
 void registerDataSource(GetIt getIt) {
@@ -99,6 +101,9 @@ void registerDataSource(GetIt getIt) {
     () => AuthorRemoteDataSource(network: getIt.get()),
   );
   getIt.registerLazySingleton(() => PageRemoteDataSource(network: getIt.get()));
+  getIt.registerLazySingleton(
+    () => FeedbackRemoteDataSource(network: getIt.get()),
+  );
 }
 
 void registerNetwork(GetIt getIt) {

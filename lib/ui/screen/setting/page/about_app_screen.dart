@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
@@ -17,9 +18,19 @@ class AboutAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<PageCubit>().getPageBySlug('about-app');
     return BaseScreen(
+      customAppBar: _buildAppBar(context),
       title: AppLocalizations.current.aboutApp,
       colorTitle: AppColors.white,
       body: _buildBody(context),
+    );
+  }
+
+  BaseAppBar _buildAppBar(BuildContext context) {
+    return BaseAppBar(
+      title: AppLocalizations.current.aboutApp,
+      showBackButton: true,
+      onBackTap: () => Navigator.pop(context),
+      backgroundColor: AppColors.secondaryBrand,
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/base_loading.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
@@ -20,7 +21,7 @@ class PrivacySecurityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<PageCubit>().getPageBySlug('securityandpravicy');
     return BaseScreen(
-      title: AppLocalizations.current.privacyAndSecurity,
+      customAppBar: _buildAppBar(context),
       colorTitle: AppColors.white,
       stateWidget: CustomLoading<PageCubit>(
         message: AppLocalizations.current.loading,
@@ -28,6 +29,15 @@ class PrivacySecurityScreen extends StatelessWidget {
         loadingType: LoadingType.threeArchedCircle,
       ),
       body: _buildBody(context),
+    );
+  }
+
+  BaseAppBar _buildAppBar(BuildContext context) {
+    return BaseAppBar(
+      title: AppLocalizations.current.privacyAndSecurity,
+      showBackButton: true,
+      onBackTap: () => Navigator.pop(context),
+      backgroundColor: AppColors.secondaryBrand,
     );
   }
 

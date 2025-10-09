@@ -160,5 +160,21 @@
   "discovery": "Discovery",
   "todayYouFeel": "Today you feel like?",
   "youCanSearch": "You can search for medicine name, symptom ...",
-  "privacyAndSecurity": "Privacy and Security"
+  "privacyAndSecurity": "Privacy and Security",
+  "feedback": "Feedback",
+  "feedbackDescription": "We are very grateful for your feedback to improve the application.",
+  "feedbackType": "Feedback type",
+  "feedbackPriority": "Feedback priority",
+  "feedbackTitle": "Feedback title",
+  "feedbackContent": "Feedback content",
+  "feedbackEmail": "Feedback email",
+  "feedbackPhone": "Feedback phone",
+  "feedbackName": "Feedback name",
+  "feedbackAnonymous": "Feedback anonymous",
+  "feedbackAnonymousDescription": "Feedback anonymous description",
+  "feedbackSuccess": "Feedback success",
+  "feedbackError": "Feedback error",
+  "feedbackErrorTitle": "Feedback error title",
+  "feedbackErrorDescription": "Feedback error description",
+  "feedbackErrorButton": "Feedback error button"
 }

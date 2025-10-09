@@ -112,6 +112,55 @@ class MessageLookup extends MessageLookupByLibrary {
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Bài thuốc nổi bật",
     ),
+    "feedback": MessageLookupByLibrary.simpleMessage("Phản hồi"),
+    "feedbackAnonymous": MessageLookupByLibrary.simpleMessage("Gửi ẩn danh"),
+    "feedbackAnonymousDescription": MessageLookupByLibrary.simpleMessage(
+      "Thông tin cá nhân sẽ không được hiển thị",
+    ),
+    "feedbackContact": MessageLookupByLibrary.simpleMessage(
+      "Thông tin liên hệ",
+    ),
+    "feedbackContent": MessageLookupByLibrary.simpleMessage("Nội dung"),
+    "feedbackContentMinLength": MessageLookupByLibrary.simpleMessage(
+      "Nội dung phải có ít nhất 10 ký tự",
+    ),
+    "feedbackContentRequired": MessageLookupByLibrary.simpleMessage(
+      "Nội dung là bắt buộc",
+    ),
+    "feedbackDescription": MessageLookupByLibrary.simpleMessage(
+      "Chúng tôi rất mong nhận được ý kiến đóng góp từ bạn để cải thiện ứng dụng.",
+    ),
+    "feedbackEmail": MessageLookupByLibrary.simpleMessage("Email"),
+    "feedbackEmailInvalid": MessageLookupByLibrary.simpleMessage(
+      "Email không hợp lệ",
+    ),
+    "feedbackError": MessageLookupByLibrary.simpleMessage(
+      "Gửi phản hồi thất bại! Vui lòng thử lại sau.",
+    ),
+    "feedbackErrorButton": MessageLookupByLibrary.simpleMessage("Thử lại"),
+    "feedbackErrorDescription": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng thử lại sau.",
+    ),
+    "feedbackErrorTitle": MessageLookupByLibrary.simpleMessage("Lỗi"),
+    "feedbackName": MessageLookupByLibrary.simpleMessage("Họ và tên"),
+    "feedbackOptions": MessageLookupByLibrary.simpleMessage("Tùy chọn"),
+    "feedbackPhone": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
+    "feedbackPhoneInvalid": MessageLookupByLibrary.simpleMessage(
+      "Số điện thoại không hợp lệ",
+    ),
+    "feedbackPriority": MessageLookupByLibrary.simpleMessage("Mức độ ưu tiên"),
+    "feedbackSend": MessageLookupByLibrary.simpleMessage("Gửi phản hồi"),
+    "feedbackSuccess": MessageLookupByLibrary.simpleMessage(
+      "Gửi phản hồi thành công! Cảm ơn bạn đã đóng góp ý kiến.",
+    ),
+    "feedbackTitle": MessageLookupByLibrary.simpleMessage("Tiêu đề"),
+    "feedbackTitleMinLength": MessageLookupByLibrary.simpleMessage(
+      "Tiêu đề phải có ít nhất 5 ký tự",
+    ),
+    "feedbackTitleRequired": MessageLookupByLibrary.simpleMessage(
+      "Tiêu đề là bắt buộc",
+    ),
+    "feedbackType": MessageLookupByLibrary.simpleMessage("Loại phản hồi"),
     "folkMedicineDescription": MessageLookupByLibrary.simpleMessage("Mô tả"),
     "folkMedicineIngredients": MessageLookupByLibrary.simpleMessage(
       "Nguyên liệu",
@@ -302,7 +351,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "tryAgain": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
     "updateYourInfo": MessageLookupByLibrary.simpleMessage(
-      "Cập nhật thông tin của bạn",
+      "Cập nhật thông tin",
     ),
     "useFingerprintOrFaceID": MessageLookupByLibrary.simpleMessage(
       "Sử dụng vân tay hoặc Face ID",

@@ -11,3 +11,7 @@ export 'herbal_model.dart';
 export 'author_model.dart';
 export 'register_model.dart';
 export 'page_model.dart';
+export 'feedback_model.dart';
+export 'feedback_type.dart';
+export 'feedback_priority.dart';
+export 'feedback_status.dart';

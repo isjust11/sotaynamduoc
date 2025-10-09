@@ -340,7 +340,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get useFingerprintOrFaceID => 'Sử dụng vân tay hoặc Face ID';
 
   @override
-  String get updateYourInfo => 'Cập nhật thông tin của bạn';
+  String get updateYourInfo => 'Cập nhật thông tin';
 
   @override
   String get privacySettings => 'Cài đặt quyền riêng tư';
@@ -501,4 +501,55 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get privacyAndSecurity => 'Quyền riêng tư và Bảo mật';
+
+  @override
+  String get feedback => 'Phản hồi';
+
+  @override
+  String get feedbackDescription =>
+      'Chúng tôi rất mong nhận được ý kiến đóng góp từ bạn để cải thiện ứng dụng.';
+
+  @override
+  String get feedbackType => 'Loại phản hồi';
+
+  @override
+  String get feedbackPriority => 'Mức độ ưu tiên';
+
+  @override
+  String get feedbackTitle => 'Tiêu đề';
+
+  @override
+  String get feedbackContent => 'Nội dung';
+
+  @override
+  String get feedbackEmail => 'Email';
+
+  @override
+  String get feedbackPhone => 'Số điện thoại';
+
+  @override
+  String get feedbackName => 'Họ và tên';
+
+  @override
+  String get feedbackAnonymous => 'Gửi ẩn danh';
+
+  @override
+  String get feedbackAnonymousDescription =>
+      'Thông tin cá nhân sẽ không được hiển thị';
+
+  @override
+  String get feedbackSuccess =>
+      'Gửi phản hồi thành công! Cảm ơn bạn đã đóng góp ý kiến.';
+
+  @override
+  String get feedbackError => 'Gửi phản hồi thất bại! Vui lòng thử lại sau.';
+
+  @override
+  String get feedbackErrorTitle => 'Lỗi';
+
+  @override
+  String get feedbackErrorDescription => 'Vui lòng thử lại sau.';
+
+  @override
+  String get feedbackErrorButton => 'Thử lại';
 }
