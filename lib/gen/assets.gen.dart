@@ -125,6 +125,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/camera.png
   AssetGenImage get camera => const AssetGenImage('assets/images/camera.png');
 
+  /// File path: assets/images/checkered_pattern.svg
+  String get checkeredPattern => 'assets/images/checkered_pattern.svg';
+
   /// File path: assets/images/ic_back.png
   AssetGenImage get icBack => const AssetGenImage('assets/images/ic_back.png');
 
@@ -190,6 +193,7 @@ class $AssetsImagesGen {
     appBarBackground,
     background,
     camera,
+    checkeredPattern,
     icBack,
     icBackSvg,
     icGallery,

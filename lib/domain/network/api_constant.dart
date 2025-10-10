@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class ApiConstant {
   // Cấu hình API URL cho các môi trường khác nhau
   static final apiHost = _getApiHost();
+  static final storageHost = _getStorageHost();
 
   static String _getApiHost() {
     // Kiểm tra file .env trước
@@ -14,6 +15,18 @@ class ApiConstant {
     // Fallback cho các môi trường khác nhau
     // LDPlayer/Android Emulator: sử dụng 10.0.2.2 để kết nối với host machine
     return 'http://10.0.2.2:4000';
+  }
+
+  static String _getStorageHost() {
+    // Kiểm tra file .env trước
+    final envUrl = dotenv.env['STORAGE_URL'];
+    if (envUrl != null && envUrl.isNotEmpty) {
+      return envUrl;
+    }
+
+    // Fallback cho storage server
+    // LDPlayer/Android Emulator: sử dụng 10.0.2.2 để kết nối với host machine
+    return 'http://10.0.2.2:3005';
   }
 
   static final login = "$apiHost/auth/login";
@@ -31,4 +44,5 @@ class ApiConstant {
   static final getPage = "$apiHost/pages";
   static final createFeedback = "$apiHost/feedback";
   static final updateProfile = "$apiHost/auth/update-profile";
+  static final getMedia = "$apiHost/media";
 }

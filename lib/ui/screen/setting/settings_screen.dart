@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/data/models/user_model.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
@@ -127,26 +128,35 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       child: Row(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 3),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: AppDimens.SIZE_10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
-            child: CircleAvatar(
-              radius: AppDimens.SIZE_30,
-              backgroundColor: AppColors.statusTextLight,
-              child: (user?.picture == null || user!.picture!.isEmpty)
-                  ? SvgPicture.asset(Assets.icons.icAvatar)
-                  : ClipOval(
-                      child: Image.network(user.picture!, fit: BoxFit.cover),
-                    ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(Routes.profileScreen);
+            },
+            child: Container(
+              width: AppDimens.SIZE_60,
+              height: AppDimens.SIZE_60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white, width: 3),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: AppDimens.SIZE_10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: ClipOval(
+                child: (user?.picture == null || user!.picture!.isEmpty)
+                    ? SvgPicture.asset(Assets.icons.icAvatar)
+                    : Image.network(
+                        ApiConstant.storageHost + user.picture!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return SvgPicture.asset(Assets.icons.icAvatar);
+                        },
+                      ),
+              ),
             ),
           ),
           const SizedBox(width: AppDimens.SIZE_20),
@@ -186,7 +196,9 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppLocalizations.current.editProfile,
               subtitle: AppLocalizations.current.updateYourInfo,
               color: Colors.blue,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(Routes.updateProfileScreen);
+              },
             ),
           ),
           const SizedBox(width: 12),

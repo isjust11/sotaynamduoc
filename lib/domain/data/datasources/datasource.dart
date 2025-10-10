@@ -10,3 +10,4 @@ export 'package:sotaynamduoc/domain/data/datasources/remote/herbal_remote_data_s
 export 'package:sotaynamduoc/domain/data/datasources/remote/author_remote_data_source.dart';
 export 'package:sotaynamduoc/domain/data/datasources/remote/page_remote_data_source.dart';
 export 'package:sotaynamduoc/domain/data/datasources/remote/feedback_remote_data_source.dart';
+export 'package:sotaynamduoc/domain/data/datasources/remote/media_remote_data_source.dart';

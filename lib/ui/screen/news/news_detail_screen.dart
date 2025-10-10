@@ -83,7 +83,7 @@ class NewsDetailView extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
                 child: Image.network(
-                  ApiConstant.apiHost + (news.thumbnail ?? ''),
+                  ApiConstant.storageHost + (news.thumbnail ?? ''),
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;

@@ -15,3 +15,4 @@ export 'feedback_model.dart';
 export 'feedback_type.dart';
 export 'feedback_priority.dart';
 export 'feedback_status.dart';
+export 'media_model.dart';

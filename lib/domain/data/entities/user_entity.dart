@@ -1,5 +1,4 @@
 import 'package:sotaynamduoc/domain/data/entities/entities.dart';
-
 import 'base_entity.dart';
 
 class UserEntity extends BaseEntity {
@@ -8,7 +7,13 @@ class UserEntity extends BaseEntity {
   bool? isAdmin;
   bool? isBlock;
   String? fullName;
-  String? picture;
+  String? _picture;
+  String? get picture => _picture;
+  set picture(String? value) {
+    _picture = value;
+  }
+
+  /// Get converted picture URL for Flutter
   List<RoleEntity> roles = [];
   List<dynamic> permissions = [];
   String? email;
@@ -26,7 +31,7 @@ class UserEntity extends BaseEntity {
     isAdmin = json['isAdmin'];
     isBlock = json['isBlock'];
     fullName = json['fullName'];
-    picture = json['picture'];
+    _picture = json['picture'];
     roles = (json['roles'] as List)
         .map((role) => RoleEntity.fromJson(role as Map<String, dynamic>))
         .toList();
@@ -49,7 +54,7 @@ class UserEntity extends BaseEntity {
     data['isAdmin'] = isAdmin;
     data['isBlock'] = isBlock;
     data['fullName'] = fullName;
-    data['picture'] = picture;
+    data['picture'] = _picture;
     data['roles'] = roles.map((role) => role.toJson()).toList();
     data['permissions'] = permissions;
     data['email'] = email;

@@ -14,6 +14,7 @@ class AppColors {
   static const Color disable = Color(0xffF0F4F9);
   static const Color colorTitle = Color(0xFF49494A);
   static const Color colorError = Color(0xFFE94235);
+  static const Color colorBackground = Color(0xFFF5F5F5);
 
   static const LinearGradient baseColorGradient = LinearGradient(
     colors: [Color(0xFF258EFF), Color(0xFF0D49FF)],

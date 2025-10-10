@@ -80,8 +80,10 @@ void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
     () => FeedbackRepository(remoteDataSource: getIt.get()),
   );
-  getIt.registerFactory(() => FeedbackCubit(repository: getIt.get()));
-}
+  getIt.registerLazySingleton(
+    () => MediaRepository(remoteDataSource: getIt.get()),
+  );
+} 
 
 void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(() => AuthRemoteDataSource(network: getIt.get()));
@@ -103,6 +105,9 @@ void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(() => PageRemoteDataSource(network: getIt.get()));
   getIt.registerLazySingleton(
     () => FeedbackRemoteDataSource(network: getIt.get()),
+  );
+  getIt.registerLazySingleton(
+    () => MediaRemoteDataSource(network: getIt.get()),
   );
 }
 

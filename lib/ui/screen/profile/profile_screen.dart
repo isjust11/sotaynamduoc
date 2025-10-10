@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
@@ -57,110 +60,116 @@ class ProfileScreen extends StatelessWidget {
           // Header với gradient background
           Container(
             width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  AppColors.primaryBrand,
-                  AppColors.primaryBrand.withOpacity(0.8),
-                ],
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(AppDimens.SIZE_24),
-              child: Column(
-                children: [
-                  // Avatar với border và shadow
-                  Container(
-                    width: AppDimens.SIZE_120,
-                    height: AppDimens.SIZE_120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.white, width: 4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 10,
-                          offset: const Offset(0, 5),
+            decoration: BoxDecoration(color: AppColors.baseColor),
+            child: Stack(
+              children: [
+                // SVG background
+                Positioned.fill(
+                  child: SvgPicture.asset(
+                    Assets.images.checkeredPattern,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                // Content
+                Padding(
+                  padding: const EdgeInsets.all(AppDimens.SIZE_24),
+                  child: Row(
+                    children: [
+                      // Avatar với border và shadow
+                      Container(
+                        width: AppDimens.SIZE_100,
+                        height: AppDimens.SIZE_100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColors.white, width: 4),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: ClipOval(
-                      child: userModel.picture != null
-                          ? Image.network(
-                              userModel.picture ?? '',
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: AppColors.gray.withOpacity(0.3),
+                        child: ClipOval(
+                          child: userModel.picture != null
+                              ? Image.network(
+                                  ApiConstant.storageHost +
+                                      (userModel.picture ?? ''),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: AppColors.border.withValues(
+                                        alpha: 0.3,
+                                      ),
+                                      child: const Icon(
+                                        Icons.person,
+                                        size: AppDimens.SIZE_60,
+                                        color: AppColors.white,
+                                      ),
+                                    );
+                                  },
+                                )
+                              : Container(
+                                  color: AppColors.border.withValues(
+                                    alpha: 0.3,
+                                  ),
                                   child: const Icon(
                                     Icons.person,
                                     size: AppDimens.SIZE_60,
                                     color: AppColors.white,
                                   ),
-                                );
-                              },
-                            )
-                          : Container(
-                              color: AppColors.gray.withOpacity(0.3),
-                              child: const Icon(
-                                Icons.person,
-                                size: AppDimens.SIZE_60,
-                                color: AppColors.white,
-                              ),
-                            ),
-                    ),
+                                ),
+                        ),
+                      ),
+                      const SizedBox(width: AppDimens.SIZE_16),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomTextLabel(
+                            userModel.fullName ?? '',
+                            color: AppColors.white,
+                            fontSize: AppDimens.SIZE_20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(height: AppDimens.SIZE_4),
+                          // Email
+                          CustomTextLabel(
+                            userModel.email ?? '',
+                            color: AppColors.white.withValues(alpha: 0.9),
+                            fontSize: AppDimens.SIZE_14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ],
+                      ),
+
+                      // Tên user
+                    ],
                   ),
-                  const SizedBox(height: AppDimens.SIZE_16),
-                  // Tên user
-                  CustomTextLabel(
-                    userModel.fullName ?? '',
-                    color: AppColors.white,
-                    fontSize: AppDimens.SIZE_20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(height: AppDimens.SIZE_4),
-                  // Email
-                  CustomTextLabel(
-                    userModel.email ?? '',
-                    color: AppColors.white.withOpacity(0.9),
-                    fontSize: AppDimens.SIZE_14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
 
           // Card thông tin chi tiết
           Container(
-            margin: const EdgeInsets.all(AppDimens.SIZE_16),
+            margin: const EdgeInsets.all(AppDimens.SIZE_8),
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
                 ),
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(AppDimens.SIZE_20),
+              padding: const EdgeInsets.all(AppDimens.SIZE_12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Tiêu đề
-                  CustomTextLabel(
-                    AppLocalizations.current.myProfile,
-                    color: AppColors.black,
-                    fontSize: AppDimens.SIZE_18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(height: AppDimens.SIZE_20),
-
                   // Thông tin cơ bản
                   _buildInfoCard(
                     AppLocalizations.current.username,
@@ -179,15 +188,6 @@ class ProfileScreen extends StatelessWidget {
                   ),
 
                   const SizedBox(height: AppDimens.SIZE_20),
-
-                  // Thông tin thời gian
-                  CustomTextLabel(
-                    "Thông tin thời gian",
-                    color: AppColors.black,
-                    fontSize: AppDimens.SIZE_16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  const SizedBox(height: AppDimens.SIZE_12),
 
                   _buildInfoCard(
                     AppLocalizations.current.createdAt,
@@ -222,21 +222,24 @@ class ProfileScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: AppDimens.SIZE_12),
       padding: const EdgeInsets.all(AppDimens.SIZE_16),
       decoration: BoxDecoration(
-        color: AppColors.gray.withOpacity(0.05),
+        color: AppColors.baseColor.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-        border: Border.all(color: AppColors.gray.withOpacity(0.2), width: 1),
+        border: Border.all(
+          color: AppColors.baseColor.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(AppDimens.SIZE_8),
             decoration: BoxDecoration(
-              color: AppColors.primaryBrand.withOpacity(0.1),
+              color: AppColors.secondaryBrand.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
             ),
             child: Icon(
               icon,
-              color: AppColors.primaryBrand,
+              color: AppColors.secondaryBrand,
               size: AppDimens.SIZE_20,
             ),
           ),
@@ -247,14 +250,14 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 CustomTextLabel(
                   title,
-                  color: AppColors.gray,
+                  color: AppColors.baseColor,
                   fontSize: AppDimens.SIZE_12,
                   fontWeight: FontWeight.w500,
                 ),
                 const SizedBox(height: AppDimens.SIZE_4),
                 CustomTextLabel(
                   value.isEmpty ? "Không có" : value,
-                  color: AppColors.black,
+                  color: AppColors.baseColor,
                   fontSize: AppDimens.SIZE_14,
                   fontWeight: FontWeight.w500,
                 ),

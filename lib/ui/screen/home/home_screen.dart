@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: AppColors.inputBorderLight,
                     child: ClipOval(
                       child: Image.network(
-                        user.picture ?? '',
+                        ApiConstant.storageHost + (user.picture ?? ''),
                         width: AppDimens.SIZE_40,
                         height: AppDimens.SIZE_40,
                         fit: BoxFit.cover,

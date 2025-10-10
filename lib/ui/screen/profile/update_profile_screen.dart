@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sotaynamduoc/blocs/auth/auth_cubit.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
+import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
@@ -61,7 +64,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               final userModel = state.data as UserModel;
               _fullNameController.text = userModel.fullName ?? '';
               _emailController.text = userModel.email ?? '';
-              _currentAvatarUrl = userModel.picture;
+              _currentAvatarUrl =
+                  ApiConstant.storageHost + (userModel.picture ?? '');
               setState(() {});
             }
           } else if (state is ErrorState) {
@@ -94,7 +98,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildAvatarSection(),
-            const SizedBox(height: AppDimens.SIZE_24),
+            const SizedBox(height: AppDimens.SIZE_16),
             _buildFormFields(),
             const SizedBox(height: AppDimens.SIZE_32),
             _buildSaveButton(),
@@ -105,62 +109,77 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   Widget _buildAvatarSection() {
-    return Center(
-      child: Column(
+    return Container(
+      width: double.infinity,
+      height: AppDimens.SIZE_162,
+      decoration: BoxDecoration(
+        color: AppColors.baseColor,
+        borderRadius: BorderRadius.circular(AppDimens.SIZE_16),
+      ),
+      padding: const EdgeInsets.all(AppDimens.SIZE_16),
+      child: Stack(
         children: [
-          GestureDetector(
-            onTap: _showImagePicker,
-            child: Container(
-              width: AppDimens.SIZE_120,
-              height: AppDimens.SIZE_120,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.baseColor, width: 3),
-              ),
-              child: ClipOval(
-                child: _selectedImage != null
-                    ? Image.file(_selectedImage!, fit: BoxFit.cover)
-                    : _currentAvatarUrl != null && _currentAvatarUrl!.isNotEmpty
-                    ? Image.network(
-                        _currentAvatarUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return _buildDefaultAvatar();
-                        },
-                      )
-                    : _buildDefaultAvatar(),
-              ),
+          Positioned.fill(
+            child: SvgPicture.asset(
+              Assets.images.checkeredPattern,
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: AppDimens.SIZE_12),
-          GestureDetector(
-            onTap: _showImagePicker,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimens.SIZE_16,
-                vertical: AppDimens.SIZE_8,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.baseColor,
-                borderRadius: BorderRadius.circular(AppDimens.SIZE_20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.camera_alt,
-                    color: AppColors.white,
-                    size: AppDimens.SIZE_16,
-                  ),
-                  const SizedBox(width: AppDimens.SIZE_8),
-                  CustomTextLabel(
-                    AppLocalizations.current.changeAvatar,
-                    color: AppColors.white,
-                    fontSize: AppDimens.SIZE_14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ],
-              ),
+          Center(
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: _showImagePicker,
+                      child: Container(
+                        width: AppDimens.SIZE_120,
+                        height: AppDimens.SIZE_120,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.baseColor,
+                            width: 3,
+                          ),
+                        ),
+                        child: ClipOval(
+                          child: _selectedImage != null
+                              ? Image.file(_selectedImage!, fit: BoxFit.cover)
+                              : _currentAvatarUrl != null &&
+                                    _currentAvatarUrl!.isNotEmpty
+                              ? Image.network(
+                                  _currentAvatarUrl!,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return _buildDefaultAvatar();
+                                  },
+                                )
+                              : _buildDefaultAvatar(),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      right: AppDimens.SIZE_16,
+                      bottom: 0,
+                      child: Container(
+                        width: AppDimens.SIZE_20,
+                        height: AppDimens.SIZE_20,
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(
+                            AppDimens.SIZE_10,
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: AppColors.baseColor,
+                          size: AppDimens.SIZE_16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
@@ -300,23 +319,23 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     }
   }
 
-  void _saveProfile() {
+  Future<void> _saveProfile() async {
     if (_formKey.currentState!.validate()) {
       final authCubit = context.read<AuthCubit>();
 
       // Convert image to base64 if selected
-      String? pictureBase64;
+      String? urlPicture;
       if (_selectedImage != null) {
-        // In a real implementation, you would convert the image to base64
-        // or upload it to a server and get the URL
-        // For now, we'll just pass null
-        pictureBase64 = null;
+        urlPicture = null;
       }
-
+      // upload image to server
+      final mediaCubit = context.read<MediaCubit>();
+      final media = await mediaCubit.uploadMedia(_selectedImage!);
+      urlPicture = media.publicRelativePath;
       authCubit.updateProfile(
         fullName: _fullNameController.text.trim(),
         email: _emailController.text.trim(),
-        picture: pictureBase64,
+        picture: urlPicture,
       );
 
       // Listen for success

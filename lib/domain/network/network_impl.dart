@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
@@ -169,6 +170,21 @@ class Network {
     } on DioError catch (e) {
       if (kDebugMode) {
         print("DioError DELETE: ${e.toString()}");
+      }
+      return getError(e);
+    }
+  }
+
+  Future<ApiResponse> upload({required String url, required File file}) async {
+    try {
+      final FormData formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(file.path),
+      });
+      final Response response = await _dio.post(url, data: formData);
+      return getApiResponse(response);
+    } on DioError catch (e) {
+      if (kDebugMode) {
+        print("DioError UPLOAD: ${e.toString()}");
       }
       return getError(e);
     }

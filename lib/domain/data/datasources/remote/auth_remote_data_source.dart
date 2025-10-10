@@ -63,7 +63,7 @@ class AuthRemoteDataSource {
   }
 
   Future<UserModel> updateProfile(Map<String, dynamic> param) async {
-    ApiResponse apiResponse = await network.put(
+    ApiResponse apiResponse = await network.post(
       url: ApiConstant.updateProfile,
       body: param,
     );
