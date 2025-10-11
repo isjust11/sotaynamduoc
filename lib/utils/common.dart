@@ -4,6 +4,19 @@ import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 
 class Common {
+  static bool isDateTime(String date, {String? format}) {
+    try {
+      if (format == null) {
+        DateTime.parse(date);
+      } else {
+        DateFormat(format).parse(date);
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   static DateTime? parserDate(String? date, {String? format}) {
     try {
       if (format == null) {
@@ -27,7 +40,7 @@ class Common {
   static String formatDate(dynamic dateValue, {String? format}) {
     try {
       DateTime dateTime;
-      
+
       if (dateValue is String) {
         // Parse ISO 8601 format string
         dateTime = DateTime.parse(dateValue);
@@ -36,7 +49,7 @@ class Common {
       } else {
         return 'N/A';
       }
-      
+
       return DateFormat(format ?? 'dd/MM/yyyy').format(dateTime);
     } catch (e) {
       return 'N/A';

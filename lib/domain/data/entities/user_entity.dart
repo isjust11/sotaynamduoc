@@ -7,11 +7,14 @@ class UserEntity extends BaseEntity {
   bool? isAdmin;
   bool? isBlock;
   String? fullName;
-  String? _picture;
-  String? get picture => _picture;
-  set picture(String? value) {
-    _picture = value;
-  }
+  String? phoneNumber;
+  String? address;
+  String? birthDate;
+  String? facebookLink;
+  String? instagramLink;
+  String? twitterLink;
+  String? linkedinLink;
+  String? picture;
 
   /// Get converted picture URL for Flutter
   List<RoleEntity> roles = [];
@@ -31,7 +34,7 @@ class UserEntity extends BaseEntity {
     isAdmin = json['isAdmin'];
     isBlock = json['isBlock'];
     fullName = json['fullName'];
-    _picture = json['picture'];
+    picture = json['picture'];
     roles = (json['roles'] as List)
         .map((role) => RoleEntity.fromJson(role as Map<String, dynamic>))
         .toList();
@@ -46,6 +49,21 @@ class UserEntity extends BaseEntity {
     updatedAt = json['updatedAt'];
   }
 
+  UserEntity.simpleFromJson(Map<String, dynamic> json) : super.fromJson(json) {
+    username = json['username'];
+    isAdmin = false;
+    isBlock = false;
+    fullName = json['fullName'];
+    phoneNumber = json['phoneNumber'];
+    address = json['address'];
+    birthDate = json['birthDate'];
+    facebookLink = json['facebookLink'];
+    instagramLink = json['instagramLink'];
+    twitterLink = json['twitterLink'];
+    linkedinLink = json['linkedinLink'];
+    picture = json['picture'];
+    email = json['email'];
+  }
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -54,7 +72,7 @@ class UserEntity extends BaseEntity {
     data['isAdmin'] = isAdmin;
     data['isBlock'] = isBlock;
     data['fullName'] = fullName;
-    data['picture'] = _picture;
+    data['picture'] = picture;
     data['roles'] = roles.map((role) => role.toJson()).toList();
     data['permissions'] = permissions;
     data['email'] = email;

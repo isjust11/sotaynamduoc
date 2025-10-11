@@ -149,6 +149,11 @@ class AppLocalizations {
     return Intl.message('Đang tải...', name: 'loading', desc: '', args: []);
   }
 
+  /// `Đang lưu...`
+  String get saving {
+    return Intl.message('Đang lưu...', name: 'saving', desc: '', args: []);
+  }
+
   /// `Xong`
   String get done {
     return Intl.message('Xong', name: 'done', desc: '', args: []);
@@ -1719,6 +1724,141 @@ class AppLocalizations {
     return Intl.message(
       'Vui lòng nhập email hợp lệ',
       name: 'pleaseEnterValidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập số điện thoại`
+  String get pleaseEnterPhoneNumber {
+    return Intl.message(
+      'Vui lòng nhập số điện thoại',
+      name: 'pleaseEnterPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập địa chỉ`
+  String get pleaseEnterAddress {
+    return Intl.message(
+      'Vui lòng nhập địa chỉ',
+      name: 'pleaseEnterAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `dd/MM/yyyy`
+  String get pleaseEnterBirthDate {
+    return Intl.message(
+      'dd/MM/yyyy',
+      name: 'pleaseEnterBirthDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ngày sinh không hợp lệ`
+  String get birthDateUncorectFormat {
+    return Intl.message(
+      'Ngày sinh không hợp lệ',
+      name: 'birthDateUncorectFormat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập liên kết Facebook`
+  String get pleaseEnterFacebookLink {
+    return Intl.message(
+      'Vui lòng nhập liên kết Facebook',
+      name: 'pleaseEnterFacebookLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập liên kết Instagram`
+  String get pleaseEnterInstagramLink {
+    return Intl.message(
+      'Vui lòng nhập liên kết Instagram',
+      name: 'pleaseEnterInstagramLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập liên kết Twitter`
+  String get pleaseEnterTwitterLink {
+    return Intl.message(
+      'Vui lòng nhập liên kết Twitter',
+      name: 'pleaseEnterTwitterLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập liên kết LinkedIn`
+  String get pleaseEnterLinkedinLink {
+    return Intl.message(
+      'Vui lòng nhập liên kết LinkedIn',
+      name: 'pleaseEnterLinkedinLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ngày sinh`
+  String get birthDate {
+    return Intl.message('Ngày sinh', name: 'birthDate', desc: '', args: []);
+  }
+
+  /// `Liên kết Facebook`
+  String get facebookLink {
+    return Intl.message(
+      'Liên kết Facebook',
+      name: 'facebookLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Liên kết Instagram`
+  String get instagramLink {
+    return Intl.message(
+      'Liên kết Instagram',
+      name: 'instagramLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Liên kết Twitter`
+  String get twitterLink {
+    return Intl.message(
+      'Liên kết Twitter',
+      name: 'twitterLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Liên kết LinkedIn`
+  String get linkedinLink {
+    return Intl.message(
+      'Liên kết LinkedIn',
+      name: 'linkedinLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vui lòng nhập số điện thoại hợp lệ`
+  String get pleaseEnterValidPhoneNumber {
+    return Intl.message(
+      'Vui lòng nhập số điện thoại hợp lệ',
+      name: 'pleaseEnterValidPhoneNumber',
       desc: '',
       args: [],
     );

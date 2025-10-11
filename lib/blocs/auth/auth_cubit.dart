@@ -279,19 +279,11 @@ class AuthCubit extends Cubit<BaseState> {
   }
 
   /// Cập nhật thông tin profile
-  Future updateProfile({
-    String? fullName,
-    String? email,
-    String? picture,
-  }) async {
+  Future updateProfile({required UserModel userModel}) async {
     try {
       emit(LoadingState());
-      UserModel userModel = await repository.updateProfile({
-        if (fullName != null) "fullName": fullName,
-        if (email != null) "email": email,
-        if (picture != null) "picture": picture,
-      });
-      emit(LoadedState(userModel));
+      UserModel updatedUserModel = await repository.updateProfile(userModel);
+      emit(LoadedState(updatedUserModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
     }

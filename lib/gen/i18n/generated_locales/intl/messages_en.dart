@@ -43,6 +43,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "biometricSetupSuccess": MessageLookupByLibrary.simpleMessage(
       "Biometric setup successful",
     ),
+    "birthDate": MessageLookupByLibrary.simpleMessage("Birth date"),
+    "birthDateUncorectFormat": MessageLookupByLibrary.simpleMessage(
+      "Birth date incorrect format",
+    ),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage(
@@ -95,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "facebookInvalidClient": MessageLookupByLibrary.simpleMessage(
       "Facebook invalid client",
     ),
+    "facebookLink": MessageLookupByLibrary.simpleMessage("Facebook link"),
     "facebookLoginFailed": MessageLookupByLibrary.simpleMessage(
       "Facebook sign in failed",
     ),
@@ -191,10 +196,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Enter username"),
+    "instagramLink": MessageLookupByLibrary.simpleMessage("Instagram link"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "lastLogin": MessageLookupByLibrary.simpleMessage("Last login"),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
+    "linkedinLink": MessageLookupByLibrary.simpleMessage("LinkedIn link"),
     "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "loginFailed": MessageLookupByLibrary.simpleMessage("Login failed!"),
@@ -249,20 +256,42 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
       "Please check login information",
     ),
+    "pleaseEnterAddress": MessageLookupByLibrary.simpleMessage(
+      "Please enter address",
+    ),
+    "pleaseEnterBirthDate": MessageLookupByLibrary.simpleMessage("dd/MM/yyyy"),
     "pleaseEnterCredentials": MessageLookupByLibrary.simpleMessage(
       "Please enter your credentials",
+    ),
+    "pleaseEnterFacebookLink": MessageLookupByLibrary.simpleMessage(
+      "Please enter Facebook link",
     ),
     "pleaseEnterFullName": MessageLookupByLibrary.simpleMessage(
       "Please enter full name",
     ),
+    "pleaseEnterInstagramLink": MessageLookupByLibrary.simpleMessage(
+      "Please enter Instagram link",
+    ),
+    "pleaseEnterLinkedinLink": MessageLookupByLibrary.simpleMessage(
+      "Please enter LinkedIn link",
+    ),
     "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
       "Please enter password",
+    ),
+    "pleaseEnterPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "Please enter phone number",
+    ),
+    "pleaseEnterTwitterLink": MessageLookupByLibrary.simpleMessage(
+      "Please enter Twitter link",
     ),
     "pleaseEnterUsername": MessageLookupByLibrary.simpleMessage(
       "Please enter username",
     ),
     "pleaseEnterValidEmail": MessageLookupByLibrary.simpleMessage(
       "Please enter valid email",
+    ),
+    "pleaseEnterValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "Please enter valid phone number",
     ),
     "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Please confirm password",
@@ -307,6 +336,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "roles": MessageLookupByLibrary.simpleMessage("Roles"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
+    "saving": MessageLookupByLibrary.simpleMessage("Saving..."),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
     "security": MessageLookupByLibrary.simpleMessage("Security"),
     "selectImage": MessageLookupByLibrary.simpleMessage("Select Image"),
@@ -337,6 +367,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "The session has expired. Please log in again",
     ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
+    "twitterLink": MessageLookupByLibrary.simpleMessage("Twitter link"),
     "unread": MessageLookupByLibrary.simpleMessage("Unread"),
     "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
     "updateYourInfo": MessageLookupByLibrary.simpleMessage("Update your info"),

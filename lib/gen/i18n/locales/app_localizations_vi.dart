@@ -43,6 +43,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get loading => 'Đang tải...';
 
   @override
+  String get saving => 'Đang lưu...';
+
+  @override
   String get skip => 'Bỏ qua';
 
   @override
@@ -612,4 +615,47 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get pleaseEnterValidEmail => 'Vui lòng nhập email hợp lệ';
+
+  @override
+  String get pleaseEnterPhoneNumber => 'Vui lòng nhập số điện thoại';
+
+  @override
+  String get pleaseEnterAddress => 'Vui lòng nhập địa chỉ';
+
+  @override
+  String get pleaseEnterBirthDate => 'dd/MM/yyyy';
+
+  @override
+  String get birthDateUncorectFormat => 'Ngày sinh không hợp lệ';
+
+  @override
+  String get pleaseEnterFacebookLink => 'Vui lòng nhập liên kết Facebook';
+
+  @override
+  String get pleaseEnterInstagramLink => 'Vui lòng nhập liên kết Instagram';
+
+  @override
+  String get pleaseEnterTwitterLink => 'Vui lòng nhập liên kết Twitter';
+
+  @override
+  String get pleaseEnterLinkedinLink => 'Vui lòng nhập liên kết LinkedIn';
+
+  @override
+  String get birthDate => 'Ngày sinh';
+
+  @override
+  String get facebookLink => 'Liên kết Facebook';
+
+  @override
+  String get instagramLink => 'Liên kết Instagram';
+
+  @override
+  String get twitterLink => 'Liên kết Twitter';
+
+  @override
+  String get linkedinLink => 'Liên kết LinkedIn';
+
+  @override
+  String get pleaseEnterValidPhoneNumber =>
+      'Vui lòng nhập số điện thoại hợp lệ';
 }

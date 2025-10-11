@@ -2,7 +2,7 @@ import 'package:sotaynamduoc/domain/data/entities/entities.dart';
 
 class UserModel extends UserEntity {
   UserModel.fromJson(super.json) : super.fromJson();
-
+  UserModel.simpleFromJson(super.json) : super.simpleFromJson();
   get getSortName {
     int length = username?.length ?? 0;
     if (length <= 1) {

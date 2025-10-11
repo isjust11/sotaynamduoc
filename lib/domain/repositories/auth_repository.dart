@@ -44,7 +44,18 @@ class AuthRepository {
     return authModel;
   }
 
-  Future<UserModel> updateProfile(Map<String, dynamic> param) async {
+  Future<UserModel> updateProfile(UserModel updatedUserModel) async {
+    Map<String, dynamic> param = <String, dynamic>{};
+    param['fullName'] = updatedUserModel.fullName;
+    param['email'] = updatedUserModel.email;
+    param['picture'] = updatedUserModel.picture;
+    param['phoneNumber'] = updatedUserModel.phoneNumber;
+    param['address'] = updatedUserModel.address;
+    param['birthDate'] = updatedUserModel.birthDate;
+    param['facebookLink'] = updatedUserModel.facebookLink;
+    param['instagramLink'] = updatedUserModel.instagramLink;
+    param['twitterLink'] = updatedUserModel.twitterLink;
+    param['linkedinLink'] = updatedUserModel.linkedinLink;
     UserModel userModel = await remoteDataSource.updateProfile(param);
     await localDataSource.saveUserInfo(userModel);
     return userModel;

@@ -11,6 +11,7 @@
   "tokenExpiredMessage": "The session has expired. Please log in again",
   "changeLanguage": "Change Language",
   "loading": "Loading...",
+  "saving": "Saving...",
   "skip": "Skip",
   "hello": "Hello",
   "home": "Home",
@@ -196,5 +197,19 @@
   "profileUpdated": "Profile updated successfully",
   "profileUpdateFailed": "Failed to update profile",
   "pleaseEnterFullName": "Please enter full name",
-  "pleaseEnterValidEmail": "Please enter valid email"
+  "pleaseEnterValidEmail": "Please enter valid email",
+  "pleaseEnterPhoneNumber": "Please enter phone number",
+  "pleaseEnterAddress": "Please enter address",
+  "pleaseEnterBirthDate": "dd/MM/yyyy",
+  "birthDateUncorectFormat": "Birth date incorrect format",
+  "pleaseEnterFacebookLink": "Please enter Facebook link",
+  "pleaseEnterInstagramLink": "Please enter Instagram link",
+  "pleaseEnterTwitterLink": "Please enter Twitter link",
+  "pleaseEnterLinkedinLink": "Please enter LinkedIn link",
+  "birthDate": "Birth date",
+  "facebookLink": "Facebook link",
+  "instagramLink": "Instagram link",
+  "twitterLink": "Twitter link",
+  "linkedinLink": "LinkedIn link",
+  "pleaseEnterValidPhoneNumber": "Please enter valid phone number"
 }

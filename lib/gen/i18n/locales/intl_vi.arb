@@ -12,6 +12,7 @@
   "changeLanguage": "Đổi ngôn ngữ",
   "agree": "Đồng ý",
   "loading": "Đang tải...",
+  "saving": "Đang lưu...",
   "done": "Xong",
   "skip": "Bỏ qua",
   "hello": "Xin chào",
@@ -202,5 +203,19 @@
   "profileUpdated": "Cập nhật hồ sơ thành công",
   "profileUpdateFailed": "Cập nhật hồ sơ thất bại",
   "pleaseEnterFullName": "Vui lòng nhập họ và tên",
-  "pleaseEnterValidEmail": "Vui lòng nhập email hợp lệ"
+  "pleaseEnterValidEmail": "Vui lòng nhập email hợp lệ",
+  "pleaseEnterPhoneNumber": "Vui lòng nhập số điện thoại",
+  "pleaseEnterAddress": "Vui lòng nhập địa chỉ",
+  "pleaseEnterBirthDate": "dd/MM/yyyy",
+  "birthDateUncorectFormat": "Ngày sinh không hợp lệ",
+  "pleaseEnterFacebookLink": "Vui lòng nhập liên kết Facebook",
+  "pleaseEnterInstagramLink": "Vui lòng nhập liên kết Instagram",
+  "pleaseEnterTwitterLink": "Vui lòng nhập liên kết Twitter",
+  "pleaseEnterLinkedinLink": "Vui lòng nhập liên kết LinkedIn",
+  "birthDate": "Ngày sinh",
+  "facebookLink": "Liên kết Facebook",
+  "instagramLink": "Liên kết Instagram",
+  "twitterLink": "Liên kết Twitter",
+  "linkedinLink": "Liên kết LinkedIn",
+  "pleaseEnterValidPhoneNumber": "Vui lòng nhập số điện thoại hợp lệ"
 }

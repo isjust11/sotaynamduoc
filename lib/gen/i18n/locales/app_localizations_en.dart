@@ -43,6 +43,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loading => 'Loading...';
 
   @override
+  String get saving => 'Saving...';
+
+  @override
   String get skip => 'Skip';
 
   @override
@@ -607,4 +610,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleaseEnterValidEmail => 'Please enter valid email';
+
+  @override
+  String get pleaseEnterPhoneNumber => 'Please enter phone number';
+
+  @override
+  String get pleaseEnterAddress => 'Please enter address';
+
+  @override
+  String get pleaseEnterBirthDate => 'dd/MM/yyyy';
+
+  @override
+  String get birthDateUncorectFormat => 'Birth date incorrect format';
+
+  @override
+  String get pleaseEnterFacebookLink => 'Please enter Facebook link';
+
+  @override
+  String get pleaseEnterInstagramLink => 'Please enter Instagram link';
+
+  @override
+  String get pleaseEnterTwitterLink => 'Please enter Twitter link';
+
+  @override
+  String get pleaseEnterLinkedinLink => 'Please enter LinkedIn link';
+
+  @override
+  String get birthDate => 'Birth date';
+
+  @override
+  String get facebookLink => 'Facebook link';
+
+  @override
+  String get instagramLink => 'Instagram link';
+
+  @override
+  String get twitterLink => 'Twitter link';
+
+  @override
+  String get linkedinLink => 'LinkedIn link';
+
+  @override
+  String get pleaseEnterValidPhoneNumber => 'Please enter valid phone number';
 }

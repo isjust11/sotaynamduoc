@@ -16,6 +16,7 @@ import 'package:sotaynamduoc/ui/widget/base_button.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/base_text_input.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/utils/common.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -28,14 +29,46 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _birthDateController = TextEditingController();
+  final _facebookLinkController = TextEditingController();
+  final _instagramLinkController = TextEditingController();
+  final _twitterLinkController = TextEditingController();
+  final _linkedinLinkController = TextEditingController();
+  // validator
+  final GlobalKey<TextFieldState> _fullNameFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _emailFieldKey = GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _phoneNumberFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _addressFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _birthDateFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _facebookLinkFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _instagramLinkFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _twitterLinkFieldKey =
+      GlobalKey<TextFieldState>();
+  final GlobalKey<TextFieldState> _linkedinLinkFieldKey =
+      GlobalKey<TextFieldState>();
   File? _selectedImage;
   String? _currentAvatarUrl;
+  String? _pathRelativeAvatar;
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
     _loadUserProfile();
+  }
+
+  @override
+  void didUpdateWidget(UpdateProfileScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _formKey.currentState?.dispose();
   }
 
   void _loadUserProfile() {
@@ -45,8 +78,19 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   @override
   void dispose() {
+    _formKey.currentState?.dispose();
     _fullNameController.dispose();
     _emailController.dispose();
+    _fullNameFieldKey.currentState?.dispose();
+    _emailFieldKey.currentState?.dispose();
+    _phoneNumberController.dispose();
+    _phoneNumberFieldKey.currentState?.dispose();
+    _addressFieldKey.currentState?.dispose();
+    _birthDateFieldKey.currentState?.dispose();
+    _facebookLinkFieldKey.currentState?.dispose();
+    _instagramLinkFieldKey.currentState?.dispose();
+    _twitterLinkFieldKey.currentState?.dispose();
+    _linkedinLinkFieldKey.currentState?.dispose();
     super.dispose();
   }
 
@@ -66,13 +110,21 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               _emailController.text = userModel.email ?? '';
               _currentAvatarUrl =
                   ApiConstant.storageHost + (userModel.picture ?? '');
+              _pathRelativeAvatar = userModel.picture ?? '';
+              _phoneNumberController.text = userModel.phoneNumber ?? '';
+              _addressController.text = userModel.address ?? '';
+              _birthDateController.text = userModel.birthDate ?? '';
+              _facebookLinkController.text = userModel.facebookLink ?? '';
+              _instagramLinkController.text = userModel.instagramLink ?? '';
+              _twitterLinkController.text = userModel.twitterLink ?? '';
+              _linkedinLinkController.text = userModel.linkedinLink ?? '';
               setState(() {});
             }
           } else if (state is ErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.errorRed,
               ),
             );
             setState(() {
@@ -189,7 +241,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   Widget _buildDefaultAvatar() {
     return Container(
-      color: AppColors.gray.withOpacity(0.3),
+      color: AppColors.gray.withValues(alpha: 0.3),
       child: Icon(Icons.person, size: AppDimens.SIZE_60, color: AppColors.gray),
     );
   }
@@ -203,8 +255,14 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           isRequired: true,
         ),
         CustomTextInput(
+          key: _fullNameFieldKey,
           textController: _fullNameController,
           hintText: AppLocalizations.current.pleaseEnterFullName,
+          isRequired: true,
+          prefixIcon: Icon(
+            Icons.person_outline,
+            color: AppColors.textMediumGrey,
+          ),
           validator: (value) {
             if (value.trim().isEmpty) {
               return AppLocalizations.current.pleaseEnterFullName;
@@ -215,12 +273,18 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         const SizedBox(height: AppDimens.SIZE_16),
         CustomTextLabel.renderBaseTitle(
           title: AppLocalizations.current.email,
-          isRequired: true,
+          isRequired: false,
         ),
         CustomTextInput(
+          key: _emailFieldKey,
           textController: _emailController,
           hintText: AppLocalizations.current.plsInputEmail,
           keyboardType: TextInputType.emailAddress,
+          enabled: false,
+          prefixIcon: Icon(
+            Icons.email_outlined,
+            color: AppColors.textMediumGrey,
+          ),
           validator: (value) {
             if (value.trim().isEmpty) {
               return AppLocalizations.current.plsInputEmail;
@@ -231,18 +295,146 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             return null;
           },
         ),
+        const SizedBox(height: AppDimens.SIZE_16),
+        CustomTextLabel.renderBaseTitle(
+          title: AppLocalizations.current.phoneNumber,
+          isRequired: false,
+        ),
+        CustomTextInput(
+          key: _phoneNumberFieldKey,
+          textController: _phoneNumberController,
+          hintText: AppLocalizations.current.pleaseEnterPhoneNumber,
+          isRequired: false,
+          keyboardType: TextInputType.phone,
+          validator: (value) {
+            if (value.trim().isNotEmpty) {
+              if (!RegExp(r'^[0-9-+]{10}$').hasMatch(value)) {
+                return AppLocalizations.current.pleaseEnterValidPhoneNumber;
+              }
+            }
+            return null;
+          },
+          prefixIcon: Icon(
+            Icons.phone_outlined,
+            color: AppColors.textMediumGrey,
+          ),
+        ),
+        const SizedBox(height: AppDimens.SIZE_16),
+        CustomTextLabel.renderBaseTitle(
+          title: AppLocalizations.current.address,
+          isRequired: false,
+        ),
+        CustomTextInput(
+          key: _addressFieldKey,
+          textController: _addressController,
+          hintText: AppLocalizations.current.pleaseEnterAddress,
+          isRequired: false,
+          keyboardType: TextInputType.streetAddress,
+          prefixIcon: Icon(
+            Icons.location_on_outlined,
+            color: AppColors.textMediumGrey,
+          ),
+        ),
+        const SizedBox(height: AppDimens.SIZE_16),
+        CustomTextLabel.renderBaseTitle(
+          title: AppLocalizations.current.birthDate,
+          isRequired: false,
+        ),
+        CustomTextInput(
+          key: _birthDateFieldKey,
+          textController: _birthDateController,
+          hintText: AppLocalizations.current.pleaseEnterBirthDate,
+          isRequired: false,
+          keyboardType: TextInputType.datetime,
+          validator: (value) {
+            if (value.trim().isNotEmpty &&
+                !Common.isDateTime(value.trim(), format: 'dd/MM/yyyy')) {
+              return AppLocalizations.current.birthDateUncorectFormat;
+            }
+            return null;
+          },
+          prefixIcon: Icon(
+            Icons.date_range_outlined,
+            color: AppColors.textMediumGrey,
+          ),
+        ),
+        const SizedBox(height: AppDimens.SIZE_16),
+        CustomTextLabel.renderBaseTitle(
+          title: AppLocalizations.current.facebookLink,
+          isRequired: false,
+        ),
+        CustomTextInput(
+          key: _facebookLinkFieldKey,
+          textController: _facebookLinkController,
+          hintText: AppLocalizations.current.pleaseEnterFacebookLink,
+          isRequired: false,
+          keyboardType: TextInputType.url,
+          prefixIcon: Icon(
+            Icons.facebook_rounded,
+            color: AppColors.textMediumGrey,
+          ),
+        ),
+        const SizedBox(height: AppDimens.SIZE_16),
+        CustomTextLabel.renderBaseTitle(
+          title: AppLocalizations.current.instagramLink,
+          isRequired: false,
+        ),
+        CustomTextInput(
+          key: _instagramLinkFieldKey,
+          textController: _instagramLinkController,
+          hintText: AppLocalizations.current.pleaseEnterInstagramLink,
+          isRequired: false,
+          keyboardType: TextInputType.url,
+          prefixIcon: Icon(
+            Icons.ac_unit_outlined,
+            color: AppColors.textMediumGrey,
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildSaveButton() {
     return BaseButton(
-      title: AppLocalizations.current.save,
+      title: _isLoading
+          ? AppLocalizations.current.saving
+          : AppLocalizations.current.save,
       onTap: _isLoading ? null : _saveProfile,
       backgroundColor: AppColors.baseColor,
       width: double.infinity,
       height: AppDimens.SIZE_48,
     );
+  }
+
+  bool _validateForm() {
+    if (_fullNameFieldKey.currentState!.isValid) {
+      return _fullNameFieldKey.currentState!.isValid;
+    }
+    if (_emailFieldKey.currentState!.isValid) {
+      return _emailFieldKey.currentState!.isValid;
+    }
+    if (_phoneNumberFieldKey.currentState!.isValid) {
+      return _phoneNumberFieldKey.currentState!.isValid;
+    }
+    if (_addressFieldKey.currentState!.isValid) {
+      return _addressFieldKey.currentState!.isValid;
+    }
+    if (_birthDateFieldKey.currentState!.isValid) {
+      return _birthDateFieldKey.currentState!.isValid;
+    }
+    if (_facebookLinkFieldKey.currentState!.isValid) {
+      return _facebookLinkFieldKey.currentState!.isValid;
+    }
+    if (_instagramLinkFieldKey.currentState!.isValid) {
+      return _instagramLinkFieldKey.currentState!.isValid;
+    }
+    if (_twitterLinkFieldKey.currentState!.isValid) {
+      return _twitterLinkFieldKey.currentState!.isValid;
+    }
+    if (_linkedinLinkFieldKey.currentState!.isValid) {
+      return _linkedinLinkFieldKey.currentState!.isValid;
+    }
+    return true;
   }
 
   void _showImagePicker() {
@@ -320,36 +512,56 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   Future<void> _saveProfile() async {
-    if (_formKey.currentState!.validate()) {
-      final authCubit = context.read<AuthCubit>();
+    if (!_validateForm()) {
+      return;
+    }
+    setState(() {
+      _isLoading = true;
+    });
+    FocusScope.of(context).unfocus();
+    final authCubit = context.read<AuthCubit>();
 
-      // Convert image to base64 if selected
-      String? urlPicture;
-      if (_selectedImage != null) {
-        urlPicture = null;
-      }
-      // upload image to server
+    // Convert image to base64 if selected
+    String? urlPicture;
+    if (_selectedImage != null) {
+      urlPicture = null;
+    } else {
+      urlPicture = _pathRelativeAvatar;
+    }
+
+    // upload image to server
+    if (_selectedImage != null) {
       final mediaCubit = context.read<MediaCubit>();
       final media = await mediaCubit.uploadMedia(_selectedImage!);
       urlPicture = media.publicRelativePath;
-      authCubit.updateProfile(
-        fullName: _fullNameController.text.trim(),
-        email: _emailController.text.trim(),
-        picture: urlPicture,
-      );
-
-      // Listen for success
-      authCubit.stream.listen((state) {
-        if (state is LoadedState && state.data is UserModel) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.current.profileUpdated),
-              backgroundColor: Colors.green,
-            ),
-          );
-          Navigator.pop(context);
-        }
-      });
     }
+    final userModel = UserModel.simpleFromJson({
+      'fullName': _fullNameController.text.trim(),
+      'email': _emailController.text.trim(),
+      'phoneNumber': _phoneNumberController.text.trim(),
+      'picture': urlPicture,
+      'address': _addressController.text.trim(),
+      'birthDate': _birthDateController.text.trim(),
+      'facebookLink': _facebookLinkController.text.trim(),
+      'instagramLink': _instagramLinkController.text.trim(),
+      'twitterLink': _twitterLinkController.text.trim(),
+      'linkedinLink': _linkedinLinkController.text.trim(),
+    });
+    await authCubit.updateProfile(userModel: userModel);
+    // Listen for success
+    authCubit.stream.listen((state) {
+      if (state is LoadedState && state.data is UserModel) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.current.profileUpdated),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context);
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 }

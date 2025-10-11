@@ -46,6 +46,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "biometricSetupSuccess": MessageLookupByLibrary.simpleMessage(
       "Thiết lập sinh trắc học thành công",
     ),
+    "birthDate": MessageLookupByLibrary.simpleMessage("Ngày sinh"),
+    "birthDateUncorectFormat": MessageLookupByLibrary.simpleMessage(
+      "Ngày sinh không hợp lệ",
+    ),
     "camera": MessageLookupByLibrary.simpleMessage("Máy ảnh"),
     "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
@@ -99,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "facebookInvalidClient": MessageLookupByLibrary.simpleMessage(
       "Client ID không hợp lệ",
     ),
+    "facebookLink": MessageLookupByLibrary.simpleMessage("Liên kết Facebook"),
     "facebookLoginFailed": MessageLookupByLibrary.simpleMessage(
       "Đăng nhập bằng Facebook thất bại",
     ),
@@ -216,10 +221,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
     "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Nhập tên đăng nhập"),
+    "instagramLink": MessageLookupByLibrary.simpleMessage("Liên kết Instagram"),
     "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
     "lastLogin": MessageLookupByLibrary.simpleMessage("Lần đăng nhập cuối"),
     "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Lượt thích"),
+    "linkedinLink": MessageLookupByLibrary.simpleMessage("Liên kết LinkedIn"),
     "loading": MessageLookupByLibrary.simpleMessage("Đang tải..."),
     "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
     "loginFailed": MessageLookupByLibrary.simpleMessage("Đăng nhập thất bại!"),
@@ -278,20 +285,42 @@ class MessageLookup extends MessageLookupByLibrary {
     "pleaseCheckLoginInfo": MessageLookupByLibrary.simpleMessage(
       "Vui lòng kiểm tra lại thông tin đăng nhập",
     ),
+    "pleaseEnterAddress": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập địa chỉ",
+    ),
+    "pleaseEnterBirthDate": MessageLookupByLibrary.simpleMessage("dd/MM/yyyy"),
     "pleaseEnterCredentials": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập đầy đủ thông tin đăng nhập",
+    ),
+    "pleaseEnterFacebookLink": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập liên kết Facebook",
     ),
     "pleaseEnterFullName": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập họ và tên",
     ),
+    "pleaseEnterInstagramLink": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập liên kết Instagram",
+    ),
+    "pleaseEnterLinkedinLink": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập liên kết LinkedIn",
+    ),
     "pleaseEnterPassword": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập mật khẩu",
+    ),
+    "pleaseEnterPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập số điện thoại",
+    ),
+    "pleaseEnterTwitterLink": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập liên kết Twitter",
     ),
     "pleaseEnterUsername": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập tên đăng nhập",
     ),
     "pleaseEnterValidEmail": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập email hợp lệ",
+    ),
+    "pleaseEnterValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
+      "Vui lòng nhập số điện thoại hợp lệ",
     ),
     "plsInputConfirmPassword": MessageLookupByLibrary.simpleMessage(
       "Vui lòng xác nhận mật khẩu",
@@ -342,6 +371,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "roles": MessageLookupByLibrary.simpleMessage("Vai trò"),
     "save": MessageLookupByLibrary.simpleMessage("Lưu"),
+    "saving": MessageLookupByLibrary.simpleMessage("Đang lưu..."),
     "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),
     "security": MessageLookupByLibrary.simpleMessage("Bảo mật"),
     "selectImage": MessageLookupByLibrary.simpleMessage("Chọn ảnh"),
@@ -374,6 +404,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
     ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Thử lại"),
+    "twitterLink": MessageLookupByLibrary.simpleMessage("Liên kết Twitter"),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
     "updateProfile": MessageLookupByLibrary.simpleMessage("Cập nhật hồ sơ"),
     "updateYourInfo": MessageLookupByLibrary.simpleMessage(

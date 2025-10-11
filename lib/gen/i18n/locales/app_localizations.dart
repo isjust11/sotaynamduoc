@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'Loading...'**
   String get loading;
 
+  /// No description provided for @saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving...'**
+  String get saving;
+
   /// No description provided for @skip.
   ///
   /// In en, this message translates to:
@@ -1279,6 +1285,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter valid email'**
   String get pleaseEnterValidEmail;
+
+  /// No description provided for @pleaseEnterPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter phone number'**
+  String get pleaseEnterPhoneNumber;
+
+  /// No description provided for @pleaseEnterAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter address'**
+  String get pleaseEnterAddress;
+
+  /// No description provided for @pleaseEnterBirthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'dd/MM/yyyy'**
+  String get pleaseEnterBirthDate;
+
+  /// No description provided for @birthDateUncorectFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth date incorrect format'**
+  String get birthDateUncorectFormat;
+
+  /// No description provided for @pleaseEnterFacebookLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter Facebook link'**
+  String get pleaseEnterFacebookLink;
+
+  /// No description provided for @pleaseEnterInstagramLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter Instagram link'**
+  String get pleaseEnterInstagramLink;
+
+  /// No description provided for @pleaseEnterTwitterLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter Twitter link'**
+  String get pleaseEnterTwitterLink;
+
+  /// No description provided for @pleaseEnterLinkedinLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter LinkedIn link'**
+  String get pleaseEnterLinkedinLink;
+
+  /// No description provided for @birthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth date'**
+  String get birthDate;
+
+  /// No description provided for @facebookLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Facebook link'**
+  String get facebookLink;
+
+  /// No description provided for @instagramLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Instagram link'**
+  String get instagramLink;
+
+  /// No description provided for @twitterLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Twitter link'**
+  String get twitterLink;
+
+  /// No description provided for @linkedinLink.
+  ///
+  /// In en, this message translates to:
+  /// **'LinkedIn link'**
+  String get linkedinLink;
+
+  /// No description provided for @pleaseEnterValidPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter valid phone number'**
+  String get pleaseEnterValidPhoneNumber;
 }
 
 class _AppLocalizationsDelegate
