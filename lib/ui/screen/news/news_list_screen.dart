@@ -245,7 +245,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
                   ? Image.network(
                       height: 60.sh,
                       width: 100.sw,
-                      ApiConstant.apiHost + (news.thumbnail ?? ''),
+                      ApiConstant.storageHost + (news.thumbnail ?? ''),
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
