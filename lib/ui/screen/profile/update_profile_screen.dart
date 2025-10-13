@@ -12,10 +12,7 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
-import 'package:sotaynamduoc/ui/widget/base_button.dart';
-import 'package:sotaynamduoc/ui/widget/base_screen.dart';
-import 'package:sotaynamduoc/ui/widget/base_text_input.dart';
-import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
@@ -101,6 +98,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         title: AppLocalizations.current.updateProfile,
         backgroundColor: AppColors.baseColor,
       ),
+      messageNotify: CustomSnackBar<AuthCubit>(),
       body: BlocListener<AuthCubit, BaseState>(
         listener: (context, state) {
           if (state is LoadedState) {
@@ -118,21 +116,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               _instagramLinkController.text = userModel.instagramLink ?? '';
               _twitterLinkController.text = userModel.twitterLink ?? '';
               _linkedinLinkController.text = userModel.linkedinLink ?? '';
-              setState(() {});
+              setState(() {
+                _isLoading = false;
+              });
             }
           } else if (state is ErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: AppColors.errorRed,
-              ),
-            );
             setState(() {
               _isLoading = false;
-            });
-          } else if (state is LoadingState) {
-            setState(() {
-              _isLoading = true;
             });
           }
         },
@@ -402,7 +392,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       onTap: _isLoading ? null : _saveProfile,
       backgroundColor: AppColors.baseColor,
       width: double.infinity,
-      height: AppDimens.SIZE_48,
     );
   }
 
@@ -549,19 +538,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     });
     await authCubit.updateProfile(userModel: userModel);
     // Listen for success
-    authCubit.stream.listen((state) {
-      if (state is LoadedState && state.data is UserModel) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.current.profileUpdated),
-            backgroundColor: Colors.green,
-          ),
-        );
-        Navigator.pop(context);
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    });
+    Navigator.of(context).pop();
   }
 }

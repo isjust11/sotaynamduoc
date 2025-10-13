@@ -186,6 +186,41 @@ class ProfileScreen extends StatelessWidget {
                     userModel.permissions.map((e) => e.name).join(', '),
                     Icons.security_outlined,
                   ),
+                  _buildInfoCard(
+                    AppLocalizations.current.birthDate,
+                    userModel.birthDate ?? '',
+                    Icons.calendar_today_outlined,
+                  ),
+                  _buildInfoCard(
+                    AppLocalizations.current.address,
+                    userModel.address ?? '',
+                    Icons.location_on_outlined,
+                  ),
+                  _buildInfoCard(
+                    AppLocalizations.current.facebookLink,
+                    userModel.facebookLink ?? '',
+                    Icons.facebook_outlined,
+                  ),
+                  _buildInfoCard(
+                    AppLocalizations.current.instagramLink,
+                    userModel.instagramLink ?? '',
+                    Icons.social_distance,
+                  ),
+                  _buildInfoCard(
+                    AppLocalizations.current.twitterLink,
+                    userModel.twitterLink ?? '',
+                    Icons.social_distance,
+                  ),
+                  _buildInfoCard(
+                    AppLocalizations.current.linkedinLink,
+                    userModel.linkedinLink ?? '',
+                    Icons.social_distance,
+                  ),
+                  _buildInfoCard(
+                    AppLocalizations.current.phoneNumber,
+                    userModel.phoneNumber ?? '',
+                    Icons.phone_outlined,
+                  ),
 
                   const SizedBox(height: AppDimens.SIZE_20),
 
@@ -220,7 +255,7 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildInfoCard(String title, String value, IconData icon) {
     return Container(
       margin: const EdgeInsets.only(bottom: AppDimens.SIZE_12),
-      padding: const EdgeInsets.all(AppDimens.SIZE_16),
+      padding: const EdgeInsets.all(AppDimens.SIZE_8),
       decoration: BoxDecoration(
         color: AppColors.baseColor.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(AppDimens.SIZE_12),

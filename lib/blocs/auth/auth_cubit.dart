@@ -283,6 +283,7 @@ class AuthCubit extends Cubit<BaseState> {
     try {
       emit(LoadingState());
       UserModel updatedUserModel = await repository.updateProfile(userModel);
+      await SharedPreferenceUtil.saveUserInfo(updatedUserModel);
       emit(LoadedState(updatedUserModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));

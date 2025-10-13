@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:sotaynamduoc/domain/data/entities/entities.dart';
 import 'base_entity.dart';
 
@@ -47,6 +48,13 @@ class UserEntity extends BaseEntity {
     lastLogin = json['lastLogin'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    phoneNumber = json['phoneNumber'];
+    address = json['address'];
+    birthDate = convertBirthDate(json['birthDate']);
+    facebookLink = json['facebookLink'];
+    instagramLink = json['instagramLink'];
+    twitterLink = json['twitterLink'];
+    linkedinLink = json['linkedinLink'];
   }
 
   UserEntity.simpleFromJson(Map<String, dynamic> json) : super.fromJson(json) {
@@ -83,6 +91,25 @@ class UserEntity extends BaseEntity {
     data['lastLogin'] = lastLogin;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
+    data['phoneNumber'] = phoneNumber;
+    data['address'] = address;
+    data['birthDate'] = birthDate;
+    data['facebookLink'] = facebookLink;
+    data['instagramLink'] = instagramLink;
+    data['twitterLink'] = twitterLink;
+    data['linkedinLink'] = linkedinLink;
     return data;
+  }
+
+  String convertBirthDate(String? birthDate) {
+    try {
+      if (birthDate == null) {
+        return '';
+      }
+      final date = DateTime.parse(birthDate);
+      return DateFormat('dd/MM/yyyy').format(date);
+    } catch (e) {
+      return '';
+    }
   }
 }
