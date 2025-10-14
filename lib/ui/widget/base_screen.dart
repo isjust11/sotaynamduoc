@@ -133,11 +133,11 @@ class BaseScreen extends StatelessWidget {
                 onBackPress?.call();
               },
               child: Container(
-                width: 50,
+                width: AppDimens.SIZE_40,
                 alignment: Alignment.center,
                 child: Assets.images.icBack.image(
-                  width: 22,
-                  height: 22,
+                  width: AppDimens.SIZE_12,
+                  height: AppDimens.SIZE_12,
                   fit: BoxFit.contain,
                   color: AppColors.colorTitle,
                 ),

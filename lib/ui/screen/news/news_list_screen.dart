@@ -14,7 +14,8 @@ import 'package:sotaynamduoc/blocs/news/news.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 
 class NewsListScreen extends StatefulWidget {
-  const NewsListScreen({super.key});
+  final bool isShowBackButton;
+  const NewsListScreen({super.key, this.isShowBackButton = false});
 
   @override
   State<NewsListScreen> createState() => _NewsListScreenState();
@@ -64,7 +65,7 @@ class _NewsListScreenState extends State<NewsListScreen>
   SearchAppBar _buildAppBar(BuildContext context) {
     return SearchAppBar(
       title: AppLocalizations.current.news.toUpperCase(),
-      showBackButton: false,
+      showBackButton: widget.isShowBackButton,
       backgroundColor: AppColors.secondaryBrand,
       onSearchChanged: (value) {
         _debounceTimer?.cancel();
@@ -242,32 +243,10 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
             ClipRRect(
               borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
               child: news.thumbnail != null
-                  ? Image.network(
-                      height: 60.sh,
-                      width: 100.sw,
-                      ApiConstant.storageHost + (news.thumbnail ?? ''),
+                  ? BaseNetworkImage(
+                      url: ApiConstant.storageHost + (news.thumbnail ?? ''),
                       fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: AppColors.white,
-                          child: Icon(
-                            Icons.image_not_supported,
-                            size: 60.sw,
-                            color: AppColors.textMediumGrey,
-                          ),
-                        );
-                      },
+                      showShimmer: true,
                     )
                   : Container(
                       color: AppColors.lightGreyBackground,

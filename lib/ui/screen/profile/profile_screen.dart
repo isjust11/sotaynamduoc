@@ -12,8 +12,7 @@ import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
-import 'package:sotaynamduoc/ui/widget/base_screen.dart';
-import 'package:sotaynamduoc/ui/widget/html_content_demo.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -92,22 +91,12 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         child: ClipOval(
                           child: userModel.picture != null
-                              ? Image.network(
-                                  ApiConstant.storageHost +
+                              ? BaseNetworkImage(
+                                  url:
+                                      ApiConstant.storageHost +
                                       (userModel.picture ?? ''),
                                   fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: AppColors.border.withValues(
-                                        alpha: 0.3,
-                                      ),
-                                      child: const Icon(
-                                        Icons.person,
-                                        size: AppDimens.SIZE_60,
-                                        color: AppColors.white,
-                                      ),
-                                    );
-                                  },
+                                  showShimmer: false,
                                 )
                               : Container(
                                   color: AppColors.border.withValues(
@@ -204,17 +193,17 @@ class ProfileScreen extends StatelessWidget {
                   _buildInfoCard(
                     AppLocalizations.current.instagramLink,
                     userModel.instagramLink ?? '',
-                    Icons.social_distance,
+                    Icons.link_outlined,
                   ),
                   _buildInfoCard(
                     AppLocalizations.current.twitterLink,
                     userModel.twitterLink ?? '',
-                    Icons.social_distance,
+                    Icons.link_outlined,
                   ),
                   _buildInfoCard(
                     AppLocalizations.current.linkedinLink,
                     userModel.linkedinLink ?? '',
-                    Icons.social_distance,
+                    Icons.link_outlined,
                   ),
                   _buildInfoCard(
                     AppLocalizations.current.phoneNumber,

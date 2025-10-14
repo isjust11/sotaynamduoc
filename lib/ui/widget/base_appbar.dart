@@ -67,14 +67,14 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
               Navigator.pop(context);
             },
         child: Container(
-          padding: EdgeInsets.only(bottom: AppDimens.SIZE_4),
+          padding: EdgeInsets.only(bottom: AppDimens.SIZE_2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppDimens.SIZE_10),
           ),
           child: Icon(
             Icons.arrow_back_ios_new,
             color: AppColors.white,
-            size: AppDimens.SIZE_14,
+            size: AppDimens.SIZE_12,
           ),
         ),
       );

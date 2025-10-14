@@ -82,30 +82,10 @@ class NewsDetailView extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-                child: Image.network(
-                  ApiConstant.storageHost + (news.thumbnail ?? ''),
+                child: BaseNetworkImage(
+                  url: ApiConstant.storageHost + (news.thumbnail ?? ''),
                   fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: AppColors.lightGreyBackground,
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 60.sw,
-                        color: AppColors.textMediumGrey,
-                      ),
-                    );
-                  },
+                  showShimmer: false,
                 ),
               ),
             ),

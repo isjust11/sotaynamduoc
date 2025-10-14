@@ -186,15 +186,17 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         ),
                         child: ClipOval(
                           child: _selectedImage != null
-                              ? Image.file(_selectedImage!, fit: BoxFit.cover)
+                              ? BaseNetworkImage(
+                                  url: _selectedImage!.path,
+                                  fit: BoxFit.cover,
+                                  showShimmer: true,
+                                )
                               : _currentAvatarUrl != null &&
                                     _currentAvatarUrl!.isNotEmpty
-                              ? Image.network(
-                                  _currentAvatarUrl!,
+                              ? BaseNetworkImage(
+                                  url: _currentAvatarUrl!,
                                   fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return _buildDefaultAvatar();
-                                  },
+                                  showShimmer: true,
                                 )
                               : _buildDefaultAvatar(),
                         ),

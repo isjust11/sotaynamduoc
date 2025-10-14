@@ -9,6 +9,7 @@ import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/screen/home/home_body.dart';
+import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/routes.dart';
 
@@ -23,7 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
   UserModel? user;
 
   void _navigateToNotificationList(BuildContext context) {
-    Navigator.pushNamed(context, Routes.newsListScreen);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NewsListScreen(isShowBackButton: true),
+      ),
+    );
   }
 
   @override

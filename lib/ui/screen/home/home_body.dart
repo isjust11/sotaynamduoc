@@ -6,9 +6,11 @@ import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_event.dart';
 import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_state.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/routes.dart';
+import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
@@ -196,7 +198,7 @@ class _HomeBodyState extends State<HomeBody>
             const SizedBox(height: AppDimens.SIZE_8),
             CustomTextLabel(
               title,
-              fontSize: AppDimens.SIZE_14,
+              fontSize: AppDimens.SIZE_12,
               fontWeight: FontWeight.bold,
               color: AppColors.colorTitle,
             ),
@@ -266,7 +268,12 @@ class _HomeBodyState extends State<HomeBody>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
-          onTap: () => Navigator.pushNamed(context, Routes.newsListScreen),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewsListScreen(isShowBackButton: true),
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -281,7 +288,8 @@ class _HomeBodyState extends State<HomeBody>
                   CustomTextLabel(
                     AppLocalizations.current.viewMore,
                     color: AppColors.primaryBlue,
-                    fontSize: AppDimens.SIZE_11,
+                    fontSize: AppDimens.SIZE_12,
+                    fontWeight: FontWeight.w500,
                   ),
                   SizedBox(width: AppDimens.SIZE_4),
                   Icon(
@@ -425,11 +433,14 @@ class _HomeBodyState extends State<HomeBody>
                                                           item
                                                               .thumbnail!
                                                               .isNotEmpty
-                                                      ? Image.network(
-                                                          item.thumbnail ?? '',
+                                                      ? BaseNetworkImage(
+                                                          url:
+                                                              ApiConstant
+                                                                  .storageHost +
+                                                              (item.thumbnail ??
+                                                                  ''),
                                                           height:
                                                               AppDimens.SIZE_90,
-                                                          fit: BoxFit.cover,
                                                         )
                                                       : Container(
                                                           height:
@@ -562,39 +573,13 @@ class _HomeBodyState extends State<HomeBody>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
                   child: news.thumbnail != null
-                      ? Image.network(
-                          news.thumbnail ?? '',
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value:
-                                    loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: AppColors.lightGreyBackground,
-                              child: Icon(
-                                Icons.image_not_supported,
-                                size: 60.sw,
-                                color: AppColors.textMediumGrey,
-                              ),
-                            );
-                          },
+                      ? BaseNetworkImage(
+                          url: ApiConstant.storageHost + (news.thumbnail ?? ''),
                         )
                       : Container(
                           color: AppColors.lightGreyBackground,
                           child: Icon(
                             Icons.image_not_supported,
-                            size: 60,
                             color: AppColors.textMediumGrey,
                           ),
                         ),

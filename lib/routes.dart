@@ -79,8 +79,9 @@ class Routes {
           type: PageTransitionType.fade,
         );
       case newsListScreen:
+        final args = settings.arguments as NewsListScreen?;
         return PageTransition(
-          child: NewsListScreen(),
+          child: args ?? NewsListScreen(),
           type: PageTransitionType.fade,
         );
       case newsDetailScreen:

@@ -94,7 +94,7 @@ class _FolkMedicineMenuBodyScreenState
             Expanded(
               flex: 1,
               child: category.icon != ''
-                  ? Image.network(category.icon ?? "")
+                  ? BaseNetworkImage(url: category.icon ?? "")
                   : SvgPicture.asset(
                       Assets.icons.icBaithuoc,
                       fit: BoxFit.contain,
