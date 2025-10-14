@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/res/colors.dart';
@@ -14,13 +15,19 @@ class AuthorDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(author.name ?? 'Thầy thuốc', style: TextStyle(color: AppColors.white),),
+        title: Text(
+          author.name ?? 'Thầy thuốc',
+          style: TextStyle(color: AppColors.white),
+        ),
         backgroundColor: AppColors.secondaryBrand,
         foregroundColor: AppColors.white,
-        
+
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white,),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColors.white,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -68,12 +75,14 @@ class AuthorDetailScreen extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
           child: Container(
-            width: 120,
-            height: 120,
+            width: 120.sw,
+            height: 80.sh,
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-              border: Border.all(color: AppColors.textHintGrey.withValues(alpha: 0.2)),
+              border: Border.all(
+                color: AppColors.textHintGrey.withValues(alpha: 0.2),
+              ),
             ),
             child: author.avatar != null || author.portrait != null
                 ? Image.network(
@@ -87,11 +96,7 @@ class AuthorDetailScreen extends StatelessWidget {
                       );
                     },
                   )
-                : Icon(
-                    Icons.person,
-                    size: 60,
-                    color: AppColors.textMediumGrey,
-                  ),
+                : Icon(Icons.person, size: 60, color: AppColors.textMediumGrey),
           ),
         ),
         const SizedBox(width: AppDimens.SIZE_16),
@@ -117,15 +122,29 @@ class AuthorDetailScreen extends StatelessWidget {
               Row(
                 children: [
                   if (author.viewCount != null) ...[
-                    Icon(Icons.visibility, size: AppDimens.SIZE_16, color: AppColors.textMediumGrey),
+                    Icon(
+                      Icons.visibility,
+                      size: AppDimens.SIZE_16,
+                      color: AppColors.textMediumGrey,
+                    ),
                     const SizedBox(width: AppDimens.SIZE_4),
-                    Text('${author.viewCount}', style: TextStyle(color: AppColors.textMediumGrey)),
+                    Text(
+                      '${author.viewCount}',
+                      style: TextStyle(color: AppColors.textMediumGrey),
+                    ),
                     const SizedBox(width: AppDimens.SIZE_16),
                   ],
                   if (author.likeCount != null) ...[
-                    Icon(Icons.favorite, size: AppDimens.SIZE_16, color: AppColors.textMediumGrey),
+                    Icon(
+                      Icons.favorite,
+                      size: AppDimens.SIZE_16,
+                      color: AppColors.textMediumGrey,
+                    ),
                     const SizedBox(width: AppDimens.SIZE_4),
-                    Text('${author.likeCount}', style: TextStyle(color: AppColors.textMediumGrey)),
+                    Text(
+                      '${author.likeCount}',
+                      style: TextStyle(color: AppColors.textMediumGrey),
+                    ),
                   ],
                 ],
               ),
@@ -160,7 +179,7 @@ class AuthorDetailScreen extends StatelessWidget {
 
   Widget _buildInfoRow(String label, String? value) {
     if (value == null || value.isEmpty) return const SizedBox.shrink();
-    
+
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimens.SIZE_8),
       child: Row(
@@ -188,111 +207,88 @@ class AuthorDetailScreen extends StatelessWidget {
   }
 
   Widget _buildBiography() {
-    if (author.biography == null || author.biography!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Tiểu sử',
-      author.biography!,
-    );
+    if (author.biography == null || author.biography!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Tiểu sử', author.biography!);
   }
 
   Widget _buildCareer() {
-    if (author.career == null || author.career!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Sự nghiệp',
-      author.career!,
-    );
+    if (author.career == null || author.career!.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return _buildSection('Sự nghiệp', author.career!);
   }
 
   Widget _buildAchievements() {
-    if (author.achievements == null || author.achievements!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Thành tựu',
-      author.achievements!,
-    );
+    if (author.achievements == null || author.achievements!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Thành tựu', author.achievements!);
   }
 
   Widget _buildContributions() {
-    if (author.contributions == null || author.contributions!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Đóng góp',
-      author.contributions!,
-    );
+    if (author.contributions == null || author.contributions!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Đóng góp', author.contributions!);
   }
 
   Widget _buildWorks() {
-    if (author.works == null || author.works!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Tác phẩm',
-      author.works!,
-    );
+    if (author.works == null || author.works!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Tác phẩm', author.works!);
   }
 
   Widget _buildPhilosophy() {
-    if (author.philosophy == null || author.philosophy!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Triết lý',
-      author.philosophy!,
-    );
+    if (author.philosophy == null || author.philosophy!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Triết lý', author.philosophy!);
   }
 
   Widget _buildLegacy() {
-    if (author.legacy == null || author.legacy!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Di sản',
-      author.legacy!,
-    );
+    if (author.legacy == null || author.legacy!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Di sản', author.legacy!);
   }
 
   Widget _buildQuotes() {
-    if (author.quotes == null || author.quotes!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Trích dẫn',
-      author.quotes!,
-    );
+    if (author.quotes == null || author.quotes!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Trích dẫn', author.quotes!);
   }
 
   Widget _buildAnecdotes() {
-    if (author.anecdotes == null || author.anecdotes!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Giai thoại',
-      author.anecdotes!,
-    );
+    if (author.anecdotes == null || author.anecdotes!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Giai thoại', author.anecdotes!);
   }
 
   Widget _buildHonors() {
-    if (author.honors == null || author.honors!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Danh hiệu',
-      author.honors!,
-    );
+    if (author.honors == null || author.honors!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Danh hiệu', author.honors!);
   }
 
   Widget _buildMemorials() {
-    if (author.memorials == null || author.memorials!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Tưởng niệm',
-      author.memorials!,
-    );
+    if (author.memorials == null || author.memorials!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Tưởng niệm', author.memorials!);
   }
 
   Widget _buildReferences() {
-    if (author.references == null || author.references!.isEmpty) return const SizedBox.shrink();
-    
-    return _buildSection(
-      'Tài liệu tham khảo',
-      author.references!,
-    );
+    if (author.references == null || author.references!.isEmpty)
+      return const SizedBox.shrink();
+
+    return _buildSection('Tài liệu tham khảo', author.references!);
   }
 
   Widget _buildSection(String title, String content) {
@@ -314,4 +310,4 @@ class AuthorDetailScreen extends StatelessWidget {
       ],
     );
   }
-} 
+}

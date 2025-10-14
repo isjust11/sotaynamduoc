@@ -10,3 +10,4 @@ export 'author/author.dart';
 export 'page_cubit.dart';
 export 'feedback_cubit.dart';
 export 'media_cubit.dart';
+export 'user_interaction_cubit.dart';

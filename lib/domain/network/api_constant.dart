@@ -32,6 +32,38 @@ class ApiConstant {
   static final login = "$apiHost/auth/login";
   static final register = "$apiHost/auth/register";
   static final getUserInfo = "$apiHost/auth/profile";
+  // User interaction (new endpoints)
+  static final userInteractionsBase = "$apiHost/user-interactions";
+  static String likeUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/like/$targetType/$targetId";
+  static String unlikeUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/unlike/$targetType/$targetId";
+  static String bookmarkUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/bookmark/$targetType/$targetId";
+  static String unbookmarkUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/unbookmark/$targetType/$targetId";
+  static String shareUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/share/$targetType/$targetId";
+  static String rateUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/rate/$targetType/$targetId";
+  static String followUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/follow/$targetType/$targetId";
+  static String unfollowUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/unfollow/$targetType/$targetId";
+  static String interactionStatusUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/status/$targetType/$targetId";
+  static String interactionStatsUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/stats/$targetType/$targetId";
+  static String myInteractionsUrl({Map<String, dynamic>? query}) {
+    if (query == null || query.isEmpty)
+      return "$userInteractionsBase/my-interactions";
+    final qp = query.entries
+        .where((e) => e.value != null && e.value.toString().isNotEmpty)
+        .map((e) => "${e.key}=${Uri.encodeComponent(e.value.toString())}")
+        .join('&');
+    return "$userInteractionsBase/my-interactions?$qp";
+  }
+
   static final getCategories = "$apiHost/categories";
   static final getCategoriesByCategoryTypeCode =
       "$apiHost/categories/get-by-category-type";

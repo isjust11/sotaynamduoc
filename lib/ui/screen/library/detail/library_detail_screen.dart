@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -14,7 +17,7 @@ import '../../../widget/custom_text_label.dart';
 
 class LibraryDetailScreen extends StatefulWidget {
   final HerbalModel herbalData;
-  
+
   const LibraryDetailScreen({super.key, required this.herbalData});
 
   @override
@@ -25,6 +28,22 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   bool isLiked = false;
   int currentImageIndex = 0;
   final PageController _pageController = PageController();
+  @override
+  void initState() {
+    super.initState();
+    // Fetch interaction status and stats when entering the screen
+    final id = widget.herbalData.id ?? '';
+    if (id.isNotEmpty) {
+      context.read<UserInteractionCubit>().getStatus(
+        targetType: 'herbal',
+        targetId: id,
+      );
+      context.read<UserInteractionCubit>().getStats(
+        targetType: 'herbal',
+        targetId: id,
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -35,7 +54,6 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-
       customAppBar: BaseAppBar(
         title: AppLocalizations.current.herbalDetail,
         showBackButton: true,
@@ -44,20 +62,46 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
         },
         actions: [
           IconButton(
-            icon: Icon(
-              isLiked ? Icons.favorite : Icons.favorite_border,
-              color: AppColors.white,
+            icon: BlocBuilder<UserInteractionCubit, BaseState>(
+              builder: (context, state) {
+                if (state is LoadedState) {
+                  final data = state.data;
+                  final isLiked = data['isLiked'] ?? false;
+                  return Icon(
+                    isLiked ? Icons.favorite : Icons.favorite_border,
+                    color: AppColors.white,
+                  );
+                }
+                return SizedBox.expand();
+              },
             ),
             onPressed: () {
               setState(() {
-                isLiked = !isLiked;
+                final id = widget.herbalData.id ?? '';
+                if (id.isEmpty) return;
+                if (isLiked) {
+                  context.read<UserInteractionCubit>().like(
+                    targetType: 'herbal',
+                    targetId: id,
+                  );
+                } else {
+                  context.read<UserInteractionCubit>().unlike(
+                    targetType: 'herbal',
+                    targetId: id,
+                  );
+                }
               });
             },
           ),
           IconButton(
             icon: Icon(Icons.share, color: AppColors.white),
             onPressed: () {
-              // TODO: Implement share functionality
+              final id = widget.herbalData.id ?? '';
+              if (id.isEmpty) return;
+              context.read<UserInteractionCubit>().share(
+                targetType: 'herbal',
+                targetId: id,
+              );
             },
           ),
         ],
@@ -65,10 +109,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildImageSection(),
-            _buildContentSection(),
-          ],
+          children: [_buildImageSection(), _buildContentSection()],
         ),
       ),
     );
@@ -77,7 +118,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   Widget _buildImageSection() {
     final images = widget.herbalData.images ?? [];
     final thumbnail = widget.herbalData.thumbnail;
-    
+
     if (images.isEmpty && thumbnail == null) {
       return Container(
         height: 200.sw,
@@ -111,7 +152,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
               } else if (thumbnail != null) {
                 imageUrl = thumbnail;
               }
-              
+
               return BaseNetworkImage(
                 url: ApiConstant.apiHost + imageUrl,
                 width: double.infinity,
@@ -120,7 +161,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
               );
             },
           ),
-          
+
           // Image indicators
           if (images.length > 1)
             Positioned(
@@ -139,7 +180,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
                       shape: BoxShape.circle,
                       color: currentImageIndex == index
                           ? AppColors.white
-                          : AppColors.white.withOpacity(0.5),
+                          : AppColors.white.withValues(alpha: 0.5),
                     ),
                   ),
                 ),
@@ -184,7 +225,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   Widget _buildTitleSection() {
     final title = widget.herbalData.title ?? '';
     final commonNames = widget.herbalData.commonNames;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -210,12 +251,18 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   Widget _buildStatsSection() {
     final viewCount = widget.herbalData.viewCount ?? 0;
     final likeCount = widget.herbalData.likeCount ?? 0;
-    
+
     return Row(
       children: [
-        _buildStatItem(Icons.visibility, '${AppLocalizations.current.viewCount} $viewCount'),
+        _buildStatItem(
+          Icons.visibility,
+          '${AppLocalizations.current.viewCount} $viewCount',
+        ),
         SizedBox(width: AppDimens.SIZE_8),
-        _buildStatItem(Icons.favorite, '${AppLocalizations.current.likeCount} $likeCount'),
+        _buildStatItem(
+          Icons.favorite,
+          '${AppLocalizations.current.likeCount} $likeCount',
+        ),
         SizedBox(width: AppDimens.SIZE_8),
       ],
     );
@@ -226,27 +273,19 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
       children: [
         Icon(icon, size: 16.sw, color: AppColors.textMediumGrey),
         SizedBox(width: AppDimens.SIZE_4),
-        CustomTextLabel(
-          text,
-          fontSize: 12.sw,
-          color: AppColors.textMediumGrey,
-        ),
+        CustomTextLabel(text, fontSize: 12.sw, color: AppColors.textMediumGrey),
       ],
     );
   }
 
   Widget _buildSummarySection() {
     final summary = widget.herbalData.summary;
-    
+
     if (summary == null || summary.isEmpty) return SizedBox.shrink();
-    
+
     return _buildInfoCard(
       'Tóm tắt',
-      CustomTextLabel(
-        summary,
-        fontSize: 14.sw,
-        color: AppColors.textDark,
-      ),
+      CustomTextLabel(summary, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.description,
     );
   }
@@ -256,11 +295,14 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
     final family = widget.herbalData.family;
     final partsUsed = widget.herbalData.partsUsed;
     final activeCompounds = widget.herbalData.activeCompounds;
-    
-    if (scientificName == null && family == null && partsUsed == null && activeCompounds == null) {
+
+    if (scientificName == null &&
+        family == null &&
+        partsUsed == null &&
+        activeCompounds == null) {
       return SizedBox.shrink();
     }
-    
+
     return _buildInfoCard(
       'Thông tin khoa học',
       Column(
@@ -268,8 +310,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
         children: [
           if (scientificName != null && scientificName.isNotEmpty)
             _buildInfoRow('Tên khoa học:', scientificName),
-          if (family != null && family.isNotEmpty)
-            _buildInfoRow('Họ:', family),
+          if (family != null && family.isNotEmpty) _buildInfoRow('Họ:', family),
           if (partsUsed != null && partsUsed.isNotEmpty)
             _buildInfoRow('Bộ phận sử dụng:', partsUsed),
           if (activeCompounds != null && activeCompounds.isNotEmpty)
@@ -282,57 +323,46 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
 
   Widget _buildMedicinalPropertiesSection() {
     final properties = widget.herbalData.medicinalProperties;
-    
+
     if (properties == null || properties.isEmpty) return SizedBox.shrink();
-    
+
     return _buildInfoCard(
       'Tính chất dược lý',
-      CustomTextLabel(
-        properties,
-        fontSize: 14.sw,
-        color: AppColors.textDark,
-      ),
+      CustomTextLabel(properties, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.healing,
     );
   }
 
   Widget _buildPreparationMethodsSection() {
     final methods = widget.herbalData.preparationMethods;
-    
+
     if (methods == null || methods.isEmpty) return SizedBox.shrink();
-    
+
     return _buildInfoCard(
       'Cách chế biến',
-      CustomTextLabel(
-        methods,
-        fontSize: 14.sw,
-        color: AppColors.textDark,
-      ),
+      CustomTextLabel(methods, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.restaurant,
     );
   }
 
   Widget _buildDosageSection() {
     final dosage = widget.herbalData.dosage;
-    
+
     if (dosage == null || dosage.isEmpty) return SizedBox.shrink();
-    
+
     return _buildInfoCard(
       'Liều lượng sử dụng',
-      CustomTextLabel(
-        dosage,
-        fontSize: 14.sw,
-        color: AppColors.textDark,
-      ),
+      CustomTextLabel(dosage, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.medication,
     );
   }
 
   Widget _buildContraindicationsSection() {
     final contraindications = widget.herbalData.contraindications;
-    
-    if (contraindications == null || contraindications.isEmpty) return SizedBox.shrink();
-    
+
+    if (contraindications == null || contraindications.isEmpty)
+      return SizedBox.shrink();
+
     return _buildInfoCard(
       'Chống chỉ định',
       CustomTextLabel(
@@ -347,16 +377,12 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
 
   Widget _buildSideEffectsSection() {
     final sideEffects = widget.herbalData.sideEffects;
-    
+
     if (sideEffects == null || sideEffects.isEmpty) return SizedBox.shrink();
-    
+
     return _buildInfoCard(
       'Tác dụng phụ',
-      CustomTextLabel(
-        sideEffects,
-        fontSize: 14.sw,
-        color: AppColors.textDark,
-      ),
+      CustomTextLabel(sideEffects, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.error_outline,
       isWarning: true,
     );
@@ -364,9 +390,9 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
 
   Widget _buildDetailedContentSection() {
     final content = widget.herbalData.content;
-    
+
     if (content == null || content.isEmpty) return SizedBox.shrink();
-    
+
     return _buildInfoCard(
       'Nội dung chi tiết',
       Html(
@@ -377,9 +403,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
             color: AppColors.textDark,
             lineHeight: LineHeight(1.6),
           ),
-          "p": Style(
-            margin: Margins.only(bottom: 8.sw),
-          ),
+          "p": Style(margin: Margins.only(bottom: 8.sw)),
           "h1, h2, h3, h4, h5, h6": Style(
             color: AppColors.textDark,
             fontWeight: FontWeight.bold,
@@ -393,12 +417,12 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
 
   // Widget _buildAuthorSection() {
   //   // final author = widget.herbalData.author;
-    
+
   //   if (author == null) return SizedBox.shrink();
-    
+
   //   final authorName = author?.name ?? 'Tác giả';
   //   final authorAvatar = author?.avatar;
-    
+
   //   return _buildInfoCard(
   //     'Tác giả',
   //     Row(
@@ -432,7 +456,12 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   //   );
   // }
 
-  Widget _buildInfoCard(String title, Widget content, {IconData? icon, bool isWarning = false}) {
+  Widget _buildInfoCard(
+    String title,
+    Widget content, {
+    IconData? icon,
+    bool isWarning = false,
+  }) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.sw),
       padding: EdgeInsets.all(16.sw),
@@ -456,7 +485,9 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
                 Icon(
                   icon,
                   size: 20.sw,
-                  color: isWarning ? AppColors.errorRed : AppColors.primaryBrand,
+                  color: isWarning
+                      ? AppColors.errorRed
+                      : AppColors.primaryBrand,
                 ),
                 SizedBox(width: 8.sw),
               ],
