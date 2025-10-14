@@ -305,7 +305,7 @@ class _HomeBodyState extends State<HomeBody>
         SizedBox(height: AppDimens.SIZE_12),
         // 3. Tin tức
         SizedBox(
-          height: AppDimens.SIZE_200,
+          height: 140.sh,
           child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
               if (state is NewsListLoaded) {
@@ -392,84 +392,86 @@ class _HomeBodyState extends State<HomeBody>
                           if (rowStart < group.length) {
                             rows.add(
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: group
                                     .sublist(rowStart, rowEnd)
                                     .map(
                                       (item) => Expanded(
-                                        child: InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    FolkMedicineDetailScreen(
-                                                      folkMedicine: item,
+                                        child: Container(
+                                          height: AppDimens.SIZE_120,
+                                          margin: EdgeInsets.only(
+                                            bottom: AppDimens.SIZE_12,
+                                            right: rowEnd - rowStart == 1
+                                                ? 0
+                                                : AppDimens.SIZE_8,
+                                          ),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      FolkMedicineDetailScreen(
+                                                        folkMedicine: item,
+                                                      ),
+                                                ),
+                                              );
+                                            },
+                                            borderRadius: BorderRadius.circular(
+                                              AppDimens.SIZE_8,
+                                            ),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                      AppDimens.SIZE_8,
                                                     ),
                                               ),
-                                            );
-                                          },
-
-                                          child: Container(
-                                            width: AppDimens.SIZE_140,
-                                            margin: EdgeInsets.only(
-                                              bottom: AppDimens.SIZE_12,
-                                              right: AppDimens.SIZE_8,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  child:
-                                                      item.thumbnail != null &&
-                                                          item
-                                                              .thumbnail!
-                                                              .isNotEmpty
-                                                      ? BaseNetworkImage(
-                                                          url:
-                                                              ApiConstant
-                                                                  .storageHost +
-                                                              (item.thumbnail ??
-                                                                  ''),
-                                                          height:
-                                                              AppDimens.SIZE_90,
-                                                        )
-                                                      : Container(
-                                                          height:
-                                                              AppDimens.SIZE_90,
-                                                          color: AppColors
-                                                              .lightGreyBackground,
-                                                          child: Icon(
-                                                            Icons
-                                                                .image_not_supported,
-                                                            color: AppColors
-                                                                .textMediumGrey,
-                                                          ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          AppDimens.SIZE_8,
                                                         ),
-                                                ),
-                                                SizedBox(
-                                                  height: AppDimens.SIZE_4,
-                                                ),
-                                                SizedBox(
-                                                  width: AppDimens.SIZE_140,
-                                                  child: CustomTextLabel(
-                                                    item.title ?? '',
-                                                    fontSize: AppDimens.SIZE_12,
-                                                    fontWeight: FontWeight.bold,
-                                                    maxLines: 2,
-                                                    color: AppColors
-                                                        .secondaryTextDark,
+                                                    child: BaseNetworkImage(
+                                                      url:
+                                                          ApiConstant
+                                                              .storageHost +
+                                                          (item.thumbnail ??
+                                                              ''),
+                                                      width: double.infinity,
+                                                      height: AppDimens.SIZE_90,
+                                                      borderRadius:
+                                                          AppDimens.SIZE_8,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                  SizedBox(
+                                                    height: AppDimens.SIZE_4,
+                                                  ),
+                                                  Expanded(
+                                                    child: SizedBox(
+                                                      width: double.infinity,
+                                                      child: CustomTextLabel(
+                                                        item.title ?? '',
+                                                        fontSize:
+                                                            AppDimens.SIZE_12,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        maxLines: 2,
+                                                        color: AppColors
+                                                            .secondaryTextDark,
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -484,10 +486,10 @@ class _HomeBodyState extends State<HomeBody>
                         return Container(
                           padding: EdgeInsets.only(
                             right: _currentProductGroup < groupCount - 1
-                                ? AppDimens.SIZE_14
+                                ? AppDimens.SIZE_8
                                 : AppDimens.SIZE_0,
                             left: _currentProductGroup > 0
-                                ? AppDimens.SIZE_14
+                                ? AppDimens.SIZE_8
                                 : AppDimens.SIZE_0,
                           ),
                           width: MediaQuery.of(context).size.width,
@@ -503,7 +505,7 @@ class _HomeBodyState extends State<HomeBody>
                         child: IconButton(
                           icon: Icon(Icons.arrow_back_ios),
                           iconSize: AppDimens.SIZE_26,
-                          color: AppColors.baseColor,
+                          color: AppColors.disabledGrey,
                           onPressed: () {
                             if (_currentProductGroup > 0) {
                               _productPageController.previousPage(
@@ -521,7 +523,7 @@ class _HomeBodyState extends State<HomeBody>
                         child: IconButton(
                           icon: Icon(Icons.arrow_forward_ios),
                           iconSize: AppDimens.SIZE_26,
-                          color: AppColors.baseColor,
+                          color: AppColors.disabledGrey,
                           onPressed: () {
                             if (_currentProductGroup < groupCount - 1) {
                               _productPageController.nextPage(
@@ -553,11 +555,12 @@ class _HomeBodyState extends State<HomeBody>
         Routes.newsDetailScreen,
         arguments: news,
       ),
+      splashColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.6,
+        width: 180.sw,
+        height: 120.sh,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-          color: AppColors.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -591,12 +594,12 @@ class _HomeBodyState extends State<HomeBody>
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: AppDimens.SIZE_4,
-                  horizontal: AppDimens.SIZE_16,
+                  horizontal: AppDimens.SIZE_2,
                 ),
                 child: CustomTextLabel(
                   news.title ?? '',
                   maxLines: 2,
-                  fontSize: AppDimens.SIZE_14,
+                  fontSize: AppDimens.SIZE_12,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textDark,
                 ),

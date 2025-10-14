@@ -37,7 +37,7 @@ class LoadingTemplate extends StatelessWidget {
   const LoadingTemplate({
     super.key,
     this.message,
-    this.loadingType = LoadingType.bouncingBall,
+    this.loadingType = LoadingType.threeArchedCircle,
     this.backgroundColor,
     this.indicatorColor,
     this.size,

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
@@ -246,6 +245,8 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
                   ? BaseNetworkImage(
                       url: ApiConstant.storageHost + (news.thumbnail ?? ''),
                       fit: BoxFit.cover,
+                      width: AppDimens.SIZE_100,
+                      height: AppDimens.SIZE_80,
                       showShimmer: true,
                     )
                   : Container(

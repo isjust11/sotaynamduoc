@@ -33,25 +33,15 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
   }
 
   Widget _buildImageSection() {
-    final String? thumb = folkMedicine.thumbnail;
     return SizedBox(
       height: 250.sw,
       width: double.infinity,
-      child: thumb == null || thumb.isEmpty
-          ? Container(
-              color: AppColors.lightGreyBackground,
-              child: Icon(
-                Icons.image_not_supported,
-                size: 50.sw,
-                color: AppColors.disabledGrey,
-              ),
-            )
-          : BaseNetworkImage(
-              url: ApiConstant.apiHost + thumb,
-              width: double.infinity,
-              height: 250.sw,
-              borderRadius: 0,
-            ),
+      child: BaseNetworkImage(
+        url: ApiConstant.storageHost + folkMedicine.thumbnail.toString(),
+        width: double.infinity,
+        height: 250.sw,
+        borderRadius: 0,
+      ),
     );
   }
 

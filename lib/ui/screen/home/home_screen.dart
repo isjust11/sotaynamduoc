@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     CustomTextLabel(
                       user?.fullName ?? user?.username ?? 'Guest',
                       color: AppColors.white,
-                      fontSize: AppDimens.SIZE_16,
+                      fontSize: AppDimens.SIZE_14,
                       fontWeight: FontWeight.w500,
                     ),
                   ],

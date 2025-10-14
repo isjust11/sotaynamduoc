@@ -102,12 +102,12 @@ class BaseNetworkImage extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: isDark ? Colors.grey[300] : Colors.grey[400],
+                    color: isDark ? Colors.grey[200] : Colors.grey[300],
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.broken_image_outlined,
-                    color: isDark ? Colors.grey[400] : Colors.grey[500],
+                    color: isDark ? Colors.grey[300] : Colors.grey[400],
                     size: 28,
                   ),
                 ),
