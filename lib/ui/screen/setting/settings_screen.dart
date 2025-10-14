@@ -165,14 +165,16 @@ class _SettingScreenState extends State<SettingScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomTextLabel(
-                  user?.fullName ?? user?.username ?? '---',
+                  user?.fullName ??
+                      user?.username ??
+                      AppLocalizations.current.noName,
                   fontWeight: FontWeight.bold,
                   fontSize: AppDimens.SIZE_18,
                   color: AppColors.white,
                 ),
                 const SizedBox(height: 6),
                 CustomTextLabel(
-                  user?.username ?? '',
+                  user?.username ?? AppLocalizations.current.noName,
                   fontSize: AppDimens.SIZE_14,
                   color: AppColors.white.withValues(alpha: 0.9),
                 ),
@@ -535,9 +537,15 @@ class _SettingScreenState extends State<SettingScreen> {
         value: context.read<ThemeCubit>().state,
         underline: const SizedBox(),
         icon: Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryBrand),
-        items: const [
-          DropdownMenuItem(value: 'light', child: Text('Light')),
-          DropdownMenuItem(value: 'dark', child: Text('Dark')),
+        items: [
+          DropdownMenuItem(
+            value: 'light',
+            child: Text(AppLocalizations.current.light),
+          ),
+          DropdownMenuItem(
+            value: 'dark',
+            child: Text(AppLocalizations.current.dark),
+          ),
         ],
         onChanged: (String? value) {
           if (value != null) {
@@ -556,17 +564,16 @@ class _SettingScreenState extends State<SettingScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.errorRed,
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(AppDimens.SIZE_48),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
           ),
           elevation: 0,
           shadowColor: Colors.red.withValues(alpha: 0.3),
         ),
-        icon: const Icon(Icons.logout, size: AppDimens.SIZE_24),
+        icon: const Icon(Icons.logout, size: AppDimens.SIZE_18),
         label: CustomTextLabel(
           AppLocalizations.current.logout,
-          fontSize: AppDimens.SIZE_16,
+          fontSize: AppDimens.SIZE_14,
           fontWeight: FontWeight.bold,
           color: AppColors.white,
         ),
@@ -608,7 +615,7 @@ class _SettingScreenState extends State<SettingScreen> {
         // Bật sinh trắc học với thông tin social login
         await authCubit.toggleBiometric(true);
       } else {
-        throw Exception('Chưa có thông tin đăng nhập để bật sinh trắc học');
+        throw Exception(AppLocalizations.current.noLoginInfo);
       }
 
       setState(() {

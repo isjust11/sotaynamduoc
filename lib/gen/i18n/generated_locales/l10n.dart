@@ -1863,6 +1863,226 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Tiểu sử`
+  String get biography {
+    return Intl.message('Tiểu sử', name: 'biography', desc: '', args: []);
+  }
+
+  /// `Sự nghiệp`
+  String get career {
+    return Intl.message('Sự nghiệp', name: 'career', desc: '', args: []);
+  }
+
+  /// `Thành tựu`
+  String get achievements {
+    return Intl.message('Thành tựu', name: 'achievements', desc: '', args: []);
+  }
+
+  /// `Đóng góp`
+  String get contributions {
+    return Intl.message('Đóng góp', name: 'contributions', desc: '', args: []);
+  }
+
+  /// `Tác phẩm`
+  String get works {
+    return Intl.message('Tác phẩm', name: 'works', desc: '', args: []);
+  }
+
+  /// `Triết lý`
+  String get philosophy {
+    return Intl.message('Triết lý', name: 'philosophy', desc: '', args: []);
+  }
+
+  /// `Di sản`
+  String get legacy {
+    return Intl.message('Di sản', name: 'legacy', desc: '', args: []);
+  }
+
+  /// `Trích dẫn`
+  String get quotes {
+    return Intl.message('Trích dẫn', name: 'quotes', desc: '', args: []);
+  }
+
+  /// `Giai thoại`
+  String get anecdotes {
+    return Intl.message('Giai thoại', name: 'anecdotes', desc: '', args: []);
+  }
+
+  /// `Danh hiệu`
+  String get honors {
+    return Intl.message('Danh hiệu', name: 'honors', desc: '', args: []);
+  }
+
+  /// `Tưởng niệm`
+  String get memorials {
+    return Intl.message('Tưởng niệm', name: 'memorials', desc: '', args: []);
+  }
+
+  /// `Tài liệu tham khảo`
+  String get references {
+    return Intl.message(
+      'Tài liệu tham khảo',
+      name: 'references',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thông tin cơ bản`
+  String get basicInfo {
+    return Intl.message(
+      'Thông tin cơ bản',
+      name: 'basicInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nơi sinh`
+  String get birthPlace {
+    return Intl.message('Nơi sinh', name: 'birthPlace', desc: '', args: []);
+  }
+
+  /// `Nơi mất`
+  String get deathPlace {
+    return Intl.message('Nơi mất', name: 'deathPlace', desc: '', args: []);
+  }
+
+  /// `Thời đại`
+  String get era {
+    return Intl.message('Thời đại', name: 'era', desc: '', args: []);
+  }
+
+  /// `Triều đại`
+  String get dynasty {
+    return Intl.message('Triều đại', name: 'dynasty', desc: '', args: []);
+  }
+
+  /// `Chuyên môn`
+  String get specialty {
+    return Intl.message('Chuyên môn', name: 'specialty', desc: '', args: []);
+  }
+
+  /// `Học trò`
+  String get students {
+    return Intl.message('Học trò', name: 'students', desc: '', args: []);
+  }
+
+  /// `Bí danh`
+  String get alias {
+    return Intl.message('Bí danh', name: 'alias', desc: '', args: []);
+  }
+
+  /// `Không có tên`
+  String get noName {
+    return Intl.message('Không có tên', name: 'noName', desc: '', args: []);
+  }
+
+  /// `Thông tin khoa học`
+  String get scientificInfo {
+    return Intl.message(
+      'Thông tin khoa học',
+      name: 'scientificInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tính chất dược lý`
+  String get medicinalProperties {
+    return Intl.message(
+      'Tính chất dược lý',
+      name: 'medicinalProperties',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cách chế biến`
+  String get preparationMethods {
+    return Intl.message(
+      'Cách chế biến',
+      name: 'preparationMethods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Liều lượng sử dụng`
+  String get dosage {
+    return Intl.message(
+      'Liều lượng sử dụng',
+      name: 'dosage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chống chỉ định`
+  String get contraindications {
+    return Intl.message(
+      'Chống chỉ định',
+      name: 'contraindications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tên khoa học`
+  String get scientificName {
+    return Intl.message(
+      'Tên khoa học',
+      name: 'scientificName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Họ`
+  String get family {
+    return Intl.message('Họ', name: 'family', desc: '', args: []);
+  }
+
+  /// `Bộ phận sử dụng`
+  String get partsUsed {
+    return Intl.message(
+      'Bộ phận sử dụng',
+      name: 'partsUsed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hoạt chất chính`
+  String get activeCompounds {
+    return Intl.message(
+      'Hoạt chất chính',
+      name: 'activeCompounds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chưa có thông tin đăng nhập để bật sinh trắc học`
+  String get noLoginInfo {
+    return Intl.message(
+      'Chưa có thông tin đăng nhập để bật sinh trắc học',
+      name: 'noLoginInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sáng`
+  String get light {
+    return Intl.message('Sáng', name: 'light', desc: '', args: []);
+  }
+
+  /// `Tối`
+  String get dark {
+    return Intl.message('Tối', name: 'dark', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

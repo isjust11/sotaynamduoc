@@ -23,16 +23,22 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutApp": MessageLookupByLibrary.simpleMessage("About app"),
+    "achievements": MessageLookupByLibrary.simpleMessage("Achievements"),
+    "activeCompounds": MessageLookupByLibrary.simpleMessage("Active compounds"),
     "address": MessageLookupByLibrary.simpleMessage("Address"),
+    "alias": MessageLookupByLibrary.simpleMessage("Alias"),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "All notifications loaded",
     ),
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account?",
     ),
+    "anecdotes": MessageLookupByLibrary.simpleMessage("Anecdotes"),
     "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
     "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
+    "basicInfo": MessageLookupByLibrary.simpleMessage("Basic info"),
+    "biography": MessageLookupByLibrary.simpleMessage("Biography"),
     "biometricDisabled": MessageLookupByLibrary.simpleMessage(
       "Biometric login disabled",
     ),
@@ -47,8 +53,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "birthDateUncorectFormat": MessageLookupByLibrary.simpleMessage(
       "Birth date incorrect format",
     ),
+    "birthPlace": MessageLookupByLibrary.simpleMessage("Birth place"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "career": MessageLookupByLibrary.simpleMessage("Career"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage(
       "Change app language",
     ),
@@ -60,15 +68,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "city": MessageLookupByLibrary.simpleMessage("City"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "contraindications": MessageLookupByLibrary.simpleMessage(
+      "Contraindications",
+    ),
+    "contributions": MessageLookupByLibrary.simpleMessage("Contributions"),
     "createdAt": MessageLookupByLibrary.simpleMessage("Created at"),
+    "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+    "deathPlace": MessageLookupByLibrary.simpleMessage("Death place"),
     "detail": MessageLookupByLibrary.simpleMessage("detail"),
     "discovery": MessageLookupByLibrary.simpleMessage("Discovery"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
     ),
+    "dosage": MessageLookupByLibrary.simpleMessage("Dosage"),
     "dropdown_loading": MessageLookupByLibrary.simpleMessage(
       "Retrieving data...",
     ),
+    "dynasty": MessageLookupByLibrary.simpleMessage("Dynasty"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit profile"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailInvalid": MessageLookupByLibrary.simpleMessage("Email invalid"),
@@ -77,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterCredentials": MessageLookupByLibrary.simpleMessage(
       "Enter Credentials",
     ),
+    "era": MessageLookupByLibrary.simpleMessage("Era"),
     "error": MessageLookupByLibrary.simpleMessage("An error occurred"),
     "error_common": MessageLookupByLibrary.simpleMessage(
       "An error occurred. Please try again later",
@@ -113,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Facebook registration - Coming soon!",
     ),
     "facebookTimeout": MessageLookupByLibrary.simpleMessage("Facebook timeout"),
+    "family": MessageLookupByLibrary.simpleMessage("Family"),
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Featured medicine",
     ),
@@ -195,11 +213,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "herbalDetail": MessageLookupByLibrary.simpleMessage("Herbal detail"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "honors": MessageLookupByLibrary.simpleMessage("Honors"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Enter username"),
     "instagramLink": MessageLookupByLibrary.simpleMessage("Instagram link"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "lastLogin": MessageLookupByLibrary.simpleMessage("Last login"),
+    "legacy": MessageLookupByLibrary.simpleMessage("Legacy"),
     "library": MessageLookupByLibrary.simpleMessage("Library"),
+    "light": MessageLookupByLibrary.simpleMessage("Light"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
     "linkedinLink": MessageLookupByLibrary.simpleMessage("LinkedIn link"),
     "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -221,7 +242,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "markAllAsRead": MessageLookupByLibrary.simpleMessage("Mark all as read"),
     "markAsRead": MessageLookupByLibrary.simpleMessage("Mark as read"),
+    "medicinalProperties": MessageLookupByLibrary.simpleMessage(
+      "Medicinal properties",
+    ),
     "medicine": MessageLookupByLibrary.simpleMessage("Medicine"),
+    "memorials": MessageLookupByLibrary.simpleMessage("Memorials"),
     "myProfile": MessageLookupByLibrary.simpleMessage("My profile"),
     "newPinHasBeenSent": MessageLookupByLibrary.simpleMessage(
       "New PIN has been sent!",
@@ -232,6 +257,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "noDataAvailable": MessageLookupByLibrary.simpleMessage(
       "No data available",
     ),
+    "noLoginInfo": MessageLookupByLibrary.simpleMessage("No login info"),
+    "noName": MessageLookupByLibrary.simpleMessage("No name"),
     "noNotifications": MessageLookupByLibrary.simpleMessage("No notifications"),
     "noNotificationsYet": MessageLookupByLibrary.simpleMessage(
       "No notifications yet",
@@ -239,6 +266,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
+    "partsUsed": MessageLookupByLibrary.simpleMessage("Parts used"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordMax": MessageLookupByLibrary.simpleMessage(
       "Password must be less than 100 characters",
@@ -250,6 +278,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Passwords do not match",
     ),
     "permissions": MessageLookupByLibrary.simpleMessage("Permissions"),
+    "philosophy": MessageLookupByLibrary.simpleMessage("Philosophy"),
     "phone": MessageLookupByLibrary.simpleMessage("Phone"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "photo": MessageLookupByLibrary.simpleMessage("Photo"),
@@ -309,6 +338,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Please enter your username",
     ),
+    "preparationMethods": MessageLookupByLibrary.simpleMessage(
+      "Preparation methods",
+    ),
     "privacyAndSecurity": MessageLookupByLibrary.simpleMessage(
       "Privacy and Security",
     ),
@@ -320,7 +352,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Profile updated successfully",
     ),
     "pullToRefresh": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
+    "quotes": MessageLookupByLibrary.simpleMessage("Quotes"),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
+    "references": MessageLookupByLibrary.simpleMessage("References"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
       "Registration successful!",
@@ -337,6 +371,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "roles": MessageLookupByLibrary.simpleMessage("Roles"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "saving": MessageLookupByLibrary.simpleMessage("Saving..."),
+    "scientificInfo": MessageLookupByLibrary.simpleMessage("Scientific info"),
+    "scientificName": MessageLookupByLibrary.simpleMessage("Scientific name"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
     "security": MessageLookupByLibrary.simpleMessage("Security"),
     "selectImage": MessageLookupByLibrary.simpleMessage("Select Image"),
@@ -356,6 +392,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "An error occurred. Please try again later",
     ),
+    "specialty": MessageLookupByLibrary.simpleMessage("Specialty"),
+    "students": MessageLookupByLibrary.simpleMessage("Students"),
     "success": MessageLookupByLibrary.simpleMessage("Success"),
     "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
@@ -405,6 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "We have sent the PIN 4 digits to:",
     ),
     "welcomeTo": MessageLookupByLibrary.simpleMessage("Welcome to"),
+    "works": MessageLookupByLibrary.simpleMessage("Works"),
     "youCanSearch": MessageLookupByLibrary.simpleMessage(
       "You can search for medicine name, symptom ...",
     ),

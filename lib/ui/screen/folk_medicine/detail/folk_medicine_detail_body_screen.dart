@@ -157,8 +157,9 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
 
   Widget _buildIngredientsSection() {
     final String? ingredients = folkMedicine.ingredients;
-    if (ingredients == null || ingredients.isEmpty)
+    if (ingredients == null || ingredients.isEmpty) {
       return const SizedBox.shrink();
+    }
 
     return _buildInfoCard(
       AppLocalizations.current.folkMedicineIngredients,

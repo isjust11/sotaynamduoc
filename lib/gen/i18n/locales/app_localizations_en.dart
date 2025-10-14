@@ -652,4 +652,103 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleaseEnterValidPhoneNumber => 'Please enter valid phone number';
+
+  @override
+  String get biography => 'Biography';
+
+  @override
+  String get career => 'Career';
+
+  @override
+  String get achievements => 'Achievements';
+
+  @override
+  String get contributions => 'Contributions';
+
+  @override
+  String get works => 'Works';
+
+  @override
+  String get philosophy => 'Philosophy';
+
+  @override
+  String get legacy => 'Legacy';
+
+  @override
+  String get quotes => 'Quotes';
+
+  @override
+  String get anecdotes => 'Anecdotes';
+
+  @override
+  String get honors => 'Honors';
+
+  @override
+  String get memorials => 'Memorials';
+
+  @override
+  String get references => 'References';
+
+  @override
+  String get basicInfo => 'Basic info';
+
+  @override
+  String get birthPlace => 'Birth place';
+
+  @override
+  String get deathPlace => 'Death place';
+
+  @override
+  String get era => 'Era';
+
+  @override
+  String get dynasty => 'Dynasty';
+
+  @override
+  String get specialty => 'Specialty';
+
+  @override
+  String get students => 'Students';
+
+  @override
+  String get alias => 'Alias';
+
+  @override
+  String get noName => 'No name';
+
+  @override
+  String get scientificInfo => 'Scientific info';
+
+  @override
+  String get medicinalProperties => 'Medicinal properties';
+
+  @override
+  String get preparationMethods => 'Preparation methods';
+
+  @override
+  String get dosage => 'Dosage';
+
+  @override
+  String get contraindications => 'Contraindications';
+
+  @override
+  String get scientificName => 'Scientific name';
+
+  @override
+  String get family => 'Family';
+
+  @override
+  String get partsUsed => 'Parts used';
+
+  @override
+  String get activeCompounds => 'Active compounds';
+
+  @override
+  String get noLoginInfo => 'No login info';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
 }

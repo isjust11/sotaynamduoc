@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
+import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
@@ -105,7 +106,7 @@ class AuthorDetailScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextLabel(
-                author.name ?? 'Không có tên',
+                author.name ?? AppLocalizations.current.noName,
                 fontSize: AppDimens.SIZE_24,
                 fontWeight: FontWeight.bold,
                 color: AppColors.textDark,
@@ -113,7 +114,7 @@ class AuthorDetailScreen extends StatelessWidget {
               if (author.alias != null) ...[
                 const SizedBox(height: AppDimens.SIZE_8),
                 CustomTextLabel(
-                  'Bí danh: ${author.alias}',
+                  '${AppLocalizations.current.alias}: ${author.alias}',
                   fontSize: AppDimens.SIZE_16,
                   color: AppColors.textMediumGrey,
                 ),
@@ -129,7 +130,7 @@ class AuthorDetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: AppDimens.SIZE_4),
                     Text(
-                      '${author.viewCount}',
+                      '${author.viewCount ?? 0}',
                       style: TextStyle(color: AppColors.textMediumGrey),
                     ),
                     const SizedBox(width: AppDimens.SIZE_16),
@@ -142,7 +143,7 @@ class AuthorDetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: AppDimens.SIZE_4),
                     Text(
-                      '${author.likeCount}',
+                      '${author.likeCount ?? 0}',
                       style: TextStyle(color: AppColors.textMediumGrey),
                     ),
                   ],
@@ -160,19 +161,19 @@ class AuthorDetailScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextLabel(
-          'Thông tin cơ bản',
+          AppLocalizations.current.basicInfo,
           fontSize: AppDimens.SIZE_20,
           fontWeight: FontWeight.bold,
           color: AppColors.textDark,
         ),
         const SizedBox(height: AppDimens.SIZE_16),
-        _buildInfoRow('Nơi sinh', author.birthPlace),
-        _buildInfoRow('Nơi mất', author.deathPlace),
-        _buildInfoRow('Thời đại', author.era),
-        _buildInfoRow('Triều đại', author.dynasty),
-        _buildInfoRow('Chuyên môn', author.specialty),
-        _buildInfoRow('Thầy dạy', author.teacher),
-        _buildInfoRow('Học trò', author.students),
+        _buildInfoRow(AppLocalizations.current.birthPlace, author.birthPlace),
+        _buildInfoRow(AppLocalizations.current.deathPlace, author.deathPlace),
+        _buildInfoRow(AppLocalizations.current.era, author.era),
+        _buildInfoRow(AppLocalizations.current.dynasty, author.dynasty),
+        _buildInfoRow(AppLocalizations.current.specialty, author.specialty),
+        _buildInfoRow(AppLocalizations.current.teacher, author.teacher),
+        _buildInfoRow(AppLocalizations.current.students, author.students),
       ],
     );
   }
@@ -207,10 +208,11 @@ class AuthorDetailScreen extends StatelessWidget {
   }
 
   Widget _buildBiography() {
-    if (author.biography == null || author.biography!.isEmpty)
+    if (author.biography == null || author.biography!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Tiểu sử', author.biography!);
+    return _buildSection(AppLocalizations.current.biography, author.biography!);
   }
 
   Widget _buildCareer() {
@@ -218,77 +220,99 @@ class AuthorDetailScreen extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return _buildSection('Sự nghiệp', author.career!);
+    return _buildSection(AppLocalizations.current.career, author.career!);
   }
 
   Widget _buildAchievements() {
-    if (author.achievements == null || author.achievements!.isEmpty)
+    if (author.achievements == null || author.achievements!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Thành tựu', author.achievements!);
+    return _buildSection(
+      AppLocalizations.current.achievements,
+      author.achievements!,
+    );
   }
 
   Widget _buildContributions() {
-    if (author.contributions == null || author.contributions!.isEmpty)
+    if (author.contributions == null || author.contributions!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Đóng góp', author.contributions!);
+    return _buildSection(
+      AppLocalizations.current.contributions,
+      author.contributions!,
+    );
   }
 
   Widget _buildWorks() {
-    if (author.works == null || author.works!.isEmpty)
+    if (author.works == null || author.works!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Tác phẩm', author.works!);
+    return _buildSection(AppLocalizations.current.works, author.works!);
   }
 
   Widget _buildPhilosophy() {
-    if (author.philosophy == null || author.philosophy!.isEmpty)
+    if (author.philosophy == null || author.philosophy!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Triết lý', author.philosophy!);
+    return _buildSection(
+      AppLocalizations.current.philosophy,
+      author.philosophy!,
+    );
   }
 
   Widget _buildLegacy() {
-    if (author.legacy == null || author.legacy!.isEmpty)
+    if (author.legacy == null || author.legacy!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Di sản', author.legacy!);
+    return _buildSection(AppLocalizations.current.legacy, author.legacy!);
   }
 
   Widget _buildQuotes() {
-    if (author.quotes == null || author.quotes!.isEmpty)
+    if (author.quotes == null || author.quotes!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Trích dẫn', author.quotes!);
+    return _buildSection(AppLocalizations.current.quotes, author.quotes!);
   }
 
   Widget _buildAnecdotes() {
-    if (author.anecdotes == null || author.anecdotes!.isEmpty)
+    if (author.anecdotes == null || author.anecdotes!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Giai thoại', author.anecdotes!);
+    return _buildSection(AppLocalizations.current.anecdotes, author.anecdotes!);
   }
 
   Widget _buildHonors() {
-    if (author.honors == null || author.honors!.isEmpty)
+    if (author.honors == null || author.honors!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Danh hiệu', author.honors!);
+    return _buildSection(AppLocalizations.current.honors, author.honors!);
   }
 
   Widget _buildMemorials() {
-    if (author.memorials == null || author.memorials!.isEmpty)
+    if (author.memorials == null || author.memorials!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Tưởng niệm', author.memorials!);
+    return _buildSection(AppLocalizations.current.memorials, author.memorials!);
   }
 
   Widget _buildReferences() {
-    if (author.references == null || author.references!.isEmpty)
+    if (author.references == null || author.references!.isEmpty) {
       return const SizedBox.shrink();
+    }
 
-    return _buildSection('Tài liệu tham khảo', author.references!);
+    return _buildSection(
+      AppLocalizations.current.references,
+      author.references!,
+    );
   }
 
   Widget _buildSection(String title, String content) {

@@ -304,17 +304,17 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
     }
 
     return _buildInfoCard(
-      'Thông tin khoa học',
+      AppLocalizations.current.scientificInfo,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (scientificName != null && scientificName.isNotEmpty)
-            _buildInfoRow('Tên khoa học:', scientificName),
-          if (family != null && family.isNotEmpty) _buildInfoRow('Họ:', family),
+            _buildInfoRow(AppLocalizations.current.scientificName, scientificName),
+          if (family != null && family.isNotEmpty) _buildInfoRow(AppLocalizations.current.family, family),
           if (partsUsed != null && partsUsed.isNotEmpty)
-            _buildInfoRow('Bộ phận sử dụng:', partsUsed),
+            _buildInfoRow(AppLocalizations.current.partsUsed, partsUsed),
           if (activeCompounds != null && activeCompounds.isNotEmpty)
-            _buildInfoRow('Hoạt chất chính:', activeCompounds),
+            _buildInfoRow(AppLocalizations.current.activeCompounds, activeCompounds),
         ],
       ),
       icon: Icons.science,
@@ -327,7 +327,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
     if (properties == null || properties.isEmpty) return SizedBox.shrink();
 
     return _buildInfoCard(
-      'Tính chất dược lý',
+      AppLocalizations.current.medicinalProperties,
       CustomTextLabel(properties, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.healing,
     );
@@ -339,7 +339,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
     if (methods == null || methods.isEmpty) return SizedBox.shrink();
 
     return _buildInfoCard(
-      'Cách chế biến',
+      AppLocalizations.current.preparationMethods,
       CustomTextLabel(methods, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.restaurant,
     );
@@ -351,7 +351,7 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
     if (dosage == null || dosage.isEmpty) return SizedBox.shrink();
 
     return _buildInfoCard(
-      'Liều lượng sử dụng',
+      AppLocalizations.current.dosage,
       CustomTextLabel(dosage, fontSize: 14.sw, color: AppColors.textDark),
       icon: Icons.medication,
     );
@@ -360,11 +360,12 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   Widget _buildContraindicationsSection() {
     final contraindications = widget.herbalData.contraindications;
 
-    if (contraindications == null || contraindications.isEmpty)
+    if (contraindications == null || contraindications.isEmpty) {
       return SizedBox.shrink();
+    }
 
     return _buildInfoCard(
-      'Chống chỉ định',
+      AppLocalizations.current.contraindications,
       CustomTextLabel(
         contraindications,
         fontSize: 14.sw,

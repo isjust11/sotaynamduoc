@@ -658,4 +658,103 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get pleaseEnterValidPhoneNumber =>
       'Vui lòng nhập số điện thoại hợp lệ';
+
+  @override
+  String get biography => 'Tiểu sử';
+
+  @override
+  String get career => 'Sự nghiệp';
+
+  @override
+  String get achievements => 'Thành tựu';
+
+  @override
+  String get contributions => 'Đóng góp';
+
+  @override
+  String get works => 'Tác phẩm';
+
+  @override
+  String get philosophy => 'Triết lý';
+
+  @override
+  String get legacy => 'Di sản';
+
+  @override
+  String get quotes => 'Trích dẫn';
+
+  @override
+  String get anecdotes => 'Giai thoại';
+
+  @override
+  String get honors => 'Danh hiệu';
+
+  @override
+  String get memorials => 'Tưởng niệm';
+
+  @override
+  String get references => 'Tài liệu tham khảo';
+
+  @override
+  String get basicInfo => 'Thông tin cơ bản';
+
+  @override
+  String get birthPlace => 'Nơi sinh';
+
+  @override
+  String get deathPlace => 'Nơi mất';
+
+  @override
+  String get era => 'Thời đại';
+
+  @override
+  String get dynasty => 'Triều đại';
+
+  @override
+  String get specialty => 'Chuyên môn';
+
+  @override
+  String get students => 'Học trò';
+
+  @override
+  String get alias => 'Bí danh';
+
+  @override
+  String get noName => 'Không có tên';
+
+  @override
+  String get scientificInfo => 'Thông tin khoa học';
+
+  @override
+  String get medicinalProperties => 'Tính chất dược lý';
+
+  @override
+  String get preparationMethods => 'Cách chế biến';
+
+  @override
+  String get dosage => 'Liều lượng sử dụng';
+
+  @override
+  String get contraindications => 'Chống chỉ định';
+
+  @override
+  String get scientificName => 'Tên khoa học';
+
+  @override
+  String get family => 'Họ';
+
+  @override
+  String get partsUsed => 'Bộ phận sử dụng';
+
+  @override
+  String get activeCompounds => 'Hoạt chất chính';
+
+  @override
+  String get noLoginInfo => 'Chưa có thông tin đăng nhập để bật sinh trắc học';
+
+  @override
+  String get light => 'Sáng';
+
+  @override
+  String get dark => 'Tối';
 }

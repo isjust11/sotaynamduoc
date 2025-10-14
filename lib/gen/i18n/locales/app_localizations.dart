@@ -1369,6 +1369,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter valid phone number'**
   String get pleaseEnterValidPhoneNumber;
+
+  /// No description provided for @biography.
+  ///
+  /// In en, this message translates to:
+  /// **'Biography'**
+  String get biography;
+
+  /// No description provided for @career.
+  ///
+  /// In en, this message translates to:
+  /// **'Career'**
+  String get career;
+
+  /// No description provided for @achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// No description provided for @contributions.
+  ///
+  /// In en, this message translates to:
+  /// **'Contributions'**
+  String get contributions;
+
+  /// No description provided for @works.
+  ///
+  /// In en, this message translates to:
+  /// **'Works'**
+  String get works;
+
+  /// No description provided for @philosophy.
+  ///
+  /// In en, this message translates to:
+  /// **'Philosophy'**
+  String get philosophy;
+
+  /// No description provided for @legacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Legacy'**
+  String get legacy;
+
+  /// No description provided for @quotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Quotes'**
+  String get quotes;
+
+  /// No description provided for @anecdotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Anecdotes'**
+  String get anecdotes;
+
+  /// No description provided for @honors.
+  ///
+  /// In en, this message translates to:
+  /// **'Honors'**
+  String get honors;
+
+  /// No description provided for @memorials.
+  ///
+  /// In en, this message translates to:
+  /// **'Memorials'**
+  String get memorials;
+
+  /// No description provided for @references.
+  ///
+  /// In en, this message translates to:
+  /// **'References'**
+  String get references;
+
+  /// No description provided for @basicInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic info'**
+  String get basicInfo;
+
+  /// No description provided for @birthPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth place'**
+  String get birthPlace;
+
+  /// No description provided for @deathPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Death place'**
+  String get deathPlace;
+
+  /// No description provided for @era.
+  ///
+  /// In en, this message translates to:
+  /// **'Era'**
+  String get era;
+
+  /// No description provided for @dynasty.
+  ///
+  /// In en, this message translates to:
+  /// **'Dynasty'**
+  String get dynasty;
+
+  /// No description provided for @specialty.
+  ///
+  /// In en, this message translates to:
+  /// **'Specialty'**
+  String get specialty;
+
+  /// No description provided for @students.
+  ///
+  /// In en, this message translates to:
+  /// **'Students'**
+  String get students;
+
+  /// No description provided for @alias.
+  ///
+  /// In en, this message translates to:
+  /// **'Alias'**
+  String get alias;
+
+  /// No description provided for @noName.
+  ///
+  /// In en, this message translates to:
+  /// **'No name'**
+  String get noName;
+
+  /// No description provided for @scientificInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific info'**
+  String get scientificInfo;
+
+  /// No description provided for @medicinalProperties.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicinal properties'**
+  String get medicinalProperties;
+
+  /// No description provided for @preparationMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparation methods'**
+  String get preparationMethods;
+
+  /// No description provided for @dosage.
+  ///
+  /// In en, this message translates to:
+  /// **'Dosage'**
+  String get dosage;
+
+  /// No description provided for @contraindications.
+  ///
+  /// In en, this message translates to:
+  /// **'Contraindications'**
+  String get contraindications;
+
+  /// No description provided for @scientificName.
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific name'**
+  String get scientificName;
+
+  /// No description provided for @family.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get family;
+
+  /// No description provided for @partsUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Parts used'**
+  String get partsUsed;
+
+  /// No description provided for @activeCompounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Active compounds'**
+  String get activeCompounds;
+
+  /// No description provided for @noLoginInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'No login info'**
+  String get noLoginInfo;
+
+  /// No description provided for @light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get light;
+
+  /// No description provided for @dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get dark;
 }
 
 class _AppLocalizationsDelegate
