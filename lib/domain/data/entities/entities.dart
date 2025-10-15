@@ -4,3 +4,4 @@ export 'role_entity.dart';
 export 'auth_entity.dart';
 export 'category_entity.dart';
 export 'folk_medicine_entity.dart';
+export 'user_interaction_entity.dart';
