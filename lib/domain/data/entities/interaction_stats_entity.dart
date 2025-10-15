@@ -6,16 +6,16 @@ import 'package:sotaynamduoc/domain/data/entities/folk_medicine_entity.dart';
 import 'package:sotaynamduoc/domain/data/enums/interaction_target.dart';
 
 class InteractionStatsEntity extends BaseEntity {
-  int? id;
+  String? id;
   InteractionTarget? targetType;
-  int? targetId;
+  String? targetId;
 
   // Optional foreign key relationships based on target type
-  int? articleId;
-  int? herbalId;
-  int? folkMedicineId;
-  int? authorId;
-  int? categoryId;
+  String? articleId;
+  String? herbalId;
+  String? folkMedicineId;
+  String? authorId;
+  String? categoryId;
 
   // Related entities
   AuthorEntity? author;
@@ -82,8 +82,12 @@ class InteractionStatsEntity extends BaseEntity {
     followCount = json['followCount'];
 
     // Rating data
-    averageRating = json['averageRating']?.toDouble();
-    totalRating = json['totalRating']?.toDouble();
+    averageRating = json['averageRating'] != null
+        ? double.parse(json['averageRating'])
+        : 0.0;
+    totalRating = json['totalRating'] != null
+        ? double.parse(json['totalRating'])
+        : 0.0;
 
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

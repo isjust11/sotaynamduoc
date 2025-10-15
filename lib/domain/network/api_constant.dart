@@ -38,6 +38,8 @@ class ApiConstant {
       "$userInteractionsBase/like/$targetType/$targetId";
   static String unlikeUrl(String targetType, dynamic targetId) =>
       "$userInteractionsBase/unlike/$targetType/$targetId";
+  static String viewUrl(String targetType, dynamic targetId) =>
+      "$userInteractionsBase/view/$targetType/$targetId";
   static String bookmarkUrl(String targetType, dynamic targetId) =>
       "$userInteractionsBase/bookmark/$targetType/$targetId";
   static String unbookmarkUrl(String targetType, dynamic targetId) =>

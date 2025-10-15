@@ -5,6 +5,10 @@ import 'package:sotaynamduoc/domain/repositories/user_interaction_repository.dar
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 
 class UserInteractionCubit extends Cubit<BaseState> {
+  bool isLiked = false;
+  int viewCount = 0;
+  int likeCount = 0;
+  bool hasTrackedView = false;
   final UserInteractionRepository repository;
   UserInteractionCubit({required this.repository}) : super(InitState());
 
@@ -16,6 +20,8 @@ class UserInteractionCubit extends Cubit<BaseState> {
         targetType: targetType,
         targetId: targetId,
       );
+      isLiked = true;
+      likeCount++;
       emit(LoadedState(response));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
@@ -27,6 +33,8 @@ class UserInteractionCubit extends Cubit<BaseState> {
     try {
       emit(LoadingState());
       await repository.unlike(targetType: targetType, targetId: targetId);
+      isLiked = false;
+      likeCount = (likeCount - 1).clamp(0, double.infinity).toInt();
       emit(LoadedState(null));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
@@ -71,6 +79,25 @@ class UserInteractionCubit extends Cubit<BaseState> {
         targetId: targetId,
         sharePlatform: platform,
       );
+      emit(LoadedState(response));
+    } catch (e) {
+      emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  void view({required String targetType, required dynamic targetId}) async {
+    // Avoid tracking view multiple times
+    if (hasTrackedView) return;
+
+    try {
+      emit(LoadingState());
+      final response = await repository.view(
+        targetType: targetType,
+        targetId: targetId,
+      );
+      // Increment view count locally
+      viewCount++;
+      hasTrackedView = true;
       emit(LoadedState(response));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
@@ -128,6 +155,7 @@ class UserInteractionCubit extends Cubit<BaseState> {
         targetType: targetType,
         targetId: targetId,
       );
+      isLiked = response != null && response['like'] == true;
       emit(LoadedState(response));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
@@ -141,6 +169,8 @@ class UserInteractionCubit extends Cubit<BaseState> {
         targetType: targetType,
         targetId: targetId,
       );
+      viewCount = response.viewCount ?? 0;
+      likeCount = response.likeCount ?? 0;
       emit(LoadedState(response));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
@@ -155,5 +185,14 @@ class UserInteractionCubit extends Cubit<BaseState> {
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
     }
+  }
+
+  // Reset state when switching to different target
+  void resetState() {
+    isLiked = false;
+    viewCount = 0;
+    likeCount = 0;
+    hasTrackedView = false;
+    emit(InitState());
   }
 }

@@ -6,6 +6,7 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class AuthorDetailScreen extends StatelessWidget {
   final AuthorModel author;
@@ -86,16 +87,13 @@ class AuthorDetailScreen extends StatelessWidget {
               ),
             ),
             child: author.avatar != null || author.portrait != null
-                ? Image.network(
-                    ApiConstant.apiHost + (author.avatar ?? author.portrait!),
+                ? BaseNetworkImage(
+                    width: 120.sw,
+                    height: 90.sh,
+                    url:
+                        ApiConstant.apiHost +
+                        (author.avatar ?? author.portrait!),
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Icon(
-                        Icons.person,
-                        size: 60,
-                        color: AppColors.textMediumGrey,
-                      );
-                    },
                   )
                 : Icon(Icons.person, size: 60, color: AppColors.textMediumGrey),
           ),

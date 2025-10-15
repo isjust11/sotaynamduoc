@@ -8,19 +8,19 @@ import 'package:sotaynamduoc/domain/data/enums/interaction_type.dart';
 import 'package:sotaynamduoc/domain/data/enums/interaction_target.dart';
 
 class UserInteractionEntity extends BaseEntity {
-  int? id;
-  int? userId;
+  String? id;
+  String? userId;
   UserEntity? user;
   InteractionType? interactionType;
   InteractionTarget? targetType;
-  int? targetId;
+  String? targetId;
 
   // Optional foreign key relationships based on target type
-  int? articleId;
-  int? herbalId;
-  int? folkMedicineId;
-  int? authorId;
-  int? categoryId;
+  String? articleId;
+  String? herbalId;
+  String? folkMedicineId;
+  String? authorId;
+  String? categoryId;
 
   // Related entities
   AuthorEntity? author;

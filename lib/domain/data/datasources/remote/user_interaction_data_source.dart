@@ -1,3 +1,4 @@
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 
 class UserInteractionRemoteDataSource {
@@ -6,26 +7,45 @@ class UserInteractionRemoteDataSource {
   UserInteractionRemoteDataSource({required this.network});
 
   // like
-  Future<dynamic> like({
+  Future<UserInteractionModel> like({
     required String targetType,
     required dynamic targetId,
   }) async {
     final ApiResponse apiResponse = await network.post(
       url: ApiConstant.likeUrl(targetType, targetId),
     );
-    if (apiResponse.isSuccess) return apiResponse.data;
+    if (apiResponse.isSuccess) {
+      return UserInteractionModel.fromJson(apiResponse.data);
+    }
+    return Future.error(apiResponse.message);
+  }
+
+  // view
+
+  Future<UserInteractionModel> view({
+    required String targetType,
+    required dynamic targetId,
+  }) async {
+    final ApiResponse apiResponse = await network.post(
+      url: ApiConstant.viewUrl(targetType, targetId),
+    );
+    if (apiResponse.isSuccess) {
+      return UserInteractionModel.fromJson(apiResponse.data);
+    }
     return Future.error(apiResponse.message);
   }
 
   // unlike
-  Future<void> unlike({
+  Future<UserInteractionModel> unlike({
     required String targetType,
     required dynamic targetId,
   }) async {
-    final ApiResponse apiResponse = await network.delete(
+    final ApiResponse apiResponse = await network.post(
       url: ApiConstant.unlikeUrl(targetType, targetId),
     );
-    if (apiResponse.isSuccess) return;
+    if (apiResponse.isSuccess) {
+      return UserInteractionModel.fromJson(apiResponse.data);
+    }
     return Future.error(apiResponse.message);
   }
 
@@ -113,19 +133,23 @@ class UserInteractionRemoteDataSource {
     final ApiResponse apiResponse = await network.get(
       url: ApiConstant.interactionStatusUrl(targetType, targetId),
     );
-    if (apiResponse.isSuccess) return apiResponse.data;
+    if (apiResponse.isSuccess) {
+      return apiResponse.data;
+    }
     return Future.error(apiResponse.message);
   }
 
   // get stats
-  Future<dynamic> getStats({
+  Future<InteractionStatsModel> getStats({
     required String targetType,
     required dynamic targetId,
   }) async {
     final ApiResponse apiResponse = await network.get(
       url: ApiConstant.interactionStatsUrl(targetType, targetId),
     );
-    if (apiResponse.isSuccess) return apiResponse.data;
+    if (apiResponse.isSuccess) {
+      return InteractionStatsModel.fromJson(apiResponse.data);
+    }
     return Future.error(apiResponse.message);
   }
 

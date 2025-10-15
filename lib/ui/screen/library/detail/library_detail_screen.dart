@@ -25,15 +25,23 @@ class LibraryDetailScreen extends StatefulWidget {
 }
 
 class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
-  bool isLiked = false;
   int currentImageIndex = 0;
   final PageController _pageController = PageController();
   @override
   void initState() {
     super.initState();
+    // Reset state for new target
+    context.read<UserInteractionCubit>().resetState();
+
     // Fetch interaction status and stats when entering the screen
     final id = widget.herbalData.id ?? '';
     if (id.isNotEmpty) {
+      // Track view when entering the screen
+      context.read<UserInteractionCubit>().view(
+        targetType: 'herbal',
+        targetId: id,
+      );
+
       context.read<UserInteractionCubit>().getStatus(
         targetType: 'herbal',
         targetId: id,
@@ -65,32 +73,35 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
             icon: BlocBuilder<UserInteractionCubit, BaseState>(
               builder: (context, state) {
                 if (state is LoadedState) {
-                  final data = state.data;
-                  final isLiked = data['isLiked'] ?? false;
+                  final isLiked = context.read<UserInteractionCubit>().isLiked;
                   return Icon(
                     isLiked ? Icons.favorite : Icons.favorite_border,
                     color: AppColors.white,
                   );
+                } else {
+                  return Icon(Icons.favorite_border, color: AppColors.white);
                 }
-                return SizedBox.expand();
               },
             ),
             onPressed: () {
-              setState(() {
-                final id = widget.herbalData.id ?? '';
-                if (id.isEmpty) return;
-                if (isLiked) {
-                  context.read<UserInteractionCubit>().like(
-                    targetType: 'herbal',
-                    targetId: id,
-                  );
-                } else {
-                  context.read<UserInteractionCubit>().unlike(
-                    targetType: 'herbal',
-                    targetId: id,
-                  );
-                }
-              });
+              final id = widget.herbalData.id ?? '';
+              if (id.isEmpty) return;
+
+              // Get current state to determine if liked
+
+              final isLiked = context.read<UserInteractionCubit>().isLiked;
+
+              if (!isLiked) {
+                context.read<UserInteractionCubit>().like(
+                  targetType: 'herbal',
+                  targetId: id,
+                );
+              } else {
+                context.read<UserInteractionCubit>().unlike(
+                  targetType: 'herbal',
+                  targetId: id,
+                );
+              }
             },
           ),
           IconButton(
@@ -249,8 +260,8 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   }
 
   Widget _buildStatsSection() {
-    final viewCount = widget.herbalData.viewCount ?? 0;
-    final likeCount = widget.herbalData.likeCount ?? 0;
+    final viewCount = context.read<UserInteractionCubit>().viewCount;
+    final likeCount = context.read<UserInteractionCubit>().likeCount;
 
     return Row(
       children: [
@@ -309,12 +320,19 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (scientificName != null && scientificName.isNotEmpty)
-            _buildInfoRow(AppLocalizations.current.scientificName, scientificName),
-          if (family != null && family.isNotEmpty) _buildInfoRow(AppLocalizations.current.family, family),
+            _buildInfoRow(
+              AppLocalizations.current.scientificName,
+              scientificName,
+            ),
+          if (family != null && family.isNotEmpty)
+            _buildInfoRow(AppLocalizations.current.family, family),
           if (partsUsed != null && partsUsed.isNotEmpty)
             _buildInfoRow(AppLocalizations.current.partsUsed, partsUsed),
           if (activeCompounds != null && activeCompounds.isNotEmpty)
-            _buildInfoRow(AppLocalizations.current.activeCompounds, activeCompounds),
+            _buildInfoRow(
+              AppLocalizations.current.activeCompounds,
+              activeCompounds,
+            ),
         ],
       ),
       icon: Icons.science,

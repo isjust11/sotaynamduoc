@@ -1,16 +1,22 @@
 import 'package:sotaynamduoc/domain/data/datasources/remote/user_interaction_data_source.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 class UserInteractionRepository {
   final UserInteractionRemoteDataSource remoteDataSource;
 
   UserInteractionRepository({required this.remoteDataSource});
 
-  Future<dynamic> like({
+  Future<UserInteractionModel> like({
     required String targetType,
     required dynamic targetId,
   }) => remoteDataSource.like(targetType: targetType, targetId: targetId);
 
-  Future<void> unlike({
+  Future<UserInteractionModel> view({
+    required String targetType,
+    required dynamic targetId,
+  }) => remoteDataSource.view(targetType: targetType, targetId: targetId);
+
+  Future<dynamic> unlike({
     required String targetType,
     required dynamic targetId,
   }) => remoteDataSource.unlike(targetType: targetType, targetId: targetId);
@@ -60,7 +66,7 @@ class UserInteractionRepository {
     required dynamic targetId,
   }) => remoteDataSource.getStatus(targetType: targetType, targetId: targetId);
 
-  Future<dynamic> getStats({
+  Future<InteractionStatsModel> getStats({
     required String targetType,
     required dynamic targetId,
   }) => remoteDataSource.getStats(targetType: targetType, targetId: targetId);

@@ -5,6 +5,7 @@ import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
+import 'package:sotaynamduoc/ui/widget/base_network_image.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 
@@ -58,32 +59,11 @@ class CardItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
               child: thumbnail != null
-                  ? Image.network(
-                      height: 60.sh,
-                      width: 100.sw,
-                      ApiConstant.apiHost + (thumbnail ?? ''),
+                  ? BaseNetworkImage(
+                      height: 80.sh,
+                      width: 120.sw,
+                      url: ApiConstant.apiHost + (thumbnail ?? ''),
                       fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: AppColors.white,
-                          child: Icon(
-                            Icons.image_not_supported,
-                            size: 60.sw,
-                            color: AppColors.textMediumGrey,
-                          ),
-                        );
-                      },
                     )
                   : Container(
                       color: AppColors.lightGreyBackground,
