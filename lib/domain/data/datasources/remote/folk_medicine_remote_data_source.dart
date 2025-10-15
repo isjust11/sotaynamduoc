@@ -51,4 +51,15 @@ class FolkMedicineRemoteDataSource {
     }
     return Future.error(apiResponse.message);
   }
+
+  Future<void> updateFolkMedicineView(String id) async {
+    ApiResponse apiResponse = await network.post(
+      url: '${ApiConstant.getFolkMedicines}/$id/view',
+    );
+
+    if (apiResponse.isSuccess) {
+      return;
+    }
+    return Future.error(apiResponse.message);
+  }
 }

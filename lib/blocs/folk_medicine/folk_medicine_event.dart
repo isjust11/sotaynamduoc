@@ -75,3 +75,11 @@ class RefreshFolkMedicine extends FolkMedicineEvent {
   @override
   List<Object> get props => [categoryId ?? ''];
 }
+
+class UpdateFolkMedicineView extends FolkMedicineEvent {
+  final String id;
+  const UpdateFolkMedicineView(this.id);
+
+  @override
+  List<Object> get props => [id];
+}

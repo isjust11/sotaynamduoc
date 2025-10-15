@@ -1,5 +1,4 @@
 import 'package:sotaynamduoc/domain/network/network.dart';
-import 'package:sotaynamduoc/domain/network/api_constant.dart';
 
 class UserInteractionRemoteDataSource {
   final Network network;

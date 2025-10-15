@@ -11,13 +11,15 @@ class FolkMedicineBloc extends Bloc<FolkMedicineEvent, FolkMedicineState> {
   String? _currentSearch;
   String? _currentCategoryId;
 
-  FolkMedicineBloc({required this.folkMedicineRepository}) : super(FolkMedicineInitial()) {
+  FolkMedicineBloc({required this.folkMedicineRepository})
+    : super(FolkMedicineInitial()) {
     on<LoadFolkMedicineList>(_onLoadFolkMedicineList);
     on<LoadFolkMedicineDetail>(_onLoadFolkMedicineDetail);
     on<LoadFolkMedicineBySlug>(_onLoadFolkMedicineBySlug);
     on<SearchFolkMedicine>(_onSearchFolkMedicine);
     on<FilterFolkMedicineByCategory>(_onFilterFolkMedicineByCategory);
     on<RefreshFolkMedicine>(_onRefreshFolkMedicine);
+    on<UpdateFolkMedicineView>(_onUpdateFolkMedicineView);
   }
 
   Future<void> _onLoadFolkMedicineList(
@@ -75,7 +77,10 @@ class FolkMedicineBloc extends Bloc<FolkMedicineEvent, FolkMedicineState> {
 
         if (state is FolkMedicineListLoaded) {
           final currentState = state as FolkMedicineListLoaded;
-          final updatedList = [...currentState.folkMedicineList, ...folkMedicineList];
+          final updatedList = [
+            ...currentState.folkMedicineList,
+            ...folkMedicineList,
+          ];
           emit(
             currentState.copyWith(
               folkMedicineList: updatedList,
@@ -96,7 +101,9 @@ class FolkMedicineBloc extends Bloc<FolkMedicineEvent, FolkMedicineState> {
   ) async {
     try {
       emit(FolkMedicineLoading());
-      final folkMedicine = await folkMedicineRepository.getFolkMedicineById(event.id);
+      final folkMedicine = await folkMedicineRepository.getFolkMedicineById(
+        event.id,
+      );
       emit(FolkMedicineDetailLoaded(folkMedicine));
     } catch (e) {
       emit(FolkMedicineError(e.toString()));
@@ -109,7 +116,9 @@ class FolkMedicineBloc extends Bloc<FolkMedicineEvent, FolkMedicineState> {
   ) async {
     try {
       emit(FolkMedicineLoading());
-      final folkMedicine = await folkMedicineRepository.getFolkMedicineBySlug(event.slug);
+      final folkMedicine = await folkMedicineRepository.getFolkMedicineBySlug(
+        event.slug,
+      );
       emit(FolkMedicineDetailLoaded(folkMedicine));
     } catch (e) {
       emit(FolkMedicineError(e.toString()));
@@ -117,52 +126,67 @@ class FolkMedicineBloc extends Bloc<FolkMedicineEvent, FolkMedicineState> {
   }
 
   Future<void> _onSearchFolkMedicine(
-    SearchFolkMedicine event, 
-    Emitter<FolkMedicineState> emit
+    SearchFolkMedicine event,
+    Emitter<FolkMedicineState> emit,
   ) async {
     _currentSearch = event.searchTerm;
-    add(LoadFolkMedicineList(
-      page: 1, 
-      search: event.searchTerm, 
-      categoryId: _currentCategoryId,
-      isRefresh: true
-    ));
+    add(
+      LoadFolkMedicineList(
+        page: 1,
+        search: event.searchTerm,
+        categoryId: _currentCategoryId,
+        isRefresh: true,
+      ),
+    );
+  }
+
+  Future<void> _onUpdateFolkMedicineView(
+    UpdateFolkMedicineView event,
+    Emitter<FolkMedicineState> emit,
+  ) async {
+    await folkMedicineRepository.updateFolkMedicineView(event.id);
   }
 
   Future<void> _onFilterFolkMedicineByCategory(
-    FilterFolkMedicineByCategory event, 
-    Emitter<FolkMedicineState> emit
+    FilterFolkMedicineByCategory event,
+    Emitter<FolkMedicineState> emit,
   ) async {
     _currentCategoryId = event.categoryId;
-    add(LoadFolkMedicineList(
-      page: 1, 
-      search: _currentSearch, 
-      categoryId: event.categoryId,
-      isRefresh: true
-    ));
+    add(
+      LoadFolkMedicineList(
+        page: 1,
+        search: _currentSearch,
+        categoryId: event.categoryId,
+        isRefresh: true,
+      ),
+    );
   }
 
   Future<void> _onRefreshFolkMedicine(
     RefreshFolkMedicine event,
     Emitter<FolkMedicineState> emit,
   ) async {
-    add(LoadFolkMedicineList(
-      page: 1, 
-      search: _currentSearch, 
-      categoryId: _currentCategoryId ?? event.categoryId,
-      isRefresh: true
-    ));
+    add(
+      LoadFolkMedicineList(
+        page: 1,
+        search: _currentSearch,
+        categoryId: _currentCategoryId ?? event.categoryId,
+        isRefresh: true,
+      ),
+    );
   }
 
   void loadMore() {
     if (_hasMore && state is FolkMedicineListLoaded) {
       final currentState = state as FolkMedicineListLoaded;
       if (!currentState.isLoadingMore) {
-        add(LoadFolkMedicineList(
-          page: _currentPage + 1, 
-          search: _currentSearch,
-          categoryId: _currentCategoryId,
-        ));
+        add(
+          LoadFolkMedicineList(
+            page: _currentPage + 1,
+            search: _currentSearch,
+            categoryId: _currentCategoryId,
+          ),
+        );
       }
     }
   }
@@ -171,4 +195,4 @@ class FolkMedicineBloc extends Bloc<FolkMedicineEvent, FolkMedicineState> {
   int get currentPage => _currentPage;
   String? get currentSearch => _currentSearch;
   String? get currentCategoryId => _currentCategoryId;
-} 
+}

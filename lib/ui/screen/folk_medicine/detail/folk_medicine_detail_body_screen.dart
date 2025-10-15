@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_bloc.dart';
+import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_event.dart';
 import 'package:sotaynamduoc/domain/data/models/folk_medicine_model.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
@@ -16,6 +19,9 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<FolkMedicineBloc>().add(
+      UpdateFolkMedicineView(folkMedicine.id ?? ''),
+    );
     return BaseScreen(
       hideAppBar: true,
       colorBg: AppColors.white,

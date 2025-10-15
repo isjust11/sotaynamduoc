@@ -1,13 +1,10 @@
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 
-
 class FolkMedicineRepository {
   final FolkMedicineRemoteDataSource remoteDataSource;
 
-  FolkMedicineRepository({
-    required this.remoteDataSource,
-  });
+  FolkMedicineRepository({required this.remoteDataSource});
 
   Future<List<FolkMedicineModel>> getFolkMedicines({
     int? page,
@@ -23,9 +20,9 @@ class FolkMedicineRepository {
         categoryId: categoryId,
         search: search,
       );
-      
+
       // Save to local cache
-      
+
       return folkMedicines;
     } catch (e) {
       // If remote fails, try to get from local cache
@@ -51,4 +48,12 @@ class FolkMedicineRepository {
       return Future.error(e);
     }
   }
-} 
+
+  Future<void> updateFolkMedicineView(String id) async {
+    try {
+      return await remoteDataSource.updateFolkMedicineView(id);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+}

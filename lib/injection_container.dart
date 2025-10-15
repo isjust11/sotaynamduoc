@@ -83,7 +83,10 @@ void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
     () => MediaRepository(remoteDataSource: getIt.get()),
   );
-} 
+  getIt.registerLazySingleton(
+    () => UserInteractionRepository(remoteDataSource: getIt.get()),
+  );
+}
 
 void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(() => AuthRemoteDataSource(network: getIt.get()));
@@ -108,6 +111,9 @@ void registerDataSource(GetIt getIt) {
   );
   getIt.registerLazySingleton(
     () => MediaRemoteDataSource(network: getIt.get()),
+  );
+  getIt.registerLazySingleton(
+    () => UserInteractionRemoteDataSource(network: getIt.get()),
   );
 }
 
