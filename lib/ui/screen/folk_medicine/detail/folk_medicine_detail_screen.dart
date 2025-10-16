@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sotaynamduoc/domain/data/models/folk_medicine_model.dart';
-import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
-import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
-import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 
 class FolkMedicineDetailScreen extends StatelessWidget {
@@ -14,14 +11,7 @@ class FolkMedicineDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
       onBackPress: () => Navigator.pop(context),
-      customAppBar: BaseAppBar(
-        centerTitle: false,
-        title:
-            folkMedicine.title ??
-            AppLocalizations.current.featuredMedicine.toUpperCase(),
-        showBackButton: true,
-        backgroundColor: AppColors.secondaryBrand,
-      ),
+      hideAppBar: true,
       body: FolkMedicineDetailBodyScreen(folkMedicine: folkMedicine),
     );
   }

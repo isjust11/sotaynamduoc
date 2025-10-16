@@ -10,6 +10,7 @@ import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
+import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 import 'package:sotaynamduoc/utils/html_style_helper.dart';
@@ -24,9 +25,66 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
     return BaseScreen(
       interactionTarget: InteractionTarget.folkMedicine,
       interactionId: folkMedicine.id,
-      hideAppBar: true,
-      colorBg: AppColors.white,
+      customAppBar: _buildAppBar(context),
       body: _buildBody(context),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return BaseAppBar(
+      title: folkMedicine.title ?? AppLocalizations.current.noName,
+      showBackButton: true,
+      onBackTap: () {
+        Navigator.pop(context);
+      },
+      actions: [
+        IconButton(
+          icon: BlocBuilder<UserInteractionCubit, BaseState>(
+            buildWhen: (prev, curr) => curr is LoadedUserInteractionState,
+            builder: (context, state) {
+              if (state is LoadedUserInteractionState) {
+                final isLiked = context.read<UserInteractionCubit>().isLiked;
+                return Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: AppColors.white,
+                );
+              }
+              return Icon(Icons.favorite_border, color: AppColors.white);
+            },
+          ),
+          onPressed: () {
+            final id = folkMedicine.id ?? '';
+            if (id.isEmpty) return;
+
+            // Get current state to determine if liked
+
+            final isLiked = context.read<UserInteractionCubit>().isLiked;
+
+            if (!isLiked) {
+              context.read<UserInteractionCubit>().like(
+                targetType: InteractionTarget.folkMedicine.value,
+                targetId: id,
+              );
+            } else {
+              context.read<UserInteractionCubit>().unlike(
+                targetType: InteractionTarget.folkMedicine.value,
+                targetId: id,
+              );
+            }
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.share, color: AppColors.white),
+          onPressed: () {
+            final id = folkMedicine.id ?? '';
+            if (id.isEmpty) return;
+            context.read<UserInteractionCubit>().share(
+              targetType: InteractionTarget.author.value,
+              targetId: id,
+            );
+          },
+        ),
+      ],
     );
   }
 

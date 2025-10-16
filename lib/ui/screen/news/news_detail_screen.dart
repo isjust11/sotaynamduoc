@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/domain/data/enums/enums.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
@@ -43,30 +43,57 @@ class NewsDetailView extends StatelessWidget {
     return BaseAppBar(
       title: AppLocalizations.current.newsDetail,
       showBackButton: true,
-      onBackTap: () => Navigator.pop(context),
-      backgroundColor: AppColors.secondaryBrand,
+      onBackTap: () {
+        Navigator.pop(context);
+      },
       actions: [
-        _buildActionButton(Icons.share, _onShare),
-        _buildActionButton(Icons.favorite, () => _onFavorite(context)),
+        IconButton(
+          icon: BlocBuilder<UserInteractionCubit, BaseState>(
+            buildWhen: (prev, curr) => curr is LoadedUserInteractionState,
+            builder: (context, state) {
+              if (state is LoadedUserInteractionState) {
+                final isLiked = context.read<UserInteractionCubit>().isLiked;
+                return Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: AppColors.white,
+                );
+              }
+              return Icon(Icons.favorite_border, color: AppColors.white);
+            },
+          ),
+          onPressed: () {
+            final id = news.id ?? '';
+            if (id.isEmpty) return;
+
+            // Get current state to determine if liked
+
+            final isLiked = context.read<UserInteractionCubit>().isLiked;
+
+            if (!isLiked) {
+              context.read<UserInteractionCubit>().like(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            } else {
+              context.read<UserInteractionCubit>().unlike(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            }
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.share, color: AppColors.white),
+          onPressed: () {
+            final id = news.id ?? '';
+            if (id.isEmpty) return;
+            context.read<UserInteractionCubit>().share(
+              targetType: InteractionTarget.article.value,
+              targetId: id,
+            );
+          },
+        ),
       ],
-    );
-  }
-
-  Future<void> _onFavorite(BuildContext context) async {
-    context.read<UserInteractionCubit>().like(
-      targetType: InteractionTarget.article.value,
-      targetId: news.id,
-    );
-  }
-
-  Future<void> _onShare() async {
-    await SharePlus.instance.share(ShareParams(text: news.title));
-  }
-
-  Widget _buildActionButton(IconData icon, VoidCallback onPressed) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: Icon(icon, color: AppColors.white),
     );
   }
 

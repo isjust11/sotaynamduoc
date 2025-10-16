@@ -398,10 +398,10 @@ class _HomeBodyState extends State<HomeBody>
                                     .map(
                                       (item) => Expanded(
                                         child: Container(
-                                          height: AppDimens.SIZE_120,
+                                          height: 110.sh,
                                           width: 120.sw,
                                           margin: EdgeInsets.only(
-                                            bottom: AppDimens.SIZE_12,
+                                            bottom: AppDimens.SIZE_20,
                                             right: rowEnd - rowStart == 1
                                                 ? 0
                                                 : AppDimens.SIZE_8,
@@ -446,17 +446,17 @@ class _HomeBodyState extends State<HomeBody>
                                                           (item.thumbnail ??
                                                               ''),
                                                       width: 140.sw,
-                                                      height: 90.sh,
+                                                      height: 80.sh,
                                                       borderRadius:
                                                           AppDimens.SIZE_8,
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: AppDimens.SIZE_4,
+                                                    height: AppDimens.SIZE_8,
                                                   ),
                                                   Expanded(
                                                     child: SizedBox(
-                                                      width: double.infinity,
+                                                      width: 140.sw,
                                                       child: CustomTextLabel(
                                                         item.title ?? '',
                                                         fontSize:
