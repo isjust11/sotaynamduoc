@@ -15,42 +15,42 @@ class UserInteractionCubit extends Cubit<BaseState> {
   // like
   void like({required String targetType, required dynamic targetId}) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       final response = await repository.like(
         targetType: targetType,
         targetId: targetId,
       );
       isLiked = true;
       likeCount++;
-      emit(LoadedState(response));
+      emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
   // unlike
   void unlike({required String targetType, required dynamic targetId}) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       await repository.unlike(targetType: targetType, targetId: targetId);
       isLiked = false;
       likeCount = (likeCount - 1).clamp(0, double.infinity).toInt();
-      emit(LoadedState(null));
+      emit(LoadedUserInteractionState(null));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
   void bookmark({required String targetType, required dynamic targetId}) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       final response = await repository.bookmark(
         targetType: targetType,
         targetId: targetId,
       );
-      emit(LoadedState(response));
+      emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -59,11 +59,11 @@ class UserInteractionCubit extends Cubit<BaseState> {
     required dynamic targetId,
   }) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       await repository.unbookmark(targetType: targetType, targetId: targetId);
-      emit(LoadedState(null));
+      emit(LoadedUserInteractionState(null));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -73,15 +73,15 @@ class UserInteractionCubit extends Cubit<BaseState> {
     String? platform,
   }) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       final response = await repository.share(
         targetType: targetType,
         targetId: targetId,
         sharePlatform: platform,
       );
-      emit(LoadedState(response));
+      emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -90,17 +90,14 @@ class UserInteractionCubit extends Cubit<BaseState> {
     if (hasTrackedView) return;
 
     try {
-      emit(LoadingState());
-      final response = await repository.view(
-        targetType: targetType,
-        targetId: targetId,
-      );
+      // emit(LoadingUserInteractionState());
+      await repository.view(targetType: targetType, targetId: targetId);
       // Increment view count locally
       viewCount++;
       hasTrackedView = true;
-      emit(LoadedState(response));
+      // emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      // emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -110,38 +107,38 @@ class UserInteractionCubit extends Cubit<BaseState> {
     required int rating,
   }) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       final response = await repository.rate(
         targetType: targetType,
         targetId: targetId,
         rating: rating,
       );
-      emit(LoadedState(response));
+      emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
   void follow({required String targetType, required dynamic targetId}) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       final response = await repository.follow(
         targetType: targetType,
         targetId: targetId,
       );
-      emit(LoadedState(response));
+      emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
   void unfollow({required String targetType, required dynamic targetId}) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       await repository.unfollow(targetType: targetType, targetId: targetId);
-      emit(LoadedState(null));
+      emit(LoadedUserInteractionState(null));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -150,40 +147,38 @@ class UserInteractionCubit extends Cubit<BaseState> {
     required dynamic targetId,
   }) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       final response = await repository.getStatus(
         targetType: targetType,
         targetId: targetId,
       );
       isLiked = response != null && response['like'] == true;
-      emit(LoadedState(response));
+      emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 
   void getStats({required String targetType, required dynamic targetId}) async {
     try {
-      emit(LoadingState());
+      emit(LoadingInteractionStatsState());
       final response = await repository.getStats(
         targetType: targetType,
         targetId: targetId,
       );
-      viewCount = response.viewCount ?? 0;
-      likeCount = response.likeCount ?? 0;
-      emit(LoadedState(response));
+      emit(LoadedInteractionStatsState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorInteractionStatsState(BlocUtils.getMessageError(e)));
     }
   }
 
   void getMyInteractions({Map<String, dynamic>? query}) async {
     try {
-      emit(LoadingState());
+      emit(LoadingUserInteractionState());
       final response = await repository.getMyInteractions(query: query);
-      emit(LoadedState(response));
+      emit(LoadedUserInteractionState(response));
     } catch (e) {
-      emit(ErrorState(BlocUtils.getMessageError(e)));
+      emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
     }
   }
 

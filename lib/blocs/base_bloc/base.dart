@@ -1,2 +1,4 @@
 export 'base_event.dart';
 export 'base_state.dart';
+export 'interaction_state/interaction_stats_state.dart';
+export 'interaction_state/user_interaction_state.dart';

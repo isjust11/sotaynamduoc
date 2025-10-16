@@ -283,32 +283,32 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             createdAt: herbal.createdAt,
             summary: herbal.summary,
             margin: const EdgeInsets.only(bottom: AppDimens.SIZE_8),
-            listBottomAction: Row(
-              children: [
-                if (herbal.viewCount != null)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.visibility, size: AppDimens.SIZE_16),
-                          const SizedBox(width: AppDimens.SIZE_4),
-                          CustomTextLabel('${herbal.viewCount}'),
-                        ],
-                      ),
-                      const SizedBox(width: AppDimens.SIZE_16),
-                      if (herbal.likeCount != null)
-                        Row(
-                          children: [
-                            const Icon(Icons.favorite, size: AppDimens.SIZE_16),
-                            const SizedBox(width: AppDimens.SIZE_4),
-                            CustomTextLabel('${herbal.likeCount}'),
-                          ],
-                        ),
-                    ],
-                  ),
-              ],
-            ),
+            // listBottomAction: Row(
+            //   children: [
+            //     if (herbal.viewCount != null)
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: [
+            //           Row(
+            //             children: [
+            //               const Icon(Icons.visibility, size: AppDimens.SIZE_16),
+            //               const SizedBox(width: AppDimens.SIZE_4),
+            //               CustomTextLabel('${herbal.viewCount}'),
+            //             ],
+            //           ),
+            //           const SizedBox(width: AppDimens.SIZE_16),
+            //           if (herbal.likeCount != null)
+            //             Row(
+            //               children: [
+            //                 const Icon(Icons.favorite, size: AppDimens.SIZE_16),
+            //                 const SizedBox(width: AppDimens.SIZE_4),
+            //                 CustomTextLabel('${herbal.likeCount}'),
+            //               ],
+            //             ),
+            //         ],
+            //       ),
+            //   ],
+            // ),
           );
         },
       ),
@@ -345,36 +345,37 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             title: author.name ?? AppLocalizations.current.noDataAvailable,
             thumbnail: author.avatar ?? author.portrait,
             createdAt: author.createdAt?.toIso8601String(),
+            margin: const EdgeInsets.only(bottom: AppDimens.SIZE_8),
             summary:
                 author.biography ??
                 author.career ??
                 AppLocalizations.current.noDataAvailable,
-            listBottomAction: Row(
-              children: [
-                if (author.viewCount != null)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.visibility, size: AppDimens.SIZE_16),
-                          const SizedBox(width: AppDimens.SIZE_4),
-                          CustomTextLabel('${author.viewCount}'),
-                        ],
-                      ),
-                      const SizedBox(width: AppDimens.SIZE_16),
-                      if (author.likeCount != null)
-                        Row(
-                          children: [
-                            const Icon(Icons.favorite, size: AppDimens.SIZE_16),
-                            const SizedBox(width: AppDimens.SIZE_4),
-                            CustomTextLabel('${author.likeCount}'),
-                          ],
-                        ),
-                    ],
-                  ),
-              ],
-            ),
+            // listBottomAction: Row(
+            //   children: [
+            //     if (author.viewCount != null)
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: [
+            //           Row(
+            //             children: [
+            //               const Icon(Icons.visibility, size: AppDimens.SIZE_16),
+            //               const SizedBox(width: AppDimens.SIZE_4),
+            //               CustomTextLabel('${author.viewCount}'),
+            //             ],
+            //           ),
+            //           const SizedBox(width: AppDimens.SIZE_16),
+            //           if (author.likeCount != null)
+            //             Row(
+            //               children: [
+            //                 const Icon(Icons.favorite, size: AppDimens.SIZE_16),
+            //                 const SizedBox(width: AppDimens.SIZE_4),
+            //                 CustomTextLabel('${author.likeCount}'),
+            //               ],
+            //             ),
+            //         ],
+            //       ),
+            //   ],
+            // ),
           );
         },
       ),

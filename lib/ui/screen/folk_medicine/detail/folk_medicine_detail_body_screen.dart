@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_bloc.dart';
-import 'package:sotaynamduoc/blocs/folk_medicine/folk_medicine_event.dart';
-import 'package:sotaynamduoc/domain/data/models/folk_medicine_model.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/domain/data/enums/enums.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
@@ -19,10 +20,10 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<FolkMedicineBloc>().add(
-      UpdateFolkMedicineView(folkMedicine.id ?? ''),
-    );
+    context.read<UserInteractionCubit>().resetState();
     return BaseScreen(
+      interactionTarget: InteractionTarget.folkMedicine,
+      interactionId: folkMedicine.id,
       hideAppBar: true,
       colorBg: AppColors.white,
       body: _buildBody(context),
@@ -33,7 +34,7 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildImageSection(), _buildContentSection()],
+        children: [_buildImageSection(), _buildContentSection(context)],
       ),
     );
   }
@@ -51,7 +52,7 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildContentSection() {
+  Widget _buildContentSection(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.sw),
       child: Column(
@@ -59,7 +60,7 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
         children: [
           _buildTitleSection(),
           const SizedBox(height: AppDimens.SIZE_4),
-          _buildStatsSection(),
+          _buildStatsSection(context),
           const SizedBox(height: AppDimens.SIZE_8),
           _buildSummarySection(),
           const SizedBox(height: AppDimens.SIZE_4),
@@ -112,39 +113,59 @@ class FolkMedicineDetailBodyScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStatsSection() {
-    final int viewCount = folkMedicine.viewCount ?? 0;
-    final int likeCount = folkMedicine.likeCount ?? 0;
-    final String? createdAt = folkMedicine.createdAt;
-
-    return Row(
-      children: [
-        _buildStatItem(
-          Icons.visibility,
-          '${AppLocalizations.current.viewCount} $viewCount',
-        ),
-        const SizedBox(width: AppDimens.SIZE_8),
-        _buildStatItem(
-          Icons.favorite,
-          '${AppLocalizations.current.likeCount} $likeCount',
-        ),
-        if (createdAt != null && createdAt.isNotEmpty) ...[
-          const SizedBox(width: AppDimens.SIZE_8),
-          _buildStatItem(Icons.calendar_today, createdAt, isDate: true),
-        ],
-      ],
+  Widget _buildStatsSection(BuildContext context) {
+    return BlocBuilder<UserInteractionCubit, BaseState>(
+      buildWhen: (prev, curr) => curr is LoadedInteractionStatsState,
+      builder: (context, state) {
+        if (state is LoadedInteractionStatsState) {
+          final InteractionStatsModel interactionStats = state.data;
+          final int viewCount = interactionStats.viewCount ?? 0;
+          final int likeCount = interactionStats.likeCount ?? 0;
+          final String? createdAt = interactionStats.createdAt;
+          return Row(
+            children: [
+              _buildStatItem(
+                Icons.visibility,
+                AppColors.yellowMaterial,
+                '${AppLocalizations.current.viewCount} $viewCount',
+              ),
+              const SizedBox(width: AppDimens.SIZE_8),
+              _buildStatItem(
+                Icons.favorite,
+                AppColors.primaryBlue,
+                '${AppLocalizations.current.likeCount} $likeCount',
+              ),
+              if (createdAt != null && createdAt.isNotEmpty) ...[
+                const SizedBox(width: AppDimens.SIZE_8),
+                _buildStatItem(
+                  Icons.calendar_today,
+                  AppColors.textSubtleGrey,
+                  createdAt,
+                  isDate: true,
+                ),
+              ],
+            ],
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 
-  Widget _buildStatItem(IconData icon, String text, {bool isDate = false}) {
+  Widget _buildStatItem(
+    IconData icon,
+    Color iconColor,
+    String text, {
+    bool isDate = false,
+  }) {
     return Row(
       children: [
-        Icon(icon, size: 14.sw, color: AppColors.textMediumGrey),
+        Icon(icon, size: 14.sw, color: iconColor),
         const SizedBox(width: AppDimens.SIZE_4),
         CustomTextLabel(
           isDate ? Common.formatDate(text, format: 'dd/MM/yyyy HH:mm') : text,
           fontSize: 12.sw,
-          color: AppColors.textMediumGrey,
+          color: AppColors.textDark,
         ),
       ],
     );

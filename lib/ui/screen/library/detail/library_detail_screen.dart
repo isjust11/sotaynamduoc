@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/domain/data/enums/enums.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -32,25 +33,6 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
     super.initState();
     // Reset state for new target
     context.read<UserInteractionCubit>().resetState();
-
-    // Fetch interaction status and stats when entering the screen
-    final id = widget.herbalData.id ?? '';
-    if (id.isNotEmpty) {
-      // Track view when entering the screen
-      context.read<UserInteractionCubit>().view(
-        targetType: 'herbal',
-        targetId: id,
-      );
-
-      context.read<UserInteractionCubit>().getStatus(
-        targetType: 'herbal',
-        targetId: id,
-      );
-      context.read<UserInteractionCubit>().getStats(
-        targetType: 'herbal',
-        targetId: id,
-      );
-    }
   }
 
   @override
@@ -62,6 +44,8 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
+      interactionTarget: InteractionTarget.herbal,
+      interactionId: widget.herbalData.id,
       customAppBar: BaseAppBar(
         title: AppLocalizations.current.herbalDetail,
         showBackButton: true,
@@ -71,16 +55,16 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
         actions: [
           IconButton(
             icon: BlocBuilder<UserInteractionCubit, BaseState>(
+              buildWhen: (prev, curr) => curr is LoadedUserInteractionState,
               builder: (context, state) {
-                if (state is LoadedState) {
+                if (state is LoadedUserInteractionState) {
                   final isLiked = context.read<UserInteractionCubit>().isLiked;
                   return Icon(
                     isLiked ? Icons.favorite : Icons.favorite_border,
                     color: AppColors.white,
                   );
-                } else {
-                  return Icon(Icons.favorite_border, color: AppColors.white);
                 }
+                return Icon(Icons.favorite_border, color: AppColors.white);
               },
             ),
             onPressed: () {
@@ -260,22 +244,30 @@ class _LibraryDetailScreenState extends State<LibraryDetailScreen> {
   }
 
   Widget _buildStatsSection() {
-    final viewCount = context.read<UserInteractionCubit>().viewCount;
-    final likeCount = context.read<UserInteractionCubit>().likeCount;
-
-    return Row(
-      children: [
-        _buildStatItem(
-          Icons.visibility,
-          '${AppLocalizations.current.viewCount} $viewCount',
-        ),
-        SizedBox(width: AppDimens.SIZE_8),
-        _buildStatItem(
-          Icons.favorite,
-          '${AppLocalizations.current.likeCount} $likeCount',
-        ),
-        SizedBox(width: AppDimens.SIZE_8),
-      ],
+    return BlocBuilder<UserInteractionCubit, BaseState>(
+      buildWhen: (prev, curr) =>
+          curr is LoadedInteractionStatsState<InteractionStatsModel>,
+      builder: (context, state) {
+        if (state is LoadedInteractionStatsState<InteractionStatsModel>) {
+          final viewCount = state.data.viewCount ?? 0;
+          final likeCount = state.data.likeCount ?? 0;
+          return Row(
+            children: [
+              _buildStatItem(
+                Icons.visibility,
+                '${AppLocalizations.current.viewCount} $viewCount',
+              ),
+              SizedBox(width: AppDimens.SIZE_8),
+              _buildStatItem(
+                Icons.favorite,
+                '${AppLocalizations.current.likeCount} $likeCount',
+              ),
+              SizedBox(width: AppDimens.SIZE_8),
+            ],
+          );
+        }
+        return SizedBox.shrink();
+      },
     );
   }
 

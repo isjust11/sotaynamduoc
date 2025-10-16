@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sotaynamduoc/blocs/user_interaction_cubit.dart';
+import 'package:sotaynamduoc/domain/data/enums/enums.dart';
 import 'package:sotaynamduoc/gen/assets.gen.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
@@ -33,6 +36,10 @@ class BaseScreen extends StatelessWidget {
   final Widget? floatingButton;
   final Widget? bottomNavigationBar;
 
+  // phần liên quan tới action
+  final InteractionTarget? interactionTarget;
+  final String? interactionId;
+
   // nếu true => sẽ ẩn backIcon , mặc định là true
   final bool hiddenIconBack;
 
@@ -60,10 +67,14 @@ class BaseScreen extends StatelessWidget {
     this.colorBg = AppColors.white,
     this.systemUiOverlayStyle = SystemUiOverlayStyle.dark,
     this.bottomNavigationBar,
+    this.interactionTarget,
+    this.interactionId,
   });
 
   @override
   Widget build(BuildContext context) {
+    _handleInteraction(context, interactionTarget, interactionId);
+
     final scaffold = Scaffold(
       appBar: hideAppBar ? null : (customAppBar ?? baseAppBar(context)),
       backgroundColor: colorBg,
@@ -133,11 +144,11 @@ class BaseScreen extends StatelessWidget {
                 onBackPress?.call();
               },
               child: Container(
-                width: AppDimens.SIZE_40,
+                width: AppDimens.SIZE_60,
                 alignment: Alignment.center,
                 child: Assets.images.icBack.image(
-                  width: AppDimens.SIZE_12,
-                  height: AppDimens.SIZE_12,
+                  width: AppDimens.SIZE_16,
+                  height: AppDimens.SIZE_16,
                   fit: BoxFit.contain,
                   color: AppColors.colorTitle,
                 ),
@@ -145,6 +156,56 @@ class BaseScreen extends StatelessWidget {
             ),
       centerTitle: true,
       actions: rightWidgets ?? [],
+    );
+  }
+
+  // handle interaction
+  void _handleInteraction(
+    BuildContext context,
+    InteractionTarget? interactionTarget,
+    String? interactionId,
+  ) {
+    if (interactionTarget == InteractionTarget.article ||
+        interactionTarget == InteractionTarget.herbal ||
+        interactionTarget == InteractionTarget.folkMedicine ||
+        interactionTarget == InteractionTarget.author) {
+      _processGetStatsInteraction(context, interactionTarget!, interactionId);
+      _processAutoIncrementView(context, interactionTarget, interactionId);
+      _processGetStatusInteraction(context, interactionTarget, interactionId);
+      return;
+    }
+  }
+
+  void _processGetStatusInteraction(
+    BuildContext context,
+    InteractionTarget interactionTarget,
+    String? interactionId,
+  ) {
+    context.read<UserInteractionCubit>().getStatus(
+      targetType: interactionTarget.value,
+      targetId: interactionId,
+    );
+  }
+
+  void _processGetStatsInteraction(
+    BuildContext context,
+    InteractionTarget interactionTarget,
+    String? interactionId,
+  ) {
+    context.read<UserInteractionCubit>().getStats(
+      targetType: interactionTarget.value,
+      targetId: interactionId,
+    );
+  }
+
+  void _processAutoIncrementView(
+    BuildContext context,
+    InteractionTarget interactionTarget,
+    String? interactionId,
+  ) {
+    context.read<UserInteractionCubit>().view(
+      targetType: interactionTarget.value,
+      targetId: interactionId,
     );
   }
 }

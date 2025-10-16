@@ -242,7 +242,7 @@ class _HomeBodyState extends State<HomeBody>
                                 _typewriterIndex,
                               ),
                         color: AppColors.primaryBlue,
-                        fontSize: AppDimens.SIZE_16,
+                        fontSize: AppDimens.SIZE_12,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -250,7 +250,7 @@ class _HomeBodyState extends State<HomeBody>
                   Icon(
                     Icons.search,
                     color: AppColors.primaryBlue,
-                    size: AppDimens.SIZE_24,
+                    size: AppDimens.SIZE_18,
                     fontWeight: FontWeight.bold,
                   ),
                 ],
@@ -358,7 +358,7 @@ class _HomeBodyState extends State<HomeBody>
             horizontal: AppDimens.SIZE_12,
             vertical: AppDimens.SIZE_12,
           ),
-          height: AppDimens.SIZE_310,
+          height: 300.sh,
           child: BlocBuilder<FolkMedicineBloc, FolkMedicineState>(
             builder: (context, state) {
               if (state is FolkMedicineListLoaded &&
@@ -399,6 +399,7 @@ class _HomeBodyState extends State<HomeBody>
                                       (item) => Expanded(
                                         child: Container(
                                           height: AppDimens.SIZE_120,
+                                          width: 120.sw,
                                           margin: EdgeInsets.only(
                                             bottom: AppDimens.SIZE_12,
                                             right: rowEnd - rowStart == 1
@@ -444,8 +445,8 @@ class _HomeBodyState extends State<HomeBody>
                                                               .storageHost +
                                                           (item.thumbnail ??
                                                               ''),
-                                                      width: double.infinity,
-                                                      height: AppDimens.SIZE_90,
+                                                      width: 140.sw,
+                                                      height: 90.sh,
                                                       borderRadius:
                                                           AppDimens.SIZE_8,
                                                     ),

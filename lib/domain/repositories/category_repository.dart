@@ -1,13 +1,10 @@
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 
-
 class CategoryRepository {
   final CategoryRemoteDataSource remoteDataSource;
 
-  CategoryRepository({
-    required this.remoteDataSource,
-  });
+  CategoryRepository({required this.remoteDataSource});
 
   Future<List<CategoryModel>> getCategories({
     int? page,
@@ -23,9 +20,9 @@ class CategoryRepository {
         categoryTypeId: categoryTypeId,
         isActive: isActive,
       );
-      
+
       // Save to local cache
-      
+
       return categories;
     } catch (e) {
       // If remote fails, try to get from local cache
@@ -41,11 +38,15 @@ class CategoryRepository {
     }
   }
 
-  Future<List<CategoryModel>> getCategoriesByCategoryTypeCode(String categoryTypeCode) async {
+  Future<List<CategoryModel>> getCategoriesByCategoryTypeCode(
+    String categoryTypeCode,
+  ) async {
     try {
-      return await remoteDataSource.getCategoriesByCategoryTypeCode(categoryTypeCode);
+      return await remoteDataSource.getCategoriesByCategoryTypeCode(
+        categoryTypeCode,
+      );
     } catch (e) {
       return Future.error(e);
     }
   }
-} 
+}

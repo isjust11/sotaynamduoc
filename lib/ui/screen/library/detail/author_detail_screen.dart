@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/domain/data/enums/enums.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
-import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class AuthorDetailScreen extends StatelessWidget {
@@ -15,58 +19,108 @@ class AuthorDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          author.name ?? 'Thầy thuốc',
-          style: TextStyle(color: AppColors.white),
-        ),
-        backgroundColor: AppColors.secondaryBrand,
-        foregroundColor: AppColors.white,
+    context.read<UserInteractionCubit>().resetState();
+    return BaseScreen(
+      interactionTarget: InteractionTarget.author,
+      interactionId: author.id,
+      customAppBar: _buildCustomAppBar(context),
+      body: _buildBody(context),
+    );
+  }
 
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColors.white,
+  Widget _buildBody(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(AppDimens.SIZE_16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildBasicInfo(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildBiography(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildCareer(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildAchievements(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildContributions(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildWorks(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildPhilosophy(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildLegacy(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildQuotes(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildAnecdotes(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildHonors(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildMemorials(),
+          const SizedBox(height: AppDimens.SIZE_24),
+          _buildReferences(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCustomAppBar(BuildContext context) {
+    return BaseAppBar(
+      title: author.name ?? AppLocalizations.current.noName,
+      showBackButton: true,
+      onBackTap: () {
+        Navigator.pop(context);
+      },
+      actions: [
+        IconButton(
+          icon: BlocBuilder<UserInteractionCubit, BaseState>(
+            buildWhen: (prev, curr) => curr is LoadedUserInteractionState,
+            builder: (context, state) {
+              if (state is LoadedUserInteractionState) {
+                final isLiked = context.read<UserInteractionCubit>().isLiked;
+                return Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: AppColors.white,
+                );
+              }
+              return Icon(Icons.favorite_border, color: AppColors.white);
+            },
           ),
+          onPressed: () {
+            final id = author.id ?? '';
+            if (id.isEmpty) return;
+
+            // Get current state to determine if liked
+
+            final isLiked = context.read<UserInteractionCubit>().isLiked;
+
+            if (!isLiked) {
+              context.read<UserInteractionCubit>().like(
+                targetType: InteractionTarget.author.value,
+                targetId: id,
+              );
+            } else {
+              context.read<UserInteractionCubit>().unlike(
+                targetType: InteractionTarget.author.value,
+                targetId: id,
+              );
+            }
+          },
         ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppDimens.SIZE_16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildBasicInfo(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildBiography(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildCareer(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildAchievements(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildContributions(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildWorks(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildPhilosophy(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildLegacy(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildQuotes(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildAnecdotes(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildHonors(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildMemorials(),
-            const SizedBox(height: AppDimens.SIZE_24),
-            _buildReferences(),
-          ],
+        IconButton(
+          icon: Icon(Icons.share, color: AppColors.white),
+          onPressed: () {
+            final id = author.id ?? '';
+            if (id.isEmpty) return;
+            context.read<UserInteractionCubit>().share(
+              targetType: InteractionTarget.author.value,
+              targetId: id,
+            );
+          },
         ),
-      ),
+      ],
     );
   }
 
@@ -74,29 +128,24 @@ class AuthorDetailScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-          child: Container(
-            width: 120.sw,
-            height: 80.sh,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-              border: Border.all(
-                color: AppColors.textHintGrey.withValues(alpha: 0.2),
-              ),
+        Container(
+          width: 120.sw,
+          height: 80.sh,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            border: Border.all(
+              color: AppColors.textHintGrey.withValues(alpha: 0.2),
             ),
-            child: author.avatar != null || author.portrait != null
-                ? BaseNetworkImage(
-                    width: 120.sw,
-                    height: 90.sh,
-                    url:
-                        ApiConstant.apiHost +
-                        (author.avatar ?? author.portrait!),
-                    fit: BoxFit.cover,
-                  )
-                : Icon(Icons.person, size: 60, color: AppColors.textMediumGrey),
           ),
+          child: author.avatar != null || author.portrait != null
+              ? BaseNetworkImage(
+                  width: 120.sw,
+                  height: 90.sh,
+                  url:
+                      ApiConstant.apiHost + (author.avatar ?? author.portrait!),
+                  fit: BoxFit.cover,
+                )
+              : Icon(Icons.person, size: 60, color: AppColors.textMediumGrey),
         ),
         const SizedBox(width: AppDimens.SIZE_16),
         Expanded(
@@ -105,47 +154,62 @@ class AuthorDetailScreen extends StatelessWidget {
             children: [
               CustomTextLabel(
                 author.name ?? AppLocalizations.current.noName,
-                fontSize: AppDimens.SIZE_24,
+                fontSize: AppDimens.SIZE_18,
                 fontWeight: FontWeight.bold,
                 color: AppColors.textDark,
               ),
-              if (author.alias != null) ...[
-                const SizedBox(height: AppDimens.SIZE_8),
+              if (author.alias != null && author.alias!.isNotEmpty) ...[
                 CustomTextLabel(
                   '${AppLocalizations.current.alias}: ${author.alias}',
-                  fontSize: AppDimens.SIZE_16,
+                  fontSize: AppDimens.SIZE_14,
                   color: AppColors.textMediumGrey,
                 ),
               ],
-              const SizedBox(height: AppDimens.SIZE_16),
-              Row(
-                children: [
-                  if (author.viewCount != null) ...[
-                    Icon(
-                      Icons.visibility,
-                      size: AppDimens.SIZE_16,
-                      color: AppColors.textMediumGrey,
-                    ),
-                    const SizedBox(width: AppDimens.SIZE_4),
-                    Text(
-                      '${author.viewCount ?? 0}',
-                      style: TextStyle(color: AppColors.textMediumGrey),
-                    ),
-                    const SizedBox(width: AppDimens.SIZE_16),
-                  ],
-                  if (author.likeCount != null) ...[
-                    Icon(
-                      Icons.favorite,
-                      size: AppDimens.SIZE_16,
-                      color: AppColors.textMediumGrey,
-                    ),
-                    const SizedBox(width: AppDimens.SIZE_4),
-                    Text(
-                      '${author.likeCount ?? 0}',
-                      style: TextStyle(color: AppColors.textMediumGrey),
-                    ),
-                  ],
-                ],
+              const SizedBox(height: AppDimens.SIZE_8),
+              BlocBuilder<UserInteractionCubit, BaseState>(
+                buildWhen: (prev, curr) =>
+                    curr is LoadedInteractionStatsState<InteractionStatsModel>,
+                builder: (context, state) {
+                  if (state
+                      is LoadedInteractionStatsState<InteractionStatsModel>) {
+                    final viewCount = state.data.viewCount ?? 0;
+                    final likeCount = state.data.likeCount ?? 0;
+                    return Row(
+                      children: [
+                        if (viewCount > 0) ...[
+                          Icon(
+                            Icons.visibility,
+                            size: AppDimens.SIZE_16,
+                            color: AppColors.textMediumGrey,
+                          ),
+                          const SizedBox(width: AppDimens.SIZE_4),
+                          CustomTextLabel(
+                            '$viewCount',
+                            fontSize: AppDimens.SIZE_14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textMediumGrey,
+                          ),
+                          const SizedBox(width: AppDimens.SIZE_16),
+                        ],
+                        if (likeCount > 0) ...[
+                          Icon(
+                            Icons.favorite,
+                            size: AppDimens.SIZE_16,
+                            color: AppColors.textMediumGrey,
+                          ),
+                          const SizedBox(width: AppDimens.SIZE_4),
+                          CustomTextLabel(
+                            '$likeCount',
+                            fontSize: AppDimens.SIZE_14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textMediumGrey,
+                          ),
+                        ],
+                      ],
+                    );
+                  }
+                  return SizedBox.shrink();
+                },
               ),
             ],
           ),

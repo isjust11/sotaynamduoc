@@ -5,7 +5,8 @@ enum InteractionTarget {
   author('author'),
   user('user'),
   comment('comment'),
-  category('category');
+  category('category'),
+  none('none');
 
   const InteractionTarget(this.value);
   final String value;
@@ -13,7 +14,7 @@ enum InteractionTarget {
   static InteractionTarget fromString(String value) {
     return InteractionTarget.values.firstWhere(
       (target) => target.value == value,
-      orElse: () => InteractionTarget.article,
+      orElse: () => InteractionTarget.none,
     );
   }
 }
