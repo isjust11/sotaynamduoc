@@ -1567,6 +1567,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dark'**
   String get dark;
+
+  /// No description provided for @noInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'No information'**
+  String get noInfo;
 }
 
 class _AppLocalizationsDelegate

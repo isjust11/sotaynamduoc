@@ -250,5 +250,6 @@
   "activeCompounds": "Hoạt chất chính",
   "noLoginInfo": "Chưa có thông tin đăng nhập để bật sinh trắc học",
   "light": "Sáng",
-  "dark": "Tối"
+  "dark": "Tối",
+  "noInfo": "Không có thông tin"
 }

@@ -229,7 +229,7 @@ class ProfileScreen extends StatelessWidget {
                         ? DateFormat(
                             'dd/MM/yyyy HH:mm',
                           ).format(DateTime.parse(userModel.lastLogin ?? ''))
-                        : "Chưa có",
+                        : AppLocalizations.current.noInfo,
                     Icons.login_outlined,
                   ),
                 ],
@@ -280,7 +280,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: AppDimens.SIZE_4),
                 CustomTextLabel(
-                  value.isEmpty ? "Không có" : value,
+                  value.isEmpty ? AppLocalizations.current.noInfo : value,
                   color: AppColors.baseColor,
                   fontSize: AppDimens.SIZE_14,
                   fontWeight: FontWeight.w500,

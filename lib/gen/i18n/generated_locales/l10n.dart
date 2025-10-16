@@ -2083,6 +2083,16 @@ class AppLocalizations {
   String get dark {
     return Intl.message('Tối', name: 'dark', desc: '', args: []);
   }
+
+  /// `Không có thông tin`
+  String get noInfo {
+    return Intl.message(
+      'Không có thông tin',
+      name: 'noInfo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

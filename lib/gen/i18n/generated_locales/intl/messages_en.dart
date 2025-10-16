@@ -257,6 +257,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noDataAvailable": MessageLookupByLibrary.simpleMessage(
       "No data available",
     ),
+    "noInfo": MessageLookupByLibrary.simpleMessage("No information"),
     "noLoginInfo": MessageLookupByLibrary.simpleMessage("No login info"),
     "noName": MessageLookupByLibrary.simpleMessage("No name"),
     "noNotifications": MessageLookupByLibrary.simpleMessage("No notifications"),

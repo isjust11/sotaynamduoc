@@ -282,6 +282,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newsDetail": MessageLookupByLibrary.simpleMessage("Chi tiết tin tức"),
     "newsList": MessageLookupByLibrary.simpleMessage("Danh sách tin tức"),
     "noDataAvailable": MessageLookupByLibrary.simpleMessage("Không có dữ liệu"),
+    "noInfo": MessageLookupByLibrary.simpleMessage("Không có thông tin"),
     "noLoginInfo": MessageLookupByLibrary.simpleMessage(
       "Chưa có thông tin đăng nhập để bật sinh trắc học",
     ),

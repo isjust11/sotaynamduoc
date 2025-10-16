@@ -757,4 +757,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get dark => 'Tối';
+
+  @override
+  String get noInfo => 'Không có thông tin';
 }

@@ -751,4 +751,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dark => 'Dark';
+
+  @override
+  String get noInfo => 'No information';
 }

@@ -244,5 +244,6 @@
   "activeCompounds": "Active compounds",
   "noLoginInfo": "No login info",
   "light": "Light",
-  "dark": "Dark"
+  "dark": "Dark",
+  "noInfo": "No information"
 }
