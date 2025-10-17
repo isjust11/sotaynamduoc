@@ -22,14 +22,14 @@ class EmptyData extends StatelessWidget {
             Assets.icons.boxEmpty,
             fit: BoxFit.contain,
             colorFilter: const ColorFilter.mode(
-              AppColors.secondaryBrand,
+              AppColors.ff828282,
               BlendMode.srcIn,
             ),
           ),
-          const SizedBox(height: AppDimens.SIZE_8),
+          const SizedBox(height: AppDimens.SIZE_4),
           CustomTextLabel(
             AppLocalizations.current.noDataAvailable,
-            fontSize: AppDimens.SIZE_14,
+            fontSize: AppDimens.SIZE_12,
             fontWeight: FontWeight.w500,
             color: AppColors.colorTitle,
             textAlign: TextAlign.left,

@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "activeCompounds": MessageLookupByLibrary.simpleMessage("Active compounds"),
     "address": MessageLookupByLibrary.simpleMessage("Address"),
     "alias": MessageLookupByLibrary.simpleMessage("Alias"),
+    "all": MessageLookupByLibrary.simpleMessage("All"),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "All notifications loaded",
     ),
@@ -54,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Birth date incorrect format",
     ),
     "birthPlace": MessageLookupByLibrary.simpleMessage("Birth place"),
+    "bookmarked": MessageLookupByLibrary.simpleMessage("Bookmarked"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "career": MessageLookupByLibrary.simpleMessage("Career"),
@@ -66,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Choose app appearance",
     ),
     "city": MessageLookupByLibrary.simpleMessage("City"),
+    "clearAll": MessageLookupByLibrary.simpleMessage("Clear all"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "contraindications": MessageLookupByLibrary.simpleMessage(
@@ -216,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "honors": MessageLookupByLibrary.simpleMessage("Honors"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Enter username"),
     "instagramLink": MessageLookupByLibrary.simpleMessage("Instagram link"),
+    "knowledge": MessageLookupByLibrary.simpleMessage("Knowledge"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "lastLogin": MessageLookupByLibrary.simpleMessage("Last login"),
     "legacy": MessageLookupByLibrary.simpleMessage("Legacy"),
@@ -258,12 +262,17 @@ class MessageLookup extends MessageLookupByLibrary {
       "No data available",
     ),
     "noInfo": MessageLookupByLibrary.simpleMessage("No information"),
+    "noKnowledgeFound": MessageLookupByLibrary.simpleMessage(
+      "No knowledge found",
+    ),
     "noLoginInfo": MessageLookupByLibrary.simpleMessage("No login info"),
     "noName": MessageLookupByLibrary.simpleMessage("No name"),
     "noNotifications": MessageLookupByLibrary.simpleMessage("No notifications"),
     "noNotificationsYet": MessageLookupByLibrary.simpleMessage(
       "No notifications yet",
     ),
+    "noResultsFound": MessageLookupByLibrary.simpleMessage("No results found"),
+    "noTipsFound": MessageLookupByLibrary.simpleMessage("No tips found"),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
@@ -339,6 +348,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Please enter your username",
     ),
+    "popular": MessageLookupByLibrary.simpleMessage("Popular"),
     "preparationMethods": MessageLookupByLibrary.simpleMessage(
       "Preparation methods",
     ),
@@ -355,6 +365,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pullToRefresh": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
     "quotes": MessageLookupByLibrary.simpleMessage("Quotes"),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
+    "recent": MessageLookupByLibrary.simpleMessage("Recent"),
     "references": MessageLookupByLibrary.simpleMessage("References"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -374,7 +385,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "saving": MessageLookupByLibrary.simpleMessage("Saving..."),
     "scientificInfo": MessageLookupByLibrary.simpleMessage("Scientific info"),
     "scientificName": MessageLookupByLibrary.simpleMessage("Scientific name"),
+    "searchHistory": MessageLookupByLibrary.simpleMessage("Search history"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search news"),
+    "searchSuggestions": MessageLookupByLibrary.simpleMessage(
+      "Search suggestions",
+    ),
+    "searchTips": MessageLookupByLibrary.simpleMessage("Search tips..."),
     "security": MessageLookupByLibrary.simpleMessage("Security"),
     "selectImage": MessageLookupByLibrary.simpleMessage("Select Image"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
@@ -406,6 +422,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "The session has expired. Please log in again",
     ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
+    "tryDifferentSearch": MessageLookupByLibrary.simpleMessage(
+      "Try different search",
+    ),
+    "trySearchingWithDifferentKeywords": MessageLookupByLibrary.simpleMessage(
+      "Try searching with different keywords",
+    ),
     "twitterLink": MessageLookupByLibrary.simpleMessage("Twitter link"),
     "unread": MessageLookupByLibrary.simpleMessage("Unread"),
     "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),

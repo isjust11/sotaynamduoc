@@ -2093,6 +2093,116 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Tìm mẹo vặt...`
+  String get searchTips {
+    return Intl.message(
+      'Tìm mẹo vặt...',
+      name: 'searchTips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tất cả`
+  String get all {
+    return Intl.message('Tất cả', name: 'all', desc: '', args: []);
+  }
+
+  /// `Phổ biến`
+  String get popular {
+    return Intl.message('Phổ biến', name: 'popular', desc: '', args: []);
+  }
+
+  /// `Mới nhất`
+  String get recent {
+    return Intl.message('Mới nhất', name: 'recent', desc: '', args: []);
+  }
+
+  /// `Đã lưu`
+  String get bookmarked {
+    return Intl.message('Đã lưu', name: 'bookmarked', desc: '', args: []);
+  }
+
+  /// `Không tìm thấy mẹo vặt`
+  String get noTipsFound {
+    return Intl.message(
+      'Không tìm thấy mẹo vặt',
+      name: 'noTipsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hãy thử tìm kiếm với từ khác`
+  String get tryDifferentSearch {
+    return Intl.message(
+      'Hãy thử tìm kiếm với từ khác',
+      name: 'tryDifferentSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Không tìm thấy kết quả`
+  String get noResultsFound {
+    return Intl.message(
+      'Không tìm thấy kết quả',
+      name: 'noResultsFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thử tìm kiếm với từ khóa khác`
+  String get trySearchingWithDifferentKeywords {
+    return Intl.message(
+      'Thử tìm kiếm với từ khóa khác',
+      name: 'trySearchingWithDifferentKeywords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gợi ý tìm kiếm`
+  String get searchSuggestions {
+    return Intl.message(
+      'Gợi ý tìm kiếm',
+      name: 'searchSuggestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lịch sử tìm kiếm`
+  String get searchHistory {
+    return Intl.message(
+      'Lịch sử tìm kiếm',
+      name: 'searchHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xóa tất cả`
+  String get clearAll {
+    return Intl.message('Xóa tất cả', name: 'clearAll', desc: '', args: []);
+  }
+
+  /// `Kiến thức`
+  String get knowledge {
+    return Intl.message('Kiến thức', name: 'knowledge', desc: '', args: []);
+  }
+
+  /// `Không tìm thấy kiến thức nào`
+  String get noKnowledgeFound {
+    return Intl.message(
+      'Không tìm thấy kiến thức nào',
+      name: 'noKnowledgeFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

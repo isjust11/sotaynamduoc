@@ -18,3 +18,4 @@ export 'feedback_status.dart';
 export 'media_model.dart';
 export 'user_interactioin_model.dart';
 export 'interactioin_stats_model.dart';
+export 'tip_model.dart';

@@ -19,3 +19,5 @@ export 'setting/page/feedback_screen.dart';
 export 'setting/settings_screen.dart';
 export 'profile/profile_screen.dart';
 export 'profile/update_profile_screen.dart';
+export 'shortcut_page/tip/tip_screen.dart';
+export 'shortcut_page/tip/tip_detail_screen.dart';

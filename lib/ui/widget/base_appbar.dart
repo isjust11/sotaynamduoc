@@ -285,7 +285,11 @@ class _SearchAppBarState extends State<SearchAppBar>
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppDimens.SIZE_10),
           ),
-          child: Icon(Icons.arrow_back_ios_new, color: AppColors.white),
+          child: Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.white,
+            size: AppDimens.SIZE_14,
+          ),
         ),
       );
     }
@@ -299,12 +303,16 @@ class _SearchAppBarState extends State<SearchAppBar>
         Container(
           alignment: Alignment.bottomCenter,
           padding: EdgeInsets.only(
-            bottom: AppDimens.SIZE_16,
+            bottom: AppDimens.SIZE_20,
             right: AppDimens.SIZE_16,
           ),
           child: InkWell(
             onTap: _toggleSearchMode,
-            child: Icon(Icons.close, color: AppColors.white),
+            child: Icon(
+              Icons.close,
+              color: AppColors.white,
+              size: AppDimens.SIZE_16,
+            ),
           ),
         ),
       ];
@@ -314,12 +322,16 @@ class _SearchAppBarState extends State<SearchAppBar>
       Container(
         alignment: Alignment.bottomCenter,
         padding: EdgeInsets.only(
-          bottom: AppDimens.SIZE_16,
+          bottom: AppDimens.SIZE_20,
           right: AppDimens.SIZE_16,
         ),
         child: InkWell(
           onTap: _toggleSearchMode,
-          child: Icon(Icons.search, color: AppColors.white),
+          child: Icon(
+            Icons.search,
+            color: AppColors.white,
+            size: AppDimens.SIZE_16,
+          ),
         ),
       ),
     ];

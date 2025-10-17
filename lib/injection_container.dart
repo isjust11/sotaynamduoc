@@ -86,6 +86,7 @@ void registerRepositories(GetIt getIt) {
   getIt.registerLazySingleton(
     () => UserInteractionRepository(remoteDataSource: getIt.get()),
   );
+  getIt.registerLazySingleton(() => TipRepository(dataSource: getIt.get()));
 }
 
 void registerDataSource(GetIt getIt) {
@@ -115,6 +116,7 @@ void registerDataSource(GetIt getIt) {
   getIt.registerLazySingleton(
     () => UserInteractionRemoteDataSource(network: getIt.get()),
   );
+  getIt.registerLazySingleton(() => TipDataSource(network: getIt.get()));
 }
 
 void registerNetwork(GetIt getIt) {

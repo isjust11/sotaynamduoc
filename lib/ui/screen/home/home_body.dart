@@ -30,10 +30,10 @@ class _HomeBodyState extends State<HomeBody>
   @override
   void initState() {
     super.initState();
-    context.read<NewsBloc>().add(LoadNewsList(page: 1, size: 10, search: ''));
     context.read<FolkMedicineBloc>().add(
       LoadFolkMedicineList(page: 1, size: 10, search: ''),
     );
+    context.read<NewsBloc>().add(LoadNewsList(page: 1, size: 10, search: ''));
     _startTypewriter();
   }
 
@@ -143,7 +143,7 @@ class _HomeBodyState extends State<HomeBody>
             AppLocalizations.current.tips,
             Icons.lightbulb_outline,
             AppColors.yellowMaterial,
-            () {},
+            () => Navigator.pushNamed(context, Routes.tipListScreen),
           ),
           SizedBox(width: AppDimens.SIZE_8),
           _buildDiscoveryItem(
@@ -151,7 +151,7 @@ class _HomeBodyState extends State<HomeBody>
             AppLocalizations.current.youKnow,
             Icons.medical_information,
             AppColors.baseColor,
-            () {},
+            () => Navigator.pushNamed(context, Routes.knowledgeListScreen),
           ),
           SizedBox(width: AppDimens.SIZE_8),
           _buildDiscoveryItem(
@@ -159,7 +159,7 @@ class _HomeBodyState extends State<HomeBody>
             AppLocalizations.current.discovery,
             Icons.explore,
             AppColors.primaryBlue,
-            () {},
+            () => Navigator.pushNamed(context, Routes.discoveryScreen),
           ),
         ],
       ),
@@ -171,7 +171,7 @@ class _HomeBodyState extends State<HomeBody>
     String title,
     IconData icon,
     Color iconColor,
-    Function() onTap,
+    VoidCallback onTap,
   ) {
     return InkWell(
       onTap: onTap,
@@ -224,7 +224,7 @@ class _HomeBodyState extends State<HomeBody>
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppDimens.SIZE_12,
-                vertical: AppDimens.SIZE_12,
+                vertical: AppDimens.SIZE_8,
               ),
               child: Row(
                 children: [
@@ -354,11 +354,12 @@ class _HomeBodyState extends State<HomeBody>
             borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
             color: AppColors.lightBackgroundAlt,
           ),
-          padding: EdgeInsets.symmetric(
-            horizontal: AppDimens.SIZE_12,
-            vertical: AppDimens.SIZE_12,
+          padding: EdgeInsets.only(
+            left: AppDimens.SIZE_8,
+            right: AppDimens.SIZE_8,
+            top: AppDimens.SIZE_12,
           ),
-          height: 300.sh,
+          height: 320.sh,
           child: BlocBuilder<FolkMedicineBloc, FolkMedicineState>(
             builder: (context, state) {
               if (state is FolkMedicineListLoaded &&
@@ -398,7 +399,7 @@ class _HomeBodyState extends State<HomeBody>
                                     .map(
                                       (item) => Expanded(
                                         child: Container(
-                                          height: 110.sh,
+                                          height: 120.sh,
                                           width: 120.sw,
                                           margin: EdgeInsets.only(
                                             bottom: AppDimens.SIZE_20,

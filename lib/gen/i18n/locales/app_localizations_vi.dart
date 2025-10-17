@@ -760,4 +760,47 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noInfo => 'Không có thông tin';
+
+  @override
+  String get searchTips => 'Tìm mẹo vặt...';
+
+  @override
+  String get all => 'Tất cả';
+
+  @override
+  String get popular => 'Phổ biến';
+
+  @override
+  String get recent => 'Mới nhất';
+
+  @override
+  String get bookmarked => 'Đã lưu';
+
+  @override
+  String get noTipsFound => 'Không tìm thấy mẹo vặt';
+
+  @override
+  String get tryDifferentSearch => 'Hãy thử tìm kiếm với từ khác';
+
+  @override
+  String get noResultsFound => 'Không tìm thấy kết quả';
+
+  @override
+  String get trySearchingWithDifferentKeywords =>
+      'Thử tìm kiếm với từ khóa khác';
+
+  @override
+  String get searchSuggestions => 'Gợi ý tìm kiếm';
+
+  @override
+  String get searchHistory => 'Lịch sử tìm kiếm';
+
+  @override
+  String get clearAll => 'Xóa tất cả';
+
+  @override
+  String get knowledge => 'Kiến thức';
+
+  @override
+  String get noKnowledgeFound => 'Không tìm thấy kiến thức nào';
 }

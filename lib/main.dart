@@ -67,8 +67,12 @@ void main() async {
               MediaCubit(repository: getIt.getIt.get<MediaRepository>()),
         ),
         BlocProvider(
-          create: (_) =>
-              UserInteractionCubit(repository: getIt.getIt.get<UserInteractionRepository>()),
+          create: (_) => UserInteractionCubit(
+            repository: getIt.getIt.get<UserInteractionRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => TipCubit(repository: getIt.getIt.get<TipRepository>()),
         ),
       ],
       child: MyApp(),

@@ -4,7 +4,11 @@ import 'package:sotaynamduoc/ui/screen/screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:sotaynamduoc/ui/screen/shortcut_page/discovery/discovery_screen.dart';
+import 'package:sotaynamduoc/ui/screen/shortcut_page/knowledge/knowledge_screen.dart';
 import 'package:sotaynamduoc/ui/screen/test/fcm_test_screen.dart';
+
+import 'domain/data/models/models.dart';
 
 class Routes {
   Routes._();
@@ -36,6 +40,11 @@ class Routes {
   static const String feedbackScreen = "/feedbackScreen";
   static const String profileScreen = "/profileScreen";
   static const String updateProfileScreen = "/updateProfileScreen";
+  static const String tipListScreen = "/tipListScreen";
+  static const String tipDetailScreen = "/tipDetailScreen";
+  static const String knowledgeListScreen = "/knowledgeListScreen";
+  static const String knowledgeDetailScreen = "/knowledgeDetailScreen";
+  static const String discoveryScreen = "/discoveryScreen";
   //init screen name
   static String initScreen() => splashScreen;
 
@@ -133,6 +142,27 @@ class Routes {
       case updateProfileScreen:
         return PageTransition(
           child: UpdateProfileScreen(),
+          type: PageTransitionType.fade,
+        );
+      case tipListScreen:
+        return PageTransition(
+          child: TipScreen(),
+          type: PageTransitionType.fade,
+        );
+      case tipDetailScreen:
+        final args = settings.arguments as String;
+        return PageTransition(
+          child: TipDetailScreen(tipId: args),
+          type: PageTransitionType.fade,
+        );
+      case knowledgeListScreen:
+        return PageTransition(
+          child: KnowledgeScreen(),
+          type: PageTransitionType.fade,
+        );
+      case discoveryScreen:
+        return PageTransition(
+          child: DiscoveryScreen(),
           type: PageTransitionType.fade,
         );
       default:

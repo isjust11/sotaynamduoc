@@ -251,5 +251,19 @@
   "noLoginInfo": "Chưa có thông tin đăng nhập để bật sinh trắc học",
   "light": "Sáng",
   "dark": "Tối",
-  "noInfo": "Không có thông tin"
+  "noInfo": "Không có thông tin",
+  "searchTips": "Tìm mẹo vặt...",
+  "all": "Tất cả",
+  "popular": "Phổ biến",
+  "recent": "Mới nhất",
+  "bookmarked": "Đã lưu",
+  "noTipsFound": "Không tìm thấy mẹo vặt",
+  "tryDifferentSearch": "Hãy thử tìm kiếm với từ khác",
+  "noResultsFound": "Không tìm thấy kết quả",
+  "trySearchingWithDifferentKeywords": "Thử tìm kiếm với từ khóa khác",
+  "searchSuggestions": "Gợi ý tìm kiếm",
+  "searchHistory": "Lịch sử tìm kiếm",
+  "clearAll": "Xóa tất cả",
+  "knowledge": "Kiến thức",
+  "noKnowledgeFound": "Không tìm thấy kiến thức nào"
 }

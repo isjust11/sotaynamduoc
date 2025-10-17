@@ -754,4 +754,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noInfo => 'No information';
+
+  @override
+  String get searchTips => 'Search tips...';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get popular => 'Popular';
+
+  @override
+  String get recent => 'Recent';
+
+  @override
+  String get bookmarked => 'Bookmarked';
+
+  @override
+  String get noTipsFound => 'No tips found';
+
+  @override
+  String get tryDifferentSearch => 'Try different search';
+
+  @override
+  String get noResultsFound => 'No results found';
+
+  @override
+  String get trySearchingWithDifferentKeywords =>
+      'Try searching with different keywords';
+
+  @override
+  String get searchSuggestions => 'Search suggestions';
+
+  @override
+  String get searchHistory => 'Search history';
+
+  @override
+  String get clearAll => 'Clear all';
+
+  @override
+  String get knowledge => 'Knowledge';
+
+  @override
+  String get noKnowledgeFound => 'No knowledge found';
 }

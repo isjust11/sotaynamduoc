@@ -12,3 +12,4 @@ export 'package:sotaynamduoc/domain/data/datasources/remote/page_remote_data_sou
 export 'package:sotaynamduoc/domain/data/datasources/remote/feedback_remote_data_source.dart';
 export 'package:sotaynamduoc/domain/data/datasources/remote/media_remote_data_source.dart';
 export 'package:sotaynamduoc/domain/data/datasources/remote/user_interaction_data_source.dart';
+export 'package:sotaynamduoc/domain/data/datasources/remote/tip_data_source.dart';

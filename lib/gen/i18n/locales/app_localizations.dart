@@ -1573,6 +1573,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No information'**
   String get noInfo;
+
+  /// No description provided for @searchTips.
+  ///
+  /// In en, this message translates to:
+  /// **'Search tips...'**
+  String get searchTips;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @popular.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular'**
+  String get popular;
+
+  /// No description provided for @recent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get recent;
+
+  /// No description provided for @bookmarked.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarked'**
+  String get bookmarked;
+
+  /// No description provided for @noTipsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No tips found'**
+  String get noTipsFound;
+
+  /// No description provided for @tryDifferentSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Try different search'**
+  String get tryDifferentSearch;
+
+  /// No description provided for @noResultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResultsFound;
+
+  /// No description provided for @trySearchingWithDifferentKeywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Try searching with different keywords'**
+  String get trySearchingWithDifferentKeywords;
+
+  /// No description provided for @searchSuggestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Search suggestions'**
+  String get searchSuggestions;
+
+  /// No description provided for @searchHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Search history'**
+  String get searchHistory;
+
+  /// No description provided for @clearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get clearAll;
+
+  /// No description provided for @knowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'Knowledge'**
+  String get knowledge;
+
+  /// No description provided for @noKnowledgeFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No knowledge found'**
+  String get noKnowledgeFound;
 }
 
 class _AppLocalizationsDelegate

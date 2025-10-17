@@ -13,14 +13,56 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  bool _isSearching = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    setState(() {
+      _searchQuery = query;
+      _isSearching = query.isNotEmpty;
+    });
+  }
+
+  void _onSearchSubmitted() {
+    if (_searchQuery.isNotEmpty) {
+      // Thực hiện tìm kiếm
+      setState(() {
+        _isSearching = true;
+      });
+    }
+  }
+
+  void _onSearchCanceled() {
+    setState(() {
+      _searchQuery = '';
+      _isSearching = false;
+    });
+    _searchController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      body: SearchBodyScreen(),
-      customAppBar: BaseAppBar(
+      body: SearchBodyScreen(
+        searchQuery: _searchQuery,
+        isSearching: _isSearching,
+      ),
+      customAppBar: SearchAppBar(
         title: AppLocalizations.current.youCanSearch,
         showBackButton: true,
         backgroundColor: AppColors.secondaryBrand,
+        searchController: _searchController,
+        searchHint: 'Tìm kiếm thảo dược, bài thuốc...',
+        onSearchChanged: _onSearchChanged,
+        onSearchSubmitted: _onSearchSubmitted,
+        onSearchCanceled: _onSearchCanceled,
       ),
     );
   }

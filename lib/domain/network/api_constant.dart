@@ -79,4 +79,5 @@ class ApiConstant {
   static final createFeedback = "$apiHost/feedback";
   static final updateProfile = "$apiHost/auth/update-profile";
   static final getMedia = "$apiHost/media";
+  static final getTips = "$apiHost/tips";
 }

@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "address": MessageLookupByLibrary.simpleMessage("Địa chỉ"),
     "agree": MessageLookupByLibrary.simpleMessage("Đồng ý"),
     "alias": MessageLookupByLibrary.simpleMessage("Bí danh"),
+    "all": MessageLookupByLibrary.simpleMessage("Tất cả"),
     "allNotificationsLoaded": MessageLookupByLibrary.simpleMessage(
       "Đã tải hết thông báo",
     ),
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ngày sinh không hợp lệ",
     ),
     "birthPlace": MessageLookupByLibrary.simpleMessage("Nơi sinh"),
+    "bookmarked": MessageLookupByLibrary.simpleMessage("Đã lưu"),
     "camera": MessageLookupByLibrary.simpleMessage("Máy ảnh"),
     "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
     "career": MessageLookupByLibrary.simpleMessage("Sự nghiệp"),
@@ -67,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Chọn giao diện",
     ),
     "city": MessageLookupByLibrary.simpleMessage("Thành phố"),
+    "clearAll": MessageLookupByLibrary.simpleMessage("Xóa tất cả"),
     "close": MessageLookupByLibrary.simpleMessage("Đóng"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage(
       "Xác nhận mật khẩu",
@@ -239,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "honors": MessageLookupByLibrary.simpleMessage("Danh hiệu"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Nhập tên đăng nhập"),
     "instagramLink": MessageLookupByLibrary.simpleMessage("Liên kết Instagram"),
+    "knowledge": MessageLookupByLibrary.simpleMessage("Kiến thức"),
     "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
     "lastLogin": MessageLookupByLibrary.simpleMessage("Lần đăng nhập cuối"),
     "legacy": MessageLookupByLibrary.simpleMessage("Di sản"),
@@ -283,6 +287,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newsList": MessageLookupByLibrary.simpleMessage("Danh sách tin tức"),
     "noDataAvailable": MessageLookupByLibrary.simpleMessage("Không có dữ liệu"),
     "noInfo": MessageLookupByLibrary.simpleMessage("Không có thông tin"),
+    "noKnowledgeFound": MessageLookupByLibrary.simpleMessage(
+      "Không tìm thấy kiến thức nào",
+    ),
     "noLoginInfo": MessageLookupByLibrary.simpleMessage(
       "Chưa có thông tin đăng nhập để bật sinh trắc học",
     ),
@@ -292,6 +299,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noNotificationsYet": MessageLookupByLibrary.simpleMessage(
       "Chưa có thông báo nào",
+    ),
+    "noResultsFound": MessageLookupByLibrary.simpleMessage(
+      "Không tìm thấy kết quả",
+    ),
+    "noTipsFound": MessageLookupByLibrary.simpleMessage(
+      "Không tìm thấy mẹo vặt",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
     "notifications": MessageLookupByLibrary.simpleMessage("Thông báo"),
@@ -370,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "plsInputUserName": MessageLookupByLibrary.simpleMessage(
       "Vui lòng nhập tên đăng nhập",
     ),
+    "popular": MessageLookupByLibrary.simpleMessage("Phổ biến"),
     "preparationMethods": MessageLookupByLibrary.simpleMessage("Cách chế biến"),
     "privacyAndSecurity": MessageLookupByLibrary.simpleMessage(
       "Quyền riêng tư và Bảo mật",
@@ -388,6 +402,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "quotes": MessageLookupByLibrary.simpleMessage("Trích dẫn"),
     "read": MessageLookupByLibrary.simpleMessage("Đã đọc"),
+    "recent": MessageLookupByLibrary.simpleMessage("Mới nhất"),
     "references": MessageLookupByLibrary.simpleMessage("Tài liệu tham khảo"),
     "register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -409,7 +424,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Thông tin khoa học",
     ),
     "scientificName": MessageLookupByLibrary.simpleMessage("Tên khoa học"),
+    "searchHistory": MessageLookupByLibrary.simpleMessage("Lịch sử tìm kiếm"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Tìm bài viết..."),
+    "searchSuggestions": MessageLookupByLibrary.simpleMessage("Gợi ý tìm kiếm"),
+    "searchTips": MessageLookupByLibrary.simpleMessage("Tìm mẹo vặt..."),
     "security": MessageLookupByLibrary.simpleMessage("Bảo mật"),
     "selectImage": MessageLookupByLibrary.simpleMessage("Chọn ảnh"),
     "sendFeedback": MessageLookupByLibrary.simpleMessage("Gửi phản hồi"),
@@ -443,6 +461,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
     ),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Thử lại"),
+    "tryDifferentSearch": MessageLookupByLibrary.simpleMessage(
+      "Hãy thử tìm kiếm với từ khác",
+    ),
+    "trySearchingWithDifferentKeywords": MessageLookupByLibrary.simpleMessage(
+      "Thử tìm kiếm với từ khóa khác",
+    ),
     "twitterLink": MessageLookupByLibrary.simpleMessage("Liên kết Twitter"),
     "unread": MessageLookupByLibrary.simpleMessage("Chưa đọc"),
     "updateProfile": MessageLookupByLibrary.simpleMessage("Cập nhật hồ sơ"),

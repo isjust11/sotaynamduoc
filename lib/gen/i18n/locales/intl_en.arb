@@ -245,5 +245,19 @@
   "noLoginInfo": "No login info",
   "light": "Light",
   "dark": "Dark",
-  "noInfo": "No information"
+  "noInfo": "No information",
+  "searchTips": "Search tips...",
+  "all": "All",
+  "popular": "Popular",
+  "recent": "Recent",
+  "bookmarked": "Bookmarked",
+  "noTipsFound": "No tips found",
+  "tryDifferentSearch": "Try different search",
+  "noResultsFound": "No results found",
+  "trySearchingWithDifferentKeywords": "Try searching with different keywords",
+  "searchSuggestions": "Search suggestions",
+  "searchHistory": "Search history",
+  "clearAll": "Clear all",
+  "knowledge": "Knowledge",
+  "noKnowledgeFound": "No knowledge found"
 }
