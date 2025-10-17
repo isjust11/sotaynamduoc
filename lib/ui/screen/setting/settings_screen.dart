@@ -159,7 +159,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
             ),
           ),
-          const SizedBox(width: AppDimens.SIZE_20),
+          const SizedBox(width: AppDimens.SIZE_16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,13 +169,13 @@ class _SettingScreenState extends State<SettingScreen> {
                       user?.username ??
                       AppLocalizations.current.noName,
                   fontWeight: FontWeight.bold,
-                  fontSize: AppDimens.SIZE_18,
+                  fontSize: AppDimens.SIZE_14,
                   color: AppColors.white,
                 ),
                 const SizedBox(height: 6),
                 CustomTextLabel(
                   user?.username ?? AppLocalizations.current.noName,
-                  fontSize: AppDimens.SIZE_14,
+                  fontSize: AppDimens.SIZE_12,
                   color: AppColors.white.withValues(alpha: 0.9),
                 ),
                 const SizedBox(height: AppDimens.SIZE_8),

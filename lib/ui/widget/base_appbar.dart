@@ -108,7 +108,11 @@ class SearchAction extends StatelessWidget {
         onTap: () {
           onPressed?.call();
         },
-        child: Icon(Icons.search, color: AppColors.white),
+        child: Icon(
+          Icons.search,
+          color: AppColors.white,
+          size: AppDimens.SIZE_16,
+        ),
       ),
     );
   }

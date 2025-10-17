@@ -55,7 +55,7 @@ class _NewsListScreenState extends State<NewsListScreen>
         onRefresh: () => context.read<NewsBloc>().add(const RefreshNews()),
       ),
       colorBg: AppColors.white,
-      title: AppLocalizations.current.news.toUpperCase(),
+      title: AppLocalizations.current.news,
       customAppBar: _buildAppBar(context),
       body: const NewsListBlocView(),
     );
