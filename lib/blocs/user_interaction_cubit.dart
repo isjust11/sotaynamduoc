@@ -6,6 +6,8 @@ import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 
 class UserInteractionCubit extends Cubit<BaseState> {
   bool isLiked = false;
+  bool isBookmarked = false;
+  bool hasTrackedBookmark = false;
   int viewCount = 0;
   int likeCount = 0;
   bool hasTrackedView = false;
@@ -48,6 +50,7 @@ class UserInteractionCubit extends Cubit<BaseState> {
         targetType: targetType,
         targetId: targetId,
       );
+      isBookmarked = true;
       emit(LoadedUserInteractionState(response));
     } catch (e) {
       emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
@@ -61,6 +64,7 @@ class UserInteractionCubit extends Cubit<BaseState> {
     try {
       emit(LoadingUserInteractionState());
       await repository.unbookmark(targetType: targetType, targetId: targetId);
+      isBookmarked = false;
       emit(LoadedUserInteractionState(null));
     } catch (e) {
       emit(ErrorUserInteractionState(BlocUtils.getMessageError(e)));
@@ -182,12 +186,23 @@ class UserInteractionCubit extends Cubit<BaseState> {
     }
   }
 
+  void initInteraction({
+    required bool isView,
+    required bool isLiked,
+    required bool isBookmarked,
+  }) {
+    this.isLiked = isLiked;
+    this.isBookmarked = isBookmarked;
+  }
+
   // Reset state when switching to different target
   void resetState() {
     isLiked = false;
+    isBookmarked = false;
     viewCount = 0;
     likeCount = 0;
     hasTrackedView = false;
+    hasTrackedBookmark = false;
     emit(InitState());
   }
 }

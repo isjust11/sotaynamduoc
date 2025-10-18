@@ -20,7 +20,21 @@ class NewsDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<UserInteractionCubit>().resetState();
+    // Debug: Print the user interaction status
+    print(
+      'NewsDetailScreen - userInteractionStatus: ${news.userInteractionStatus}',
+    );
+    print('NewsDetailScreen - isLiked: ${news.userInteractionStatus?['like']}');
+    print(
+      'NewsDetailScreen - isBookmarked: ${news.userInteractionStatus?['bookmark']}',
+    );
+
+    // Initialize interaction state with data from news
+    context.read<UserInteractionCubit>().initInteraction(
+      isView: news.userInteractionStatus?['view'] ?? false,
+      isLiked: news.userInteractionStatus?['like'] ?? false,
+      isBookmarked: news.userInteractionStatus?['bookmark'] ?? false,
+    );
     return NewsDetailView(news: news);
   }
 }
@@ -55,7 +69,7 @@ class NewsDetailView extends StatelessWidget {
                 final isLiked = context.read<UserInteractionCubit>().isLiked;
                 return Icon(
                   isLiked ? Icons.favorite : Icons.favorite_border,
-                  color: AppColors.white,
+                  color: isLiked ? AppColors.errorRed : AppColors.white,
                 );
               }
               return Icon(Icons.favorite_border, color: AppColors.white);
@@ -76,6 +90,48 @@ class NewsDetailView extends StatelessWidget {
               );
             } else {
               context.read<UserInteractionCubit>().unlike(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            }
+          },
+        ),
+        IconButton(
+          icon: BlocBuilder<UserInteractionCubit, BaseState>(
+            buildWhen: (prev, curr) => curr is LoadedUserInteractionState,
+            builder: (context, state) {
+              if (state is LoadedUserInteractionState) {
+                final isBookmarked = context
+                    .read<UserInteractionCubit>()
+                    .isBookmarked;
+                return Icon(
+                  isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                  color: isBookmarked ? AppColors.primaryBlue : AppColors.white,
+                );
+              }
+              return Icon(
+                Icons.bookmark_border,
+                color: AppColors.textMediumGrey,
+              );
+            },
+          ),
+          onPressed: () {
+            final id = news.id ?? '';
+            if (id.isEmpty) return;
+
+            // Get current state to determine if liked
+
+            final isBookmarked = context
+                .read<UserInteractionCubit>()
+                .isBookmarked;
+
+            if (!isBookmarked) {
+              context.read<UserInteractionCubit>().bookmark(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            } else {
+              context.read<UserInteractionCubit>().unbookmark(
                 targetType: InteractionTarget.article.value,
                 targetId: id,
               );

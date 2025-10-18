@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/i18n/locales/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 
 class SPrefCache {
   // share preference key
@@ -13,9 +14,27 @@ class SPrefCache {
   static const String PREF_KEY_IS_KEEP_LOGIN = "pref_key_is_keep_login";
   static const String PREF_KEY_THEME = "pref_key_theme";
   static const String PREF_KEY_REMEMBER_PASSWORD = "pref_key_remember_password";
+  static const String PREF_KEY_CARD_VIEW_TYPE = "pref_card_view_type";
 }
 
 class SharedPreferenceUtil {
+  static Future saveCardViewType(CardViewType viewType) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SPrefCache.PREF_KEY_CARD_VIEW_TYPE, viewType.name);
+  }
+
+  static Future<CardViewType> getCardViewType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final viewType = prefs.getString(SPrefCache.PREF_KEY_CARD_VIEW_TYPE);
+    if (viewType == null) {
+      return CardViewType.column;
+    }
+    return CardViewType.values.firstWhere(
+      (e) => e.name == viewType,
+      orElse: () => CardViewType.column,
+    );
+  }
+
   static Future saveAccessToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(SPrefCache.ACCESS_TOKEN, token);

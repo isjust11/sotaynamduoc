@@ -307,6 +307,10 @@ class _HomeBodyState extends State<HomeBody>
         SizedBox(
           height: 140.sh,
           child: BlocBuilder<NewsBloc, NewsState>(
+            buildWhen: (prev, curr) =>
+                curr is NewsListLoaded ||
+                curr is NewsLoading ||
+                curr is NewsError,
             builder: (context, state) {
               if (state is NewsListLoaded) {
                 return ListView.separated(
@@ -361,6 +365,10 @@ class _HomeBodyState extends State<HomeBody>
           ),
           height: 320.sh,
           child: BlocBuilder<FolkMedicineBloc, FolkMedicineState>(
+            buildWhen: (prev, curr) =>
+                curr is FolkMedicineListLoaded ||
+                curr is FolkMedicineLoading ||
+                curr is FolkMedicineError,
             builder: (context, state) {
               if (state is FolkMedicineListLoaded &&
                   state.folkMedicineList.isNotEmpty) {

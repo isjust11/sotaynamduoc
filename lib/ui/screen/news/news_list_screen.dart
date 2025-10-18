@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sotaynamduoc/gen/assets.gen.dart';
+import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/domain/data/models/news_model.dart';
-import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/blocs/news/news.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_detail_screen.dart';
+import 'package:sotaynamduoc/utils/shared_preference.dart';
+
+enum CardViewType { row, column }
 
 class NewsListScreen extends StatefulWidget {
   final bool isShowBackButton;
@@ -23,9 +24,24 @@ class NewsListScreen extends StatefulWidget {
 class _NewsListScreenState extends State<NewsListScreen>
     with AutomaticKeepAliveClientMixin {
   Timer? _debounceTimer;
+  CardViewType cardViewType = CardViewType.column;
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadViewType();
+  }
+
+  void _loadViewType() {
+    SharedPreferenceUtil.getCardViewType().then((value) {
+      setState(() {
+        cardViewType = value;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -57,7 +73,7 @@ class _NewsListScreenState extends State<NewsListScreen>
       colorBg: AppColors.white,
       title: AppLocalizations.current.news,
       customAppBar: _buildAppBar(context),
-      body: const NewsListBlocView(),
+      body: NewsListBlocView(viewType: cardViewType),
     );
   }
 
@@ -74,6 +90,29 @@ class _NewsListScreenState extends State<NewsListScreen>
           }
         });
       },
+      customLeading: Container(
+        padding: EdgeInsets.only(left: AppDimens.SIZE_16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
+        ),
+        child: IconButton(
+          onPressed: () {
+            setState(() {
+              cardViewType = cardViewType == CardViewType.row
+                  ? CardViewType.column
+                  : CardViewType.row;
+              SharedPreferenceUtil.saveCardViewType(cardViewType);
+            });
+          },
+          icon: Icon(
+            cardViewType == CardViewType.row
+                ? Icons.view_list
+                : Icons.view_column,
+            color: AppColors.white,
+            size: AppDimens.SIZE_24,
+          ),
+        ),
+      ),
       onSearchCanceled: () {
         _debounceTimer?.cancel();
         context.read<NewsBloc>().add(const RefreshNews());
@@ -83,7 +122,8 @@ class _NewsListScreenState extends State<NewsListScreen>
 }
 
 class NewsListBlocView extends StatefulWidget {
-  const NewsListBlocView({super.key});
+  final CardViewType viewType;
+  const NewsListBlocView({super.key, required this.viewType});
 
   @override
   NewsListBlocViewState createState() => NewsListBlocViewState();
@@ -148,7 +188,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
           child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
               if (state is NewsListLoaded) {
-                return _buildNewsList(state);
+                return _buildNewsList(state, widget.viewType);
               }
               return const SizedBox.shrink();
             },
@@ -158,7 +198,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
     );
   }
 
-  Widget _buildNewsList(NewsListLoaded state) {
+  Widget _buildNewsList(NewsListLoaded state, CardViewType viewType) {
     return RefreshIndicator(
       onRefresh: () async {
         _addBlocEvent(const RefreshNews());
@@ -204,7 +244,7 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
           }
 
           if (index < state.newsList.length) {
-            return _buildNewsItem(context, state.newsList[index]);
+            return _buildNewsItem(context, state.newsList[index], viewType);
           }
 
           return const SizedBox.shrink();
@@ -213,97 +253,97 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
     );
   }
 
-  Widget _buildNewsItem(BuildContext context, NewsModel news) {
-    return InkWell(
-      onTap: () => _navigateToDetail(context, news),
-      borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppDimens.SIZE_16,
-          vertical: AppDimens.SIZE_12,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(AppDimens.SIZE_6),
-          border: Border.all(
-            color: AppColors.textHintGrey.withValues(alpha: 0.2),
+  Widget _buildNewsItem(
+    BuildContext context,
+    NewsModel news,
+    CardViewType viewType,
+  ) {
+    return viewType == CardViewType.row
+        ? CardRowItemWidget(
+            onTap: () => _navigateToDetail(context, news),
+            title: news.title ?? '',
+            thumbnail: news.thumbnail,
+            createdAt: news.timeString,
+            summary: news.summary,
+          )
+        : CardColItemWidget(
+            onTap: () => _navigateToDetail(context, news),
+            title: news.title ?? '',
+            thumbnail: news.thumbnail,
+            createdAt: news.timeString,
+            summary: news.summary,
+            category: news.category?.name ?? '',
+            views: news.interactionStats?.viewCount ?? 0,
+            author: news.author?.name ?? '',
+            actionButtons: _buildActionButtons(
+              isLiked: news.userInteractionStatus?['like'] ?? false,
+              isBookmarked: news.userInteractionStatus?['bookmark'] ?? false,
+              onShare: () {
+                // Implement share functionality
+              },
+              onLiked: (isLiked) {
+                setState(() {
+                  news.userInteractionStatus?['like'] = isLiked;
+                });
+                
+              },
+              onBookmarked: (isBookmarked) {
+                setState(() {
+                  news.userInteractionStatus?['bookmark'] = isBookmarked;
+                });
+              },
+            ),
+          );
+  }
+
+  Widget _buildActionButtons({
+    required Function(bool) onLiked,
+    required Function(bool) onBookmarked,
+    required bool isLiked,
+    required bool isBookmarked,
+    required Function() onShare,
+  }) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Like button
+        GestureDetector(
+          onTap: () {
+            onLiked(!isLiked);
+          },
+          child: Icon(
+            isLiked ? Icons.favorite : Icons.favorite_border,
+            size: 20.sw,
+            color: isLiked ? AppColors.errorRed : AppColors.textMediumGrey,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.textDark.withValues(alpha: 0.1),
-              blurRadius: AppDimens.SIZE_4,
-              offset: Offset(AppDimens.SIZE_0, AppDimens.SIZE_2),
-            ),
-          ],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-              child: news.thumbnail != null
-                  ? BaseNetworkImage(
-                      url: ApiConstant.storageHost + (news.thumbnail ?? ''),
-                      fit: BoxFit.cover,
-                      width: AppDimens.SIZE_100,
-                      height: AppDimens.SIZE_80,
-                      showShimmer: true,
-                    )
-                  : Container(
-                      color: AppColors.lightGreyBackground,
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 60,
-                        color: AppColors.textMediumGrey,
-                      ),
-                    ),
-            ),
-            SizedBox(width: AppDimens.SIZE_8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextLabel(
-                    news.title?.trim() ?? '',
-                    fontSize: AppDimens.SIZE_14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textDark,
-                    maxLines: 2,
-                  ),
-                  SizedBox(height: AppDimens.SIZE_4),
-                  news.summary != null && news.summary!.isNotEmpty
-                      ? CustomTextLabel(
-                          news.summary!.trim(),
-                          fontSize: AppDimens.SIZE_12,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.textDark.withValues(alpha: 0.6),
-                          maxLines: 2,
-                        )
-                      : const SizedBox.shrink(),
-                  SizedBox(height: AppDimens.SIZE_8),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        Assets.icons.icTime,
-                        width: AppDimens.SIZE_14,
-                        height: AppDimens.SIZE_14,
-                      ),
-                      const SizedBox(width: AppDimens.SIZE_2),
-                      CustomTextLabel(
-                        news.timeString.trim(),
-                        fontSize: AppDimens.SIZE_12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textDark.withValues(alpha: 0.6),
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
+        SizedBox(width: 12.sw),
+        // Bookmark button
+        GestureDetector(
+          onTap: () {
+            onBookmarked(!isBookmarked);
+          },
+          child: Icon(
+            isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+            size: 20.sw,
+            color: isBookmarked
+                ? AppColors.primaryBlue
+                : AppColors.textMediumGrey,
+          ),
         ),
-      ),
+        SizedBox(width: 12.sw),
+        // Share button
+        GestureDetector(
+          onTap: () {
+            onShare();
+          },
+          child: Icon(
+            Icons.share,
+            size: 20.sw,
+            color: AppColors.textMediumGrey,
+          ),
+        ),
+      ],
     );
   }
 

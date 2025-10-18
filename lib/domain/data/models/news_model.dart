@@ -1,4 +1,4 @@
-import 'package:sotaynamduoc/domain/data/models/category_model.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 class NewsModel {
   final String? id;
@@ -11,6 +11,10 @@ class NewsModel {
   final int? like;
   final String? categoryId;
   final CategoryModel? status;
+  final CategoryModel? category;
+  final InteractionStatsModel? interactionStats;
+  final Map<String, dynamic>? userInteractionStatus;
+  final AuthorModel? author;
   final String? statusId;
   const NewsModel({
     this.id,
@@ -19,11 +23,15 @@ class NewsModel {
     required this.summary,
     required this.createdAt,
     this.thumbnail,
+    this.interactionStats,
+    this.userInteractionStatus,
+    this.statusId,
+    this.status,
+    this.category,
     this.view,
     this.like,
     this.categoryId,
-    this.status,
-    this.statusId,
+    this.author,
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
@@ -42,7 +50,20 @@ class NewsModel {
       status: json['status'] is Map<String, dynamic>
           ? CategoryModel.fromJson(json['status'] as Map<String, dynamic>)
           : null,
+      interactionStats: json['interactionStats'] is Map<String, dynamic>
+          ? InteractionStatsModel.fromJson(
+              json['interactionStats'] as Map<String, dynamic>,
+            )
+          : null,
+      userInteractionStatus:
+          json['userInteractionStatus'] as Map<String, dynamic>? ?? {},
       statusId: json['statusId']?.toString() ?? '',
+      category: json['category'] is Map<String, dynamic>
+          ? CategoryModel.fromJson(json['category'] as Map<String, dynamic>)
+          : null,
+      author: json['author'] is Map<String, dynamic>
+          ? AuthorModel.fromJson(json['author'] as Map<String, dynamic>)
+          : null,
     );
   }
 
@@ -60,6 +81,10 @@ class NewsModel {
       // Only include statusId in JSON; nested objects are often omitted in writes
       'statusId': statusId?.toString() ?? '',
       // Keep 'status' out to avoid serializing complex object without a toJson
+      'interactionStats': interactionStats?.toJson(),
+      'userInteractionStatus': userInteractionStatus,
+      'category': category?.toJson(),
+      'author': author?.toJson(),
     };
   }
 

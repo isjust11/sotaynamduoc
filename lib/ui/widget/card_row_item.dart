@@ -9,7 +9,7 @@ import 'package:sotaynamduoc/ui/widget/base_network_image.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/utils/common.dart';
 
-class CardItem extends StatelessWidget {
+class CardRowItemWidget extends StatelessWidget {
   final Function() onTap;
   final String title;
   final String? thumbnail;
@@ -17,7 +17,8 @@ class CardItem extends StatelessWidget {
   final String? summary;
   final Widget? listBottomAction;
   final EdgeInsets? margin;
-  const CardItem({
+
+  const CardRowItemWidget({
     super.key,
     required this.onTap,
     required this.title,
@@ -58,21 +59,12 @@ class CardItem extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-              child: thumbnail != null
-                  ? BaseNetworkImage(
-                      height: 80.sh,
-                      width: 120.sw,
-                      url: ApiConstant.apiHost + (thumbnail ?? ''),
-                      fit: BoxFit.cover,
-                    )
-                  : Container(
-                      color: AppColors.lightGreyBackground,
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 60,
-                        color: AppColors.textMediumGrey,
-                      ),
-                    ),
+              child: BaseNetworkImage(
+                height: 80.sh,
+                width: 120.sw,
+                url: ApiConstant.apiHost + (thumbnail ?? ''),
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(width: AppDimens.SIZE_8),
             Expanded(

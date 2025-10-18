@@ -8,8 +8,8 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
-import 'package:sotaynamduoc/ui/widget/card_item.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class FolkMedicineListBodyScreen extends StatefulWidget {
   final String categoryId;
@@ -134,7 +134,7 @@ class _FolkMedicineListBodyScreenState
     BuildContext context,
     FolkMedicineModel folkMedicine,
   ) {
-    return CardItem(
+    return CardRowItemWidget(
       onTap: () => _navigateToDetail(context, folkMedicine),
       title: folkMedicine.title ?? '',
       thumbnail: folkMedicine.thumbnail,

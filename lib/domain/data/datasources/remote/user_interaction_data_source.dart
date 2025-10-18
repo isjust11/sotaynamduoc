@@ -66,7 +66,7 @@ class UserInteractionRemoteDataSource {
     required String targetType,
     required dynamic targetId,
   }) async {
-    final ApiResponse apiResponse = await network.delete(
+    final ApiResponse apiResponse = await network.post(
       url: ApiConstant.unbookmarkUrl(targetType, targetId),
     );
     if (apiResponse.isSuccess) return;

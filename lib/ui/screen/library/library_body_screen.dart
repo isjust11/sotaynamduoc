@@ -8,7 +8,7 @@ import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/screen/library/detail/library_detail_screen.dart';
 import 'package:sotaynamduoc/ui/screen/library/detail/author_detail_screen.dart';
-import 'package:sotaynamduoc/ui/widget/card_item.dart';
+import 'package:sotaynamduoc/ui/widget/card_row_item.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class LibraryBodyScreen extends StatefulWidget {
@@ -269,7 +269,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
           }
 
           final herbal = herbals[index];
-          return CardItem(
+          return CardRowItemWidget(
             onTap: () {
               Navigator.push(
                 context,
@@ -283,32 +283,6 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
             createdAt: herbal.createdAt,
             summary: herbal.summary,
             margin: const EdgeInsets.only(bottom: AppDimens.SIZE_8),
-            // listBottomAction: Row(
-            //   children: [
-            //     if (herbal.viewCount != null)
-            //       Row(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         children: [
-            //           Row(
-            //             children: [
-            //               const Icon(Icons.visibility, size: AppDimens.SIZE_16),
-            //               const SizedBox(width: AppDimens.SIZE_4),
-            //               CustomTextLabel('${herbal.viewCount}'),
-            //             ],
-            //           ),
-            //           const SizedBox(width: AppDimens.SIZE_16),
-            //           if (herbal.likeCount != null)
-            //             Row(
-            //               children: [
-            //                 const Icon(Icons.favorite, size: AppDimens.SIZE_16),
-            //                 const SizedBox(width: AppDimens.SIZE_4),
-            //                 CustomTextLabel('${herbal.likeCount}'),
-            //               ],
-            //             ),
-            //         ],
-            //       ),
-            //   ],
-            // ),
           );
         },
       ),
@@ -333,7 +307,7 @@ class _LibraryBodyScreenState extends State<LibraryBodyScreen>
           }
 
           final author = authors[index];
-          return CardItem(
+          return CardRowItemWidget(
             onTap: () {
               Navigator.push(
                 context,
