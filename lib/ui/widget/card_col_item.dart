@@ -74,7 +74,7 @@ class _CardColItemWidgetState extends State<CardColItemWidget> {
               child: BaseNetworkImage(
                 height: 200.sw,
                 width: double.infinity,
-                url: ApiConstant.apiHost + (widget.thumbnail ?? ''),
+                url: ApiConstant.storageHost + (widget.thumbnail ?? ''),
                 fit: BoxFit.cover,
               ),
             ),

@@ -585,17 +585,9 @@ class _HomeBodyState extends State<HomeBody>
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
-                  child: news.thumbnail != null
-                      ? BaseNetworkImage(
-                          url: ApiConstant.storageHost + (news.thumbnail ?? ''),
-                        )
-                      : Container(
-                          color: AppColors.lightGreyBackground,
-                          child: Icon(
-                            Icons.image_not_supported,
-                            color: AppColors.textMediumGrey,
-                          ),
-                        ),
+                  child: BaseNetworkImage(
+                    url: ApiConstant.storageHost + (news.thumbnail ?? ''),
+                  ),
                 ),
               ),
             ),

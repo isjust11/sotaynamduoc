@@ -71,7 +71,6 @@ class _NewsListScreenState extends State<NewsListScreen>
         onRefresh: () => context.read<NewsBloc>().add(const RefreshNews()),
       ),
       colorBg: AppColors.white,
-      title: AppLocalizations.current.news,
       customAppBar: _buildAppBar(context),
       body: NewsListBlocView(viewType: cardViewType),
     );
@@ -79,7 +78,7 @@ class _NewsListScreenState extends State<NewsListScreen>
 
   SearchAppBar _buildAppBar(BuildContext context) {
     return SearchAppBar(
-      title: AppLocalizations.current.news.toUpperCase(),
+      title: AppLocalizations.current.news,
       showBackButton: widget.isShowBackButton,
       backgroundColor: AppColors.secondaryBrand,
       onSearchChanged: (value) {
@@ -285,7 +284,6 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
                 setState(() {
                   news.userInteractionStatus?['like'] = isLiked;
                 });
-                
               },
               onBookmarked: (isBookmarked) {
                 setState(() {
