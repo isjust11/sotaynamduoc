@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
+import 'package:sotaynamduoc/blocs/category/category_cubit.dart';
+import 'package:sotaynamduoc/domain/data/enums/category_type.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
@@ -86,6 +91,13 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
     'Nghiên cứu',
     'Ứng dụng',
   ];
+  @override
+  void initState() {
+    super.initState();
+    context.read<CategoryCubit>().getCategories(
+      categoryTypeCode: CategoryType.Discovery.value,
+    );
+  }
 
   @override
   void dispose() {
@@ -142,29 +154,40 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Row(
-          children: _categories.map((category) {
-            final isSelected = _selectedCategory == category;
-            return Container(
-              margin: EdgeInsets.only(right: AppDimens.SIZE_8),
-              child: FilterChip(
-                label: CustomTextLabel(
-                  category,
-                  fontSize: AppDimens.SIZE_12,
-                  color: isSelected ? AppColors.white : AppColors.textDark,
-                ),
-                selected: isSelected,
-                onSelected: (selected) {
-                  setState(() {
-                    _selectedCategory = selected ? category : '';
-                  });
-                },
-                backgroundColor: AppColors.lightGreyBackground,
-                selectedColor: AppColors.primaryBlue,
-                checkmarkColor: AppColors.white,
-              ),
-            );
-          }).toList(),
+        child: BlocBuilder<CategoryCubit, BaseState>(
+          builder: (context, state) {
+            if (state is LoadedState<List<CategoryModel>>) {
+              final categories = state.data;
+              
+              return Row(
+                children: categories.map((category) {
+                  final isSelected = _selectedCategory == category.id;
+                  return Container(
+                    margin: EdgeInsets.only(right: AppDimens.SIZE_8),
+                    child: FilterChip(
+                      label: CustomTextLabel(
+                        category.name,
+                        fontSize: AppDimens.SIZE_12,
+                        color: isSelected
+                            ? AppColors.white
+                            : AppColors.textDark,
+                      ),
+                      selected: isSelected,
+                      onSelected: (selected) {
+                        setState(() {
+                          _selectedCategory = (selected ? category.id : '')!;
+                        });
+                      },
+                      backgroundColor: AppColors.lightGreyBackground,
+                      selectedColor: AppColors.primaryBlue,
+                      checkmarkColor: AppColors.white,
+                    ),
+                  );
+                }).toList(),
+              );
+            }
+            return const SizedBox();
+          },
         ),
       ),
     );

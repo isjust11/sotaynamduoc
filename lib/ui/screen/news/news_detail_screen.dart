@@ -20,15 +20,6 @@ class NewsDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Debug: Print the user interaction status
-    print(
-      'NewsDetailScreen - userInteractionStatus: ${news.userInteractionStatus}',
-    );
-    print('NewsDetailScreen - isLiked: ${news.userInteractionStatus?['like']}');
-    print(
-      'NewsDetailScreen - isBookmarked: ${news.userInteractionStatus?['bookmark']}',
-    );
-
     // Initialize interaction state with data from news
     context.read<UserInteractionCubit>().initInteraction(
       isView: news.userInteractionStatus?['view'] ?? false,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/domain/data/enums/enums.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/screen/folk_medicine/folk_medicine_menu_body_screen.dart';
@@ -19,7 +20,7 @@ class FolkMedicineMenuScreen extends StatelessWidget {
         errorState: (state) => state is ErrorState,
         emptyState: (state) => state is EmptyState,
         onRefresh: () => context.read<CategoryCubit>().getCategories(
-          categoryTypeCode: 'FolkMedicine',
+          categoryTypeCode: CategoryType.FolkMedicine.value,
         ),
         message: context.read<CategoryCubit>().state is LoadingState
             ? AppLocalizations.current.loading
