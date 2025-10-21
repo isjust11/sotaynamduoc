@@ -10,11 +10,15 @@ class NewsRepository {
     int page = 1,
     int size = 10,
     String? search,
+    String? categoryId,
+    String? articleCode,
   }) async {
     return await remoteDataSource.getNewsList(
       page: page,
       size: size,
       search: search,
+      categoryId: categoryId,
+      articleCode: articleCode,
     );
   }
 

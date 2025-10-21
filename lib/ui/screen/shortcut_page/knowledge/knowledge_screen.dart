@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
-import 'package:sotaynamduoc/blocs/category/category_cubit.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/domain/data/enums/category_type.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
+import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
@@ -23,79 +24,19 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
   String _selectedCategory = '';
   String _searchQuery = '';
 
-  // Mock data for demonstration
-  final List<Map<String, dynamic>> _knowledgeItems = [
-    {
-      'id': '1',
-      'title': 'Công dụng của Nhân sâm trong y học cổ truyền',
-      'summary':
-          'Nhân sâm là một trong những dược liệu quý hiếm nhất, có tác dụng bổ khí, ích huyết, an thần...',
-      'thumbnail': 'https://via.placeholder.com/300x200',
-      'category': 'Dược liệu quý',
-      'difficulty': 'Trung bình',
-      'estimatedTime': '10 phút',
-      'isLiked': false,
-      'isBookmarked': false,
-      'views': 1250,
-      'author': 'BS. Nguyễn Văn A',
-    },
-    {
-      'id': '2',
-      'title': 'Cách sử dụng Đông trùng hạ thảo hiệu quả',
-      'summary':
-          'Đông trùng hạ thảo là loại nấm quý hiếm, có nhiều công dụng tốt cho sức khỏe...',
-      'thumbnail': 'https://via.placeholder.com/300x200',
-      'category': 'Dược liệu quý',
-      'difficulty': 'Dễ',
-      'estimatedTime': '8 phút',
-      'isLiked': true,
-      'isBookmarked': false,
-      'views': 980,
-      'author': 'DS. Trần Thị B',
-    },
-    {
-      'id': '3',
-      'title': 'Phân biệt các loại Linh chi và công dụng',
-      'summary':
-          'Linh chi có nhiều loại khác nhau, mỗi loại có công dụng riêng biệt...',
-      'thumbnail': 'https://via.placeholder.com/300x200',
-      'category': 'Nấm dược liệu',
-      'difficulty': 'Khó',
-      'estimatedTime': '15 phút',
-      'isLiked': false,
-      'isBookmarked': true,
-      'views': 2100,
-      'author': 'TS. Lê Văn C',
-    },
-    {
-      'id': '4',
-      'title': 'Cách bảo quản dược liệu đúng cách',
-      'summary':
-          'Việc bảo quản dược liệu đúng cách sẽ giúp giữ được dược tính và chất lượng...',
-      'thumbnail': 'https://via.placeholder.com/300x200',
-      'category': 'Kỹ thuật',
-      'difficulty': 'Dễ',
-      'estimatedTime': '6 phút',
-      'isLiked': false,
-      'isBookmarked': false,
-      'views': 750,
-      'author': 'ThS. Phạm Thị D',
-    },
-  ];
-
-  final List<String> _categories = [
-    'Tất cả',
-    'Dược liệu quý',
-    'Nấm dược liệu',
-    'Kỹ thuật',
-    'Nghiên cứu',
-    'Ứng dụng',
-  ];
   @override
   void initState() {
     super.initState();
     context.read<CategoryCubit>().getCategories(
       categoryTypeCode: CategoryType.Discovery.value,
+    );
+    context.read<NewsBloc>().add(
+      LoadNewsList(
+        page: 1,
+        size: 10,
+        categoryId: _selectedCategory.isNotEmpty ? _selectedCategory : null,
+        articleCode: CategoryType.Discovery.value,
+      ),
     );
   }
 
@@ -113,7 +54,40 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
       body: Column(
         children: [
           _buildCategoryFilter(),
-          Expanded(child: _buildKnowledgeList(_getFilteredItems())),
+          Expanded(
+            child: BlocBuilder<NewsBloc, NewsState>(
+              buildWhen: (prev, curr) => curr is NewsListLoaded,
+              builder: (context, state) {
+                if (state is NewsListLoaded) {
+                  final filteredItems = _getFilteredItems(state.newsList);
+                  if (filteredItems.isEmpty) {
+                    return _buildEmptyWidget();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppDimens.SIZE_8,
+                      horizontal: AppDimens.SIZE_8,
+                    ),
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      itemCount: filteredItems.length,
+                      separatorBuilder: (_, __) =>
+                          SizedBox(width: AppDimens.SIZE_12),
+                      itemBuilder: (context, idx) {
+                        final item = filteredItems[idx];
+                        return _buildKnowledgeCard(item);
+                      },
+                    ),
+                  );
+                } else if (state is NewsLoading) {
+                  return const LoadingTemplate();
+                } else if (state is NewsError) {
+                  return const EmptyData();
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -158,7 +132,7 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
           builder: (context, state) {
             if (state is LoadedState<List<CategoryModel>>) {
               final categories = state.data;
-              
+
               return Row(
                 children: categories.map((category) {
                   final isSelected = _selectedCategory == category.id;
@@ -193,14 +167,14 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
     );
   }
 
-  List<Map<String, dynamic>> _getFilteredItems() {
-    List<Map<String, dynamic>> filteredItems = _knowledgeItems;
+  List<NewsModel> _getFilteredItems(List<NewsModel> items) {
+    List<NewsModel> filteredItems = items;
 
     // Filter by category
     if (_selectedCategory.isNotEmpty &&
         _selectedCategory != AppLocalizations.current.all) {
       filteredItems = filteredItems
-          .where((item) => item['category'] == _selectedCategory)
+          .where((item) => item.categoryId == _selectedCategory)
           .toList();
     }
 
@@ -209,15 +183,13 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
       filteredItems = filteredItems
           .where(
             (item) =>
-                item['title'].toLowerCase().contains(
+                item.title!.toLowerCase().contains(
                   _searchQuery.toLowerCase(),
                 ) ||
-                item['summary'].toLowerCase().contains(
+                item.summary!.toLowerCase().contains(
                   _searchQuery.toLowerCase(),
                 ) ||
-                item['category'].toLowerCase().contains(
-                  _searchQuery.toLowerCase(),
-                ),
+                item.author!.name!.contains(_searchQuery.toLowerCase()),
           )
           .toList();
     }
@@ -225,69 +197,68 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
     return filteredItems;
   }
 
-  Widget _buildKnowledgeList(List<Map<String, dynamic>> items) {
-    if (items.isEmpty) {
-      return _buildEmptyWidget();
-    }
-
-    return ListView.builder(
-      padding: EdgeInsets.all(16.sw),
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
-        return _buildKnowledgeCard(item);
-      },
-    );
-  }
-
-  Widget _buildKnowledgeCard(Map<String, dynamic> item) {
+  Widget _buildKnowledgeCard(NewsModel item) {
     return CardColItemWidget(
       onTap: () => _navigateToKnowledgeDetail(item),
-      title: item['title'],
-      summary: item['summary'],
-      thumbnail: item['thumbnail'],
-      category: item['category'],
-      estimatedTime: item['estimatedTime'],
-      difficulty: item['difficulty'],
-      views: item['views'],
-      author: item['author'],
-      isLiked: item['isLiked'],
-      isBookmarked: item['isBookmarked'],
-      actionButtons: _buildActionButtons(item),
+      title: item.title ?? '',
+      summary: item.summary ?? '',
+      thumbnail: item.thumbnail ?? '',
+      category: item.category?.name ?? '',
+      views: item.interactionStats?.viewCount ?? 0,
+      author: item.author?.name ?? '',
+      isLiked: item.userInteractionStatus?['like'] ?? false,
+      isBookmarked: item.userInteractionStatus?['bookmark'] ?? false,
+      actionButtons: _buildActionButtons(
+        isLiked: item.userInteractionStatus?['like'] ?? false,
+        isBookmarked: item.userInteractionStatus?['bookmark'] ?? false,
+        onShare: () {
+          // Implement share functionality
+        },
+        onLiked: (isLiked) {
+          setState(() {
+            item.userInteractionStatus?['like'] = isLiked;
+          });
+        },
+        onBookmarked: (isBookmarked) {
+          setState(() {
+            item.userInteractionStatus?['bookmark'] = isBookmarked;
+          });
+        },
+      ),
     );
   }
 
-  Widget _buildActionButtons(Map<String, dynamic> item) {
+  Widget _buildActionButtons({
+    required Function(bool) onLiked,
+    required Function(bool) onBookmarked,
+    required bool isLiked,
+    required bool isBookmarked,
+    required Function() onShare,
+  }) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         // Like button
         GestureDetector(
           onTap: () {
-            setState(() {
-              item['isLiked'] = !item['isLiked'];
-            });
+            onLiked(!isLiked);
           },
           child: Icon(
-            item['isLiked'] ? Icons.favorite : Icons.favorite_border,
+            isLiked ? Icons.favorite : Icons.favorite_border,
             size: 20.sw,
-            color: item['isLiked']
-                ? AppColors.errorRed
-                : AppColors.textMediumGrey,
+            color: isLiked ? AppColors.errorRed : AppColors.textMediumGrey,
           ),
         ),
         SizedBox(width: 12.sw),
         // Bookmark button
         GestureDetector(
           onTap: () {
-            setState(() {
-              item['isBookmarked'] = !item['isBookmarked'];
-            });
+            onBookmarked(!isBookmarked);
           },
           child: Icon(
-            item['isBookmarked'] ? Icons.bookmark : Icons.bookmark_border,
+            isBookmarked ? Icons.bookmark : Icons.bookmark_border,
             size: 20.sw,
-            color: item['isBookmarked']
+            color: isBookmarked
                 ? AppColors.primaryBlue
                 : AppColors.textMediumGrey,
           ),
@@ -296,7 +267,7 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
         // Share button
         GestureDetector(
           onTap: () {
-            // Implement share functionality
+            onShare();
           },
           child: Icon(
             Icons.share,
@@ -337,13 +308,7 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
     );
   }
 
-  void _navigateToKnowledgeDetail(Map<String, dynamic> item) {
-    // Navigate to knowledge detail screen
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => KnowledgeDetailScreen(knowledgeId: item['id']),
-    //   ),
-    // );
+  void _navigateToKnowledgeDetail(NewsModel item) {
+    Navigator.pushNamed(context, Routes.newsDetailScreen, arguments: item);
   }
 }
