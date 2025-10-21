@@ -57,8 +57,9 @@ class ApiConstant {
   static String interactionStatsUrl(String targetType, dynamic targetId) =>
       "$userInteractionsBase/stats/$targetType/$targetId";
   static String myInteractionsUrl({Map<String, dynamic>? query}) {
-    if (query == null || query.isEmpty)
+    if (query == null || query.isEmpty) {
       return "$userInteractionsBase/my-interactions";
+    }
     final qp = query.entries
         .where((e) => e.value != null && e.value.toString().isNotEmpty)
         .map((e) => "${e.key}=${Uri.encodeComponent(e.value.toString())}")
