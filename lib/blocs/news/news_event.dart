@@ -11,12 +11,16 @@ class LoadNewsList extends NewsEvent {
   final int page;
   final int size;
   final String? search;
+  final String? categoryId;
+  final String? articleCode;
   final bool isRefresh;
 
   const LoadNewsList({
     this.page = 1,
     this.size = 10,
     this.search,
+    this.categoryId,
+    this.articleCode,
     this.isRefresh = false,
   });
 

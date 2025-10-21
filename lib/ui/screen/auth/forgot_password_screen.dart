@@ -140,7 +140,7 @@ class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
               color: AppColors.textMediumGrey,
             ),
             validator: (value) {
-              final v = (value ?? '').trim();
+              final v = (value).trim();
               if (v.isEmpty) return AppLocalizations.current.plsInputEmail;
               final emailRegex = RegExp(r'^\S+@\S+\.\S+$');
               if (!emailRegex.hasMatch(v))

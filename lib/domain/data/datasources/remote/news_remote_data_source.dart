@@ -10,11 +10,21 @@ class NewsRemoteDataSource {
     int page = 1,
     int size = 10,
     String? search,
+    String? categoryId,
+    String? articleCode,
   }) async {
     Map<String, dynamic> params = {'page': page, 'size': size};
 
     if (search != null && search.isNotEmpty) {
       params['search'] = search;
+    }
+
+    if (categoryId != null && categoryId.isNotEmpty) {
+      params['categoryId'] = categoryId;
+    }
+
+    if (articleCode != null && articleCode.isNotEmpty) {
+      params['articleCode'] = articleCode;
     }
 
     ApiResponse apiResponse = await network.get(

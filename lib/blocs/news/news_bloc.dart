@@ -40,6 +40,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         page: event.page,
         size: event.size,
         search: event.search,
+        categoryId: event.categoryId,
+        articleCode: event.articleCode,
       );
 
       if (newsList.isEmpty) {

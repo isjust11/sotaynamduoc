@@ -66,7 +66,7 @@ class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
 
   SearchAppBar _buildAppBar(BuildContext context) {
     return SearchAppBar(
-      title: AppLocalizations.current.tips.toUpperCase(),
+      title: AppLocalizations.current.tips,
       showBackButton: true,
       backgroundColor: AppColors.secondaryBrand,
       onSearchChanged: (value) {
