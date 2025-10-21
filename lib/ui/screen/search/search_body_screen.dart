@@ -1,170 +1,145 @@
 import 'package:flutter/material.dart';
-import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
+import 'package:sotaynamduoc/blocs/search/search.dart';
 
-class SearchBodyScreen extends StatefulWidget {
-  final String searchQuery;
-  final bool isSearching;
-
-  const SearchBodyScreen({
-    super.key,
-    required this.searchQuery,
-    required this.isSearching,
-  });
-
-  @override
-  State<SearchBodyScreen> createState() => _SearchBodyScreenState();
-}
-
-class _SearchBodyScreenState extends State<SearchBodyScreen> {
-  List<String> _searchHistory = [];
-  final List<String> _suggestions = [
-    'Nhân sâm',
-    'Nấm linh chi',
-    'Đông trùng hạ thảo',
-    'Hoàng kỳ',
-    'Bạch truật',
-    'Cam thảo',
-    'Sinh địa',
-    'Đương quy',
-    'Bạch thược',
-    'Xuyên khung',
-  ];
-  List<Map<String, dynamic>> _searchResults = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSearchHistory();
-  }
-
-  @override
-  void didUpdateWidget(SearchBodyScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.searchQuery != oldWidget.searchQuery &&
-        widget.searchQuery.isNotEmpty) {
-      _performSearch(widget.searchQuery);
-    }
-  }
-
-  void _loadSearchHistory() {
-    // TODO: Load from SharedPreferences or local storage
-    _searchHistory = ['Nhân sâm', 'Nấm linh chi', 'Đông trùng hạ thảo'];
-  }
-
-  void _performSearch(String query) {
-    if (query.isEmpty) return;
-
-    setState(() {
-      _searchResults = [
-        {
-          'title': 'Nhân sâm Hàn Quốc',
-          'description':
-              'Nhân sâm có tác dụng bồi bổ sức khỏe, tăng cường miễn dịch',
-          'type': 'Thảo dược',
-          'image': 'assets/images/placeholder.png',
-        },
-        {
-          'title': 'Cách sử dụng nhân sâm',
-          'description': 'Hướng dẫn chi tiết cách sử dụng nhân sâm hiệu quả',
-          'type': 'Bài viết',
-          'image': 'assets/images/placeholder.png',
-        },
-        {
-          'title': 'Bài thuốc với nhân sâm',
-          'description': 'Các bài thuốc Đông y sử dụng nhân sâm',
-          'type': 'Bài thuốc',
-          'image': 'assets/images/placeholder.png',
-        },
-      ];
-    });
-
-    // Add to search history
-    if (!_searchHistory.contains(query)) {
-      setState(() {
-        _searchHistory.insert(0, query);
-        if (_searchHistory.length > 10) {
-          _searchHistory = _searchHistory.take(10).toList();
-        }
-      });
-    }
-  }
-
-  void _onSuggestionTap(String suggestion) {
-    _performSearch(suggestion);
-  }
-
-  void _onHistoryTap(String history) {
-    _performSearch(history);
-  }
-
-  void _clearHistory() {
-    setState(() {
-      _searchHistory.clear();
-    });
-  }
+class SearchBodyScreen extends StatelessWidget {
+  const SearchBodyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        if (state is SearchLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is SearchSuggestionsLoaded) {
+          return _buildSuggestionsView(context, state);
+        } else if (state is SearchResultsLoaded) {
+          return _buildSearchResultsView(context, state);
+        } else if (state is SearchEmpty) {
+          return _buildEmptyView(context, state);
+        } else if (state is SearchError) {
+          return _buildErrorView(context, state);
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+
+  Widget _buildSuggestionsView(
+    BuildContext context,
+    SearchSuggestionsLoaded state,
+  ) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          if (widget.isSearching) ...[
-            _buildSearchResults(),
-          ] else ...[
-            _buildSearchSuggestions(),
-            _buildSearchHistory(),
-          ],
+          _buildSearchSuggestions(context, state.suggestions),
+          _buildSearchHistory(context, state.searchHistory),
         ],
       ),
     );
   }
 
-  Widget _buildSearchResults() {
-    if (_searchResults.isEmpty) {
-      return Expanded(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.search_off,
-                size: AppDimens.SIZE_48,
-                color: AppColors.textMediumGrey,
-              ),
-              SizedBox(height: AppDimens.SIZE_16),
-              CustomTextLabel(
-                AppLocalizations.current.noResultsFound,
-                fontSize: AppDimens.SIZE_16,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textDark,
-              ),
-              SizedBox(height: AppDimens.SIZE_8),
-              CustomTextLabel(
-                AppLocalizations.current.trySearchingWithDifferentKeywords,
-                fontSize: AppDimens.SIZE_14,
-                color: AppColors.textMediumGrey,
-              ),
-            ],
+  Widget _buildSearchResultsView(
+    BuildContext context,
+    SearchResultsLoaded state,
+  ) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            padding: EdgeInsets.all(AppDimens.SIZE_16),
+            itemCount: state.searchResults.length,
+            itemBuilder: (context, index) {
+              final result = state.searchResults[index];
+              return _buildSearchResultItem(context, result);
+            },
           ),
         ),
-      );
-    }
+        if (state.hasMore)
+          Padding(
+            padding: EdgeInsets.all(AppDimens.SIZE_16),
+            child: ElevatedButton(
+              onPressed: state.isLoadingMore
+                  ? null
+                  : () => context.read<SearchBloc>().add(
+                      const LoadMoreSearchResults(),
+                    ),
+              child: state.isLoadingMore
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Text('Tải thêm'),
+            ),
+          ),
+      ],
+    );
+  }
 
-    return Expanded(
-      child: ListView.builder(
-        padding: EdgeInsets.all(AppDimens.SIZE_16),
-        itemCount: _searchResults.length,
-        itemBuilder: (context, index) {
-          final result = _searchResults[index];
-          return _buildSearchResultItem(result);
-        },
+  Widget _buildEmptyView(BuildContext context, SearchEmpty state) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.search_off,
+            size: AppDimens.SIZE_48,
+            color: AppColors.textMediumGrey,
+          ),
+          SizedBox(height: AppDimens.SIZE_16),
+          CustomTextLabel(
+            state.message,
+            fontSize: AppDimens.SIZE_16,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textDark,
+          ),
+          SizedBox(height: AppDimens.SIZE_8),
+          CustomTextLabel(
+            'Thử tìm kiếm với từ khóa khác',
+            fontSize: AppDimens.SIZE_14,
+            color: AppColors.textMediumGrey,
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildSearchResultItem(Map<String, dynamic> result) {
+  Widget _buildErrorView(BuildContext context, SearchError state) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error_outline,
+            size: AppDimens.SIZE_48,
+            color: AppColors.errorRed,
+          ),
+          SizedBox(height: AppDimens.SIZE_16),
+          CustomTextLabel(
+            state.message,
+            fontSize: AppDimens.SIZE_16,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textDark,
+          ),
+          SizedBox(height: AppDimens.SIZE_16),
+          ElevatedButton(
+            onPressed: () =>
+                context.read<SearchBloc>().add(const RefreshSearch()),
+            child: const Text('Thử lại'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSearchResultItem(
+    BuildContext context,
+    Map<String, dynamic> result,
+  ) {
     return Container(
       margin: EdgeInsets.only(bottom: AppDimens.SIZE_12),
       decoration: BoxDecoration(
@@ -188,7 +163,7 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
             borderRadius: BorderRadius.circular(AppDimens.SIZE_8),
           ),
           child: Icon(
-            Icons.eco,
+            _getIconForType(result['type']),
             color: AppColors.primaryBrand,
             size: AppDimens.SIZE_24,
           ),
@@ -210,32 +185,57 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
               maxLines: 2,
             ),
             SizedBox(height: AppDimens.SIZE_8),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppDimens.SIZE_8,
-                vertical: AppDimens.SIZE_4,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.primaryBrand.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-              ),
-              child: CustomTextLabel(
-                result['type'],
-                fontSize: AppDimens.SIZE_10,
-                color: AppColors.primaryBrand,
-                fontWeight: FontWeight.w500,
-              ),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppDimens.SIZE_8,
+                    vertical: AppDimens.SIZE_4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryBrand.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
+                  ),
+                  child: CustomTextLabel(
+                    result['type'],
+                    fontSize: AppDimens.SIZE_10,
+                    color: AppColors.primaryBrand,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(width: AppDimens.SIZE_8),
+                if (result['views'] != null)
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.visibility,
+                        size: AppDimens.SIZE_12,
+                        color: AppColors.textMediumGrey,
+                      ),
+                      SizedBox(width: AppDimens.SIZE_4),
+                      CustomTextLabel(
+                        '${result['views']}',
+                        fontSize: AppDimens.SIZE_10,
+                        color: AppColors.textMediumGrey,
+                      ),
+                    ],
+                  ),
+              ],
             ),
           ],
         ),
         onTap: () {
+          context.read<SearchBloc>().add(SearchResultTapped(result));
           // TODO: Navigate to detail page
         },
       ),
     );
   }
 
-  Widget _buildSearchSuggestions() {
+  Widget _buildSearchSuggestions(
+    BuildContext context,
+    List<String> suggestions,
+  ) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: AppDimens.SIZE_16,
@@ -245,7 +245,7 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomTextLabel(
-            AppLocalizations.current.searchSuggestions,
+            'Gợi ý tìm kiếm',
             fontSize: AppDimens.SIZE_14,
             fontWeight: FontWeight.w600,
             color: AppColors.textDark,
@@ -254,9 +254,11 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
           Wrap(
             spacing: AppDimens.SIZE_8,
             runSpacing: AppDimens.SIZE_8,
-            children: _suggestions.map((suggestion) {
+            children: suggestions.map((suggestion) {
               return GestureDetector(
-                onTap: () => _onSuggestionTap(suggestion),
+                onTap: () => context.read<SearchBloc>().add(
+                  SearchSuggestionTapped(suggestion),
+                ),
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppDimens.SIZE_8,
@@ -281,8 +283,8 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
     );
   }
 
-  Widget _buildSearchHistory() {
-    if (_searchHistory.isEmpty) return SizedBox.shrink();
+  Widget _buildSearchHistory(BuildContext context, List<String> searchHistory) {
+    if (searchHistory.isEmpty) return const SizedBox.shrink();
 
     return Container(
       padding: EdgeInsets.all(AppDimens.SIZE_16),
@@ -293,13 +295,14 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomTextLabel(
-                AppLocalizations.current.searchHistory,
+                'Lịch sử tìm kiếm',
                 fontSize: AppDimens.SIZE_14,
                 fontWeight: FontWeight.w600,
                 color: AppColors.textDark,
               ),
               GestureDetector(
-                onTap: _clearHistory,
+                onTap: () =>
+                    context.read<SearchBloc>().add(const ClearSearchHistory()),
                 child: Row(
                   children: [
                     Icon(
@@ -309,7 +312,7 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
                     ),
                     const SizedBox(width: AppDimens.SIZE_4),
                     CustomTextLabel(
-                      AppLocalizations.current.clearAll,
+                      'Xóa tất cả',
                       fontSize: AppDimens.SIZE_12,
                       color: AppColors.errorRed,
                     ),
@@ -320,10 +323,10 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
           ),
           ListView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: _searchHistory.length,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: searchHistory.length,
             itemBuilder: (context, index) {
-              final history = _searchHistory[index];
+              final history = searchHistory[index];
               return ListTile(
                 dense: true,
                 contentPadding: EdgeInsets.zero,
@@ -343,12 +346,27 @@ class _SearchBodyScreenState extends State<SearchBodyScreen> {
                   color: AppColors.gray,
                   size: AppDimens.SIZE_12,
                 ),
-                onTap: () => _onHistoryTap(history),
+                onTap: () => context.read<SearchBloc>().add(
+                  SearchHistoryTapped(history),
+                ),
               );
             },
           ),
         ],
       ),
     );
+  }
+
+  IconData _getIconForType(String type) {
+    switch (type.toLowerCase()) {
+      case 'thảo dược':
+        return Icons.eco;
+      case 'bài viết':
+        return Icons.article;
+      case 'bài thuốc':
+        return Icons.medication;
+      default:
+        return Icons.search;
+    }
   }
 }

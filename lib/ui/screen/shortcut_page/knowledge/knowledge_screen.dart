@@ -30,8 +30,8 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
     context.read<CategoryCubit>().getCategories(
       categoryTypeCode: CategoryType.Discovery.value,
     );
-    context.read<NewsBloc>().add(
-      LoadNewsList(
+    context.read<KnowledgeBloc>().add(
+      LoadKnowledgeList(
         page: 1,
         size: 10,
         categoryId: _selectedCategory.isNotEmpty ? _selectedCategory : null,
@@ -55,14 +55,11 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
         children: [
           _buildCategoryFilter(),
           Expanded(
-            child: BlocBuilder<NewsBloc, NewsState>(
-              buildWhen: (prev, curr) => curr is NewsListLoaded,
+            child: BlocBuilder<KnowledgeBloc, KnowledgeState>(
+              buildWhen: (prev, curr) => curr is KnowledgeListLoaded,
               builder: (context, state) {
-                if (state is NewsListLoaded) {
-                  final filteredItems = _getFilteredItems(state.newsList);
-                  if (filteredItems.isEmpty) {
-                    return _buildEmptyWidget();
-                  }
+                if (state is KnowledgeListLoaded) {
+                  final filteredItems = _getFilteredItems(state.knowledgeList);
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: AppDimens.SIZE_8,
@@ -79,10 +76,10 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
                       },
                     ),
                   );
-                } else if (state is NewsLoading) {
+                } else if (state is KnowledgeLoading) {
                   return const LoadingTemplate();
-                } else if (state is NewsError) {
-                  return const EmptyData();
+                } else if (state is KnowledgeError || state is KnowledgeEmpty) {
+                  return _buildEmptyWidget();
                 }
                 return const SizedBox.shrink();
               },

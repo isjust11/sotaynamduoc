@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/blocs/discovery/discovery_bloc.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/ui/app.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
@@ -73,6 +74,18 @@ void main() async {
         ),
         BlocProvider(
           create: (_) => TipCubit(repository: getIt.getIt.get<TipRepository>()),
+        ),
+        BlocProvider(
+          create: (_) =>
+              KnowledgeBloc(newsRepository: getIt.getIt.get<NewsRepository>()),
+        ),
+        BlocProvider(
+          create: (_) => DiscoveryBloc(
+            newsRepository: getIt.getIt.get<NewsRepository>(),
+            categoryRepository: getIt.getIt.get<CategoryRepository>(),
+            herbalRepository: getIt.getIt.get<HerbalRepository>(),
+            authorRepository: getIt.getIt.get<AuthorRepository>(),
+          ),
         ),
       ],
       child: MyApp(),

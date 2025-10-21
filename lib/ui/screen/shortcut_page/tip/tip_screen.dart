@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
-import 'package:sotaynamduoc/blocs/news/news_bloc.dart';
 import 'package:sotaynamduoc/blocs/tip/tip_cubit.dart';
 import 'package:sotaynamduoc/blocs/tip/tip_state.dart';
 import 'package:sotaynamduoc/domain/data/models/tip_model.dart';
@@ -31,7 +30,6 @@ class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
     _tabController = TabController(length: 4, vsync: this);
     context.read<TipCubit>().getTipList();
     context.read<TipCubit>().getTipCategories();
-    // context.read<NewsBloc>().loadMore();
   }
 
   @override

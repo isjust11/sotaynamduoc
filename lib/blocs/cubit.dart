@@ -12,3 +12,4 @@ export 'feedback_cubit.dart';
 export 'media_cubit.dart';
 export 'user_interaction_cubit.dart';
 export 'tip/tip_cubit.dart';
+export 'knowledge/knowledge.dart';

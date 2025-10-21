@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/screen/search/search_body_screen.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
+import 'package:sotaynamduoc/blocs/search/search.dart';
+import 'package:sotaynamduoc/injection_container.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -14,8 +17,14 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = '';
-  bool _isSearching = false;
+  late SearchBloc _searchBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchBloc = getIt<SearchBloc>();
+    _searchBloc.add(const SearchInitialized());
+  }
 
   @override
   void dispose() {
@@ -24,45 +33,36 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _onSearchChanged(String query) {
-    setState(() {
-      _searchQuery = query;
-      _isSearching = query.isNotEmpty;
-    });
+    _searchBloc.add(SearchQueryChanged(query));
   }
 
   void _onSearchSubmitted() {
-    if (_searchQuery.isNotEmpty) {
-      // Thực hiện tìm kiếm
-      setState(() {
-        _isSearching = true;
-      });
+    if (_searchController.text.isNotEmpty) {
+      _searchBloc.add(SearchSubmitted(_searchController.text));
     }
   }
 
   void _onSearchCanceled() {
-    setState(() {
-      _searchQuery = '';
-      _isSearching = false;
-    });
     _searchController.clear();
+    _searchBloc.add(const SearchCleared());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      body: SearchBodyScreen(
-        searchQuery: _searchQuery,
-        isSearching: _isSearching,
-      ),
-      customAppBar: SearchAppBar(
-        title: AppLocalizations.current.youCanSearch,
-        showBackButton: true,
-        backgroundColor: AppColors.secondaryBrand,
-        searchController: _searchController,
-        searchHint: 'Tìm kiếm thảo dược, bài thuốc...',
-        onSearchChanged: _onSearchChanged,
-        onSearchSubmitted: _onSearchSubmitted,
-        onSearchCanceled: _onSearchCanceled,
+    return BlocProvider.value(
+      value: _searchBloc,
+      child: BaseScreen(
+        body: const SearchBodyScreen(),
+        customAppBar: SearchAppBar(
+          title: AppLocalizations.current.youCanSearch,
+          showBackButton: true,
+          backgroundColor: AppColors.secondaryBrand,
+          searchController: _searchController,
+          searchHint: 'Tìm kiếm thảo dược, bài thuốc...',
+          onSearchChanged: _onSearchChanged,
+          onSearchSubmitted: _onSearchSubmitted,
+          onSearchCanceled: _onSearchCanceled,
+        ),
       ),
     );
   }

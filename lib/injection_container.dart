@@ -1,8 +1,9 @@
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
-import 'package:sotaynamduoc/blocs/feedback_cubit.dart';
+import 'package:sotaynamduoc/blocs/search/search.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 /*
@@ -37,8 +38,10 @@ Future<void> init({GetIt? getIt}) async {
   registerDataSource(getIt);
   // repositories
   registerRepositories(getIt);
+  // shared preferences
+  await registerSharedPreferences(getIt);
   // bloc cubit
-  // registerCubit(getIt);
+  registerBlocs(getIt);
 }
 
 // void registerCubit(GetIt getIt) {
@@ -121,4 +124,20 @@ void registerDataSource(GetIt getIt) {
 
 void registerNetwork(GetIt getIt) {
   getIt.registerLazySingleton(() => Network.instance());
+}
+
+Future<void> registerSharedPreferences(GetIt getIt) async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerLazySingleton(() => sharedPreferences);
+}
+
+void registerBlocs(GetIt getIt) {
+  getIt.registerLazySingleton(
+    () => SearchBloc(
+      newsRepository: getIt.get(),
+      herbalRepository: getIt.get(),
+      folkMedicineRepository: getIt.get(),
+      sharedPreferences: getIt.get(),
+    ),
+  );
 }

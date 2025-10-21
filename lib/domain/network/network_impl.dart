@@ -36,10 +36,34 @@ class Network {
             },
         onError: (DioError error, ErrorInterceptorHandler handler) async {
           if (error.response?.statusCode == 401) {
-            // Nếu đang refresh token, thêm request vào queue
+            // Nếu đang refresh token, thêm request vào queue và chờ
             if (_isRefreshing) {
               _requestQueue.add(error.requestOptions);
-              return handler.next(error);
+              // Chờ refresh token hoàn thành
+              final bool refreshSuccess =
+                  await _refreshCompleter?.future ?? false;
+              if (refreshSuccess) {
+                // Retry request với token mới
+                try {
+                  final String newToken =
+                      await SharedPreferenceUtil.getAccessToken();
+                  error.requestOptions.headers["Authorization"] =
+                      "Bearer $newToken";
+
+                  final Dio retryDio = Dio(options);
+                  final Response response = await retryDio.fetch(
+                    error.requestOptions,
+                  );
+                  return handler.resolve(response);
+                } catch (retryError) {
+                  if (kDebugMode) {
+                    print('Retry request failed: $retryError');
+                  }
+                  return handler.next(error);
+                }
+              } else {
+                return handler.next(error);
+              }
             }
 
             // Bắt đầu refresh token
@@ -267,8 +291,8 @@ class Network {
       await SharedPreferenceUtil.saveAccessToken(newAccessToken);
       await SharedPreferenceUtil.saveRefreshToken(newRefreshToken);
 
-      // Xử lý queue requests
-      await _processRequestQueue();
+      // Xử lý queue requests - không cần await vì đây là background task
+      _processRequestQueue();
 
       _refreshCompleter!.complete(true);
       return true;
@@ -294,11 +318,15 @@ class Network {
         final String newToken = await SharedPreferenceUtil.getAccessToken();
         requestOptions.headers["Authorization"] = "Bearer $newToken";
 
-        final Dio retryDio = Dio(options);
-        await retryDio.fetch(requestOptions);
+        // Sử dụng Dio instance chính với interceptor để đảm bảo xử lý đúng
+        await _dio.fetch(requestOptions);
+
+        if (kDebugMode) {
+          print('Request retry successful for: ${requestOptions.path}');
+        }
       } catch (e) {
         if (kDebugMode) {
-          print('Retry request failed: $e');
+          print('Retry request failed for ${requestOptions.path}: $e');
         }
       }
     }

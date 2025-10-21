@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
+import 'package:sotaynamduoc/blocs/discovery/discovery.dart';
 
 class DiscoveryScreen extends StatefulWidget {
   const DiscoveryScreen({super.key});
@@ -16,136 +18,13 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
   final TextEditingController _searchController = TextEditingController();
   final PageController _featuredPageController = PageController();
   int _currentFeaturedIndex = 0;
-  String _searchQuery = '';
-
-  // Mock data for demonstration
-  final List<Map<String, dynamic>> _featuredItems = [
-    {
-      'id': '1',
-      'title': 'Xu hướng sử dụng dược liệu trong năm 2024',
-      'summary':
-          'Khám phá những xu hướng mới nhất trong việc sử dụng dược liệu truyền thống...',
-      'thumbnail': 'https://via.placeholder.com/400x250',
-      'type': 'trending',
-      'views': 5420,
-      'likes': 128,
-      'isLiked': false,
-      'isBookmarked': false,
-      'author': 'Viện Nghiên cứu Dược liệu',
-      'publishDate': '2024-01-15',
-    },
-    {
-      'id': '2',
-      'title': 'Công nghệ AI trong phân tích dược tính',
-      'summary':
-          'Ứng dụng trí tuệ nhân tạo để phân tích và đánh giá chất lượng dược liệu...',
-      'thumbnail': 'https://via.placeholder.com/400x250',
-      'type': 'innovation',
-      'views': 3890,
-      'likes': 95,
-      'isLiked': true,
-      'isBookmarked': false,
-      'author': 'Trung tâm Công nghệ Y học',
-      'publishDate': '2024-01-12',
-    },
-    {
-      'id': '3',
-      'title': 'Nghiên cứu mới về tác dụng của Linh chi đỏ',
-      'summary':
-          'Những phát hiện mới về cơ chế hoạt động và tác dụng của Linh chi đỏ...',
-      'thumbnail': 'https://via.placeholder.com/400x250',
-      'type': 'research',
-      'views': 6780,
-      'likes': 156,
-      'isLiked': false,
-      'isBookmarked': true,
-      'author': 'Đại học Y Hà Nội',
-      'publishDate': '2024-01-10',
-    },
-  ];
-
-  final List<Map<String, dynamic>> _trendingItems = [
-    {
-      'id': '1',
-      'title': 'Top 10 dược liệu được tìm kiếm nhiều nhất',
-      'summary':
-          'Danh sách các dược liệu được người dùng quan tâm nhiều nhất...',
-      'thumbnail': 'https://via.placeholder.com/200x150',
-      'category': 'Thống kê',
-      'views': 12500,
-      'trend': 'up',
-    },
-    {
-      'id': '2',
-      'title': 'Cách nhận biết dược liệu thật - giả',
-      'summary': 'Hướng dẫn chi tiết cách phân biệt dược liệu thật và giả...',
-      'thumbnail': 'https://via.placeholder.com/200x150',
-      'category': 'Hướng dẫn',
-      'views': 8900,
-      'trend': 'up',
-    },
-    {
-      'id': '3',
-      'title': 'Kinh nghiệm từ các chuyên gia',
-      'summary': 'Chia sẻ kinh nghiệm quý báu từ các chuyên gia...',
-      'thumbnail': 'https://via.placeholder.com/200x150',
-      'category': 'Kinh nghiệm',
-      'views': 15600,
-      'trend': 'up',
-    },
-  ];
-
-  final List<Map<String, dynamic>> _recommendedItems = [
-    {
-      'id': '1',
-      'title': 'Dành cho bạn',
-      'subtitle': 'Dựa trên lịch sử tìm kiếm',
-      'items': [
-        {
-          'title': 'Công dụng của Nhân sâm Hàn Quốc',
-          'thumbnail': 'https://via.placeholder.com/150x100',
-          'views': 3200,
-        },
-        {
-          'title': 'Cách sử dụng Đông trùng hạ thảo',
-          'thumbnail': 'https://via.placeholder.com/150x100',
-          'views': 2800,
-        },
-        {
-          'title': 'Phân biệt các loại Linh chi',
-          'thumbnail': 'https://via.placeholder.com/150x100',
-          'views': 4100,
-        },
-      ],
-    },
-    {
-      'id': '2',
-      'title': 'Xu hướng mới',
-      'subtitle': 'Nội dung đang được quan tâm',
-      'items': [
-        {
-          'title': 'Ứng dụng công nghệ trong dược liệu',
-          'thumbnail': 'https://via.placeholder.com/150x100',
-          'views': 5600,
-        },
-        {
-          'title': 'Nghiên cứu mới về dược tính',
-          'thumbnail': 'https://via.placeholder.com/150x100',
-          'views': 4800,
-        },
-        {
-          'title': 'Bảo tồn dược liệu quý hiếm',
-          'thumbnail': 'https://via.placeholder.com/150x100',
-          'views': 3900,
-        },
-      ],
-    },
-  ];
 
   @override
   void initState() {
     super.initState();
     _startFeaturedCarousel();
+    // Load discovery data
+    context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
   }
 
   @override
@@ -165,12 +44,17 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
 
   void _nextFeaturedItem() {
     if (_featuredPageController.hasClients) {
-      final nextIndex = (_currentFeaturedIndex + 1) % _featuredItems.length;
-      _featuredPageController.animateToPage(
-        nextIndex,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+      // Get current state to access featured items
+      final currentState = context.read<DiscoveryBloc>().state;
+      if (currentState is DiscoveryDataLoaded) {
+        final nextIndex =
+            (_currentFeaturedIndex + 1) % currentState.featuredItems.length;
+        _featuredPageController.animateToPage(
+          nextIndex,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
     }
     _startFeaturedCarousel();
   }
@@ -180,7 +64,49 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     return BaseScreen(
       title: AppLocalizations.current.discovery,
       customAppBar: _buildAppBar(context),
-      body: _buildMainContent(),
+      body: BlocBuilder<DiscoveryBloc, DiscoveryState>(
+        builder: (context, state) {
+          if (state is DiscoveryLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is DiscoveryError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    size: 48.sw,
+                    color: AppColors.errorRed,
+                  ),
+                  SizedBox(height: 16.sw),
+                  CustomTextLabel(
+                    state.message,
+                    fontSize: 16.sw,
+                    color: AppColors.textDark,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 16.sw),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<DiscoveryBloc>().add(
+                        const LoadDiscoveryData(),
+                      );
+                    },
+                    child: const Text('Thử lại'),
+                  ),
+                ],
+              ),
+            );
+          } else if (state is DiscoveryDataLoaded) {
+            return _buildMainContent(state);
+          } else if (state is DiscoverySearchLoaded) {
+            return _buildSearchResults(state.searchResults);
+          } else if (state is DiscoveryEmpty) {
+            return _buildEmptyState(state.message);
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 
@@ -190,77 +116,40 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       showBackButton: true,
       backgroundColor: AppColors.secondaryBrand,
       onSearchChanged: (value) {
-        setState(() {
-          _searchQuery = value;
-        });
+        if (value.isNotEmpty) {
+          context.read<DiscoveryBloc>().add(SearchDiscovery(value));
+        } else {
+          context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
+        }
       },
       onSearchCanceled: () {
-        setState(() {
-          _searchQuery = '';
-        });
+        context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
       },
     );
   }
 
-  Widget _buildMainContent() {
-    if (_searchQuery.isNotEmpty) {
-      return _buildSearchResults();
-    }
-
+  Widget _buildMainContent(DiscoveryDataLoaded state) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildFeaturedSection(),
-          _buildTrendingSection(),
-          _buildRecommendedSection(),
+          _buildFeaturedSection(state.featuredItems),
+          _buildTrendingSection(state.trendingItems),
+          _buildRecommendedSection(state.recommendedItems),
         ],
       ),
     );
   }
 
-  Widget _buildSearchResults() {
-    // Combine all items for search
-    List<Map<String, dynamic>> allItems = [];
-    allItems.addAll(_featuredItems);
-    allItems.addAll(_trendingItems);
-
-    // Add recommended items
-    for (var section in _recommendedItems) {
-      for (var item in section['items']) {
-        allItems.add({
-          'id': '${section['id']}_${item['title']}',
-          'title': item['title'],
-          'summary': '',
-          'thumbnail': item['thumbnail'],
-          'views': item['views'],
-          'type': 'recommended',
-        });
-      }
-    }
-
-    // Filter by search query
-    final filteredItems = allItems
-        .where(
-          (item) =>
-              item['title'].toLowerCase().contains(
-                _searchQuery.toLowerCase(),
-              ) ||
-              (item['summary'] != null &&
-                  item['summary'].toLowerCase().contains(
-                    _searchQuery.toLowerCase(),
-                  )),
-        )
-        .toList();
-
-    if (filteredItems.isEmpty) {
+  Widget _buildSearchResults(List<Map<String, dynamic>> searchResults) {
+    if (searchResults.isEmpty) {
       return _buildEmptySearchResults();
     }
 
     return ListView.builder(
       padding: EdgeInsets.all(16.sw),
-      itemCount: filteredItems.length,
+      itemCount: searchResults.length,
       itemBuilder: (context, index) {
-        final item = filteredItems[index];
+        final item = searchResults[index];
         return _buildSearchResultCard(item);
       },
     );
@@ -285,6 +174,36 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
             fontSize: 14.sw,
             color: AppColors.textMediumGrey,
             textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(String message) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.inbox_outlined,
+            size: 48.sw,
+            color: AppColors.textMediumGrey,
+          ),
+          SizedBox(height: 16.sw),
+          CustomTextLabel(
+            message,
+            fontSize: 16.sw,
+            color: AppColors.textDark,
+            fontWeight: FontWeight.w600,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16.sw),
+          ElevatedButton(
+            onPressed: () {
+              context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
+            },
+            child: const Text('Tải lại'),
           ),
         ],
       ),
@@ -375,14 +294,14 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildFeaturedSection() {
+  Widget _buildFeaturedSection(List<Map<String, dynamic>> featuredItems) {
     return Container(
       padding: EdgeInsets.all(16.sw),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Featured carousel
-          _buildFeaturedCarousel(),
+          _buildFeaturedCarousel(featuredItems),
           SizedBox(height: 24.sw),
           // Quick actions
           _buildQuickActions(),
@@ -394,7 +313,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildFeaturedCarousel() {
+  Widget _buildFeaturedCarousel(List<Map<String, dynamic>> featuredItems) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -414,9 +333,9 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 _currentFeaturedIndex = index;
               });
             },
-            itemCount: _featuredItems.length,
+            itemCount: featuredItems.length,
             itemBuilder: (context, index) {
-              final item = _featuredItems[index];
+              final item = featuredItems[index];
               return _buildFeaturedCard(item);
             },
           ),
@@ -426,7 +345,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            _featuredItems.length,
+            featuredItems.length,
             (index) => Container(
               margin: EdgeInsets.symmetric(horizontal: 4.sw),
               width: 8.sw,
@@ -565,14 +484,12 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ? Icons.favorite
                         : Icons.favorite_border,
                     onTap: () {
-                      setState(() {
-                        item['isLiked'] = !item['isLiked'];
-                        if (item['isLiked']) {
-                          item['likes']++;
-                        } else {
-                          item['likes']--;
-                        }
-                      });
+                      context.read<DiscoveryBloc>().add(
+                        UpdateContentLike(
+                          contentId: item['id'],
+                          isLiked: !item['isLiked'],
+                        ),
+                      );
                     },
                     color: item['isLiked']
                         ? AppColors.errorRed
@@ -584,9 +501,12 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ? Icons.bookmark
                         : Icons.bookmark_border,
                     onTap: () {
-                      setState(() {
-                        item['isBookmarked'] = !item['isBookmarked'];
-                      });
+                      context.read<DiscoveryBloc>().add(
+                        UpdateContentBookmark(
+                          contentId: item['id'],
+                          isBookmarked: !item['isBookmarked'],
+                        ),
+                      );
                     },
                     color: item['isBookmarked']
                         ? AppColors.primaryBlue
@@ -646,6 +566,11 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 title: 'Xu hướng',
                 subtitle: 'Khám phá xu hướng',
                 color: AppColors.primaryBlue,
+                onTap: () {
+                  context.read<DiscoveryBloc>().add(
+                    const LoadQuickActionContent('trending'),
+                  );
+                },
               ),
             ),
             SizedBox(width: 12.sw),
@@ -655,6 +580,11 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 title: 'Yêu thích',
                 subtitle: 'Mục yêu thích của bạn',
                 color: AppColors.primaryBlue,
+                onTap: () {
+                  context.read<DiscoveryBloc>().add(
+                    const LoadQuickActionContent('favorites'),
+                  );
+                },
               ),
             ),
           ],
@@ -668,6 +598,11 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 title: 'Gần đây',
                 subtitle: 'Đã xem gần đây',
                 color: AppColors.primaryBlue,
+                onTap: () {
+                  context.read<DiscoveryBloc>().add(
+                    const LoadQuickActionContent('recent'),
+                  );
+                },
               ),
             ),
             SizedBox(width: 12.sw),
@@ -677,6 +612,11 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 title: 'Đánh dấu',
                 subtitle: 'Mục đã lưu',
                 color: AppColors.primaryBlue,
+                onTap: () {
+                  context.read<DiscoveryBloc>().add(
+                    const LoadQuickActionContent('bookmarks'),
+                  );
+                },
               ),
             ),
           ],
@@ -690,6 +630,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     required String title,
     required String subtitle,
     required Color color,
+    VoidCallback? onTap,
   }) {
     return Container(
       padding: EdgeInsets.all(16.sw),
@@ -704,33 +645,37 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 40.sw,
-            height: 40.sw,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8.sw),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12.sw),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 40.sw,
+              height: 40.sw,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8.sw),
+              ),
+              child: Icon(icon, color: color, size: 20.sw),
             ),
-            child: Icon(icon, color: color, size: 20.sw),
-          ),
-          SizedBox(height: 8.sw),
-          CustomTextLabel(
-            title,
-            fontSize: 14.sw,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textDark,
-          ),
-          SizedBox(height: 4.sw),
-          CustomTextLabel(
-            subtitle,
-            fontSize: 12.sw,
-            color: AppColors.textMediumGrey,
-            maxLines: 2,
-          ),
-        ],
+            SizedBox(height: 8.sw),
+            CustomTextLabel(
+              title,
+              fontSize: 14.sw,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textDark,
+            ),
+            SizedBox(height: 4.sw),
+            CustomTextLabel(
+              subtitle,
+              fontSize: 12.sw,
+              color: AppColors.textMediumGrey,
+              maxLines: 2,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -787,7 +732,8 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       ),
       child: InkWell(
         onTap: () {
-          // Navigate to category
+          // Navigate to category - you can implement category navigation here
+          // context.read<DiscoveryBloc>().add(LoadCategoryContent(categoryId));
         },
         borderRadius: BorderRadius.circular(12.sw),
         child: Column(
@@ -816,7 +762,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildTrendingSection() {
+  Widget _buildTrendingSection(List<Map<String, dynamic>> trendingItems) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sw),
       child: Column(
@@ -832,9 +778,9 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: _trendingItems.length,
+            itemCount: trendingItems.length,
             itemBuilder: (context, index) {
-              final item = _trendingItems[index];
+              final item = trendingItems[index];
               return _buildTrendingCard(item);
             },
           ),
@@ -859,6 +805,8 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       ),
       child: InkWell(
         onTap: () {
+          // Track view and navigate to item detail
+          context.read<DiscoveryBloc>().add(UpdateContentView(item['id']));
           // Navigate to item detail
         },
         borderRadius: BorderRadius.circular(12.sw),
@@ -948,7 +896,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildRecommendedSection() {
+  Widget _buildRecommendedSection(List<Map<String, dynamic>> recommendedItems) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sw),
       child: Column(
@@ -964,9 +912,9 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: _recommendedItems.length,
+            itemCount: recommendedItems.length,
             itemBuilder: (context, index) {
-              final section = _recommendedItems[index];
+              final section = recommendedItems[index];
               return _buildRecommendedSectionItem(section);
             },
           ),
@@ -1031,6 +979,8 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       ),
       child: InkWell(
         onTap: () {
+          // Track view and navigate to item detail
+          context.read<DiscoveryBloc>().add(UpdateContentView(item['id']));
           // Navigate to item detail
         },
         borderRadius: BorderRadius.circular(8.sw),
