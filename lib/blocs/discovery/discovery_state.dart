@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 abstract class DiscoveryState extends Equatable {
   const DiscoveryState();
@@ -12,10 +13,10 @@ class DiscoveryInitial extends DiscoveryState {}
 class DiscoveryLoading extends DiscoveryState {}
 
 class DiscoveryDataLoaded extends DiscoveryState {
-  final List<Map<String, dynamic>> featuredItems;
-  final List<Map<String, dynamic>> trendingItems;
-  final List<Map<String, dynamic>> recommendedItems;
-  final List<Map<String, dynamic>> searchResults;
+  final List<NewsModel> featuredItems;
+  final List<NewsModel> trendingItems;
+  final List<NewsModel> recommendedItems;
+  final List<NewsModel> searchResults;
   final String? searchTerm;
   final bool isSearching;
 
@@ -39,10 +40,10 @@ class DiscoveryDataLoaded extends DiscoveryState {
   ];
 
   DiscoveryDataLoaded copyWith({
-    List<Map<String, dynamic>>? featuredItems,
-    List<Map<String, dynamic>>? trendingItems,
-    List<Map<String, dynamic>>? recommendedItems,
-    List<Map<String, dynamic>>? searchResults,
+    List<NewsModel>? featuredItems,
+    List<NewsModel>? trendingItems,
+    List<NewsModel>? recommendedItems,
+    List<NewsModel>? searchResults,
     String? searchTerm,
     bool? isSearching,
   }) {
@@ -58,7 +59,7 @@ class DiscoveryDataLoaded extends DiscoveryState {
 }
 
 class DiscoverySearchLoaded extends DiscoveryState {
-  final List<Map<String, dynamic>> searchResults;
+  final List<NewsModel> searchResults;
   final String searchTerm;
 
   const DiscoverySearchLoaded({
@@ -71,7 +72,7 @@ class DiscoverySearchLoaded extends DiscoveryState {
 }
 
 class DiscoveryCategoryLoaded extends DiscoveryState {
-  final List<Map<String, dynamic>> categoryItems;
+  final List<NewsModel> categoryItems;
   final String categoryId;
 
   const DiscoveryCategoryLoaded({
@@ -84,7 +85,7 @@ class DiscoveryCategoryLoaded extends DiscoveryState {
 }
 
 class DiscoveryQuickActionLoaded extends DiscoveryState {
-  final List<Map<String, dynamic>> actionItems;
+  final List<NewsModel> actionItems;
   final String actionType;
 
   const DiscoveryQuickActionLoaded({

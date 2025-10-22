@@ -40,6 +40,17 @@ class NewsRemoteDataSource {
     return Future.error(apiResponse.message);
   }
 
+  Future<List<NewsModel>> getFeaturedNewsList() async {
+    ApiResponse apiResponse = await network.get(url: '/article/featured');
+
+    if (apiResponse.isSuccess) {
+      List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
+      return data.map((json) => NewsModel.fromJson(json)).toList();
+    }
+
+    return Future.error(apiResponse.message);
+  }
+
   Future<NewsModel> getNewsDetail(String id) async {
     ApiResponse apiResponse = await network.get(url: '/article/$id');
 

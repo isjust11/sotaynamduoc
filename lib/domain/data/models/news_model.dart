@@ -13,7 +13,7 @@ class NewsModel {
   final CategoryModel? status;
   final CategoryModel? category;
   final InteractionStatsModel? interactionStats;
-  final Map<String, dynamic>? userInteractionStatus;
+  final UserInteractionStatusModel? userInteractionStatus;
   final AuthorModel? author;
   final String? statusId;
   const NewsModel({
@@ -56,7 +56,11 @@ class NewsModel {
             )
           : null,
       userInteractionStatus:
-          json['userInteractionStatus'] as Map<String, dynamic>? ?? {},
+          json['userInteractionStatus'] is Map<String, dynamic>
+          ? UserInteractionStatusModel.fromJson(
+              json['userInteractionStatus'] as Map<String, dynamic>,
+            )
+          : null,
       statusId: json['statusId']?.toString() ?? '',
       category: json['category'] is Map<String, dynamic>
           ? CategoryModel.fromJson(json['category'] as Map<String, dynamic>)

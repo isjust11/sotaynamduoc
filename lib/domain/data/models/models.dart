@@ -16,6 +16,7 @@ export 'feedback_type.dart';
 export 'feedback_priority.dart';
 export 'feedback_status.dart';
 export 'media_model.dart';
-export 'user_interactioin_model.dart';
+export 'user_interaction_model.dart';
 export 'interactioin_stats_model.dart';
 export 'tip_model.dart';
+export 'user_interaction_status_model.dart';

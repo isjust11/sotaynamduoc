@@ -6,6 +6,8 @@ import 'package:sotaynamduoc/domain/repositories/author_repository.dart';
 import 'package:sotaynamduoc/blocs/discovery/discovery_event.dart';
 import 'package:sotaynamduoc/blocs/discovery/discovery_state.dart';
 
+import '../../domain/data/models/models.dart';
+
 class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   final NewsRepository newsRepository;
   final CategoryRepository categoryRepository;
@@ -264,23 +266,17 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   }
 
   // Helper methods to get data from repositories
-  Future<List<Map<String, dynamic>>> _getFeaturedContent() async {
+  Future<List<NewsModel>> _getFeaturedContent() async {
     try {
-      // Get featured news/articles
-      final newsList = await newsRepository.getNewsList(
-        page: 1,
-        size: 5,
-        // Add featured filter if available
-      );
-
-      return newsList.map((news) => _convertNewsToMap(news)).toList();
+      // Get featured news/articles most viewed
+      final newsList = await newsRepository.getFeaturedNewsList();
+      return newsList;
     } catch (e) {
-      // Return mock data if API fails
-      return _getMockFeaturedContent();
+      return Future.error(e);
     }
   }
 
-  Future<List<Map<String, dynamic>>> _getTrendingContent() async {
+  Future<List<NewsModel>> _getTrendingContent() async {
     try {
       // Get trending news/articles
       final newsList = await newsRepository.getNewsList(
@@ -289,14 +285,14 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
         // Add trending filter if available
       );
 
-      return newsList.map((news) => _convertNewsToMap(news)).toList();
+      return newsList;
     } catch (e) {
       // Return mock data if API fails
-      return _getMockTrendingContent();
+      return [];
     }
   }
 
-  Future<List<Map<String, dynamic>>> _getRecommendedContent() async {
+  Future<List<NewsModel>> _getRecommendedContent() async {
     try {
       // Get recommended content based on user preferences
       final newsList = await newsRepository.getNewsList(
@@ -305,14 +301,14 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
         // Add recommendation filter if available
       );
 
-      return newsList.map((news) => _convertNewsToMap(news)).toList();
+      return newsList;
     } catch (e) {
       // Return mock data if API fails
-      return _getMockRecommendedContent();
+      return [];
     }
   }
 
-  Future<List<Map<String, dynamic>>> _searchContent(String searchTerm) async {
+  Future<List<NewsModel>> _searchContent(String searchTerm) async {
     try {
       // Search across different content types
       final newsResults = await newsRepository.getNewsList(
@@ -321,15 +317,13 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
         search: searchTerm,
       );
 
-      return newsResults.map((news) => _convertNewsToMap(news)).toList();
+      return newsResults;
     } catch (e) {
       return [];
     }
   }
 
-  Future<List<Map<String, dynamic>>> _getCategoryContent(
-    String categoryId,
-  ) async {
+  Future<List<NewsModel>> _getCategoryContent(String categoryId) async {
     try {
       final newsList = await newsRepository.getNewsList(
         page: 1,
@@ -337,15 +331,13 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
         categoryId: categoryId,
       );
 
-      return newsList.map((news) => _convertNewsToMap(news)).toList();
+      return newsList;
     } catch (e) {
       return [];
     }
   }
 
-  Future<List<Map<String, dynamic>>> _getQuickActionContent(
-    String actionType,
-  ) async {
+  Future<List<NewsModel>> _getQuickActionContent(String actionType) async {
     try {
       switch (actionType) {
         case 'trending':
@@ -367,115 +359,18 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     }
   }
 
-  Future<List<Map<String, dynamic>>> _getFavoriteContent() async {
+  Future<List<NewsModel>> _getFavoriteContent() async {
     // This would need to be implemented based on user preferences
     return [];
   }
 
-  Future<List<Map<String, dynamic>>> _getRecentContent() async {
+  Future<List<NewsModel>> _getRecentContent() async {
     // This would need to be implemented based on user history
     return [];
   }
 
-  Future<List<Map<String, dynamic>>> _getBookmarkedContent() async {
+  Future<List<NewsModel>> _getBookmarkedContent() async {
     // This would need to be implemented based on user bookmarks
     return [];
-  }
-
-  // Convert NewsModel to Map for UI
-  Map<String, dynamic> _convertNewsToMap(dynamic news) {
-    return {
-      'id': news.id,
-      'title': news.title,
-      'summary': news.summary ?? '',
-      'thumbnail': news.thumbnail ?? '',
-      'type': news.category?.name ?? 'news',
-      'views': news.viewCount ?? 0,
-      'likes': news.likeCount ?? 0,
-      'isLiked': false, // This would need to be tracked separately
-      'isBookmarked': false, // This would need to be tracked separately
-      'author': news.author?.name ?? 'Tác giả',
-      'publishDate': news.createdAt?.toIso8601String().split('T')[0] ?? '',
-    };
-  }
-
-  // Mock data methods (fallback when API fails)
-  List<Map<String, dynamic>> _getMockFeaturedContent() {
-    return [
-      {
-        'id': '1',
-        'title': 'Xu hướng sử dụng dược liệu trong năm 2024',
-        'summary':
-            'Khám phá những xu hướng mới nhất trong việc sử dụng dược liệu truyền thống...',
-        'thumbnail': 'https://via.placeholder.com/400x250',
-        'type': 'trending',
-        'views': 5420,
-        'likes': 128,
-        'isLiked': false,
-        'isBookmarked': false,
-        'author': 'Viện Nghiên cứu Dược liệu',
-        'publishDate': '2024-01-15',
-      },
-      {
-        'id': '2',
-        'title': 'Công nghệ AI trong phân tích dược tính',
-        'summary':
-            'Ứng dụng trí tuệ nhân tạo để phân tích và đánh giá chất lượng dược liệu...',
-        'thumbnail': 'https://via.placeholder.com/400x250',
-        'type': 'innovation',
-        'views': 3890,
-        'likes': 95,
-        'isLiked': true,
-        'isBookmarked': false,
-        'author': 'Trung tâm Công nghệ Y học',
-        'publishDate': '2024-01-12',
-      },
-    ];
-  }
-
-  List<Map<String, dynamic>> _getMockTrendingContent() {
-    return [
-      {
-        'id': '1',
-        'title': 'Top 10 dược liệu được tìm kiếm nhiều nhất',
-        'summary':
-            'Danh sách các dược liệu được người dùng quan tâm nhiều nhất...',
-        'thumbnail': 'https://via.placeholder.com/200x150',
-        'category': 'Thống kê',
-        'views': 12500,
-        'trend': 'up',
-      },
-      {
-        'id': '2',
-        'title': 'Cách nhận biết dược liệu thật - giả',
-        'summary': 'Hướng dẫn chi tiết cách phân biệt dược liệu thật và giả...',
-        'thumbnail': 'https://via.placeholder.com/200x150',
-        'category': 'Hướng dẫn',
-        'views': 8900,
-        'trend': 'up',
-      },
-    ];
-  }
-
-  List<Map<String, dynamic>> _getMockRecommendedContent() {
-    return [
-      {
-        'id': '1',
-        'title': 'Dành cho bạn',
-        'subtitle': 'Dựa trên lịch sử tìm kiếm',
-        'items': [
-          {
-            'title': 'Công dụng của Nhân sâm Hàn Quốc',
-            'thumbnail': 'https://via.placeholder.com/150x100',
-            'views': 3200,
-          },
-          {
-            'title': 'Cách sử dụng Đông trùng hạ thảo',
-            'thumbnail': 'https://via.placeholder.com/150x100',
-            'views': 2800,
-          },
-        ],
-      },
-    ];
   }
 }

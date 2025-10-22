@@ -275,19 +275,19 @@ class NewsListBlocViewState extends State<NewsListBlocView> {
             views: news.interactionStats?.viewCount ?? 0,
             author: news.author?.name ?? '',
             actionButtons: _buildActionButtons(
-              isLiked: news.userInteractionStatus?['like'] ?? false,
-              isBookmarked: news.userInteractionStatus?['bookmark'] ?? false,
+              isLiked: (news.interactionStats?.likeCount ?? 0) > 0,
+              isBookmarked: (news.interactionStats?.bookmarkCount ?? 0) > 0,
               onShare: () {
                 // Implement share functionality
               },
               onLiked: (isLiked) {
                 setState(() {
-                  news.userInteractionStatus?['like'] = isLiked;
+                  news.interactionStats?.likeCount = isLiked ? 1 : 0;
                 });
               },
               onBookmarked: (isBookmarked) {
                 setState(() {
-                  news.userInteractionStatus?['bookmark'] = isBookmarked;
+                  news.interactionStats?.bookmarkCount = isBookmarked ? 1 : 0;
                 });
               },
             ),

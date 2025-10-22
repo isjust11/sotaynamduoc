@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
@@ -140,7 +141,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildSearchResults(List<Map<String, dynamic>> searchResults) {
+  Widget _buildSearchResults(List<NewsModel> searchResults) {
     if (searchResults.isEmpty) {
       return _buildEmptySearchResults();
     }
@@ -210,7 +211,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildSearchResultCard(Map<String, dynamic> item) {
+  Widget _buildSearchResultCard(NewsModel item) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.sw),
       decoration: BoxDecoration(
@@ -252,17 +253,16 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomTextLabel(
-                      item['title'],
+                      item.title,
                       fontSize: 14.sw,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textDark,
                       maxLines: 2,
                     ),
-                    if (item['summary'] != null &&
-                        item['summary'].isNotEmpty) ...[
+                    if (item.summary != null && item.summary!.isNotEmpty) ...[
                       SizedBox(height: 4.sw),
                       CustomTextLabel(
-                        item['summary'],
+                        item.summary!,
                         fontSize: 12.sw,
                         color: AppColors.textMediumGrey,
                         maxLines: 2,
@@ -278,7 +278,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 4.sw),
                         CustomTextLabel(
-                          '${item['views']} lượt xem',
+                          '${item.interactionStats?.viewCount} lượt xem',
                           fontSize: 12.sw,
                           color: AppColors.textMediumGrey,
                         ),
@@ -294,7 +294,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildFeaturedSection(List<Map<String, dynamic>> featuredItems) {
+  Widget _buildFeaturedSection(List<NewsModel> featuredItems) {
     return Container(
       padding: EdgeInsets.all(16.sw),
       child: Column(
@@ -313,7 +313,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildFeaturedCarousel(List<Map<String, dynamic>> featuredItems) {
+  Widget _buildFeaturedCarousel(List<NewsModel> featuredItems) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -363,7 +363,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildFeaturedCard(Map<String, dynamic> item) {
+  Widget _buildFeaturedCard(NewsModel item) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 4.sw),
       decoration: BoxDecoration(
@@ -425,7 +425,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         borderRadius: BorderRadius.circular(4.sw),
                       ),
                       child: CustomTextLabel(
-                        _getTypeLabel(item['type']),
+                        _getTypeLabel(item.category?.name ?? ''),
                         fontSize: 10.sw,
                         color: AppColors.white,
                         fontWeight: FontWeight.w500,
@@ -434,7 +434,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                     SizedBox(height: 8.sw),
                     // Title
                     CustomTextLabel(
-                      item['title'],
+                      item.title,
                       fontSize: 16.sw,
                       fontWeight: FontWeight.bold,
                       color: AppColors.white,
@@ -451,7 +451,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 4.sw),
                         CustomTextLabel(
-                          '${item['views']} lượt xem',
+                          '${item.interactionStats?.viewCount} lượt xem',
                           fontSize: 12.sw,
                           color: AppColors.white.withValues(alpha: 0.8),
                         ),
@@ -463,7 +463,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 4.sw),
                         CustomTextLabel(
-                          '${item['likes']} thích',
+                          '${item.interactionStats?.likeCount} thích',
                           fontSize: 12.sw,
                           color: AppColors.white.withValues(alpha: 0.8),
                         ),
@@ -480,37 +480,29 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
               child: Row(
                 children: [
                   _buildFloatingActionButton(
-                    icon: item['isLiked']
-                        ? Icons.favorite
-                        : Icons.favorite_border,
+                    icon: true ? Icons.favorite : Icons.favorite_border,
                     onTap: () {
                       context.read<DiscoveryBloc>().add(
                         UpdateContentLike(
-                          contentId: item['id'],
-                          isLiked: !item['isLiked'],
+                          contentId: item.id ?? '',
+                          isLiked: false,
                         ),
                       );
                     },
-                    color: item['isLiked']
-                        ? AppColors.errorRed
-                        : AppColors.white,
+                    color: true ? AppColors.errorRed : AppColors.white,
                   ),
                   SizedBox(width: 8.sw),
                   _buildFloatingActionButton(
-                    icon: item['isBookmarked']
-                        ? Icons.bookmark
-                        : Icons.bookmark_border,
+                    icon: true ? Icons.bookmark : Icons.bookmark_border,
                     onTap: () {
                       context.read<DiscoveryBloc>().add(
                         UpdateContentBookmark(
-                          contentId: item['id'],
-                          isBookmarked: !item['isBookmarked'],
+                          contentId: item.id ?? '',
+                          isBookmarked: false,
                         ),
                       );
                     },
-                    color: item['isBookmarked']
-                        ? AppColors.primaryBlue
-                        : AppColors.white,
+                    color: true ? AppColors.primaryBlue : AppColors.white,
                   ),
                 ],
               ),
@@ -762,7 +754,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildTrendingSection(List<Map<String, dynamic>> trendingItems) {
+  Widget _buildTrendingSection(List<NewsModel> trendingItems) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sw),
       child: Column(
@@ -789,7 +781,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildTrendingCard(Map<String, dynamic> item) {
+  Widget _buildTrendingCard(NewsModel item) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.sw),
       decoration: BoxDecoration(
@@ -806,7 +798,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       child: InkWell(
         onTap: () {
           // Track view and navigate to item detail
-          context.read<DiscoveryBloc>().add(UpdateContentView(item['id']));
+          context.read<DiscoveryBloc>().add(UpdateContentView(item.id ?? ''));
           // Navigate to item detail
         },
         borderRadius: BorderRadius.circular(12.sw),
@@ -856,7 +848,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                     SizedBox(height: 8.sw),
                     // Title
                     CustomTextLabel(
-                      item['title'],
+                      item.title,
                       fontSize: 14.sw,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textDark,
@@ -865,7 +857,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                     SizedBox(height: 4.sw),
                     // Category
                     CustomTextLabel(
-                      item['category'],
+                      item.category?.name ?? '',
                       fontSize: 12.sw,
                       color: AppColors.textMediumGrey,
                     ),
@@ -880,7 +872,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 4.sw),
                         CustomTextLabel(
-                          '${item['views']} lượt xem',
+                          '${item.interactionStats?.viewCount} lượt xem',
                           fontSize: 12.sw,
                           color: AppColors.textMediumGrey,
                         ),
@@ -896,7 +888,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildRecommendedSection(List<Map<String, dynamic>> recommendedItems) {
+  Widget _buildRecommendedSection(List<NewsModel> recommendedItems) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sw),
       child: Column(
@@ -914,48 +906,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: recommendedItems.length,
             itemBuilder: (context, index) {
-              final section = recommendedItems[index];
-              return _buildRecommendedSectionItem(section);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRecommendedSectionItem(Map<String, dynamic> section) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 24.sw),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Section header
-          CustomTextLabel(
-            section['title'],
-            fontSize: 18.sw,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textDark,
-          ),
-          SizedBox(height: 4.sw),
-          CustomTextLabel(
-            section['subtitle'],
-            fontSize: 12.sw,
-            color: AppColors.textMediumGrey,
-          ),
-          SizedBox(height: 12.sw),
-          // Items grid
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12.sw,
-              mainAxisSpacing: 12.sw,
-              childAspectRatio: 1.2,
-            ),
-            itemCount: section['items'].length,
-            itemBuilder: (context, index) {
-              final item = section['items'][index];
+              final item = recommendedItems[index];
               return _buildRecommendedItem(item);
             },
           ),
@@ -964,7 +915,48 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildRecommendedItem(Map<String, dynamic> item) {
+  // Widget _buildRecommendedSectionItem(List<NewsModel> item) {
+  //   return Container(
+  //     margin: EdgeInsets.only(bottom: 24.sw),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         // Section header
+  //         CustomTextLabel(
+  //           item.title,
+  //           fontSize: 18.sw,
+  //           fontWeight: FontWeight.bold,
+  //           color: AppColors.textDark,
+  //         ),
+  //         SizedBox(height: 4.sw),
+  //         CustomTextLabel(
+  //           item.summary ?? '',
+  //           fontSize: 12.sw,
+  //           color: AppColors.textMediumGrey,
+  //         ),
+  //         SizedBox(height: 12.sw),
+  //         // Items grid
+  //         GridView.builder(
+  //           shrinkWrap: true,
+  //           physics: const NeverScrollableScrollPhysics(),
+  //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //             crossAxisCount: 2,
+  //             crossAxisSpacing: 12.sw,
+  //             mainAxisSpacing: 12.sw,
+  //             childAspectRatio: 1.2,
+  //           ),
+  //           itemCount: item.length,
+  //           itemBuilder: (context, index) {
+  //             final item = item[index];
+  //             return _buildRecommendedItem(item);
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Widget _buildRecommendedItem(NewsModel item) {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -980,7 +972,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       child: InkWell(
         onTap: () {
           // Track view and navigate to item detail
-          context.read<DiscoveryBloc>().add(UpdateContentView(item['id']));
+          context.read<DiscoveryBloc>().add(UpdateContentView(item.id ?? ''));
           // Navigate to item detail
         },
         borderRadius: BorderRadius.circular(8.sw),
@@ -1012,7 +1004,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomTextLabel(
-                      item['title'],
+                      item.title,
                       fontSize: 12.sw,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textDark,
@@ -1028,7 +1020,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 2.sw),
                         CustomTextLabel(
-                          '${item['views']} lượt xem',
+                          '${item.interactionStats?.viewCount} lượt xem',
                           fontSize: 10.sw,
                           color: AppColors.textMediumGrey,
                         ),

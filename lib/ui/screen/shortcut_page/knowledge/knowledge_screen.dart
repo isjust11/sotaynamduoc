@@ -60,6 +60,9 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
               builder: (context, state) {
                 if (state is KnowledgeListLoaded) {
                   final filteredItems = _getFilteredItems(state.knowledgeList);
+                  if (filteredItems.isEmpty) {
+                    return _buildEmptyWidget();
+                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: AppDimens.SIZE_8,
@@ -203,25 +206,26 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
       category: item.category?.name ?? '',
       views: item.interactionStats?.viewCount ?? 0,
       author: item.author?.name ?? '',
-      isLiked: item.userInteractionStatus?['like'] ?? false,
-      isBookmarked: item.userInteractionStatus?['bookmark'] ?? false,
-      actionButtons: _buildActionButtons(
-        isLiked: item.userInteractionStatus?['like'] ?? false,
-        isBookmarked: item.userInteractionStatus?['bookmark'] ?? false,
-        onShare: () {
-          // Implement share functionality
-        },
-        onLiked: (isLiked) {
-          setState(() {
-            item.userInteractionStatus?['like'] = isLiked;
-          });
-        },
-        onBookmarked: (isBookmarked) {
-          setState(() {
-            item.userInteractionStatus?['bookmark'] = isBookmarked;
-          });
-        },
-      ),
+      isLiked: (item.interactionStats?.likeCount ?? 0) > 0,
+      isBookmarked: (item.interactionStats?.bookmarkCount ?? 0) > 0,
+      actionButtons: null,
+      // _buildActionButtons(
+      //   // isLiked: item.userInteractionStatus?.likeCount ?? 0 > 0,
+      //   // isBookmarked: item.userInteractionStatus?.bookmarkCount ?? 0 > 0,
+      //   onShare: () {
+      //     // Implement share functionality
+      //   },
+      //   onLiked: (isLiked) {
+      //     setState(() {
+      //       // item.userInteractionStatus?.likeCount = isLiked ? 1 : 0;
+      //     });
+      //   },
+      //   onBookmarked: (isBookmarked) {
+      //     setState(() {
+      //       // item.userInteractionStatus?.bookmarkCount = isBookmarked ? 1 : 0;
+      //     });
+      //   },
+      // ),
     );
   }
 
