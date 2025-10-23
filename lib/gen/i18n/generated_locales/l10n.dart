@@ -2114,9 +2114,9 @@ class AppLocalizations {
     return Intl.message('Phổ biến', name: 'popular', desc: '', args: []);
   }
 
-  /// `Mới nhất`
+  /// `Gần đây`
   String get recent {
-    return Intl.message('Mới nhất', name: 'recent', desc: '', args: []);
+    return Intl.message('Gần đây', name: 'recent', desc: '', args: []);
   }
 
   /// `Đã lưu`
@@ -2202,6 +2202,166 @@ class AppLocalizations {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Tải lại`
+  String get reload {
+    return Intl.message('Tải lại', name: 'reload', desc: '', args: []);
+  }
+
+  /// `Không tìm thấy kết quả nào`
+  String get noSearchResults {
+    return Intl.message(
+      'Không tìm thấy kết quả nào',
+      name: 'noSearchResults',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thử tìm kiếm với từ khóa khác`
+  String get tryDifferentKeywords {
+    return Intl.message(
+      'Thử tìm kiếm với từ khóa khác',
+      name: 'tryDifferentKeywords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nội dung nổi bật`
+  String get featuredContent {
+    return Intl.message(
+      'Nội dung nổi bật',
+      name: 'featuredContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thao tác nhanh`
+  String get quickActions {
+    return Intl.message(
+      'Thao tác nhanh',
+      name: 'quickActions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xu hướng`
+  String get trending {
+    return Intl.message('Xu hướng', name: 'trending', desc: '', args: []);
+  }
+
+  /// `Khám phá xu hướng`
+  String get exploreTrending {
+    return Intl.message(
+      'Khám phá xu hướng',
+      name: 'exploreTrending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yêu thích`
+  String get favorites {
+    return Intl.message('Yêu thích', name: 'favorites', desc: '', args: []);
+  }
+
+  /// `Mục yêu thích của bạn`
+  String get yourFavorites {
+    return Intl.message(
+      'Mục yêu thích của bạn',
+      name: 'yourFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đã xem gần đây`
+  String get recentlyViewed {
+    return Intl.message(
+      'Đã xem gần đây',
+      name: 'recentlyViewed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đánh dấu`
+  String get bookmark {
+    return Intl.message('Đánh dấu', name: 'bookmark', desc: '', args: []);
+  }
+
+  /// `Mục đã lưu`
+  String get savedItems {
+    return Intl.message('Mục đã lưu', name: 'savedItems', desc: '', args: []);
+  }
+
+  /// `Danh mục`
+  String get categories {
+    return Intl.message('Danh mục', name: 'categories', desc: '', args: []);
+  }
+
+  /// `Dược liệu quý`
+  String get preciousHerbs {
+    return Intl.message(
+      'Dược liệu quý',
+      name: 'preciousHerbs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nghiên cứu`
+  String get research {
+    return Intl.message('Nghiên cứu', name: 'research', desc: '', args: []);
+  }
+
+  /// `Kỹ thuật`
+  String get techniques {
+    return Intl.message('Kỹ thuật', name: 'techniques', desc: '', args: []);
+  }
+
+  /// `Ứng dụng`
+  String get applications {
+    return Intl.message('Ứng dụng', name: 'applications', desc: '', args: []);
+  }
+
+  /// `Gợi ý cho bạn`
+  String get recommendedForYou {
+    return Intl.message(
+      'Gợi ý cho bạn',
+      name: 'recommendedForYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `lượt xem`
+  String get views {
+    return Intl.message('lượt xem', name: 'views', desc: '', args: []);
+  }
+
+  /// `thích`
+  String get likes {
+    return Intl.message('thích', name: 'likes', desc: '', args: []);
+  }
+
+  /// `lượt thích`
+  String get likesCount {
+    return Intl.message('lượt thích', name: 'likesCount', desc: '', args: []);
+  }
+
+  /// `Đổi mới`
+  String get innovation {
+    return Intl.message('Đổi mới', name: 'innovation', desc: '', args: []);
+  }
+
+  /// `Nổi bật`
+  String get featured {
+    return Intl.message('Nổi bật', name: 'featured', desc: '', args: []);
   }
 }
 

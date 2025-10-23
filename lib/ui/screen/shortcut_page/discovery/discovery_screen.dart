@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
+import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
@@ -19,13 +21,15 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
   final TextEditingController _searchController = TextEditingController();
   final PageController _featuredPageController = PageController();
   int _currentFeaturedIndex = 0;
-
+  final List<String> _searchData = ['lừa đảo', 'ốm', 'còi xương'];
   @override
   void initState() {
     super.initState();
     _startFeaturedCarousel();
     // Load discovery data
-    context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
+    context.read<DiscoveryBloc>().add(
+      LoadDiscoveryData(searchData: _searchData),
+    );
   }
 
   @override
@@ -90,10 +94,10 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                   ElevatedButton(
                     onPressed: () {
                       context.read<DiscoveryBloc>().add(
-                        const LoadDiscoveryData(),
+                        LoadDiscoveryData(searchData: _searchData),
                       );
                     },
-                    child: const Text('Thử lại'),
+                    child: Text(AppLocalizations.current.tryAgain),
                   ),
                 ],
               ),
@@ -120,11 +124,15 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
         if (value.isNotEmpty) {
           context.read<DiscoveryBloc>().add(SearchDiscovery(value));
         } else {
-          context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
+          context.read<DiscoveryBloc>().add(
+            LoadDiscoveryData(searchData: _searchData),
+          );
         }
       },
       onSearchCanceled: () {
-        context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
+        context.read<DiscoveryBloc>().add(
+          LoadDiscoveryData(searchData: _searchData),
+        );
       },
     );
   }
@@ -164,14 +172,14 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           Icon(Icons.search_off, size: 48.sw, color: AppColors.textMediumGrey),
           SizedBox(height: 16.sw),
           CustomTextLabel(
-            'Không tìm thấy kết quả nào',
+            AppLocalizations.current.noSearchResults,
             fontSize: 16.sw,
             color: AppColors.textDark,
             fontWeight: FontWeight.w600,
           ),
           SizedBox(height: 8.sw),
           CustomTextLabel(
-            'Thử tìm kiếm với từ khóa khác',
+            AppLocalizations.current.tryDifferentKeywords,
             fontSize: 14.sw,
             color: AppColors.textMediumGrey,
             textAlign: TextAlign.center,
@@ -202,9 +210,11 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           SizedBox(height: 16.sw),
           ElevatedButton(
             onPressed: () {
-              context.read<DiscoveryBloc>().add(const LoadDiscoveryData());
+              context.read<DiscoveryBloc>().add(
+                LoadDiscoveryData(searchData: _searchData),
+              );
             },
-            child: const Text('Tải lại'),
+            child: Text(AppLocalizations.current.reload),
           ),
         ],
       ),
@@ -278,7 +288,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 4.sw),
                         CustomTextLabel(
-                          '${item.interactionStats?.viewCount} lượt xem',
+                          '${item.interactionStats?.viewCount} ${AppLocalizations.current.views}',
                           fontSize: 12.sw,
                           color: AppColors.textMediumGrey,
                         ),
@@ -307,7 +317,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           _buildQuickActions(),
           SizedBox(height: 24.sw),
           // Categories
-          _buildCategoriesSection(),
+          // _buildCategoriesSection(),
         ],
       ),
     );
@@ -318,28 +328,32 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextLabel(
-          'Nội dung nổi bật',
+          AppLocalizations.current.featuredContent,
           fontSize: 18.sw,
           fontWeight: FontWeight.bold,
           color: AppColors.textDark,
         ),
         SizedBox(height: 12.sw),
-        Container(
-          height: 200.sw,
-          child: PageView.builder(
-            controller: _featuredPageController,
-            onPageChanged: (index) {
-              setState(() {
-                _currentFeaturedIndex = index;
-              });
-            },
-            itemCount: featuredItems.length,
-            itemBuilder: (context, index) {
-              final item = featuredItems[index];
-              return _buildFeaturedCard(item);
-            },
-          ),
-        ),
+        featuredItems.isNotEmpty
+            ? SizedBox(
+                height: 200.sw,
+                child: PageView.builder(
+                  controller: _featuredPageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentFeaturedIndex = index;
+                    });
+                  },
+                  itemCount: featuredItems.length,
+                  itemBuilder: (context, index) {
+                    final item = featuredItems[index];
+                    return _buildFeaturedCard(item);
+                  },
+                ),
+              )
+            :
+              // build empty box
+              EmptyData(),
         SizedBox(height: 12.sw),
         // Page indicators
         Row(
@@ -364,177 +378,119 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
   }
 
   Widget _buildFeaturedCard(NewsModel item) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4.sw),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.sw),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withValues(alpha: 0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12.sw),
-        child: Stack(
-          children: [
-            // Background image
-            Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: AppColors.lightGreyBackground,
-              child: Icon(
-                Icons.image_outlined,
-                size: 48.sw,
-                color: AppColors.textMediumGrey,
-              ),
-            ),
-            // Gradient overlay
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withValues(alpha: 0.7),
-                  ],
-                ),
-              ),
-            ),
-            // Content
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: EdgeInsets.all(16.sw),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Type badge
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.sw,
-                        vertical: 4.sw,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryBlue,
-                        borderRadius: BorderRadius.circular(4.sw),
-                      ),
-                      child: CustomTextLabel(
-                        _getTypeLabel(item.category?.name ?? ''),
-                        fontSize: 10.sw,
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 8.sw),
-                    // Title
-                    CustomTextLabel(
-                      item.title,
-                      fontSize: 16.sw,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.white,
-                      maxLines: 2,
-                    ),
-                    SizedBox(height: 4.sw),
-                    // Meta info
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.visibility,
-                          size: 12.sw,
-                          color: AppColors.white.withValues(alpha: 0.8),
-                        ),
-                        SizedBox(width: 4.sw),
-                        CustomTextLabel(
-                          '${item.interactionStats?.viewCount} lượt xem',
-                          fontSize: 12.sw,
-                          color: AppColors.white.withValues(alpha: 0.8),
-                        ),
-                        SizedBox(width: 16.sw),
-                        Icon(
-                          Icons.favorite,
-                          size: 12.sw,
-                          color: AppColors.white.withValues(alpha: 0.8),
-                        ),
-                        SizedBox(width: 4.sw),
-                        CustomTextLabel(
-                          '${item.interactionStats?.likeCount} thích',
-                          fontSize: 12.sw,
-                          color: AppColors.white.withValues(alpha: 0.8),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Action buttons
-            Positioned(
-              top: 12.sw,
-              right: 12.sw,
-              child: Row(
-                children: [
-                  _buildFloatingActionButton(
-                    icon: true ? Icons.favorite : Icons.favorite_border,
-                    onTap: () {
-                      context.read<DiscoveryBloc>().add(
-                        UpdateContentLike(
-                          contentId: item.id ?? '',
-                          isLiked: false,
-                        ),
-                      );
-                    },
-                    color: true ? AppColors.errorRed : AppColors.white,
-                  ),
-                  SizedBox(width: 8.sw),
-                  _buildFloatingActionButton(
-                    icon: true ? Icons.bookmark : Icons.bookmark_border,
-                    onTap: () {
-                      context.read<DiscoveryBloc>().add(
-                        UpdateContentBookmark(
-                          contentId: item.id ?? '',
-                          isBookmarked: false,
-                        ),
-                      );
-                    },
-                    color: true ? AppColors.primaryBlue : AppColors.white,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFloatingActionButton({
-    required IconData icon,
-    required VoidCallback onTap,
-    required Color color,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, Routes.newsDetailScreen, arguments: item);
+      },
       child: Container(
-        width: 32.sw,
-        height: 32.sw,
+        margin: EdgeInsets.symmetric(horizontal: 4.sw),
+
         decoration: BoxDecoration(
-          color: AppColors.white.withValues(alpha: 0.9),
-          shape: BoxShape.circle,
+          borderRadius: BorderRadius.circular(12.sw),
           boxShadow: [
             BoxShadow(
               color: AppColors.black.withValues(alpha: 0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
-        child: Icon(icon, size: 16.sw, color: color),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.sw),
+          child: Stack(
+            children: [
+              // Background image
+              BaseNetworkImage(
+                url: ApiConstant.storageHost + (item.thumbnail ?? ''),
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              // Gradient overlay
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: 0.7),
+                    ],
+                  ),
+                ),
+              ),
+              // Content
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: EdgeInsets.all(16.sw),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Type badge
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.sw,
+                          vertical: 4.sw,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryBlue,
+                          borderRadius: BorderRadius.circular(4.sw),
+                        ),
+                        child: CustomTextLabel(
+                          _getTypeLabel(item.category?.name ?? ''),
+                          fontSize: 10.sw,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 8.sw),
+                      // Title
+                      CustomTextLabel(
+                        item.title,
+                        fontSize: 16.sw,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.white,
+                        maxLines: 2,
+                      ),
+                      SizedBox(height: 4.sw),
+                      // Meta info
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.visibility,
+                            size: 12.sw,
+                            color: AppColors.white.withValues(alpha: 0.8),
+                          ),
+                          SizedBox(width: 4.sw),
+                          CustomTextLabel(
+                            '${item.interactionStats?.viewCount} ${AppLocalizations.current.views}',
+                            fontSize: 12.sw,
+                            color: AppColors.white.withValues(alpha: 0.8),
+                          ),
+                          SizedBox(width: 16.sw),
+                          Icon(
+                            Icons.favorite,
+                            size: 12.sw,
+                            color: AppColors.white.withValues(alpha: 0.8),
+                          ),
+                          SizedBox(width: 4.sw),
+                          CustomTextLabel(
+                            '${item.interactionStats?.likeCount} ${AppLocalizations.current.likes}',
+                            fontSize: 12.sw,
+                            color: AppColors.white.withValues(alpha: 0.8),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -544,7 +500,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextLabel(
-          'Thao tác nhanh',
+          AppLocalizations.current.quickActions,
           fontSize: 18.sw,
           fontWeight: FontWeight.bold,
           color: AppColors.textDark,
@@ -555,8 +511,8 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
             Expanded(
               child: _buildQuickActionCard(
                 icon: Icons.trending_up,
-                title: 'Xu hướng',
-                subtitle: 'Khám phá xu hướng',
+                title: AppLocalizations.current.trending,
+                subtitle: AppLocalizations.current.exploreTrending,
                 color: AppColors.primaryBlue,
                 onTap: () {
                   context.read<DiscoveryBloc>().add(
@@ -569,8 +525,8 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
             Expanded(
               child: _buildQuickActionCard(
                 icon: Icons.star,
-                title: 'Yêu thích',
-                subtitle: 'Mục yêu thích của bạn',
+                title: AppLocalizations.current.favorites,
+                subtitle: AppLocalizations.current.yourFavorites,
                 color: AppColors.primaryBlue,
                 onTap: () {
                   context.read<DiscoveryBloc>().add(
@@ -587,8 +543,8 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
             Expanded(
               child: _buildQuickActionCard(
                 icon: Icons.history,
-                title: 'Gần đây',
-                subtitle: 'Đã xem gần đây',
+                title: AppLocalizations.current.recent,
+                subtitle: AppLocalizations.current.recentlyViewed,
                 color: AppColors.primaryBlue,
                 onTap: () {
                   context.read<DiscoveryBloc>().add(
@@ -601,8 +557,8 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
             Expanded(
               child: _buildQuickActionCard(
                 icon: Icons.bookmark,
-                title: 'Đánh dấu',
-                subtitle: 'Mục đã lưu',
+                title: AppLocalizations.current.bookmark,
+                subtitle: AppLocalizations.current.savedItems,
                 color: AppColors.primaryBlue,
                 onTap: () {
                   context.read<DiscoveryBloc>().add(
@@ -672,88 +628,6 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     );
   }
 
-  Widget _buildCategoriesSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomTextLabel(
-          'Danh mục',
-          fontSize: 18.sw,
-          fontWeight: FontWeight.bold,
-          color: AppColors.textDark,
-        ),
-        SizedBox(height: 12.sw),
-        GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          crossAxisSpacing: 12.sw,
-          mainAxisSpacing: 12.sw,
-          childAspectRatio: 1.5,
-          children: [
-            _buildCategoryCard(
-              'Dược liệu quý',
-              Icons.eco,
-              AppColors.primaryBlue,
-            ),
-            _buildCategoryCard(
-              'Nghiên cứu',
-              Icons.science,
-              AppColors.primaryBlue,
-            ),
-            _buildCategoryCard('Kỹ thuật', Icons.build, AppColors.primaryBlue),
-            _buildCategoryCard('Ứng dụng', Icons.apps, AppColors.primaryBlue),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCategoryCard(String title, IconData icon, Color color) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12.sw),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: InkWell(
-        onTap: () {
-          // Navigate to category - you can implement category navigation here
-          // context.read<DiscoveryBloc>().add(LoadCategoryContent(categoryId));
-        },
-        borderRadius: BorderRadius.circular(12.sw),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 48.sw,
-              height: 48.sw,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12.sw),
-              ),
-              child: Icon(icon, color: color, size: 24.sw),
-            ),
-            SizedBox(height: 8.sw),
-            CustomTextLabel(
-              title,
-              fontSize: 12.sw,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textDark,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildTrendingSection(List<NewsModel> trendingItems) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sw),
@@ -798,26 +672,27 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
       child: InkWell(
         onTap: () {
           // Track view and navigate to item detail
-          context.read<DiscoveryBloc>().add(UpdateContentView(item.id ?? ''));
-          // Navigate to item detail
+          Navigator.pushNamed(
+            context,
+            Routes.newsDetailScreen,
+            arguments: item,
+          );
         },
         borderRadius: BorderRadius.circular(12.sw),
         child: Row(
           children: [
             // Thumbnail
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12.sw),
-                bottomLeft: Radius.circular(12.sw),
-              ),
-              child: Container(
-                width: 120.sw,
-                height: 100.sw,
-                color: AppColors.lightGreyBackground,
-                child: Icon(
-                  Icons.trending_up,
-                  size: 32.sw,
-                  color: AppColors.primaryBlue,
+            SizedBox(
+              width: 120.sw,
+              height: 100.sw,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12.sw),
+                  bottomLeft: Radius.circular(12.sw),
+                ),
+                child: BaseNetworkImage(
+                  url: ApiConstant.storageHost + (item.thumbnail ?? ''),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -838,7 +713,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 4.sw),
                         CustomTextLabel(
-                          'Xu hướng',
+                          AppLocalizations.current.trending,
                           fontSize: 12.sw,
                           color: AppColors.primaryBlue,
                           fontWeight: FontWeight.w600,
@@ -872,7 +747,19 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 4.sw),
                         CustomTextLabel(
-                          '${item.interactionStats?.viewCount} lượt xem',
+                          '${item.interactionStats?.viewCount} ${AppLocalizations.current.views}',
+                          fontSize: 12.sw,
+                          color: AppColors.textMediumGrey,
+                        ),
+                        SizedBox(width: 4.sw),
+                        Icon(
+                          Icons.favorite,
+                          size: 14.sw,
+                          color: AppColors.textMediumGrey,
+                        ),
+                        SizedBox(width: 4.sw),
+                        CustomTextLabel(
+                          '${item.interactionStats?.likeCount} ${AppLocalizations.current.likesCount}',
                           fontSize: 12.sw,
                           color: AppColors.textMediumGrey,
                         ),
@@ -895,66 +782,27 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomTextLabel(
-            'Gợi ý cho bạn',
+            AppLocalizations.current.recommendedForYou,
             fontSize: 18.sw,
             fontWeight: FontWeight.bold,
             color: AppColors.textDark,
           ),
           SizedBox(height: 12.sw),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: recommendedItems.length,
-            itemBuilder: (context, index) {
-              final item = recommendedItems[index];
-              return _buildRecommendedItem(item);
-            },
-          ),
+          recommendedItems.isNotEmpty
+              ? ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: recommendedItems.length,
+                  itemBuilder: (context, index) {
+                    final item = recommendedItems[index];
+                    return _buildRecommendedItem(item);
+                  },
+                )
+              : Padding(padding: EdgeInsets.all(16.sw), child: EmptyData()),
         ],
       ),
     );
   }
-
-  // Widget _buildRecommendedSectionItem(List<NewsModel> item) {
-  //   return Container(
-  //     margin: EdgeInsets.only(bottom: 24.sw),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         // Section header
-  //         CustomTextLabel(
-  //           item.title,
-  //           fontSize: 18.sw,
-  //           fontWeight: FontWeight.bold,
-  //           color: AppColors.textDark,
-  //         ),
-  //         SizedBox(height: 4.sw),
-  //         CustomTextLabel(
-  //           item.summary ?? '',
-  //           fontSize: 12.sw,
-  //           color: AppColors.textMediumGrey,
-  //         ),
-  //         SizedBox(height: 12.sw),
-  //         // Items grid
-  //         GridView.builder(
-  //           shrinkWrap: true,
-  //           physics: const NeverScrollableScrollPhysics(),
-  //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //             crossAxisCount: 2,
-  //             crossAxisSpacing: 12.sw,
-  //             mainAxisSpacing: 12.sw,
-  //             childAspectRatio: 1.2,
-  //           ),
-  //           itemCount: item.length,
-  //           itemBuilder: (context, index) {
-  //             final item = item[index];
-  //             return _buildRecommendedItem(item);
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget _buildRecommendedItem(NewsModel item) {
     return Container(
@@ -1020,7 +868,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                         ),
                         SizedBox(width: 2.sw),
                         CustomTextLabel(
-                          '${item.interactionStats?.viewCount} lượt xem',
+                          '${item.interactionStats?.viewCount} ${AppLocalizations.current.views}',
                           fontSize: 10.sw,
                           color: AppColors.textMediumGrey,
                         ),
@@ -1039,13 +887,13 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
   String _getTypeLabel(String type) {
     switch (type) {
       case 'trending':
-        return 'Xu hướng';
+        return AppLocalizations.current.trending;
       case 'innovation':
-        return 'Đổi mới';
+        return AppLocalizations.current.innovation;
       case 'research':
-        return 'Nghiên cứu';
+        return AppLocalizations.current.research;
       default:
-        return 'Nổi bật';
+        return AppLocalizations.current.featured;
     }
   }
 }

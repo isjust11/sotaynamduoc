@@ -1657,6 +1657,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No knowledge found'**
   String get noKnowledgeFound;
+
+  /// No description provided for @reload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload'**
+  String get reload;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No search results found'**
+  String get noSearchResults;
+
+  /// No description provided for @tryDifferentKeywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Try searching with different keywords'**
+  String get tryDifferentKeywords;
+
+  /// No description provided for @featuredContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured Content'**
+  String get featuredContent;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @trending.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending'**
+  String get trending;
+
+  /// No description provided for @exploreTrending.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore trending'**
+  String get exploreTrending;
+
+  /// No description provided for @favorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get favorites;
+
+  /// No description provided for @yourFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Your favorite items'**
+  String get yourFavorites;
+
+  /// No description provided for @recentlyViewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently viewed'**
+  String get recentlyViewed;
+
+  /// No description provided for @bookmark.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark'**
+  String get bookmark;
+
+  /// No description provided for @savedItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved items'**
+  String get savedItems;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @preciousHerbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Precious Herbs'**
+  String get preciousHerbs;
+
+  /// No description provided for @research.
+  ///
+  /// In en, this message translates to:
+  /// **'Research'**
+  String get research;
+
+  /// No description provided for @techniques.
+  ///
+  /// In en, this message translates to:
+  /// **'Techniques'**
+  String get techniques;
+
+  /// No description provided for @applications.
+  ///
+  /// In en, this message translates to:
+  /// **'Applications'**
+  String get applications;
+
+  /// No description provided for @recommendedForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended for you'**
+  String get recommendedForYou;
+
+  /// No description provided for @views.
+  ///
+  /// In en, this message translates to:
+  /// **'views'**
+  String get views;
+
+  /// No description provided for @likes.
+  ///
+  /// In en, this message translates to:
+  /// **'likes'**
+  String get likes;
+
+  /// No description provided for @likesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'likes'**
+  String get likesCount;
+
+  /// No description provided for @innovation.
+  ///
+  /// In en, this message translates to:
+  /// **'Innovation'**
+  String get innovation;
+
+  /// No description provided for @featured.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured'**
+  String get featured;
 }
 
 class _AppLocalizationsDelegate

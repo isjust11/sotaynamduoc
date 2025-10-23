@@ -771,7 +771,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get popular => 'Phổ biến';
 
   @override
-  String get recent => 'Mới nhất';
+  String get recent => 'Gần đây';
 
   @override
   String get bookmarked => 'Đã lưu';
@@ -803,4 +803,73 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noKnowledgeFound => 'Không tìm thấy kiến thức nào';
+
+  @override
+  String get reload => 'Tải lại';
+
+  @override
+  String get noSearchResults => 'Không tìm thấy kết quả nào';
+
+  @override
+  String get tryDifferentKeywords => 'Thử tìm kiếm với từ khóa khác';
+
+  @override
+  String get featuredContent => 'Nội dung nổi bật';
+
+  @override
+  String get quickActions => 'Thao tác nhanh';
+
+  @override
+  String get trending => 'Xu hướng';
+
+  @override
+  String get exploreTrending => 'Khám phá xu hướng';
+
+  @override
+  String get favorites => 'Yêu thích';
+
+  @override
+  String get yourFavorites => 'Mục yêu thích của bạn';
+
+  @override
+  String get recentlyViewed => 'Đã xem gần đây';
+
+  @override
+  String get bookmark => 'Đánh dấu';
+
+  @override
+  String get savedItems => 'Mục đã lưu';
+
+  @override
+  String get categories => 'Danh mục';
+
+  @override
+  String get preciousHerbs => 'Dược liệu quý';
+
+  @override
+  String get research => 'Nghiên cứu';
+
+  @override
+  String get techniques => 'Kỹ thuật';
+
+  @override
+  String get applications => 'Ứng dụng';
+
+  @override
+  String get recommendedForYou => 'Gợi ý cho bạn';
+
+  @override
+  String get views => 'lượt xem';
+
+  @override
+  String get likes => 'thích';
+
+  @override
+  String get likesCount => 'lượt thích';
+
+  @override
+  String get innovation => 'Đổi mới';
+
+  @override
+  String get featured => 'Nổi bật';
 }

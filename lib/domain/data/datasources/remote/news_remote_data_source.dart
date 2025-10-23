@@ -44,10 +44,37 @@ class NewsRemoteDataSource {
     ApiResponse apiResponse = await network.get(url: '/article/featured');
 
     if (apiResponse.isSuccess) {
-      List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
+      List<dynamic> data = apiResponse.data ?? apiResponse.data;
       return data.map((json) => NewsModel.fromJson(json)).toList();
     }
 
+    return Future.error(apiResponse.message);
+  }
+
+  //get trending new list
+  Future<List<NewsModel>> getTrendingNewsList() async {
+    ApiResponse apiResponse = await network.get(url: '/article/trending');
+
+    if (apiResponse.isSuccess) {
+      List<dynamic> data = apiResponse.data ?? apiResponse.data;
+      return data.map((json) => NewsModel.fromJson(json)).toList();
+    }
+
+    return Future.error(apiResponse.message);
+  }
+
+  //get recommended new list
+  Future<List<NewsModel>> getRecommendedNewsList({
+    required List<String> searchData,
+  }) async {
+    ApiResponse apiResponse = await network.get(
+      url: '/article/recommend',
+      params: {'searchData': searchData.join(',')},
+    );
+    if (apiResponse.isSuccess) {
+      List<dynamic> data = apiResponse.data ?? apiResponse.data;
+      return data.map((json) => NewsModel.fromJson(json)).toList();
+    }
     return Future.error(apiResponse.message);
   }
 

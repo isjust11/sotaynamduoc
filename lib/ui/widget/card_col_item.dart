@@ -181,17 +181,15 @@ class _CardColItemWidgetState extends State<CardColItemWidget> {
   }
 
   Widget _buildMetaInfo(IconData icon, String text, Color color) {
-    return Flexible(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14.sw, color: color),
-          SizedBox(width: 4.sw),
-          Flexible(
-            child: CustomTextLabel(text, fontSize: 12.sw, color: color),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 14.sw, color: color),
+        SizedBox(width: 4.sw),
+        Flexible(
+          child: CustomTextLabel(text, fontSize: 12.sw, color: color),
+        ),
+      ],
     );
   }
 }

@@ -8,7 +8,11 @@ abstract class DiscoveryEvent extends Equatable {
 }
 
 class LoadDiscoveryData extends DiscoveryEvent {
-  const LoadDiscoveryData();
+  final List<String>? searchData;
+  const LoadDiscoveryData({required this.searchData});
+
+  @override
+  List<Object> get props => [searchData ?? []];
 }
 
 class LoadFeaturedContent extends DiscoveryEvent {
@@ -20,7 +24,11 @@ class LoadTrendingContent extends DiscoveryEvent {
 }
 
 class LoadRecommendedContent extends DiscoveryEvent {
-  const LoadRecommendedContent();
+  final List<String>? searchData;
+  const LoadRecommendedContent({required this.searchData});
+
+  @override
+  List<Object> get props => [searchData ?? []];
 }
 
 class SearchDiscovery extends DiscoveryEvent {

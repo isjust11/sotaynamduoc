@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "anecdotes": MessageLookupByLibrary.simpleMessage("Giai thoại"),
     "appName": MessageLookupByLibrary.simpleMessage("Sổ tay nam dược"),
     "appSettings": MessageLookupByLibrary.simpleMessage("Cài đặt ứng dụng"),
+    "applications": MessageLookupByLibrary.simpleMessage("Ứng dụng"),
     "back": MessageLookupByLibrary.simpleMessage("Quay lại"),
     "basicInfo": MessageLookupByLibrary.simpleMessage("Thông tin cơ bản"),
     "biography": MessageLookupByLibrary.simpleMessage("Tiểu sử"),
@@ -58,10 +59,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ngày sinh không hợp lệ",
     ),
     "birthPlace": MessageLookupByLibrary.simpleMessage("Nơi sinh"),
+    "bookmark": MessageLookupByLibrary.simpleMessage("Đánh dấu"),
     "bookmarked": MessageLookupByLibrary.simpleMessage("Đã lưu"),
     "camera": MessageLookupByLibrary.simpleMessage("Máy ảnh"),
     "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
     "career": MessageLookupByLibrary.simpleMessage("Sự nghiệp"),
+    "categories": MessageLookupByLibrary.simpleMessage("Danh mục"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
     "changeAvatar": MessageLookupByLibrary.simpleMessage("Đổi ảnh đại diện"),
     "changeLanguage": MessageLookupByLibrary.simpleMessage("Đổi ngôn ngữ"),
@@ -106,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "error_connection": MessageLookupByLibrary.simpleMessage(
       "Lỗi kết nối mạng",
     ),
+    "exploreTrending": MessageLookupByLibrary.simpleMessage(
+      "Khám phá xu hướng",
+    ),
     "facebookAccessTokenFormatInvalid": MessageLookupByLibrary.simpleMessage(
       "Format access token Facebook không hợp lệ",
     ),
@@ -138,6 +144,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Thời gian đăng nhập hết hạn",
     ),
     "family": MessageLookupByLibrary.simpleMessage("Họ"),
+    "favorites": MessageLookupByLibrary.simpleMessage("Yêu thích"),
+    "featured": MessageLookupByLibrary.simpleMessage("Nổi bật"),
+    "featuredContent": MessageLookupByLibrary.simpleMessage("Nội dung nổi bật"),
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Bài thuốc nổi bật",
     ),
@@ -240,6 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "history": MessageLookupByLibrary.simpleMessage("Lịch sử"),
     "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
     "honors": MessageLookupByLibrary.simpleMessage("Danh hiệu"),
+    "innovation": MessageLookupByLibrary.simpleMessage("Đổi mới"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Nhập tên đăng nhập"),
     "instagramLink": MessageLookupByLibrary.simpleMessage("Liên kết Instagram"),
     "knowledge": MessageLookupByLibrary.simpleMessage("Kiến thức"),
@@ -249,6 +259,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "library": MessageLookupByLibrary.simpleMessage("Thư viện"),
     "light": MessageLookupByLibrary.simpleMessage("Sáng"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Lượt thích"),
+    "likes": MessageLookupByLibrary.simpleMessage("thích"),
+    "likesCount": MessageLookupByLibrary.simpleMessage("lượt thích"),
     "linkedinLink": MessageLookupByLibrary.simpleMessage("Liên kết LinkedIn"),
     "loading": MessageLookupByLibrary.simpleMessage("Đang tải..."),
     "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
@@ -302,6 +314,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noResultsFound": MessageLookupByLibrary.simpleMessage(
       "Không tìm thấy kết quả",
+    ),
+    "noSearchResults": MessageLookupByLibrary.simpleMessage(
+      "Không tìm thấy kết quả nào",
     ),
     "noTipsFound": MessageLookupByLibrary.simpleMessage(
       "Không tìm thấy mẹo vặt",
@@ -384,6 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Vui lòng nhập tên đăng nhập",
     ),
     "popular": MessageLookupByLibrary.simpleMessage("Phổ biến"),
+    "preciousHerbs": MessageLookupByLibrary.simpleMessage("Dược liệu quý"),
     "preparationMethods": MessageLookupByLibrary.simpleMessage("Cách chế biến"),
     "privacyAndSecurity": MessageLookupByLibrary.simpleMessage(
       "Quyền riêng tư và Bảo mật",
@@ -400,9 +416,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "pullToRefresh": MessageLookupByLibrary.simpleMessage(
       "Kéo xuống để làm mới",
     ),
+    "quickActions": MessageLookupByLibrary.simpleMessage("Thao tác nhanh"),
     "quotes": MessageLookupByLibrary.simpleMessage("Trích dẫn"),
     "read": MessageLookupByLibrary.simpleMessage("Đã đọc"),
-    "recent": MessageLookupByLibrary.simpleMessage("Mới nhất"),
+    "recent": MessageLookupByLibrary.simpleMessage("Gần đây"),
+    "recentlyViewed": MessageLookupByLibrary.simpleMessage("Đã xem gần đây"),
+    "recommendedForYou": MessageLookupByLibrary.simpleMessage("Gợi ý cho bạn"),
     "references": MessageLookupByLibrary.simpleMessage("Tài liệu tham khảo"),
     "register": MessageLookupByLibrary.simpleMessage("Đăng ký"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -414,11 +433,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
       "Đăng ký bằng Google",
     ),
+    "reload": MessageLookupByLibrary.simpleMessage("Tải lại"),
     "rememberMe": MessageLookupByLibrary.simpleMessage("Nhớ đăng nhập"),
+    "research": MessageLookupByLibrary.simpleMessage("Nghiên cứu"),
     "resend": MessageLookupByLibrary.simpleMessage("Gửi lại mã PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
     "roles": MessageLookupByLibrary.simpleMessage("Vai trò"),
     "save": MessageLookupByLibrary.simpleMessage("Lưu"),
+    "savedItems": MessageLookupByLibrary.simpleMessage("Mục đã lưu"),
     "saving": MessageLookupByLibrary.simpleMessage("Đang lưu..."),
     "scientificInfo": MessageLookupByLibrary.simpleMessage(
       "Thông tin khoa học",
@@ -452,6 +474,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "students": MessageLookupByLibrary.simpleMessage("Học trò"),
     "success": MessageLookupByLibrary.simpleMessage("Thành công"),
     "teacher": MessageLookupByLibrary.simpleMessage("Thầy thuốc"),
+    "techniques": MessageLookupByLibrary.simpleMessage("Kỹ thuật"),
     "theme": MessageLookupByLibrary.simpleMessage("Giao diện"),
     "tips": MessageLookupByLibrary.simpleMessage("Mẹo vặt"),
     "todayYouFeel": MessageLookupByLibrary.simpleMessage(
@@ -460,7 +483,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại",
     ),
+    "trending": MessageLookupByLibrary.simpleMessage("Xu hướng"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Thử lại"),
+    "tryDifferentKeywords": MessageLookupByLibrary.simpleMessage(
+      "Thử tìm kiếm với từ khóa khác",
+    ),
     "tryDifferentSearch": MessageLookupByLibrary.simpleMessage(
       "Hãy thử tìm kiếm với từ khác",
     ),
@@ -503,6 +530,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
     "viewCount": MessageLookupByLibrary.simpleMessage("Lượt xem"),
     "viewMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),
+    "views": MessageLookupByLibrary.simpleMessage("lượt xem"),
     "weHaveSentThePinTo": MessageLookupByLibrary.simpleMessage(
       "Chúng tôi đã gửi mã PIN 4 chữ số đến:",
     ),
@@ -512,5 +540,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Bạn có thể tìm tên bài thuốc, triệu chứng bệnh ...",
     ),
     "youKnow": MessageLookupByLibrary.simpleMessage("Bạn có biết?"),
+    "yourFavorites": MessageLookupByLibrary.simpleMessage(
+      "Mục yêu thích của bạn",
+    ),
   };
 }

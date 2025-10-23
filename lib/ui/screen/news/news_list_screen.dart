@@ -89,29 +89,31 @@ class _NewsListScreenState extends State<NewsListScreen>
           }
         });
       },
-      customLeading: Container(
-        padding: EdgeInsets.only(left: AppDimens.SIZE_16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
-        ),
-        child: IconButton(
-          onPressed: () {
-            setState(() {
-              cardViewType = cardViewType == CardViewType.row
-                  ? CardViewType.column
-                  : CardViewType.row;
-              SharedPreferenceUtil.saveCardViewType(cardViewType);
-            });
-          },
-          icon: Icon(
-            cardViewType == CardViewType.row
-                ? Icons.view_list
-                : Icons.view_column,
-            color: AppColors.white,
-            size: AppDimens.SIZE_24,
-          ),
-        ),
-      ),
+      customLeading: widget.isShowBackButton
+          ? null
+          : Container(
+              padding: EdgeInsets.only(left: AppDimens.SIZE_16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppDimens.SIZE_12),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    cardViewType = cardViewType == CardViewType.row
+                        ? CardViewType.column
+                        : CardViewType.row;
+                    SharedPreferenceUtil.saveCardViewType(cardViewType);
+                  });
+                },
+                icon: Icon(
+                  cardViewType == CardViewType.row
+                      ? Icons.view_list
+                      : Icons.view_column,
+                  color: AppColors.white,
+                  size: AppDimens.SIZE_24,
+                ),
+              ),
+            ),
       onSearchCanceled: () {
         _debounceTimer?.cancel();
         context.read<NewsBloc>().add(const RefreshNews());

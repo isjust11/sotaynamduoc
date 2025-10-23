@@ -797,4 +797,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noKnowledgeFound => 'No knowledge found';
+
+  @override
+  String get reload => 'Reload';
+
+  @override
+  String get noSearchResults => 'No search results found';
+
+  @override
+  String get tryDifferentKeywords => 'Try searching with different keywords';
+
+  @override
+  String get featuredContent => 'Featured Content';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get trending => 'Trending';
+
+  @override
+  String get exploreTrending => 'Explore trending';
+
+  @override
+  String get favorites => 'Favorites';
+
+  @override
+  String get yourFavorites => 'Your favorite items';
+
+  @override
+  String get recentlyViewed => 'Recently viewed';
+
+  @override
+  String get bookmark => 'Bookmark';
+
+  @override
+  String get savedItems => 'Saved items';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get preciousHerbs => 'Precious Herbs';
+
+  @override
+  String get research => 'Research';
+
+  @override
+  String get techniques => 'Techniques';
+
+  @override
+  String get applications => 'Applications';
+
+  @override
+  String get recommendedForYou => 'Recommended for you';
+
+  @override
+  String get views => 'views';
+
+  @override
+  String get likes => 'likes';
+
+  @override
+  String get likesCount => 'likes';
+
+  @override
+  String get innovation => 'Innovation';
+
+  @override
+  String get featured => 'Featured';
 }

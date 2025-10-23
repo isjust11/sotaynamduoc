@@ -43,7 +43,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
       // Load all discovery data in parallel
       final featuredFuture = _getFeaturedContent();
       final trendingFuture = _getTrendingContent();
-      final recommendedFuture = _getRecommendedContent();
+      final recommendedFuture = _getRecommendedContent(event.searchData ?? []);
 
       final results = await Future.wait([
         featuredFuture,
@@ -111,7 +111,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   ) async {
     try {
       emit(DiscoveryLoading());
-      final recommendedItems = await _getRecommendedContent();
+      final recommendedItems = await _getRecommendedContent(event.searchData ?? []);
       emit(
         DiscoveryDataLoaded(
           featuredItems: const [],
@@ -131,7 +131,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     try {
       if (event.searchTerm.isEmpty) {
         // If search is empty, return to main discovery data
-        add(const LoadDiscoveryData());
+        add(LoadDiscoveryData(searchData: event.searchTerm.split(' ')));
         return;
       }
 
@@ -159,7 +159,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     RefreshDiscovery event,
     Emitter<DiscoveryState> emit,
   ) async {
-    add(const LoadDiscoveryData());
+    add(LoadDiscoveryData(searchData: []));
   }
 
   Future<void> _onUpdateContentLike(
@@ -279,11 +279,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   Future<List<NewsModel>> _getTrendingContent() async {
     try {
       // Get trending news/articles
-      final newsList = await newsRepository.getNewsList(
-        page: 1,
-        size: 10,
-        // Add trending filter if available
-      );
+      final newsList = await newsRepository.getTrendingNewsList();
 
       return newsList;
     } catch (e) {
@@ -292,18 +288,12 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     }
   }
 
-  Future<List<NewsModel>> _getRecommendedContent() async {
+  Future<List<NewsModel>> _getRecommendedContent(List<String> searchData) async {
     try {
       // Get recommended content based on user preferences
-      final newsList = await newsRepository.getNewsList(
-        page: 1,
-        size: 6,
-        // Add recommendation filter if available
-      );
-
+      final newsList = await newsRepository.getRecommendedNewsList(searchData);
       return newsList;
     } catch (e) {
-      // Return mock data if API fails
       return [];
     }
   }

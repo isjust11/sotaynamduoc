@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "anecdotes": MessageLookupByLibrary.simpleMessage("Anecdotes"),
     "appName": MessageLookupByLibrary.simpleMessage("Số tay nam dược"),
     "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
+    "applications": MessageLookupByLibrary.simpleMessage("Applications"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "basicInfo": MessageLookupByLibrary.simpleMessage("Basic info"),
     "biography": MessageLookupByLibrary.simpleMessage("Biography"),
@@ -55,10 +56,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Birth date incorrect format",
     ),
     "birthPlace": MessageLookupByLibrary.simpleMessage("Birth place"),
+    "bookmark": MessageLookupByLibrary.simpleMessage("Bookmark"),
     "bookmarked": MessageLookupByLibrary.simpleMessage("Bookmarked"),
     "camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "career": MessageLookupByLibrary.simpleMessage("Career"),
+    "categories": MessageLookupByLibrary.simpleMessage("Categories"),
     "changeAppLanguage": MessageLookupByLibrary.simpleMessage(
       "Change app language",
     ),
@@ -104,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "error_connection": MessageLookupByLibrary.simpleMessage(
       "Network connection error",
     ),
+    "exploreTrending": MessageLookupByLibrary.simpleMessage("Explore trending"),
     "facebookAccessTokenFormatInvalid": MessageLookupByLibrary.simpleMessage(
       "Facebook access token format invalid",
     ),
@@ -134,6 +138,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "facebookTimeout": MessageLookupByLibrary.simpleMessage("Facebook timeout"),
     "family": MessageLookupByLibrary.simpleMessage("Family"),
+    "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
+    "featured": MessageLookupByLibrary.simpleMessage("Featured"),
+    "featuredContent": MessageLookupByLibrary.simpleMessage("Featured Content"),
     "featuredMedicine": MessageLookupByLibrary.simpleMessage(
       "Featured medicine",
     ),
@@ -217,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "honors": MessageLookupByLibrary.simpleMessage("Honors"),
+    "innovation": MessageLookupByLibrary.simpleMessage("Innovation"),
     "inputUserName": MessageLookupByLibrary.simpleMessage("Enter username"),
     "instagramLink": MessageLookupByLibrary.simpleMessage("Instagram link"),
     "knowledge": MessageLookupByLibrary.simpleMessage("Knowledge"),
@@ -226,6 +234,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "library": MessageLookupByLibrary.simpleMessage("Library"),
     "light": MessageLookupByLibrary.simpleMessage("Light"),
     "likeCount": MessageLookupByLibrary.simpleMessage("Like count"),
+    "likes": MessageLookupByLibrary.simpleMessage("likes"),
+    "likesCount": MessageLookupByLibrary.simpleMessage("likes"),
     "linkedinLink": MessageLookupByLibrary.simpleMessage("LinkedIn link"),
     "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -272,6 +282,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "No notifications yet",
     ),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("No results found"),
+    "noSearchResults": MessageLookupByLibrary.simpleMessage(
+      "No search results found",
+    ),
     "noTipsFound": MessageLookupByLibrary.simpleMessage("No tips found"),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
@@ -349,6 +362,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please enter your username",
     ),
     "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+    "preciousHerbs": MessageLookupByLibrary.simpleMessage("Precious Herbs"),
     "preparationMethods": MessageLookupByLibrary.simpleMessage(
       "Preparation methods",
     ),
@@ -363,9 +377,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Profile updated successfully",
     ),
     "pullToRefresh": MessageLookupByLibrary.simpleMessage("Pull to refresh"),
+    "quickActions": MessageLookupByLibrary.simpleMessage("Quick Actions"),
     "quotes": MessageLookupByLibrary.simpleMessage("Quotes"),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
     "recent": MessageLookupByLibrary.simpleMessage("Recent"),
+    "recentlyViewed": MessageLookupByLibrary.simpleMessage("Recently viewed"),
+    "recommendedForYou": MessageLookupByLibrary.simpleMessage(
+      "Recommended for you",
+    ),
     "references": MessageLookupByLibrary.simpleMessage("References"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
     "registerSuccess": MessageLookupByLibrary.simpleMessage(
@@ -377,11 +396,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "registerWithGoogle": MessageLookupByLibrary.simpleMessage(
       "Register with Google",
     ),
+    "reload": MessageLookupByLibrary.simpleMessage("Reload"),
     "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
+    "research": MessageLookupByLibrary.simpleMessage("Research"),
     "resend": MessageLookupByLibrary.simpleMessage("Resend PIN"),
     "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "roles": MessageLookupByLibrary.simpleMessage("Roles"),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
+    "savedItems": MessageLookupByLibrary.simpleMessage("Saved items"),
     "saving": MessageLookupByLibrary.simpleMessage("Saving..."),
     "scientificInfo": MessageLookupByLibrary.simpleMessage("Scientific info"),
     "scientificName": MessageLookupByLibrary.simpleMessage("Scientific name"),
@@ -413,6 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "students": MessageLookupByLibrary.simpleMessage("Students"),
     "success": MessageLookupByLibrary.simpleMessage("Success"),
     "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
+    "techniques": MessageLookupByLibrary.simpleMessage("Techniques"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
     "tips": MessageLookupByLibrary.simpleMessage("Tips"),
     "todayYouFeel": MessageLookupByLibrary.simpleMessage(
@@ -421,7 +444,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "tokenExpiredMessage": MessageLookupByLibrary.simpleMessage(
       "The session has expired. Please log in again",
     ),
+    "trending": MessageLookupByLibrary.simpleMessage("Trending"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
+    "tryDifferentKeywords": MessageLookupByLibrary.simpleMessage(
+      "Try searching with different keywords",
+    ),
     "tryDifferentSearch": MessageLookupByLibrary.simpleMessage(
       "Try different search",
     ),
@@ -462,6 +489,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
     "viewCount": MessageLookupByLibrary.simpleMessage("View count"),
     "viewMore": MessageLookupByLibrary.simpleMessage("View More"),
+    "views": MessageLookupByLibrary.simpleMessage("views"),
     "weHaveSentThePinTo": MessageLookupByLibrary.simpleMessage(
       "We have sent the PIN 4 digits to:",
     ),
@@ -471,5 +499,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "You can search for medicine name, symptom ...",
     ),
     "youKnow": MessageLookupByLibrary.simpleMessage("You know?"),
+    "yourFavorites": MessageLookupByLibrary.simpleMessage(
+      "Your favorite items",
+    ),
   };
 }

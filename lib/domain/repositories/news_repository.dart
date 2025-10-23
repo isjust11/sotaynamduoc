@@ -26,6 +26,18 @@ class NewsRepository {
     return await remoteDataSource.getFeaturedNewsList();
   }
 
+  Future<List<NewsModel>> getTrendingNewsList() async {
+    return await remoteDataSource.getTrendingNewsList();
+  }
+
+  Future<List<NewsModel>> getRecommendedNewsList(
+    List<String> searchData,
+  ) async {
+    return await remoteDataSource.getRecommendedNewsList(
+      searchData: searchData,
+    );
+  }
+
   Future<NewsModel> getNewsDetail(String id) async {
     return await remoteDataSource.getNewsDetail(id);
   }

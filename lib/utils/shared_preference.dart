@@ -15,6 +15,7 @@ class SPrefCache {
   static const String PREF_KEY_THEME = "pref_key_theme";
   static const String PREF_KEY_REMEMBER_PASSWORD = "pref_key_remember_password";
   static const String PREF_KEY_CARD_VIEW_TYPE = "pref_card_view_type";
+  static const String PREF_KEY_SEARCH_DATA = "pref_key_search_data";
 }
 
 class SharedPreferenceUtil {
@@ -120,5 +121,15 @@ class SharedPreferenceUtil {
   static Future<bool> getRememberPassword() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(SPrefCache.PREF_KEY_REMEMBER_PASSWORD) ?? false;
+  }
+
+  static Future saveSearchData(List<String> searchData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(SPrefCache.PREF_KEY_SEARCH_DATA, searchData);
+  }
+
+  static Future<List<String>> getSearchData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList(SPrefCache.PREF_KEY_SEARCH_DATA) ?? [];
   }
 }
