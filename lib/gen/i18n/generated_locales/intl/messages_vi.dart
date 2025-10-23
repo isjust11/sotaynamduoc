@@ -297,7 +297,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "news": MessageLookupByLibrary.simpleMessage("Bài viết"),
     "newsDetail": MessageLookupByLibrary.simpleMessage("Chi tiết tin tức"),
     "newsList": MessageLookupByLibrary.simpleMessage("Danh sách tin tức"),
+    "noBookmarksContent": MessageLookupByLibrary.simpleMessage(
+      "Không có nội dung đã lưu",
+    ),
+    "noBookmarksContentSub": MessageLookupByLibrary.simpleMessage(
+      "Hãy lưu các bài viết để xem chúng ở đây",
+    ),
     "noDataAvailable": MessageLookupByLibrary.simpleMessage("Không có dữ liệu"),
+    "noFavoritesContent": MessageLookupByLibrary.simpleMessage(
+      "Không có nội dung yêu thích",
+    ),
+    "noFavoritesContentSub": MessageLookupByLibrary.simpleMessage(
+      "Hãy thích các bài viết để xem chúng ở đây",
+    ),
     "noInfo": MessageLookupByLibrary.simpleMessage("Không có thông tin"),
     "noKnowledgeFound": MessageLookupByLibrary.simpleMessage(
       "Không tìm thấy kiến thức nào",
@@ -312,6 +324,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noNotificationsYet": MessageLookupByLibrary.simpleMessage(
       "Chưa có thông báo nào",
     ),
+    "noRecentContent": MessageLookupByLibrary.simpleMessage(
+      "Không có nội dung gần đây",
+    ),
+    "noRecentContentSub": MessageLookupByLibrary.simpleMessage(
+      "Các bài viết bạn đã xem sẽ xuất hiện ở đây",
+    ),
     "noResultsFound": MessageLookupByLibrary.simpleMessage(
       "Không tìm thấy kết quả",
     ),
@@ -320,6 +338,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noTipsFound": MessageLookupByLibrary.simpleMessage(
       "Không tìm thấy mẹo vặt",
+    ),
+    "noTrendingContent": MessageLookupByLibrary.simpleMessage(
+      "Không có nội dung xu hướng",
+    ),
+    "noTrendingContentSub": MessageLookupByLibrary.simpleMessage(
+      "Hãy khám phá các bài viết mới để xem xu hướng",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Thông báo"),
     "notifications": MessageLookupByLibrary.simpleMessage("Thông báo"),

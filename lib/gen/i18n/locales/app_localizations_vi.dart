@@ -872,4 +872,30 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get featured => 'Nổi bật';
+
+  @override
+  String get noTrendingContent => 'Không có nội dung xu hướng';
+
+  @override
+  String get noFavoritesContent => 'Không có nội dung yêu thích';
+
+  @override
+  String get noRecentContent => 'Không có nội dung gần đây';
+
+  @override
+  String get noBookmarksContent => 'Không có nội dung đã lưu';
+
+  @override
+  String get noTrendingContentSub =>
+      'Hãy khám phá các bài viết mới để xem xu hướng';
+
+  @override
+  String get noFavoritesContentSub =>
+      'Hãy thích các bài viết để xem chúng ở đây';
+
+  @override
+  String get noRecentContentSub => 'Các bài viết bạn đã xem sẽ xuất hiện ở đây';
+
+  @override
+  String get noBookmarksContentSub => 'Hãy lưu các bài viết để xem chúng ở đây';
 }

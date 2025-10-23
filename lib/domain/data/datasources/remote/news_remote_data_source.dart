@@ -63,6 +63,65 @@ class NewsRemoteDataSource {
     return Future.error(apiResponse.message);
   }
 
+  Future<List<NewsModel>> getTrendingList({int page = 1, int size = 10}) async {
+    ApiResponse apiResponse = await network.get(
+      url: '/article/trending',
+      params: {'page': page, 'size': size},
+    );
+
+    if (apiResponse.isSuccess) {
+      List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
+      return data.map((json) => NewsModel.fromJson(json)).toList();
+    }
+
+    return Future.error(apiResponse.message);
+  }
+
+  Future<List<NewsModel>> getFavoriteList({int page = 1, int size = 10}) async {
+    ApiResponse apiResponse = await network.get(
+      url: '/article/favorites',
+      params: {'page': page, 'size': size},
+    );
+
+    if (apiResponse.isSuccess) {
+      List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
+      return data.map((json) => NewsModel.fromJson(json)).toList();
+    }
+
+    return Future.error(apiResponse.message);
+  }
+
+  Future<List<NewsModel>> getRecentList({int page = 1, int size = 10}) async {
+    ApiResponse apiResponse = await network.get(
+      url: '/article/recent',
+      params: {'page': page, 'size': size},
+    );
+
+    if (apiResponse.isSuccess) {
+      List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
+      return data.map((json) => NewsModel.fromJson(json)).toList();
+    }
+
+    return Future.error(apiResponse.message);
+  }
+
+  Future<List<NewsModel>> getBookmarkedList({
+    int page = 1,
+    int size = 10,
+  }) async {
+    ApiResponse apiResponse = await network.get(
+      url: '/article/bookmarks',
+      params: {'page': page, 'size': size},
+    );
+
+    if (apiResponse.isSuccess) {
+      List<dynamic> data = apiResponse.data['data'] ?? apiResponse.data;
+      return data.map((json) => NewsModel.fromJson(json)).toList();
+    }
+
+    return Future.error(apiResponse.message);
+  }
+
   //get recommended new list
   Future<List<NewsModel>> getRecommendedNewsList({
     required List<String> searchData,

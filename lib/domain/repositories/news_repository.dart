@@ -30,6 +30,25 @@ class NewsRepository {
     return await remoteDataSource.getTrendingNewsList();
   }
 
+  Future<List<NewsModel>> getTrendingList({int page = 1, int size = 10}) async {
+    return await remoteDataSource.getTrendingList(page: page, size: size);
+  }
+
+  Future<List<NewsModel>> getFavoriteList({int page = 1, int size = 10}) async {
+    return await remoteDataSource.getFavoriteList(page: page, size: size);
+  }
+
+  Future<List<NewsModel>> getRecentList({int page = 1, int size = 10}) async {
+    return await remoteDataSource.getRecentList(page: page, size: size);
+  }
+
+  Future<List<NewsModel>> getBookmarkedList({
+    int page = 1,
+    int size = 10,
+  }) async {
+    return await remoteDataSource.getBookmarkedList(page: page, size: size);
+  }
+
   Future<List<NewsModel>> getRecommendedNewsList(
     List<String> searchData,
   ) async {

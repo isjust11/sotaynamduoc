@@ -268,8 +268,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "news": MessageLookupByLibrary.simpleMessage("News"),
     "newsDetail": MessageLookupByLibrary.simpleMessage("News detail"),
     "newsList": MessageLookupByLibrary.simpleMessage("News list"),
+    "noBookmarksContent": MessageLookupByLibrary.simpleMessage(
+      "No bookmarked content",
+    ),
+    "noBookmarksContentSub": MessageLookupByLibrary.simpleMessage(
+      "Bookmark articles to see them here",
+    ),
     "noDataAvailable": MessageLookupByLibrary.simpleMessage(
       "No data available",
+    ),
+    "noFavoritesContent": MessageLookupByLibrary.simpleMessage(
+      "No favorite content",
+    ),
+    "noFavoritesContentSub": MessageLookupByLibrary.simpleMessage(
+      "Like articles to see them here",
     ),
     "noInfo": MessageLookupByLibrary.simpleMessage("No information"),
     "noKnowledgeFound": MessageLookupByLibrary.simpleMessage(
@@ -281,11 +293,23 @@ class MessageLookup extends MessageLookupByLibrary {
     "noNotificationsYet": MessageLookupByLibrary.simpleMessage(
       "No notifications yet",
     ),
+    "noRecentContent": MessageLookupByLibrary.simpleMessage(
+      "No recent content",
+    ),
+    "noRecentContentSub": MessageLookupByLibrary.simpleMessage(
+      "Articles you\'ve viewed will appear here",
+    ),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("No results found"),
     "noSearchResults": MessageLookupByLibrary.simpleMessage(
       "No search results found",
     ),
     "noTipsFound": MessageLookupByLibrary.simpleMessage("No tips found"),
+    "noTrendingContent": MessageLookupByLibrary.simpleMessage(
+      "No trending content",
+    ),
+    "noTrendingContentSub": MessageLookupByLibrary.simpleMessage(
+      "Explore new articles to see trending content",
+    ),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "or": MessageLookupByLibrary.simpleMessage("or"),

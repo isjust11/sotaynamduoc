@@ -515,8 +515,13 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 subtitle: AppLocalizations.current.exploreTrending,
                 color: AppColors.primaryBlue,
                 onTap: () {
-                  context.read<DiscoveryBloc>().add(
-                    const LoadQuickActionContent('trending'),
+                  Navigator.pushNamed(
+                    context,
+                    Routes.quickActionScreen,
+                    arguments: {
+                      'actionType': 'trending',
+                      'title': AppLocalizations.current.trending,
+                    },
                   );
                 },
               ),
@@ -529,8 +534,13 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 subtitle: AppLocalizations.current.yourFavorites,
                 color: AppColors.primaryBlue,
                 onTap: () {
-                  context.read<DiscoveryBloc>().add(
-                    const LoadQuickActionContent('favorites'),
+                  Navigator.pushNamed(
+                    context,
+                    Routes.quickActionScreen,
+                    arguments: {
+                      'actionType': 'favorites',
+                      'title': AppLocalizations.current.favorites,
+                    },
                   );
                 },
               ),
@@ -547,8 +557,13 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 subtitle: AppLocalizations.current.recentlyViewed,
                 color: AppColors.primaryBlue,
                 onTap: () {
-                  context.read<DiscoveryBloc>().add(
-                    const LoadQuickActionContent('recent'),
+                  Navigator.pushNamed(
+                    context,
+                    Routes.quickActionScreen,
+                    arguments: {
+                      'actionType': 'recent',
+                      'title': AppLocalizations.current.recent,
+                    },
                   );
                 },
               ),
@@ -561,8 +576,13 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                 subtitle: AppLocalizations.current.savedItems,
                 color: AppColors.primaryBlue,
                 onTap: () {
-                  context.read<DiscoveryBloc>().add(
-                    const LoadQuickActionContent('bookmarks'),
+                  Navigator.pushNamed(
+                    context,
+                    Routes.quickActionScreen,
+                    arguments: {
+                      'actionType': 'bookmarks',
+                      'title': AppLocalizations.current.bookmark,
+                    },
                   );
                 },
               ),
@@ -635,7 +655,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomTextLabel(
-            'Xu hướng',
+            AppLocalizations.current.trending,
             fontSize: 18.sw,
             fontWeight: FontWeight.bold,
             color: AppColors.textDark,

@@ -111,7 +111,9 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   ) async {
     try {
       emit(DiscoveryLoading());
-      final recommendedItems = await _getRecommendedContent(event.searchData ?? []);
+      final recommendedItems = await _getRecommendedContent(
+        event.searchData ?? [],
+      );
       emit(
         DiscoveryDataLoaded(
           featuredItems: const [],
@@ -248,12 +250,21 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     Emitter<DiscoveryState> emit,
   ) async {
     try {
-      emit(DiscoveryLoading());
-      final actionItems = await _getQuickActionContent(event.actionType);
+      if (!event.isLoadMore) {
+        emit(DiscoveryLoading());
+      }
+
+      final actionItems = await _getQuickActionContentWithPagination(
+        event.actionType,
+        event.page,
+        event.pageSize,
+      );
+
       emit(
-        DiscoveryQuickActionLoaded(
-          actionItems: actionItems,
+        QuickActionDataLoaded(
+          items: actionItems,
           actionType: event.actionType,
+          isLoadMore: event.isLoadMore,
         ),
       );
     } catch (e) {
@@ -288,7 +299,9 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     }
   }
 
-  Future<List<NewsModel>> _getRecommendedContent(List<String> searchData) async {
+  Future<List<NewsModel>> _getRecommendedContent(
+    List<String> searchData,
+  ) async {
     try {
       // Get recommended content based on user preferences
       final newsList = await newsRepository.getRecommendedNewsList(searchData);
@@ -327,20 +340,21 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     }
   }
 
-  Future<List<NewsModel>> _getQuickActionContent(String actionType) async {
+  Future<List<NewsModel>> _getQuickActionContentWithPagination(
+    String actionType,
+    int page,
+    int pageSize,
+  ) async {
     try {
       switch (actionType) {
         case 'trending':
-          return await _getTrendingContent();
+          return await _getTrendingContentWithPagination(page, pageSize);
         case 'favorites':
-          // Get user's favorite content
-          return await _getFavoriteContent();
+          return await _getFavoriteContentWithPagination(page, pageSize);
         case 'recent':
-          // Get recently viewed content
-          return await _getRecentContent();
+          return await _getRecentContentWithPagination(page, pageSize);
         case 'bookmarks':
-          // Get bookmarked content
-          return await _getBookmarkedContent();
+          return await _getBookmarkedContentWithPagination(page, pageSize);
         default:
           return [];
       }
@@ -349,18 +363,47 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     }
   }
 
-  Future<List<NewsModel>> _getFavoriteContent() async {
-    // This would need to be implemented based on user preferences
-    return [];
+  Future<List<NewsModel>> _getTrendingContentWithPagination(
+    int page,
+    int pageSize,
+  ) async {
+    try {
+      return await newsRepository.getTrendingList(page: page, size: pageSize);
+    } catch (e) {
+      return [];
+    }
   }
 
-  Future<List<NewsModel>> _getRecentContent() async {
-    // This would need to be implemented based on user history
-    return [];
+  Future<List<NewsModel>> _getFavoriteContentWithPagination(
+    int page,
+    int pageSize,
+  ) async {
+    try {
+      return await newsRepository.getFavoriteList(page: page, size: pageSize);
+    } catch (e) {
+      return [];
+    }
   }
 
-  Future<List<NewsModel>> _getBookmarkedContent() async {
-    // This would need to be implemented based on user bookmarks
-    return [];
+  Future<List<NewsModel>> _getRecentContentWithPagination(
+    int page,
+    int pageSize,
+  ) async {
+    try {
+      return await newsRepository.getRecentList(page: page, size: pageSize);
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<NewsModel>> _getBookmarkedContentWithPagination(
+    int page,
+    int pageSize,
+  ) async {
+    try {
+      return await newsRepository.getBookmarkedList(page: page, size: pageSize);
+    } catch (e) {
+      return [];
+    }
   }
 }

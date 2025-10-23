@@ -290,5 +290,13 @@
   "likes": "thích",
   "likesCount": "lượt thích",
   "innovation": "Đổi mới",
-  "featured": "Nổi bật"
+  "featured": "Nổi bật",
+  "noTrendingContent": "Không có nội dung xu hướng",
+  "noFavoritesContent": "Không có nội dung yêu thích",
+  "noRecentContent": "Không có nội dung gần đây",
+  "noBookmarksContent": "Không có nội dung đã lưu",
+  "noTrendingContentSub": "Hãy khám phá các bài viết mới để xem xu hướng",
+  "noFavoritesContentSub": "Hãy thích các bài viết để xem chúng ở đây",
+  "noRecentContentSub": "Các bài viết bạn đã xem sẽ xuất hiện ở đây",
+  "noBookmarksContentSub": "Hãy lưu các bài viết để xem chúng ở đây"
 }

@@ -87,9 +87,17 @@ class LoadCategoryContent extends DiscoveryEvent {
 
 class LoadQuickActionContent extends DiscoveryEvent {
   final String actionType; // 'trending', 'favorites', 'recent', 'bookmarks'
+  final int page;
+  final int pageSize;
+  final bool isLoadMore;
 
-  const LoadQuickActionContent(this.actionType);
+  const LoadQuickActionContent(
+    this.actionType, {
+    this.page = 1,
+    this.pageSize = 10,
+    this.isLoadMore = false,
+  });
 
   @override
-  List<Object> get props => [actionType];
+  List<Object> get props => [actionType, page, pageSize, isLoadMore];
 }

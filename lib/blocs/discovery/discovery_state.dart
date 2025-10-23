@@ -97,6 +97,21 @@ class DiscoveryQuickActionLoaded extends DiscoveryState {
   List<Object> get props => [actionItems, actionType];
 }
 
+class QuickActionDataLoaded extends DiscoveryState {
+  final List<NewsModel> items;
+  final String actionType;
+  final bool isLoadMore;
+
+  const QuickActionDataLoaded({
+    required this.items,
+    required this.actionType,
+    this.isLoadMore = false,
+  });
+
+  @override
+  List<Object> get props => [items, actionType, isLoadMore];
+}
+
 class DiscoveryError extends DiscoveryState {
   final String message;
 

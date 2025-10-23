@@ -2363,6 +2363,86 @@ class AppLocalizations {
   String get featured {
     return Intl.message('Nổi bật', name: 'featured', desc: '', args: []);
   }
+
+  /// `Không có nội dung xu hướng`
+  String get noTrendingContent {
+    return Intl.message(
+      'Không có nội dung xu hướng',
+      name: 'noTrendingContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Không có nội dung yêu thích`
+  String get noFavoritesContent {
+    return Intl.message(
+      'Không có nội dung yêu thích',
+      name: 'noFavoritesContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Không có nội dung gần đây`
+  String get noRecentContent {
+    return Intl.message(
+      'Không có nội dung gần đây',
+      name: 'noRecentContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Không có nội dung đã lưu`
+  String get noBookmarksContent {
+    return Intl.message(
+      'Không có nội dung đã lưu',
+      name: 'noBookmarksContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hãy khám phá các bài viết mới để xem xu hướng`
+  String get noTrendingContentSub {
+    return Intl.message(
+      'Hãy khám phá các bài viết mới để xem xu hướng',
+      name: 'noTrendingContentSub',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hãy thích các bài viết để xem chúng ở đây`
+  String get noFavoritesContentSub {
+    return Intl.message(
+      'Hãy thích các bài viết để xem chúng ở đây',
+      name: 'noFavoritesContentSub',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Các bài viết bạn đã xem sẽ xuất hiện ở đây`
+  String get noRecentContentSub {
+    return Intl.message(
+      'Các bài viết bạn đã xem sẽ xuất hiện ở đây',
+      name: 'noRecentContentSub',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hãy lưu các bài viết để xem chúng ở đây`
+  String get noBookmarksContentSub {
+    return Intl.message(
+      'Hãy lưu các bài viết để xem chúng ở đây',
+      name: 'noBookmarksContentSub',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

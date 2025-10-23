@@ -1795,6 +1795,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Featured'**
   String get featured;
+
+  /// No description provided for @noTrendingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No trending content'**
+  String get noTrendingContent;
+
+  /// No description provided for @noFavoritesContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No favorite content'**
+  String get noFavoritesContent;
+
+  /// No description provided for @noRecentContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No recent content'**
+  String get noRecentContent;
+
+  /// No description provided for @noBookmarksContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No bookmarked content'**
+  String get noBookmarksContent;
+
+  /// No description provided for @noTrendingContentSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore new articles to see trending content'**
+  String get noTrendingContentSub;
+
+  /// No description provided for @noFavoritesContentSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Like articles to see them here'**
+  String get noFavoritesContentSub;
+
+  /// No description provided for @noRecentContentSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Articles you\'ve viewed will appear here'**
+  String get noRecentContentSub;
+
+  /// No description provided for @noBookmarksContentSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark articles to see them here'**
+  String get noBookmarksContentSub;
 }
 
 class _AppLocalizationsDelegate

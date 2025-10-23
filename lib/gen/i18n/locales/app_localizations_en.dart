@@ -866,4 +866,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get featured => 'Featured';
+
+  @override
+  String get noTrendingContent => 'No trending content';
+
+  @override
+  String get noFavoritesContent => 'No favorite content';
+
+  @override
+  String get noRecentContent => 'No recent content';
+
+  @override
+  String get noBookmarksContent => 'No bookmarked content';
+
+  @override
+  String get noTrendingContentSub =>
+      'Explore new articles to see trending content';
+
+  @override
+  String get noFavoritesContentSub => 'Like articles to see them here';
+
+  @override
+  String get noRecentContentSub => 'Articles you\'ve viewed will appear here';
+
+  @override
+  String get noBookmarksContentSub => 'Bookmark articles to see them here';
 }

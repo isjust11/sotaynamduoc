@@ -6,6 +6,7 @@ import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sotaynamduoc/ui/screen/shortcut_page/discovery/discovery_screen.dart';
 import 'package:sotaynamduoc/ui/screen/shortcut_page/knowledge/knowledge_screen.dart';
+import 'package:sotaynamduoc/ui/screen/shortcut_page/discovery/quick_action_screen.dart';
 import 'package:sotaynamduoc/ui/screen/test/fcm_test_screen.dart';
 
 import 'domain/data/models/models.dart';
@@ -45,6 +46,7 @@ class Routes {
   static const String knowledgeListScreen = "/knowledgeListScreen";
   static const String knowledgeDetailScreen = "/knowledgeDetailScreen";
   static const String discoveryScreen = "/discoveryScreen";
+  static const String quickActionScreen = "/quickActionScreen";
   //init screen name
   static String initScreen() => splashScreen;
 
@@ -163,6 +165,15 @@ class Routes {
       case discoveryScreen:
         return PageTransition(
           child: DiscoveryScreen(),
+          type: PageTransitionType.fade,
+        );
+      case quickActionScreen:
+        final args = settings.arguments as Map<String, String>;
+        return PageTransition(
+          child: QuickActionScreen(
+            actionType: args['actionType']!,
+            title: args['title']!,
+          ),
           type: PageTransitionType.fade,
         );
       default:
