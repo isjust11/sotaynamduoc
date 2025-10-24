@@ -22,8 +22,8 @@ class NewsRepository {
     );
   }
 
-  Future<List<NewsModel>> getFeaturedNewsList() async {
-    return await remoteDataSource.getFeaturedNewsList();
+  Future<List<NewsModel>> getFeaturedNewsList(int page, int pageSize) async {
+    return await remoteDataSource.getFeaturedNewsList(page, pageSize);
   }
 
   Future<List<NewsModel>> getTrendingNewsList() async {
