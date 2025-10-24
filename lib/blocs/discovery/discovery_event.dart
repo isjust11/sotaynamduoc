@@ -8,8 +8,10 @@ abstract class DiscoveryEvent extends Equatable {
 }
 
 class LoadDiscoveryData extends DiscoveryEvent {
+  final int page;
+  final int pageSize;
   final List<String>? searchData;
-  const LoadDiscoveryData({required this.searchData});
+  const LoadDiscoveryData(this.page, this.pageSize, {required this.searchData});
 
   @override
   List<Object> get props => [searchData ?? []];

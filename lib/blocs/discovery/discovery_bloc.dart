@@ -41,7 +41,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
       emit(DiscoveryLoading());
 
       // Load all discovery data in parallel
-      final featuredFuture = _getFeaturedContent();
+      final featuredFuture = _getFeaturedContent(event.page, event.pageSize);
       final trendingFuture = _getTrendingContent();
       final recommendedFuture = _getRecommendedContent(event.searchData ?? []);
 
@@ -73,7 +73,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   ) async {
     try {
       emit(DiscoveryLoading());
-      final featuredItems = await _getFeaturedContent();
+      final featuredItems = await _getFeaturedContent(1, 10);
       emit(
         DiscoveryDataLoaded(
           featuredItems: featuredItems,
@@ -133,7 +133,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     try {
       if (event.searchTerm.isEmpty) {
         // If search is empty, return to main discovery data
-        add(LoadDiscoveryData(searchData: event.searchTerm.split(' ')));
+        add(LoadDiscoveryData(1, 10, searchData: event.searchTerm.split(' ')));
         return;
       }
 
@@ -161,7 +161,7 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
     RefreshDiscovery event,
     Emitter<DiscoveryState> emit,
   ) async {
-    add(LoadDiscoveryData(searchData: []));
+    add(LoadDiscoveryData(1, 10, searchData: []));
   }
 
   Future<void> _onUpdateContentLike(
@@ -277,10 +277,10 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
   }
 
   // Helper methods to get data from repositories
-  Future<List<NewsModel>> _getFeaturedContent() async {
+  Future<List<NewsModel>> _getFeaturedContent(int page, int pageSize) async {
     try {
       // Get featured news/articles most viewed
-      final newsList = await newsRepository.getFeaturedNewsList();
+      final newsList = await newsRepository.getFeaturedNewsList(page, pageSize);
       return newsList;
     } catch (e) {
       return Future.error(e);

@@ -28,7 +28,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
     _startFeaturedCarousel();
     // Load discovery data
     context.read<DiscoveryBloc>().add(
-      LoadDiscoveryData(searchData: _searchData),
+      LoadDiscoveryData(1, 5, searchData: _searchData),
     );
   }
 
@@ -94,7 +94,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
                   ElevatedButton(
                     onPressed: () {
                       context.read<DiscoveryBloc>().add(
-                        LoadDiscoveryData(searchData: _searchData),
+                        LoadDiscoveryData(1, 5, searchData: _searchData),
                       );
                     },
                     child: Text(AppLocalizations.current.tryAgain),
@@ -125,13 +125,13 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           context.read<DiscoveryBloc>().add(SearchDiscovery(value));
         } else {
           context.read<DiscoveryBloc>().add(
-            LoadDiscoveryData(searchData: _searchData),
+            LoadDiscoveryData(1, 5, searchData: _searchData),
           );
         }
       },
       onSearchCanceled: () {
         context.read<DiscoveryBloc>().add(
-          LoadDiscoveryData(searchData: _searchData),
+          LoadDiscoveryData(1, 5, searchData: _searchData),
         );
       },
     );
@@ -211,7 +211,7 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           ElevatedButton(
             onPressed: () {
               context.read<DiscoveryBloc>().add(
-                LoadDiscoveryData(searchData: _searchData),
+                LoadDiscoveryData(1, 5, searchData: _searchData),
               );
             },
             child: Text(AppLocalizations.current.reload),

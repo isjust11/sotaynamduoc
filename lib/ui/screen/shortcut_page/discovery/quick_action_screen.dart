@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
@@ -232,7 +233,7 @@ class _QuickActionScreenState extends State<QuickActionScreen> {
                   color: AppColors.lightGreyBackground,
                   child: item.thumbnail != null && item.thumbnail!.isNotEmpty
                       ? BaseNetworkImage(
-                          url: 'https://your-api-host.com' + item.thumbnail!,
+                          url: ApiConstant.storageHost + item.thumbnail!,
                           width: 80.sw,
                           height: 80.sw,
                           fit: BoxFit.cover,
