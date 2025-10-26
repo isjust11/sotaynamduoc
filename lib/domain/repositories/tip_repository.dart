@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
+import 'package:sotaynamduoc/domain/data/models/category_model.dart';
 import 'package:sotaynamduoc/domain/data/models/tip_model.dart';
 
 class TipRepository {
@@ -30,7 +32,7 @@ class TipRepository {
     return await _dataSource.getTipDetail(tipId);
   }
 
-  Future<List<TipCategory>> getTipCategories() async {
+  Future<List<CategoryModel>> getTipCategories() async {
     return await _dataSource.getTipCategories();
   }
 

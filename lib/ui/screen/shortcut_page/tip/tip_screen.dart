@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
-import 'package:sotaynamduoc/blocs/tip/tip_cubit.dart';
+import 'package:sotaynamduoc/blocs/cubit.dart';
+import 'package:sotaynamduoc/blocs/tip/tip_bloc.dart';
+import 'package:sotaynamduoc/blocs/tip/tip_event.dart';
 import 'package:sotaynamduoc/blocs/tip/tip_state.dart';
+import 'package:sotaynamduoc/domain/data/enums/category_type.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/data/models/tip_model.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
+import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/ui/screen/shortcut_page/tip/tip_detail_screen.dart';
@@ -18,23 +23,28 @@ class TipScreen extends StatefulWidget {
   State<TipScreen> createState() => _TipScreenState();
 }
 
-class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
-  late TabController _tabController;
+class _TipScreenState extends State<TipScreen> {
   final TextEditingController _searchController = TextEditingController();
   String _selectedCategory = '';
-  String _selectedDifficulty = '';
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-    context.read<TipCubit>().getTipList();
-    context.read<TipCubit>().getTipCategories();
+    context.read<CategoryCubit>().getCategories(
+      categoryTypeCode: CategoryType.Discovery.value,
+    );
+    context.read<TipBloc>().add(
+      LoadTipList(
+        page: 1,
+        size: 10,
+        categoryId: _selectedCategory.isNotEmpty ? _selectedCategory : null,
+      ),
+    );
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
     _searchController.dispose();
     super.dispose();
   }
@@ -42,21 +52,43 @@ class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      title: AppLocalizations.current.tips.toUpperCase(),
+      title: AppLocalizations.current.tips,
       customAppBar: _buildAppBar(context),
       body: Column(
         children: [
-          // _buildSearchAndFilterSection(),
-          _buildTabBar(),
+          _buildCategoryFilter(),
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildAllTipsTab(),
-                _buildPopularTipsTab(),
-                _buildRecentTipsTab(),
-                _buildBookmarkedTipsTab(),
-              ],
+            child: BlocBuilder<TipBloc, TipState>(
+              buildWhen: (prev, curr) => curr is TipListLoaded,
+              builder: (context, state) {
+                if (state is TipListLoaded) {
+                  final filteredItems = _getFilteredItems(state.tipList);
+                  if (filteredItems.isEmpty) {
+                    return _buildEmptyWidget();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppDimens.SIZE_8,
+                      horizontal: AppDimens.SIZE_8,
+                    ),
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      itemCount: filteredItems.length,
+                      separatorBuilder: (_, __) =>
+                          SizedBox(height: AppDimens.SIZE_12),
+                      itemBuilder: (context, idx) {
+                        final item = filteredItems[idx];
+                        return _buildTipCard(item);
+                      },
+                    ),
+                  );
+                } else if (state is TipLoading) {
+                  return const LoadingTemplate();
+                } else if (state is TipError || state is TipEmpty) {
+                  return _buildEmptyWidget();
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ),
         ],
@@ -70,251 +102,175 @@ class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
       showBackButton: true,
       backgroundColor: AppColors.secondaryBrand,
       onSearchChanged: (value) {
-        // _debounceTimer?.cancel();
+        setState(() {
+          _searchQuery = value;
+        });
       },
-      onSearchCanceled: () {},
-      // onSearchCanceled: () {
-      //   context.read<TipCubit>().getTipList();
-      // },
+      onSearchCanceled: () {
+        setState(() {
+          _searchQuery = '';
+        });
+      },
     );
   }
 
-  Widget _buildTabBar() {
+  Widget _buildCategoryFilter() {
     return Container(
-      color: AppColors.white,
-      child: TabBar(
-        controller: _tabController,
-        labelColor: AppColors.primaryBlue,
-        unselectedLabelColor: AppColors.textMediumGrey,
-        indicatorColor: AppColors.primaryBlue,
-        indicatorWeight: 1,
-        labelStyle: TextStyle(fontSize: 12.sw, fontWeight: FontWeight.w600),
-        unselectedLabelStyle: TextStyle(
-          fontSize: 12.sw,
-          fontWeight: FontWeight.w400,
-        ),
-        tabs: [
-          Tab(text: AppLocalizations.current.all),
-          Tab(text: AppLocalizations.current.popular),
-          Tab(text: AppLocalizations.current.recent),
-          Tab(text: AppLocalizations.current.bookmarked),
-        ],
+      padding: EdgeInsets.symmetric(
+        horizontal: AppDimens.SIZE_8,
+        vertical: AppDimens.SIZE_8,
       ),
-    );
-  }
-
-  Widget _buildAllTipsTab() {
-    return BlocBuilder<TipCubit, BaseState>(
-      builder: (context, state) {
-        if (state is LoadingTipListState) {
-          return _buildLoadingWidget();
-        } else if (state is LoadedTipListState) {
-          return _buildTipsList(state.tips);
-        } else if (state is ErrorTipListState) {
-          return _buildErrorWidget(state.message);
-        }
-        return _buildEmptyWidget();
-      },
-    );
-  }
-
-  Widget _buildPopularTipsTab() {
-    return BlocBuilder<TipCubit, BaseState>(
-      builder: (context, state) {
-        if (state is LoadingPopularTipsState) {
-          return _buildLoadingWidget();
-        } else if (state is LoadedPopularTipsState) {
-          return _buildTipsList(state.popularTips);
-        } else if (state is ErrorPopularTipsState) {
-          return _buildErrorWidget(state.message);
-        }
-        return _buildEmptyWidget();
-      },
-    );
-  }
-
-  Widget _buildRecentTipsTab() {
-    return BlocBuilder<TipCubit, BaseState>(
-      builder: (context, state) {
-        if (state is LoadingRecentTipsState) {
-          return _buildLoadingWidget();
-        } else if (state is LoadedRecentTipsState) {
-          return _buildTipsList(state.recentTips);
-        } else if (state is ErrorRecentTipsState) {
-          return _buildErrorWidget(state.message);
-        }
-        return _buildEmptyWidget();
-      },
-    );
-  }
-
-  Widget _buildBookmarkedTipsTab() {
-    return BlocBuilder<TipCubit, BaseState>(
-      builder: (context, state) {
-        if (state is LoadingBookmarkedTipsState) {
-          return _buildLoadingWidget();
-        } else if (state is LoadedBookmarkedTipsState) {
-          return _buildTipsList(state.bookmarkedTips);
-        } else if (state is ErrorBookmarkedTipsState) {
-          return _buildErrorWidget(state.message);
-        }
-        return _buildEmptyWidget();
-      },
-    );
-  }
-
-  Widget _buildTipsList(List<TipModel> tips) {
-    if (tips.isEmpty) {
-      return _buildEmptyWidget();
-    }
-
-    return ListView.builder(
-      padding: EdgeInsets.all(16.sw),
-      itemCount: tips.length,
-      itemBuilder: (context, index) {
-        final tip = tips[index];
-        return _buildTipCard(tip);
-      },
-    );
-  }
-
-  Widget _buildTipCard(TipModel tip) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16.sw),
       decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12.sw),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            blurRadius: AppDimens.SIZE_8,
+            offset: Offset(0, AppDimens.SIZE_2),
           ),
         ],
       ),
-      child: InkWell(
-        onTap: () => _navigateToTipDetail(tip),
-        borderRadius: BorderRadius.circular(12.sw),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Thumbnail
-            if (tip.thumbnail != null && tip.thumbnail!.isNotEmpty)
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12.sw),
-                  topRight: Radius.circular(12.sw),
-                ),
-                child: BaseNetworkImage(
-                  url: tip.thumbnail!,
-                  width: double.infinity,
-                  height: 200.sw,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            // Content
-            Padding(
-              padding: EdgeInsets.all(16.sw),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Title
-                  CustomTextLabel(
-                    tip.title ?? '',
-                    fontSize: 16.sw,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textDark,
-                    maxLines: 2,
-                  ),
-                  SizedBox(height: 8.sw),
-                  // Summary
-                  CustomTextLabel(
-                    tip.summary ?? '',
-                    fontSize: 14.sw,
-                    color: AppColors.textMediumGrey,
-                    maxLines: 3,
-                  ),
-                  SizedBox(height: 12.sw),
-                  // Meta info
-                  Row(
-                    children: [
-                      _buildMetaInfo(
-                        Icons.schedule,
-                        tip.estimatedTime ?? '5 phút',
-                        AppColors.textMediumGrey,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: BlocBuilder<CategoryCubit, BaseState>(
+          builder: (context, state) {
+            if (state is LoadedState<List<CategoryModel>>) {
+              final categories = state.data;
+
+              return Row(
+                children: categories.map((category) {
+                  final isSelected = _selectedCategory == category.id;
+                  return Container(
+                    margin: EdgeInsets.only(right: AppDimens.SIZE_8),
+                    child: FilterChip(
+                      label: CustomTextLabel(
+                        category.name,
+                        fontSize: AppDimens.SIZE_12,
+                        color: isSelected
+                            ? AppColors.white
+                            : AppColors.textDark,
                       ),
-                      SizedBox(width: 16.sw),
-                      _buildMetaInfo(
-                        Icons.trending_up,
-                        tip.difficulty ?? 'Dễ',
-                        AppColors.textMediumGrey,
-                      ),
-                      const Spacer(),
-                      _buildActionButtons(tip),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
+                      selected: isSelected,
+                      onSelected: (selected) {
+                        setState(() {
+                          _selectedCategory = (selected ? category.id : '')!;
+                        });
+                      },
+                      backgroundColor: AppColors.lightGreyBackground,
+                      selectedColor: AppColors.primaryBlue,
+                      checkmarkColor: AppColors.white,
+                    ),
+                  );
+                }).toList(),
+              );
+            }
+            return const SizedBox();
+          },
         ),
       ),
     );
   }
 
-  Widget _buildMetaInfo(IconData icon, String text, Color color) {
-    return Row(
-      children: [
-        Icon(icon, size: 14.sw, color: color),
-        SizedBox(width: 4.sw),
-        CustomTextLabel(text, fontSize: 12.sw, color: color),
-      ],
+  List<TipModel> _getFilteredItems(List<TipModel> items) {
+    List<TipModel> filteredItems = items;
+
+    // Filter by category
+    if (_selectedCategory.isNotEmpty &&
+        _selectedCategory != AppLocalizations.current.all) {
+      filteredItems = filteredItems
+          .where((item) => item.category == _selectedCategory)
+          .toList();
+    }
+
+    // Filter by search query
+    if (_searchQuery.isNotEmpty) {
+      filteredItems = filteredItems
+          .where(
+            (item) =>
+                item.title!.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                ) ||
+                item.summary!.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                ) ||
+                item.author!.contains(_searchQuery.toLowerCase()),
+          )
+          .toList();
+    }
+
+    return filteredItems;
+  }
+
+  Widget _buildTipCard(TipModel item) {
+    return CardColItemWidget(
+      onTap: () => _navigateToTipDetail(item),
+      title: item.title ?? '',
+      summary: item.summary ?? '',
+      thumbnail: item.thumbnail ?? '',
+      category: item.category ?? '',
+      views: item.viewCount ?? 0,
+      author: item.author ?? '',
+      isLiked: (item.likeCount ?? 0) > 0,
+      isBookmarked: (item.bookmarkCount ?? 0) > 0,
+      actionButtons: _buildActionButtons(
+        isLiked: item.isLiked ?? false,
+        isBookmarked: item.isBookmarked ?? false,
+        onShare: () {
+          // Implement share functionality
+        },
+        onLiked: (isLiked) {
+          setState(() {
+            // Update like status
+          });
+        },
+        onBookmarked: (isBookmarked) {
+          setState(() {
+            // Update bookmark status
+          });
+        },
+      ),
     );
   }
 
-  Widget _buildActionButtons(TipModel tip) {
+  Widget _buildActionButtons({
+    required Function(bool) onLiked,
+    required Function(bool) onBookmarked,
+    required bool isLiked,
+    required bool isBookmarked,
+    required Function() onShare,
+  }) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         // Like button
         GestureDetector(
           onTap: () {
-            if (tip.isLiked == true) {
-              context.read<TipCubit>().unlikeTip(tip.id!);
-            } else {
-              context.read<TipCubit>().likeTip(tip.id!);
-            }
+            onLiked(!isLiked);
           },
           child: Icon(
-            tip.isLiked == true ? Icons.favorite : Icons.favorite_border,
+            isLiked ? Icons.favorite : Icons.favorite_border,
             size: 20.sw,
-            color: tip.isLiked == true
-                ? AppColors.errorRed
-                : AppColors.textMediumGrey,
+            color: isLiked ? AppColors.errorRed : AppColors.textMediumGrey,
           ),
         ),
-        SizedBox(width: 16.sw),
+        SizedBox(width: 12.sw),
         // Bookmark button
         GestureDetector(
           onTap: () {
-            if (tip.isBookmarked == true) {
-              context.read<TipCubit>().unbookmarkTip(tip.id!);
-            } else {
-              context.read<TipCubit>().bookmarkTip(tip.id!);
-            }
+            onBookmarked(!isBookmarked);
           },
           child: Icon(
-            tip.isBookmarked == true ? Icons.bookmark : Icons.bookmark_border,
+            isBookmarked ? Icons.bookmark : Icons.bookmark_border,
             size: 20.sw,
-            color: tip.isBookmarked == true
+            color: isBookmarked
                 ? AppColors.primaryBlue
                 : AppColors.textMediumGrey,
           ),
         ),
-        SizedBox(width: 16.sw),
+        SizedBox(width: 12.sw),
         // Share button
         GestureDetector(
           onTap: () {
-            context.read<TipCubit>().shareTip(tip.id!);
+            onShare();
           },
           child: Icon(
             Icons.share,
@@ -323,51 +279,6 @@ class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildLoadingWidget() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircularProgressIndicator(color: AppColors.primaryBlue),
-          SizedBox(height: 16.sw),
-          CustomTextLabel(
-            AppLocalizations.current.loading,
-            fontSize: 14.sw,
-            color: AppColors.textMediumGrey,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildErrorWidget(String message) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error_outline, size: 48.sw, color: AppColors.errorRed),
-          SizedBox(height: 16.sw),
-          CustomTextLabel(
-            message,
-            fontSize: 14.sw,
-            color: AppColors.textDark,
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 16.sw),
-          ElevatedButton(
-            onPressed: () {
-              context.read<TipCubit>().getTipList(refresh: true);
-            },
-            child: CustomTextLabel(
-              AppLocalizations.current.retry,
-              color: AppColors.white,
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -390,7 +301,7 @@ class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
           ),
           SizedBox(height: 8.sw),
           CustomTextLabel(
-            AppLocalizations.current.tryDifferentSearch,
+            AppLocalizations.current.trySearchingWithDifferentKeywords,
             fontSize: 12.sw,
             color: AppColors.textMediumGrey,
             textAlign: TextAlign.center,
@@ -400,12 +311,12 @@ class _TipScreenState extends State<TipScreen> with TickerProviderStateMixin {
     );
   }
 
-  void _navigateToTipDetail(TipModel tip) {
-    if (tip.id != null) {
+  void _navigateToTipDetail(TipModel item) {
+    if (item.id != null) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TipDetailScreen(tipId: tip.id!),
+          builder: (context) => TipDetailScreen(tipId: item.id!),
         ),
       );
     }

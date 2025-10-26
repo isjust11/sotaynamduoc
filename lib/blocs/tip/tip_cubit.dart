@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/blocs/tip/tip_state.dart';
 import 'package:sotaynamduoc/blocs/utils.dart';
+import 'package:sotaynamduoc/domain/data/models/category_model.dart';
 import 'package:sotaynamduoc/domain/repositories/tip_repository.dart';
 import 'package:sotaynamduoc/domain/data/models/tip_model.dart';
 
@@ -9,7 +10,7 @@ class TipCubit extends Cubit<BaseState> {
   final TipRepository repository;
 
   List<TipModel> tips = [];
-  List<TipCategory> categories = [];
+  List<CategoryModel> categories = [];
   TipModel? currentTip;
   bool hasMore = true;
   int currentPage = 1;
@@ -34,16 +35,13 @@ class TipCubit extends Cubit<BaseState> {
   }) async {
     try {
       if (refresh) {
-        emit(LoadingTipListState());
+        emit(LoadingState());
         tips.clear();
         currentPage = 1;
         hasMore = true;
       } else if (page == 1) {
-        emit(LoadingTipListState());
-      } else {
-        emit(LoadingMoreTipListState());
+        emit(LoadingState());
       }
-
       currentSearch = search;
       currentCategory = category;
       currentDifficulty = difficulty;
@@ -69,15 +67,15 @@ class TipCubit extends Cubit<BaseState> {
       currentPage = page;
       hasMore = newTips.length >= size;
 
-      emit(LoadedTipListState(tips));
+      emit(LoadedState(tips));
     } catch (e) {
-      emit(ErrorTipListState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
   // Load more tips
   void loadMoreTips() {
-    if (hasMore && state is! LoadingMoreTipListState) {
+    if (hasMore && state is! TipLoading) {
       getTipList(
         page: currentPage + 1,
         search: currentSearch,
@@ -91,73 +89,73 @@ class TipCubit extends Cubit<BaseState> {
   // Get tip detail
   void getTipDetail(String tipId) async {
     try {
-      emit(LoadingTipDetailState());
+      emit(LoadingState());
       currentTip = await repository.getTipDetail(tipId);
       if (currentTip != null) {
-        emit(LoadedTipDetailState(currentTip!));
+        emit(LoadedState(currentTip!));
       } else {
-        emit(ErrorTipDetailState('Không tìm thấy tip'));
+        emit(ErrorState('Không tìm thấy tip'));
       }
     } catch (e) {
-      emit(ErrorTipDetailState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
   // Get categories
   void getTipCategories() async {
     try {
-      emit(LoadingTipCategoriesState());
+      emit(LoadingState());
       categories = await repository.getTipCategories();
-      emit(LoadedTipCategoriesState(categories));
+      emit(LoadedState(categories));
     } catch (e) {
-      emit(ErrorTipCategoriesState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
   // Get related tips
   void getRelatedTips(String tipId, {int limit = 5}) async {
     try {
-      emit(LoadingRelatedTipsState());
+      emit(LoadingState());
       final relatedTips = await repository.getRelatedTips(tipId, limit: limit);
-      emit(LoadedRelatedTipsState(relatedTips));
+      emit(LoadedState(relatedTips));
     } catch (e) {
-      emit(ErrorRelatedTipsState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
   // Get popular tips
   void getPopularTips({int limit = 10}) async {
     try {
-      emit(LoadingPopularTipsState());
+      emit(LoadingState());
       final popularTips = await repository.getPopularTips(limit: limit);
-      emit(LoadedPopularTipsState(popularTips));
+      emit(LoadedState(popularTips));
     } catch (e) {
-      emit(ErrorPopularTipsState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
   // Get recent tips
   void getRecentTips({int limit = 10}) async {
     try {
-      emit(LoadingRecentTipsState());
+      emit(LoadingState());
       final recentTips = await repository.getRecentTips(limit: limit);
-      emit(LoadedRecentTipsState(recentTips));
+      emit(LoadedState(recentTips));
     } catch (e) {
-      emit(ErrorRecentTipsState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
   // Get bookmarked tips
   void getBookmarkedTips({int page = 1, int size = 10}) async {
     try {
-      emit(LoadingBookmarkedTipsState());
+      emit(LoadingState());
       // final bookmarkedTips = await repository.getBookmarkedTips(
       //   page: page,
       //   size: size,
       // );
-      // emit(LoadedBookmarkedTipsState(bookmarkedTips));
+      // emit(LoadedState(bookmarkedTips));
     } catch (e) {
-      emit(ErrorBookmarkedTipsState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -170,7 +168,7 @@ class TipCubit extends Cubit<BaseState> {
     List<String>? tags,
   }) async {
     try {
-      emit(LoadingSearchTipsState());
+      emit(LoadingState());
       // final searchResults = await repository.searchTips(
       //   query: query,
       //   page: page,
@@ -178,9 +176,9 @@ class TipCubit extends Cubit<BaseState> {
       //   category: category,
       //   tags: tags,
       // );
-      // emit(LoadedSearchTipsState(searchResults));
+      // emit(LoadedState(searchResults));
     } catch (e) {
-      emit(ErrorSearchTipsState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -209,7 +207,7 @@ class TipCubit extends Cubit<BaseState> {
       //   }
       // }
     } catch (e) {
-      emit(ErrorTipActionState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -238,7 +236,7 @@ class TipCubit extends Cubit<BaseState> {
       //   }
       // }
     } catch (e) {
-      emit(ErrorTipActionState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -267,7 +265,7 @@ class TipCubit extends Cubit<BaseState> {
       //   }
       // }
     } catch (e) {
-      emit(ErrorTipActionState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -296,7 +294,7 @@ class TipCubit extends Cubit<BaseState> {
       //   }
       // }
     } catch (e) {
-      emit(ErrorTipActionState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 
@@ -308,7 +306,7 @@ class TipCubit extends Cubit<BaseState> {
       //   emit(TipSharedState());
       // }
     } catch (e) {
-      emit(ErrorTipActionState(BlocUtils.getMessageError(e)));
+      emit(ErrorState(BlocUtils.getMessageError(e)));
     }
   }
 

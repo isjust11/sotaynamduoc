@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'tip_model.g.dart';
-
-@JsonSerializable()
 class TipModel {
   final String? id;
   final String? title;
@@ -22,7 +17,7 @@ class TipModel {
   final String? difficulty; // easy, medium, hard
   final String? estimatedTime; // 5 phút, 10 phút, etc.
   final String? targetAudience; // beginner, intermediate, expert
-  final List<String>? relatedTips;
+  final List<TipModel>? relatedTips;
   final String? source;
   final String? videoUrl;
   final List<String>? images;
@@ -52,80 +47,56 @@ class TipModel {
     this.images,
   });
 
-  factory TipModel.fromJson(Map<String, dynamic> json) =>
-      _$TipModelFromJson(json);
-  Map<String, dynamic> toJson() => _$TipModelToJson(this);
-
-  TipModel copyWith({
-    String? id,
-    String? title,
-    String? content,
-    String? summary,
-    String? thumbnail,
-    String? category,
-    String? author,
-    String? createdAt,
-    String? updatedAt,
-    int? viewCount,
-    int? likeCount,
-    int? bookmarkCount,
-    bool? isLiked,
-    bool? isBookmarked,
-    List<String>? tags,
-    String? difficulty,
-    String? estimatedTime,
-    String? targetAudience,
-    List<String>? relatedTips,
-    String? source,
-    String? videoUrl,
-    List<String>? images,
-  }) {
+  factory TipModel.fromJson(Map<String, dynamic> json) {
     return TipModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      content: content ?? this.content,
-      summary: summary ?? this.summary,
-      thumbnail: thumbnail ?? this.thumbnail,
-      category: category ?? this.category,
-      author: author ?? this.author,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      viewCount: viewCount ?? this.viewCount,
-      likeCount: likeCount ?? this.likeCount,
-      bookmarkCount: bookmarkCount ?? this.bookmarkCount,
-      isLiked: isLiked ?? this.isLiked,
-      isBookmarked: isBookmarked ?? this.isBookmarked,
-      tags: tags ?? this.tags,
-      difficulty: difficulty ?? this.difficulty,
-      estimatedTime: estimatedTime ?? this.estimatedTime,
-      targetAudience: targetAudience ?? this.targetAudience,
-      relatedTips: relatedTips ?? this.relatedTips,
-      source: source ?? this.source,
-      videoUrl: videoUrl ?? this.videoUrl,
-      images: images ?? this.images,
+      id: json['id'],
+      title: json['title'],
+      content: json['content'],
+      summary: json['summary'],
+      thumbnail: json['thumbnail'],
+      category: json['category'],
+      author: json['author'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+      viewCount: json['viewCount'],
+      likeCount: json['likeCount'],
+      bookmarkCount: json['bookmarkCount'],
+      isLiked: json['isLiked'],
+      isBookmarked: json['isBookmarked'],
+      tags: json['tags'],
+      difficulty: json['difficulty'],
+      estimatedTime: json['estimatedTime'],
+      targetAudience: json['targetAudience'],
+      relatedTips: json['relatedTips'],
+      source: json['source'],
+      videoUrl: json['videoUrl'],
+      images: json['images'],
     );
   }
-}
-
-@JsonSerializable()
-class TipCategory {
-  final String? id;
-  final String? name;
-  final String? description;
-  final String? icon;
-  final String? color;
-  final int? tipCount;
-
-  const TipCategory({
-    this.id,
-    this.name,
-    this.description,
-    this.icon,
-    this.color,
-    this.tipCount,
-  });
-
-  factory TipCategory.fromJson(Map<String, dynamic> json) =>
-      _$TipCategoryFromJson(json);
-  Map<String, dynamic> toJson() => _$TipCategoryToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'content': content,
+      'summary': summary,
+      'thumbnail': thumbnail,
+      'category': category,
+      'author': author,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'viewCount': viewCount,
+      'likeCount': likeCount,
+      'bookmarkCount': bookmarkCount,
+      'isLiked': isLiked,
+      'isBookmarked': isBookmarked,
+      'tags': tags,
+      'difficulty': difficulty,
+      'estimatedTime': estimatedTime,
+      'targetAudience': targetAudience,
+      'relatedTips': relatedTips,
+      'source': source,
+      'videoUrl': videoUrl,
+      'images': images,
+    };
+  }
 }

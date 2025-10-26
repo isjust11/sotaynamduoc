@@ -1,4 +1,4 @@
-import 'package:sotaynamduoc/domain/data/models/tip_model.dart';
+import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 
 class TipDataSource {
@@ -43,12 +43,12 @@ class TipDataSource {
     return Future.error(response.message);
   }
 
-  Future<List<TipCategory>> getTipCategories() async {
+  Future<List<CategoryModel>> getTipCategories() async {
     final response = await _network.get(
       url: '${ApiConstant.getTips}/categories',
     );
     if (response.isSuccess) {
-      return response.data.map((json) => TipCategory.fromJson(json)).toList();
+      return response.data.map((json) => CategoryModel.fromJson(json)).toList();
     }
     return Future.error(response.message);
   }

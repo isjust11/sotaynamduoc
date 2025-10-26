@@ -80,6 +80,9 @@ void main() async {
               KnowledgeBloc(newsRepository: getIt.getIt.get<NewsRepository>()),
         ),
         BlocProvider(
+          create: (_) => TipCubit(repository: getIt.getIt.get<TipRepository>()),
+        ),
+        BlocProvider(
           create: (_) => DiscoveryBloc(
             newsRepository: getIt.getIt.get<NewsRepository>(),
             categoryRepository: getIt.getIt.get<CategoryRepository>(),

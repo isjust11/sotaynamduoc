@@ -30,14 +30,17 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
     return BaseScreen(
       body: BlocBuilder<TipCubit, BaseState>(
         builder: (context, state) {
-          if (state is LoadingTipDetailState) {
+          if (state is TipLoading) {
             return _buildLoadingWidget();
-          } else if (state is LoadedTipDetailState) {
-            return _buildTipDetailContent(state.tip);
-          } else if (state is ErrorTipDetailState) {
-            return _buildErrorWidget(state.message);
+          } else if (state is TipDetailLoaded) {
+            final tipData = (state as TipDetailLoaded).tip;
+            return _buildTipDetailContent(tipData);
+          } else if (state is TipError) {
+            return _buildErrorWidget((state as TipError).message);
+          } else if (state is TipEmpty) {
+            return _buildEmptyWidget();
           }
-          return _buildEmptyWidget();
+          return const SizedBox.shrink();
         },
       ),
     );
@@ -386,12 +389,14 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
         SizedBox(height: 12.sw),
         BlocBuilder<TipCubit, BaseState>(
           builder: (context, state) {
-            if (state is LoadingRelatedTipsState) {
+            if (state is TipLoading) {
               return _buildRelatedTipsLoading();
-            } else if (state is LoadedRelatedTipsState) {
-              return _buildRelatedTipsList(state.relatedTips);
-            } else if (state is ErrorRelatedTipsState) {
-              return _buildRelatedTipsError(state.message);
+            } else if (state is TipDetailLoaded) {
+              return _buildRelatedTipsList(
+                (state as TipDetailLoaded).tip.relatedTips ?? [],
+              );
+            } else if (state is TipError) {
+              return _buildRelatedTipsError((state as TipError).message);
             }
             return _buildRelatedTipsEmpty();
           },
