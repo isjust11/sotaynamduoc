@@ -292,5 +292,6 @@
   "noTrendingContentSub": "Explore new articles to see trending content",
   "noFavoritesContentSub": "Like articles to see them here",
   "noRecentContentSub": "Articles you've viewed will appear here",
-  "noBookmarksContentSub": "Bookmark articles to see them here"
+  "noBookmarksContentSub": "Bookmark articles to see them here",
+  "tipDetails": "Tip details"
 }

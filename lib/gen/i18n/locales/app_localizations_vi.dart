@@ -898,4 +898,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noBookmarksContentSub => 'Hãy lưu các bài viết để xem chúng ở đây';
+
+  @override
+  String get tipDetails => 'Chi tiết mẹo vặt';
 }

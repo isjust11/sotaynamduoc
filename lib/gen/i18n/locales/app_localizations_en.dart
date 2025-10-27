@@ -891,4 +891,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noBookmarksContentSub => 'Bookmark articles to see them here';
+
+  @override
+  String get tipDetails => 'Tip details';
 }

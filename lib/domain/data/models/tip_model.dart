@@ -1,10 +1,12 @@
+import 'package:sotaynamduoc/domain/data/models/category_model.dart';
+
 class TipModel {
   final String? id;
   final String? title;
   final String? content;
   final String? summary;
   final String? thumbnail;
-  final String? category;
+  final CategoryModel? category;
   final String? author;
   final String? createdAt;
   final String? updatedAt;
@@ -54,7 +56,9 @@ class TipModel {
       content: json['content'],
       summary: json['summary'],
       thumbnail: json['thumbnail'],
-      category: json['category'],
+      category: CategoryModel.fromJson(
+        json['category'] as Map<String, dynamic>? ?? {},
+      ),
       author: json['author'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],

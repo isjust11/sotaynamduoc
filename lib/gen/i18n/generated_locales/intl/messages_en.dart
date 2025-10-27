@@ -461,6 +461,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
     "techniques": MessageLookupByLibrary.simpleMessage("Techniques"),
     "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+    "tipDetails": MessageLookupByLibrary.simpleMessage("Tip details"),
     "tips": MessageLookupByLibrary.simpleMessage("Tips"),
     "todayYouFeel": MessageLookupByLibrary.simpleMessage(
       "Today you feel like?",

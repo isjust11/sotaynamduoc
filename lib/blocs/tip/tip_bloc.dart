@@ -55,8 +55,13 @@ class TipBloc extends Bloc<TipEvent, TipState> {
         } else {
           _hasMore = false;
           if (state is TipListLoaded) {
-            final currentState = state as TipListLoaded;
-            emit(currentState.copyWith(hasMore: false, isLoadingMore: false));
+            emit(
+              const TipListLoaded(
+                tipList: [],
+                hasMore: false,
+                isLoadingMore: false,
+              ),
+            );
           }
         }
         return;
@@ -101,7 +106,7 @@ class TipBloc extends Bloc<TipEvent, TipState> {
       emit(TipLoading());
       final tip = await tipRepository.getTipDetail(event.id);
       if (tip != null) {
-        emit(TipDetailLoaded(tip: tip));
+        emit(TipDetailLoaded(tip: tip) as TipState);
       } else {
         emit(const TipError('Không tìm thấy tip'));
       }

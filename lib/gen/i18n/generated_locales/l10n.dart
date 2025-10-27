@@ -2443,6 +2443,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `Chi tiết mẹo vặt`
+  String get tipDetails {
+    return Intl.message(
+      'Chi tiết mẹo vặt',
+      name: 'tipDetails',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

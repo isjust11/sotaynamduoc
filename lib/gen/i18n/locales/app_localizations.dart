@@ -1843,6 +1843,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bookmark articles to see them here'**
   String get noBookmarksContentSub;
+
+  /// No description provided for @tipDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip details'**
+  String get tipDetails;
 }
 
 class _AppLocalizationsDelegate

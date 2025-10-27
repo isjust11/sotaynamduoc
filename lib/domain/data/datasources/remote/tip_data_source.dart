@@ -16,22 +16,30 @@ class TipDataSource {
     String? sortBy,
     String? sortOrder,
   }) async {
-    final response = await _network.get(
-      url: ApiConstant.getTips,
-      params: {
-        'page': page,
-        'size': size,
-        if (search != null && search.isNotEmpty) 'search': search,
-        if (category != null && category.isNotEmpty) 'category': category,
-        if (difficulty != null && difficulty.isNotEmpty)
-          'difficulty': difficulty,
-        if (targetAudience != null && targetAudience.isNotEmpty)
-          'targetAudience': targetAudience,
-        if (sortBy != null && sortBy.isNotEmpty) 'sortBy': sortBy,
-        if (sortOrder != null && sortOrder.isNotEmpty) 'sortOrder': sortOrder,
-      },
-    );
-    return response.data.map((json) => TipModel.fromJson(json)).toList();
+    try {
+      ApiResponse response = await _network.get(
+        url: ApiConstant.getTips,
+        params: {
+          'page': page,
+          'size': size,
+          if (search != null && search.isNotEmpty) 'search': search,
+          if (category != null && category.isNotEmpty) 'category': category,
+          if (difficulty != null && difficulty.isNotEmpty)
+            'difficulty': difficulty,
+          if (targetAudience != null && targetAudience.isNotEmpty)
+            'targetAudience': targetAudience,
+          if (sortBy != null && sortBy.isNotEmpty) 'sortBy': sortBy,
+          if (sortOrder != null && sortOrder.isNotEmpty) 'sortOrder': sortOrder,
+        },
+      );
+      if (response.isSuccess) {
+        List<dynamic> data = response.data ?? [];
+        return data.map((json) => TipModel.fromJson(json)).toList();
+      }
+      return Future.error(response.message);
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
   Future<TipModel?> getTipDetail(String tipId) async {

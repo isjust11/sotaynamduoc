@@ -3,15 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
-import 'package:sotaynamduoc/blocs/tip/tip_bloc.dart';
 import 'package:sotaynamduoc/blocs/tip/tip_event.dart';
 import 'package:sotaynamduoc/blocs/tip/tip_state.dart';
 import 'package:sotaynamduoc/domain/data/enums/category_type.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
-import 'package:sotaynamduoc/domain/data/models/tip_model.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
+import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 import 'package:sotaynamduoc/ui/screen/shortcut_page/tip/tip_detail_screen.dart';
@@ -32,7 +31,7 @@ class _TipScreenState extends State<TipScreen> {
   void initState() {
     super.initState();
     context.read<CategoryCubit>().getCategories(
-      categoryTypeCode: CategoryType.Discovery.value,
+      categoryTypeCode: CategoryType.tips.value,
     );
     context.read<TipBloc>().add(
       LoadTipList(
@@ -206,7 +205,7 @@ class _TipScreenState extends State<TipScreen> {
       title: item.title ?? '',
       summary: item.summary ?? '',
       thumbnail: item.thumbnail ?? '',
-      category: item.category ?? '',
+      category: item.category?.name ?? '',
       views: item.viewCount ?? 0,
       author: item.author ?? '',
       isLiked: (item.likeCount ?? 0) > 0,
@@ -313,12 +312,7 @@ class _TipScreenState extends State<TipScreen> {
 
   void _navigateToTipDetail(TipModel item) {
     if (item.id != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TipDetailScreen(tipId: item.id!),
-        ),
-      );
+      Navigator.pushNamed(context, Routes.tipDetailScreen, arguments: item.id);
     }
   }
 }

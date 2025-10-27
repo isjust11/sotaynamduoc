@@ -46,10 +46,7 @@ class TipListLoaded extends TipState {
 class TipDetailLoaded extends TipState {
   final TipModel tip;
 
-  const TipDetailLoaded({required this.tip});
-
-  @override
-  List<Object?> get props => [tip];
+  TipDetailLoaded({required this.tip});
 
   TipDetailLoaded copyWith({TipModel? tip}) {
     return TipDetailLoaded(tip: tip ?? this.tip);

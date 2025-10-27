@@ -73,14 +73,12 @@ void main() async {
           ),
         ),
         BlocProvider(
-          create: (_) => TipCubit(repository: getIt.getIt.get<TipRepository>()),
-        ),
-        BlocProvider(
           create: (_) =>
               KnowledgeBloc(newsRepository: getIt.getIt.get<NewsRepository>()),
         ),
         BlocProvider(
-          create: (_) => TipCubit(repository: getIt.getIt.get<TipRepository>()),
+          create: (_) =>
+              TipBloc(tipRepository: getIt.getIt.get<TipRepository>()),
         ),
         BlocProvider(
           create: (_) => DiscoveryBloc(

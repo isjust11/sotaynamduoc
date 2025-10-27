@@ -28,14 +28,14 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
   void initState() {
     super.initState();
     context.read<CategoryCubit>().getCategories(
-      categoryTypeCode: CategoryType.Discovery.value,
+      categoryTypeCode: CategoryType.discovery.value,
     );
     context.read<KnowledgeBloc>().add(
       LoadKnowledgeList(
         page: 1,
         size: 10,
         categoryId: _selectedCategory.isNotEmpty ? _selectedCategory : null,
-        articleCode: CategoryType.Discovery.value,
+        articleCode: CategoryType.discovery.value,
       ),
     );
   }

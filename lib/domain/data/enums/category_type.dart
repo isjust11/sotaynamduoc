@@ -1,6 +1,7 @@
 enum CategoryType {
-  FolkMedicine('FolkMedicine'),
-  Discovery('Discovery');
+  folkMedicine('FolkMedicine'),
+  discovery('Discovery'),
+  tips('Tips');
 
   const CategoryType(this.value);
   final String value;

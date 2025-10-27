@@ -500,6 +500,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "teacher": MessageLookupByLibrary.simpleMessage("Thầy thuốc"),
     "techniques": MessageLookupByLibrary.simpleMessage("Kỹ thuật"),
     "theme": MessageLookupByLibrary.simpleMessage("Giao diện"),
+    "tipDetails": MessageLookupByLibrary.simpleMessage("Chi tiết mẹo vặt"),
     "tips": MessageLookupByLibrary.simpleMessage("Mẹo vặt"),
     "todayYouFeel": MessageLookupByLibrary.simpleMessage(
       "Hôm nay bạn thấy thế nào?",

@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:scale_size/scale_size.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base_state.dart';
-import 'package:sotaynamduoc/blocs/tip/tip_cubit.dart';
+import 'package:sotaynamduoc/blocs/base_bloc/interaction_state/user_interaction_state.dart';
+import 'package:sotaynamduoc/blocs/tip/tip_bloc.dart';
+import 'package:sotaynamduoc/blocs/tip/tip_event.dart';
 import 'package:sotaynamduoc/blocs/tip/tip_state.dart';
+import 'package:sotaynamduoc/blocs/user_interaction_cubit.dart';
+import 'package:sotaynamduoc/domain/data/enums/interaction_target.dart';
 import 'package:sotaynamduoc/domain/data/models/tip_model.dart';
+import 'package:sotaynamduoc/domain/network/api_constant.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
+import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
+import 'package:sotaynamduoc/utils/html_style_helper.dart';
 
 class TipDetailScreen extends StatefulWidget {
   final String tipId;
@@ -22,27 +30,126 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<TipCubit>().getTipDetail(widget.tipId);
+    context.read<TipBloc>().add(LoadTipDetail(widget.tipId));
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      body: BlocBuilder<TipCubit, BaseState>(
+      customAppBar: _buildAppBar(context),
+      body: BlocBuilder<TipBloc, TipState>(
         builder: (context, state) {
           if (state is TipLoading) {
             return _buildLoadingWidget();
           } else if (state is TipDetailLoaded) {
-            final tipData = (state as TipDetailLoaded).tip;
+            final tipData = (state).tip;
             return _buildTipDetailContent(tipData);
           } else if (state is TipError) {
-            return _buildErrorWidget((state as TipError).message);
+            return _buildErrorWidget((state).message);
           } else if (state is TipEmpty) {
             return _buildEmptyWidget();
           }
           return const SizedBox.shrink();
         },
       ),
+    );
+  }
+
+  BaseAppBar _buildAppBar(BuildContext context) {
+    return BaseAppBar(
+      title: AppLocalizations.current.tipDetails,
+      showBackButton: true,
+      onBackTap: () => Navigator.pop(context),
+      actions: [
+        IconButton(
+          icon: BlocBuilder<UserInteractionCubit, BaseState>(
+            buildWhen: (prev, curr) => curr is LoadedUserInteractionState,
+            builder: (context, state) {
+              if (state is LoadedUserInteractionState) {
+                final isLiked = context.read<UserInteractionCubit>().isLiked;
+                return Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? AppColors.errorRed : AppColors.white,
+                );
+              }
+              return Icon(Icons.favorite_border, color: AppColors.white);
+            },
+          ),
+          onPressed: () {
+            final id = widget.tipId;
+            if (id.isEmpty) return;
+
+            // Get current state to determine if liked
+
+            final isLiked = context.read<UserInteractionCubit>().isLiked;
+
+            if (!isLiked) {
+              context.read<UserInteractionCubit>().like(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            } else {
+              context.read<UserInteractionCubit>().unlike(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            }
+          },
+        ),
+        IconButton(
+          icon: BlocBuilder<UserInteractionCubit, BaseState>(
+            buildWhen: (prev, curr) => curr is LoadedUserInteractionState,
+            builder: (context, state) {
+              if (state is LoadedUserInteractionState) {
+                final isBookmarked = context
+                    .read<UserInteractionCubit>()
+                    .isBookmarked;
+                return Icon(
+                  isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                  color: isBookmarked ? AppColors.primaryBlue : AppColors.white,
+                );
+              }
+              return Icon(
+                Icons.bookmark_border,
+                color: AppColors.textMediumGrey,
+              );
+            },
+          ),
+          onPressed: () {
+            final id = widget.tipId;
+            if (id.isEmpty) return;
+
+            // Get current state to determine if liked
+
+            final isBookmarked = context
+                .read<UserInteractionCubit>()
+                .isBookmarked;
+
+            if (!isBookmarked) {
+              context.read<UserInteractionCubit>().bookmark(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            } else {
+              context.read<UserInteractionCubit>().unbookmark(
+                targetType: InteractionTarget.article.value,
+                targetId: id,
+              );
+            }
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.share, color: AppColors.white),
+          onPressed: () {
+            final id = widget.tipId;
+            if (id.isEmpty) return;
+            context.read<UserInteractionCubit>().share(
+              targetType: InteractionTarget.article.value,
+              targetId: id,
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -79,7 +186,7 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
           SizedBox(height: 16.sw),
           ElevatedButton(
             onPressed: () {
-              context.read<TipCubit>().getTipDetail(widget.tipId);
+              context.read<TipBloc>().add(LoadTipDetail(widget.tipId));
             },
             child: CustomTextLabel(
               AppLocalizations.current.retry,
@@ -134,12 +241,6 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
 
                 // Meta info
                 _buildMetaInfo(tip),
-                SizedBox(height: 16.sw),
-
-                // Action buttons
-                _buildActionButtons(tip),
-                SizedBox(height: 24.sw),
-
                 // Content
                 _buildContent(tip),
                 SizedBox(height: 24.sw),
@@ -165,7 +266,7 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
       width: double.infinity,
       height: 250.sw,
       child: BaseNetworkImage(
-        url: tip.thumbnail!,
+        url: ApiConstant.storageHost + (tip.thumbnail ?? ''),
         width: double.infinity,
         height: 250.sw,
         fit: BoxFit.cover,
@@ -176,7 +277,7 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
   Widget _buildTitle(TipModel tip) {
     return CustomTextLabel(
       tip.title ?? '',
-      fontSize: 24.sw,
+      fontSize: 16.sw,
       fontWeight: FontWeight.bold,
       color: AppColors.textDark,
       maxLines: 3,
@@ -223,119 +324,10 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
     );
   }
 
-  Widget _buildActionButtons(TipModel tip) {
-    return Row(
-      children: [
-        // Like button
-        Expanded(
-          child: _buildActionButton(
-            icon: tip.isLiked == true ? Icons.favorite : Icons.favorite_border,
-            label: tip.isLiked == true ? 'Đã thích' : 'Thích',
-            color: tip.isLiked == true
-                ? AppColors.errorRed
-                : AppColors.textMediumGrey,
-            onTap: () {
-              if (tip.isLiked == true) {
-                context.read<TipCubit>().unlikeTip(tip.id!);
-              } else {
-                context.read<TipCubit>().likeTip(tip.id!);
-              }
-            },
-          ),
-        ),
-        SizedBox(width: 12.sw),
-        // Bookmark button
-        Expanded(
-          child: _buildActionButton(
-            icon: tip.isBookmarked == true
-                ? Icons.bookmark
-                : Icons.bookmark_border,
-            label: tip.isBookmarked == true ? 'Đã lưu' : 'Lưu',
-            color: tip.isBookmarked == true
-                ? AppColors.primaryBlue
-                : AppColors.textMediumGrey,
-            onTap: () {
-              if (tip.isBookmarked == true) {
-                context.read<TipCubit>().unbookmarkTip(tip.id!);
-              } else {
-                context.read<TipCubit>().bookmarkTip(tip.id!);
-              }
-            },
-          ),
-        ),
-        SizedBox(width: 12.sw),
-        // Share button
-        Expanded(
-          child: _buildActionButton(
-            icon: Icons.share,
-            label: 'Chia sẻ',
-            color: AppColors.textMediumGrey,
-            onTap: () {
-              context.read<TipCubit>().shareTip(tip.id!);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12.sw, horizontal: 16.sw),
-        decoration: BoxDecoration(
-          color: AppColors.cardBackground,
-          borderRadius: BorderRadius.circular(8.sw),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 18.sw, color: color),
-            SizedBox(width: 8.sw),
-            CustomTextLabel(
-              label,
-              fontSize: 12.sw,
-              color: color,
-              fontWeight: FontWeight.w500,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildContent(TipModel tip) {
-    return Container(
-      padding: EdgeInsets.all(16.sw),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12.sw),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomTextLabel(
-            'Nội dung',
-            fontSize: 18.sw,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textDark,
-          ),
-          SizedBox(height: 12.sw),
-          CustomTextLabel(
-            tip.content ?? tip.summary ?? '',
-            fontSize: 14.sw,
-            color: AppColors.textDark,
-          ),
-        ],
-      ),
+    return Html(
+      data: tip.content ?? '',
+      style: HtmlStyleHelper.getNewsContentStyle(),
     );
   }
 
@@ -387,39 +379,21 @@ class _TipDetailScreenState extends State<TipDetailScreen> {
           color: AppColors.textDark,
         ),
         SizedBox(height: 12.sw),
-        BlocBuilder<TipCubit, BaseState>(
+        BlocBuilder<TipBloc, TipState>(
           builder: (context, state) {
-            if (state is TipLoading) {
-              return _buildRelatedTipsLoading();
-            } else if (state is TipDetailLoaded) {
-              return _buildRelatedTipsList(
-                (state as TipDetailLoaded).tip.relatedTips ?? [],
-              );
-            } else if (state is TipError) {
-              return _buildRelatedTipsError((state as TipError).message);
+            if (state is TipListLoaded) {
+              return _buildRelatedTipsList(state.tipList);
             }
-            return _buildRelatedTipsEmpty();
+            return const SizedBox.shrink();
           },
         ),
       ],
     );
   }
 
-  Widget _buildRelatedTipsLoading() {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(20.sw),
-        child: CircularProgressIndicator(
-          color: AppColors.primaryBlue,
-          strokeWidth: 2,
-        ),
-      ),
-    );
-  }
-
   Widget _buildRelatedTipsList(List<TipModel> relatedTips) {
     if (relatedTips.isEmpty) {
-      return _buildRelatedTipsEmpty();
+      return const SizedBox.shrink();
     }
 
     return SizedBox(

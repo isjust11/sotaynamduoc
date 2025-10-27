@@ -127,15 +127,16 @@ class BaseScreen extends StatelessWidget {
         title?.toString(),
         maxLines: 2,
         fontWeight: FontWeight.w700,
-        fontSize: 20,
+        fontSize: AppDimens.SIZE_14,
         textAlign: TextAlign.center,
-        color: colorTitle,
+        color: AppColors.white,
       );
     }
     return AppBar(
       elevation: 0,
       toolbarHeight: toolbarHeight,
       title: widgetTitle,
+      backgroundColor: AppColors.secondaryBrand,
       leading: hiddenIconBack
           ? Container()
           : InkWell(
@@ -146,11 +147,10 @@ class BaseScreen extends StatelessWidget {
               child: Container(
                 width: AppDimens.SIZE_60,
                 alignment: Alignment.center,
-                child: Assets.images.icBack.image(
-                  width: AppDimens.SIZE_16,
-                  height: AppDimens.SIZE_16,
-                  fit: BoxFit.contain,
-                  color: AppColors.colorTitle,
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: AppColors.white,
+                  size: AppDimens.SIZE_16,
                 ),
               ),
             ),
