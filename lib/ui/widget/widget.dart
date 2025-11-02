@@ -17,3 +17,4 @@ export 'error_template.dart';
 export 'loading_template.dart';
 export 'card_row_item.dart';
 export 'card_col_item.dart';
+export 'source_reference_widget.dart';

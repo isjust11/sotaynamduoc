@@ -1,3 +1,4 @@
+import 'package:sotaynamduoc/domain/data/models/data_source_model.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
 
 class NewsModel {
@@ -16,6 +17,7 @@ class NewsModel {
   final UserInteractionStatusModel? userInteractionStatus;
   final AuthorModel? author;
   final String? statusId;
+  final DataSourceModel? dataSource;
   const NewsModel({
     this.id,
     required this.title,
@@ -32,6 +34,7 @@ class NewsModel {
     this.like,
     this.categoryId,
     this.author,
+    this.dataSource,
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
@@ -68,6 +71,9 @@ class NewsModel {
       author: json['author'] is Map<String, dynamic>
           ? AuthorModel.fromJson(json['author'] as Map<String, dynamic>)
           : null,
+      dataSource: json['dataSource'] is Map<String, dynamic>
+          ? DataSourceModel.fromJson(json['dataSource'] as Map<String, dynamic>)
+          : null,
     );
   }
 
@@ -89,6 +95,7 @@ class NewsModel {
       'userInteractionStatus': userInteractionStatus,
       'category': category?.toJson(),
       'author': author?.toJson(),
+      'dataSource': dataSource?.toJson(),
     };
   }
 

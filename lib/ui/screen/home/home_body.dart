@@ -12,6 +12,7 @@ import 'package:sotaynamduoc/res/resources.dart';
 import 'package:sotaynamduoc/routes.dart';
 import 'package:sotaynamduoc/ui/screen/news/news_list_screen.dart';
 import 'package:sotaynamduoc/ui/screen/screen.dart';
+import 'package:sotaynamduoc/ui/widget/header_typing_widget.dart';
 import 'package:sotaynamduoc/ui/widget/widget.dart';
 
 class HomeBody extends StatefulWidget {
@@ -34,66 +35,10 @@ class _HomeBodyState extends State<HomeBody>
       LoadFolkMedicineList(page: 1, size: 10, search: ''),
     );
     context.read<NewsBloc>().add(LoadNewsList(page: 1, size: 10, search: ''));
-    _startTypewriter();
-  }
-
-  // Typewriter effect state
-  final String _typewriterFullText = AppLocalizations.current.todayYouFeel;
-  final String _typewriterDescription = AppLocalizations.current.youCanSearch;
-  late final List<String> _typewriterMessages = [
-    _typewriterFullText,
-    _typewriterDescription,
-  ];
-  int _currentMessage = 0;
-  int _typewriterIndex = 0;
-  bool _typewriterDeleting = false;
-  Timer? _typewriterTimer;
-
-  void _startTypewriter([
-    Duration interval = const Duration(milliseconds: 100),
-  ]) {
-    _typewriterTimer?.cancel();
-    _typewriterTimer = Timer.periodic(interval, (timer) {
-      if (!mounted) return;
-      if (!_typewriterDeleting) {
-        if (_typewriterIndex < _typewriterMessages[_currentMessage].length) {
-          setState(() {
-            _typewriterIndex++;
-          });
-        } else {
-          timer.cancel();
-          Future.delayed(const Duration(milliseconds: 900), () {
-            if (!mounted) return;
-            setState(() {
-              _typewriterDeleting = true;
-            });
-            _startTypewriter(const Duration(milliseconds: 40));
-          });
-        }
-      } else {
-        if (_typewriterIndex > 0) {
-          setState(() {
-            _typewriterIndex--;
-          });
-        } else {
-          timer.cancel();
-          setState(() {
-            _typewriterDeleting = false;
-            _currentMessage =
-                (_currentMessage + 1) % _typewriterMessages.length;
-          });
-          Future.delayed(const Duration(milliseconds: 500), () {
-            if (!mounted) return;
-            _startTypewriter();
-          });
-        }
-      }
-    });
   }
 
   @override
   void dispose() {
-    _typewriterTimer?.cancel();
     _productPageController.dispose();
     super.dispose();
   }
@@ -105,7 +50,7 @@ class _HomeBodyState extends State<HomeBody>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 1. build header content
-          _buildHeaderContent(context),
+          HeaderTypingWidget(),
           const SizedBox(height: AppDimens.SIZE_8),
           // 2. build discovery
           _buildDiscovery(context),
@@ -205,60 +150,6 @@ class _HomeBodyState extends State<HomeBody>
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildHeaderContent(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, Routes.searchScreen);
-          },
-          child: Container(
-            width: double.infinity,
-            height: AppDimens.SIZE_64,
-            decoration: BoxDecoration(
-              color: AppColors.primaryBlue.withValues(alpha: 0.2),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimens.SIZE_12,
-                vertical: AppDimens.SIZE_8,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppDimens.SIZE_12,
-                        vertical: AppDimens.SIZE_10,
-                      ),
-                      child: CustomTextLabel(
-                        _typewriterIndex == 0
-                            ? ' '
-                            : _typewriterMessages[_currentMessage].substring(
-                                0,
-                                _typewriterIndex,
-                              ),
-                        color: AppColors.primaryBlue,
-                        fontSize: AppDimens.SIZE_12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    Icons.search,
-                    color: AppColors.primaryBlue,
-                    size: AppDimens.SIZE_18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 

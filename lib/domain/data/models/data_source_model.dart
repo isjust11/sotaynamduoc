@@ -54,7 +54,7 @@ enum DataSourceType {
 }
 
 class DataSourceModel {
-  final int? id;
+  final String? id;
   final String? name;
   final String? title;
   final String? description;
@@ -92,7 +92,7 @@ class DataSourceModel {
 
   factory DataSourceModel.fromJson(Map<String, dynamic> json) {
     return DataSourceModel(
-      id: json['id']?.toInt(),
+      id: json['id']?.toString(),
       name: json['name']?.toString(),
       title: json['title']?.toString(),
       description: json['description']?.toString(),
@@ -133,7 +133,7 @@ class DataSourceModel {
   }
 
   DataSourceModel copyWith({
-    int? id,
+    String? id,
     String? name,
     String? title,
     String? description,

@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
+import 'package:sotaynamduoc/utils/navigator.dart';
+import 'package:sotaynamduoc/routes.dart';
 
 class Network {
   static const int DEFAULT_TIMEOUT = 30000; // Tăng timeout lên 30 giây
@@ -334,6 +336,8 @@ class Network {
 
   Future<void> _forceLogout() async {
     await SharedPreferenceUtil.clearData();
+    NavigationService.instance.navigatorKey.currentState
+        ?.pushNamedAndRemoveUntil(Routes.loginScreen, (route) => false);
   }
 
   getDataReplace(data) {

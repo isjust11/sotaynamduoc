@@ -102,18 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     radius: AppDimens.SIZE_20,
                     backgroundColor: AppColors.inputBorderLight,
                     child: ClipOval(
-                      child: Image.network(
-                        ApiConstant.storageHost + (user.picture ?? ''),
-                        width: AppDimens.SIZE_40,
-                        height: AppDimens.SIZE_40,
+                      child: BaseNetworkImage(
+                        url: ApiConstant.storageHost + (user.picture ?? ''),
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(
-                            Icons.person,
-                            color: AppColors.white,
-                            size: AppDimens.SIZE_20,
-                          );
-                        },
+                        showShimmer: false,
                       ),
                     ),
                   ),

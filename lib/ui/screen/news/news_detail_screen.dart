@@ -20,6 +20,7 @@ class NewsDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserInteractionCubit>().resetState();
     // Initialize interaction state with data from news
     context.read<UserInteractionCubit>().initInteraction(
       isView: news.userInteractionStatus?.view ?? true,
@@ -210,11 +211,14 @@ class NewsDetailView extends StatelessWidget {
             SizedBox(height: AppDimens.SIZE_16),
           ],
 
-          // Nội dung
           Html(
             data: news.content ?? '',
             style: HtmlStyleHelper.getNewsContentStyle(),
+            // Nội dung
           ),
+
+          // Nguồn tham khảo
+          SourceReferenceWidget(dataSource: news.dataSource),
         ],
       ),
     );
