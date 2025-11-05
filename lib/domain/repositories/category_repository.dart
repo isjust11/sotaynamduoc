@@ -40,10 +40,14 @@ class CategoryRepository {
 
   Future<List<CategoryModel>> getCategoriesByCategoryTypeCode(
     String categoryTypeCode,
+    String? sortBy,
+    String? sortType,
   ) async {
     try {
       return await remoteDataSource.getCategoriesByCategoryTypeCode(
         categoryTypeCode,
+        sortBy,
+        sortType,
       );
     } catch (e) {
       return Future.error(e);

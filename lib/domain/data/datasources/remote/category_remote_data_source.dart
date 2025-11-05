@@ -43,9 +43,12 @@ class CategoryRemoteDataSource {
 
   Future<List<CategoryModel>> getCategoriesByCategoryTypeCode(
     String categoryTypeCode,
+    String? sort,
+    String? sortType,
   ) async {
     ApiResponse apiResponse = await network.get(
-      url: '${ApiConstant.getCategoriesByCategoryTypeCode}/$categoryTypeCode',
+      url:
+          '${ApiConstant.getCategoriesByCategoryTypeCode}/$categoryTypeCode?sortBy=$sort&sortType=$sortType',
     );
 
     if (apiResponse.isSuccess) {

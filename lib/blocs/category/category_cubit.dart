@@ -9,11 +9,19 @@ class CategoryCubit extends Cubit<BaseState> {
 
   CategoryCubit({required this.repository}) : super(InitState());
 
-  Future getCategories({String? categoryTypeCode}) async {
+  Future getCategories({
+    String? categoryTypeCode,
+    String? sortBy,
+    String? sortType,
+  }) async {
     try {
       emit(LoadingState());
       List<CategoryModel> categories = await repository
-          .getCategoriesByCategoryTypeCode(categoryTypeCode ?? "");
+          .getCategoriesByCategoryTypeCode(
+            categoryTypeCode ?? "",
+            sortBy,
+            sortType,
+          );
       if (categories.isEmpty) {
         emit(EmptyState());
       } else {

@@ -29,6 +29,8 @@ class _KnowledgeScreenState extends State<KnowledgeScreen> {
     super.initState();
     context.read<CategoryCubit>().getCategories(
       categoryTypeCode: CategoryType.discovery.value,
+      sortBy: 'sortOrder',
+      sortType: 'DESC',
     );
     context.read<KnowledgeBloc>().add(
       LoadKnowledgeList(
