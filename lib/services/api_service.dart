@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:sotaynamduoc/utils/shared_preference.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
@@ -29,14 +31,28 @@ class ApiService {
         logPrint: (object) => print(object),
       ),
     );
+
+    // Add auth interceptor
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final String token = await SharedPreferenceUtil.getAccessToken();
+          if (token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          return handler.next(options);
+        },
+      ),
+    );
   }
 
   /// Send FCM token to server
   Future<bool> sendFCMToken(String token) async {
     try {
+      final platform = Platform.isIOS ? 'ios' : 'android';
       final response = await _dio.post(
         '/api/fcm/register-token',
-        data: {'token': token, 'platform': 'mobile', 'app_version': '1.0.0'},
+        data: {'token': token, 'platform': platform, 'app_version': '1.0.0'},
       );
 
       return response.statusCode == 200;

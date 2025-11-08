@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sotaynamduoc/services/api_service.dart';
+import 'package:sotaynamduoc/utils/shared_preference.dart';
 
 class FCMService {
   static final FCMService _instance = FCMService._internal();
@@ -32,10 +33,6 @@ class FCMService {
   String? get fcmToken => _fcmToken;
   bool get notificationsEnabled => _notificationsEnabled;
 
-  // Temporarily disable APNs-dependent logic on iOS when Apple push
-  // certificates/keys are not yet configured.
-  static const bool kDisableIosApns = true;
-
   /// Initialize FCM service
   Future<void> initialize() async {
     try {
@@ -49,12 +46,15 @@ class FCMService {
       await _requestPermission();
 
       // For iOS, ensure APNS token is ready before getting FCM token
-      if (Platform.isIOS && !kDisableIosApns) {
+      if (Platform.isIOS) {
         await _ensureAPNSTokenReady();
       }
 
-      // Get FCM token
+      // Get FCM token (chỉ lấy, không gửi lên server)
       await _getFCMToken();
+
+      // Nếu user đã login rồi, gửi token với userId
+      await sendTokenToServerIfLoggedIn();
 
       // Setup message handlers
       _setupMessageHandlers();
@@ -146,7 +146,7 @@ class FCMService {
     );
 
     // For iOS, ensure APNS token is available
-    if (Platform.isIOS && !kDisableIosApns) {
+    if (Platform.isIOS) {
       await _setupAPNSToken();
     }
   }
@@ -173,35 +173,51 @@ class FCMService {
     }
   }
 
-  /// Get FCM token
+  /// Get FCM token (chỉ lấy token, không gửi lên server)
   Future<void> _getFCMToken() async {
     try {
       _fcmToken = await _messaging.getToken();
       if (_fcmToken != null) {
         await _storage.write(_fcmTokenKey, _fcmToken);
         debugPrint('FCM Token: $_fcmToken');
-
-        // Send token to server
-        await _sendTokenToServer(_fcmToken!);
       }
     } catch (e) {
       debugPrint('Error getting FCM token: $e');
     }
   }
 
-  /// Send FCM token to server
-  Future<void> _sendTokenToServer(String token) async {
+  /// Send FCM token to server (chỉ gọi khi đã có userId - sau khi login)
+  Future<void> sendTokenToServer() async {
+    if (_fcmToken == null) {
+      debugPrint('FCM token is null, cannot send to server');
+      return;
+    }
+
     try {
       final apiService = ApiService();
       apiService.initialize();
-      final success = await apiService.sendFCMToken(token);
+      final success = await apiService.sendFCMToken(_fcmToken!);
       if (success) {
-        debugPrint('FCM token sent to server: $token');
+        debugPrint('FCM token sent to server with userId: $_fcmToken');
       } else {
         debugPrint('Failed to send FCM token to server');
       }
     } catch (e) {
       debugPrint('Error sending FCM token to server: $e');
+    }
+  }
+
+  /// Kiểm tra và gửi FCM token nếu user đã login (dùng khi app khởi động lại)
+  Future<void> sendTokenToServerIfLoggedIn() async {
+    try {
+      // Kiểm tra xem có access token không (user đã login)
+      final accessToken = await SharedPreferenceUtil.getAccessToken();
+      if (accessToken.isNotEmpty && _fcmToken != null) {
+        debugPrint('User already logged in, sending FCM token with userId');
+        await sendTokenToServer();
+      }
+    } catch (e) {
+      debugPrint('Error checking login status: $e');
     }
   }
 
@@ -305,7 +321,7 @@ class FCMService {
   /// Subscribe to topic
   Future<void> subscribeToTopic(String topic) async {
     try {
-      if (Platform.isIOS && kDisableIosApns) {
+      if (Platform.isIOS) {
         debugPrint(
           'APNS disabled on iOS: skipping topic subscription for "$topic"',
         );
@@ -394,7 +410,6 @@ class FCMService {
   /// Check APNS token status (iOS only)
   Future<bool> isAPNSTokenReady() async {
     if (!Platform.isIOS) return true;
-    if (kDisableIosApns) return false;
 
     try {
       final apnsToken = await _messaging.getAPNSToken();
@@ -408,7 +423,6 @@ class FCMService {
   /// Get APNS token (iOS only)
   Future<String?> getAPNSToken() async {
     if (!Platform.isIOS) return null;
-    if (kDisableIosApns) return null;
 
     try {
       return await _messaging.getAPNSToken();

@@ -106,8 +106,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               final userModel = state.data as UserModel;
               _fullNameController.text = userModel.fullName ?? '';
               _emailController.text = userModel.email ?? '';
-              _currentAvatarUrl =
-                  ApiConstant.storageHost + (userModel.picture ?? '');
+              _currentAvatarUrl = userModel.isSocialPlatform
+                  ? userModel.picture
+                  : ApiConstant.storageHost + (userModel.picture ?? '');
               _pathRelativeAvatar = userModel.picture ?? '';
               _phoneNumberController.text = userModel.phoneNumber ?? '';
               _addressController.text = userModel.address ?? '';

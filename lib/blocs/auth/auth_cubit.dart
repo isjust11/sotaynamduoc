@@ -7,6 +7,7 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/services/social_login_service.dart';
 import 'package:sotaynamduoc/services/biometric_auth_service.dart';
+import 'package:sotaynamduoc/services/fcm_service.dart';
 
 class AuthCubit extends Cubit<BaseState> {
   final AuthRepository repository;
@@ -22,9 +23,25 @@ class AuthCubit extends Cubit<BaseState> {
       });
       //save secure storage
       await BiometricAuthService.storeCredentials(userName!, password!);
+
+      // Gửi FCM token sau khi login thành công
+      await _sendFCMTokenAfterLogin();
+
       emit(LoadedState(userModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
+    }
+  }
+
+  /// Gửi FCM token lên server sau khi login thành công (đã có userId)
+  Future<void> _sendFCMTokenAfterLogin() async {
+    try {
+      final fcmService = FCMService();
+      // Gửi token lên server với userId (từ JWT token trong header)
+      await fcmService.sendTokenToServer();
+    } catch (e) {
+      // Không throw error để không ảnh hưởng đến flow login
+      print('Error sending FCM token after login: $e');
     }
   }
 
@@ -128,7 +145,8 @@ class AuthCubit extends Cubit<BaseState> {
 
       // Lưu thông tin social login cho sinh trắc học
       await BiometricAuthService.storeSocialLoginInfo(socialData);
-
+          // Gửi FCM token sau khi login thành công
+      await _sendFCMTokenAfterLogin();
       emit(LoadedState(authModel));
     } catch (e) {
       String errorMessage = BlocUtils.getMessageError(e);
@@ -150,6 +168,9 @@ class AuthCubit extends Cubit<BaseState> {
 
       // Lưu thông tin social login cho sinh trắc học
       await BiometricAuthService.storeSocialLoginInfo(socialData);
+
+      // Gửi FCM token sau khi login thành công
+      await _sendFCMTokenAfterLogin();
 
       emit(LoadedState(authModel));
     } catch (e) {
@@ -175,6 +196,10 @@ class AuthCubit extends Cubit<BaseState> {
         "picture": picture,
         "accessToken": accessToken, // Required cho token verification
       });
+
+      // Gửi FCM token sau khi login thành công
+      await _sendFCMTokenAfterLogin();
+
       emit(LoadedState(authModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));
@@ -192,9 +217,14 @@ class AuthCubit extends Cubit<BaseState> {
           // Đăng nhập lại bằng social
           final socialData = result.data!;
           AuthModel authModel = await repository.mobileSocialLogin(socialData);
+
+          // Gửi FCM token sau khi login thành công
+          await _sendFCMTokenAfterLogin();
+
           emit(LoadedState(authModel));
         } else {
           // Đăng nhập bằng username/password
+          // FCM token sẽ được gửi trong doLogin()
           final credentials = result.data!;
           await doLogin(
             userName: credentials['username'],

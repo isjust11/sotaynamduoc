@@ -29,6 +29,10 @@ class UserEntity extends BaseEntity {
   String? createdAt;
   String? updatedAt;
 
+  bool? isFacebookUser;
+  bool? isGoogleUser;
+  bool? isAppleUser;
+
   UserEntity.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     id = json['id'].toString();
     username = json['username'];
@@ -55,6 +59,9 @@ class UserEntity extends BaseEntity {
     instagramLink = json['instagramLink'];
     twitterLink = json['twitterLink'];
     linkedinLink = json['linkedinLink'];
+    isGoogleUser = json['isGoogleUser'];
+    isFacebookUser = json['isFacebookUser'];
+    isAppleUser = json['isAppleUser'];
   }
 
   UserEntity.simpleFromJson(Map<String, dynamic> json) : super.fromJson(json) {
@@ -71,6 +78,10 @@ class UserEntity extends BaseEntity {
     linkedinLink = json['linkedinLink'];
     picture = json['picture'];
     email = json['email'];
+
+    isGoogleUser = json['isGoogleUser'];
+    isFacebookUser = json['isFacebookUser'];
+    isAppleUser = json['isAppleUser'];
   }
   @override
   Map<String, dynamic> toJson() {
@@ -98,7 +109,17 @@ class UserEntity extends BaseEntity {
     data['instagramLink'] = instagramLink;
     data['twitterLink'] = twitterLink;
     data['linkedinLink'] = linkedinLink;
+    data['isAppleUser'] = isAppleUser;
+    data['isFacebookUser'] = isFacebookUser;
+    data['isGoogleUser'] = isGoogleUser;
+
     return data;
+  }
+
+  bool get isSocialPlatform {
+    return (isAppleUser == true ||
+        isGoogleUser == true ||
+        isFacebookUser == true);
   }
 
   String convertBirthDate(String? birthDate) {

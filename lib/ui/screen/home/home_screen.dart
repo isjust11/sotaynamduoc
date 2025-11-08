@@ -77,7 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 }
-                final user = state is LoadedState ? state.data : null;
+                final user = state is LoadedState
+                    ? state.data as UserModel
+                    : null;
                 if (user?.picture == null) {
                   return InkWell(
                     onTap: () {
@@ -103,7 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: AppColors.inputBorderLight,
                     child: ClipOval(
                       child: BaseNetworkImage(
-                        url: ApiConstant.storageHost + (user.picture ?? ''),
+                        url: user?.isSocialPlatform ?? false
+                            ? user?.picture
+                            : ApiConstant.storageHost + (user?.picture ?? ''),
                         fit: BoxFit.cover,
                         showShimmer: false,
                       ),

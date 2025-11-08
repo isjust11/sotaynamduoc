@@ -92,9 +92,10 @@ class ProfileScreen extends StatelessWidget {
                         child: ClipOval(
                           child: userModel.picture != null
                               ? BaseNetworkImage(
-                                  url:
-                                      ApiConstant.storageHost +
-                                      (userModel.picture ?? ''),
+                                  url: userModel.isSocialPlatform
+                                      ? userModel.picture
+                                      : ApiConstant.storageHost +
+                                            (userModel.picture ?? ''),
                                   fit: BoxFit.cover,
                                   showShimmer: false,
                                 )

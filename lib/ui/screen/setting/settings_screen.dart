@@ -147,15 +147,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 ],
               ),
               child: ClipOval(
-                child: (user?.picture == null || user!.picture!.isEmpty)
-                    ? SvgPicture.asset(Assets.icons.icAvatar)
-                    : Image.network(
-                        ApiConstant.storageHost + user.picture!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return SvgPicture.asset(Assets.icons.icAvatar);
-                        },
-                      ),
+                child:
+                    (user?.picture == null || user!.picture!.isEmpty)
+                        ? SvgPicture.asset(Assets.icons.icAvatar)
+                        : Image.network(
+                          ApiConstant.storageHost + user.picture!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return SvgPicture.asset(Assets.icons.icAvatar);
+                          },
+                        ),
               ),
             ),
           ),
