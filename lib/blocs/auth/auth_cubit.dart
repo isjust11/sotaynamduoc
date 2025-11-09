@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sotaynamduoc/blocs/base_bloc/base.dart';
 import 'package:sotaynamduoc/blocs/utils.dart';
 import 'package:sotaynamduoc/domain/data/models/models.dart';
+import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
@@ -26,6 +27,7 @@ class AuthCubit extends Cubit<BaseState> {
 
       // Gửi FCM token sau khi login thành công
       await _sendFCMTokenAfterLogin();
+      // fcmRepository.registerFcmToken();
 
       emit(LoadedState(userModel));
     } catch (e) {
@@ -145,7 +147,7 @@ class AuthCubit extends Cubit<BaseState> {
 
       // Lưu thông tin social login cho sinh trắc học
       await BiometricAuthService.storeSocialLoginInfo(socialData);
-          // Gửi FCM token sau khi login thành công
+      // Gửi FCM token sau khi login thành công
       await _sendFCMTokenAfterLogin();
       emit(LoadedState(authModel));
     } catch (e) {

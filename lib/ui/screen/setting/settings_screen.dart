@@ -9,6 +9,7 @@ import 'package:sotaynamduoc/gen/i18n/generated_locales/l10n.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/res/dimens.dart';
 import 'package:sotaynamduoc/ui/widget/base_loading.dart';
+import 'package:sotaynamduoc/ui/widget/base_network_image.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
 import 'package:sotaynamduoc/ui/widget/custom_text_label.dart';
 import 'package:sotaynamduoc/routes.dart';
@@ -147,16 +148,14 @@ class _SettingScreenState extends State<SettingScreen> {
                 ],
               ),
               child: ClipOval(
-                child:
-                    (user?.picture == null || user!.picture!.isEmpty)
-                        ? SvgPicture.asset(Assets.icons.icAvatar)
-                        : Image.network(
-                          ApiConstant.storageHost + user.picture!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return SvgPicture.asset(Assets.icons.icAvatar);
-                          },
-                        ),
+                child: (user?.picture == null || user!.picture!.isEmpty)
+                    ? SvgPicture.asset(Assets.icons.icAvatar)
+                    : BaseNetworkImage(
+                        url: user.isSocialPlatform
+                            ? user.picture
+                            : ApiConstant.storageHost + user.picture!,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
           ),

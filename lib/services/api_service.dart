@@ -51,7 +51,7 @@ class ApiService {
     try {
       final platform = Platform.isIOS ? 'ios' : 'android';
       final response = await _dio.post(
-        '/api/fcm/register-token',
+        '/fcm/register-token',
         data: {'token': token, 'platform': platform, 'app_version': '1.0.0'},
       );
 
@@ -66,7 +66,7 @@ class ApiService {
   Future<bool> subscribeToTopic(String topic) async {
     try {
       final response = await _dio.post(
-        '/api/fcm/subscribe-topic',
+        '/fcm/subscribe-topic',
         data: {'topic': topic},
       );
 
@@ -81,7 +81,7 @@ class ApiService {
   Future<bool> unsubscribeFromTopic(String topic) async {
     try {
       final response = await _dio.post(
-        '/api/fcm/unsubscribe-topic',
+        '/fcm/unsubscribe-topic',
         data: {'topic': topic},
       );
 
@@ -96,7 +96,7 @@ class ApiService {
   Future<bool> sendTestNotification(String title, String body) async {
     try {
       final response = await _dio.post(
-        '/api/notifications/fcm/send-topic',
+        '/notifications/fcm/send-topic',
         data: {
           'topic': 'test',
           'title': title,

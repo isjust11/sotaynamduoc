@@ -81,4 +81,5 @@ class ApiConstant {
   static final updateProfile = "$apiHost/auth/update-profile";
   static final getMedia = "$apiHost/media";
   static final getTips = "$apiHost/article/tips";
+  static final registerFCM = "$apiHost/fcm/register-token";
 }

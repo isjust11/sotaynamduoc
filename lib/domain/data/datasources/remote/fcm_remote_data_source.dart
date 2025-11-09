@@ -3,10 +3,10 @@ import 'package:sotaynamduoc/domain/data/models/models.dart';
 import 'package:sotaynamduoc/domain/data/models/verify_pin_model.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 
-class AuthRemoteDataSource {
+class FcmRemoteDataSource {
   final Network network;
 
-  AuthRemoteDataSource({required this.network});
+  FcmRemoteDataSource({required this.network});
 
   Future<AuthModel> login(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
