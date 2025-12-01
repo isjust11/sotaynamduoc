@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/blocs/discovery/discovery_bloc.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
+import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
 import 'package:sotaynamduoc/ui/app.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/injection_container.dart' as getIt;
@@ -20,7 +21,9 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Initialize FCM Service
-  await FCMService().initialize();
+  await FCMService(
+    fcmRepository: getIt.getIt.get<FcmRepository>(),
+  ).initialize();
 
   String language = await SharedPreferenceUtil.getCurrentLanguage();
   String theme = await SharedPreferenceUtil.getCurrentTheme();

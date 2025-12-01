@@ -1,17 +1,9 @@
 class FcmTokenModel {
-  final int? id;
+  final String? id;
   final String? platform;
   final String? token;
-  int? userId;
   String? deviceId;
-
-  FcmTokenModel({
-    this.id,
-    this.platform,
-    this.token,
-    this.userId,
-    this.deviceId,
-  });
+  FcmTokenModel({this.id, this.platform, this.token, this.deviceId});
 
   factory FcmTokenModel.fromJson(Map<String, dynamic> json) {
     return FcmTokenModel(

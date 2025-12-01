@@ -65,7 +65,7 @@ class AuthRemoteDataSource {
 
   Future<FcmTokenModel> registerFcm(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
-      url: ApiConstant.registerFCM,
+      url: ApiConstant.registerFcmToken,
       body: param,
     );
     if (apiResponse.isSuccess) {

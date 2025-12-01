@@ -81,5 +81,10 @@ class ApiConstant {
   static final updateProfile = "$apiHost/auth/update-profile";
   static final getMedia = "$apiHost/media";
   static final getTips = "$apiHost/article/tips";
-  static final registerFCM = "$apiHost/fcm/register-token";
+  static final registerFcmToken = "$apiHost/fcm-tokens/register";
+  static final sendFcmToken = "$apiHost/fcm-tokens/send";
+  static final subscribeToTopic = "$apiHost/fcm-tokens/subscribe-topic";
+  static final unsubscribeFromTopic = "$apiHost/fcm-tokens/unsubscribe-topic";
+  static final sendToTopic = "$apiHost/fcm-tokens/send-to-topic";
+  static final sendToToken = "$apiHost/fcm-tokens/send-to-token";
 }

@@ -9,6 +9,7 @@ import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/services/social_login_service.dart';
 import 'package:sotaynamduoc/services/biometric_auth_service.dart';
 import 'package:sotaynamduoc/services/fcm_service.dart';
+import 'package:sotaynamduoc/injection_container.dart' as getIt;
 
 class AuthCubit extends Cubit<BaseState> {
   final AuthRepository repository;
@@ -38,7 +39,9 @@ class AuthCubit extends Cubit<BaseState> {
   /// Gửi FCM token lên server sau khi login thành công (đã có userId)
   Future<void> _sendFCMTokenAfterLogin() async {
     try {
-      final fcmService = FCMService();
+      final fcmService = FCMService(
+        fcmRepository: getIt.getIt.get<FcmRepository>(),
+      );
       // Gửi token lên server với userId (từ JWT token trong header)
       await fcmService.sendTokenToServer();
     } catch (e) {

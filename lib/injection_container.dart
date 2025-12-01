@@ -1,5 +1,7 @@
 import 'package:sotaynamduoc/domain/data/datasources/datasource.dart';
+import 'package:sotaynamduoc/domain/data/datasources/remote/fcm_remote_data_source.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
+import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/blocs/search/search.dart';
 import 'package:get_it/get_it.dart';
@@ -90,6 +92,9 @@ void registerRepositories(GetIt getIt) {
     () => UserInteractionRepository(remoteDataSource: getIt.get()),
   );
   getIt.registerLazySingleton(() => TipRepository(dataSource: getIt.get()));
+  getIt.registerLazySingleton(
+    () => FcmRepository(remoteDataSource: getIt.get()),
+  );
 }
 
 void registerDataSource(GetIt getIt) {
@@ -120,6 +125,7 @@ void registerDataSource(GetIt getIt) {
     () => UserInteractionRemoteDataSource(network: getIt.get()),
   );
   getIt.registerLazySingleton(() => TipDataSource(network: getIt.get()));
+  getIt.registerLazySingleton(() => FcmRemoteDataSource(network: getIt.get()));
 }
 
 void registerNetwork(GetIt getIt) {

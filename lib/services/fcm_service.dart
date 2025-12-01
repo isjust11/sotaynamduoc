@@ -6,11 +6,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sotaynamduoc/services/api_service.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
+import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
 
 class FCMService {
-  static final FCMService _instance = FCMService._internal();
-  factory FCMService() => _instance;
-  FCMService._internal();
+  final FcmRepository fcmRepository;
+
+  FCMService({required this.fcmRepository});
 
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _localNotifications =
@@ -67,6 +68,10 @@ class FCMService {
       debugPrint('Error initializing FCM Service: $e');
     }
   }
+
+  String get platform => Platform.isIOS ? 'ios' : 'android';
+  String get deviceId => Platform.isIOS ? 'ios' : 'android';
+  String get appVersion => '1.0.0';
 
   /// Ensure APNS token is ready for iOS
   Future<void> _ensureAPNSTokenReady() async {
@@ -188,22 +193,26 @@ class FCMService {
 
   /// Send FCM token to server (chỉ gọi khi đã có userId - sau khi login)
   Future<void> sendTokenToServer() async {
+    _fcmToken = await _messaging.getToken();
     if (_fcmToken == null) {
       debugPrint('FCM token is null, cannot send to server');
       return;
     }
 
     try {
-      final apiService = ApiService();
-      apiService.initialize();
-      final success = await apiService.sendFCMToken(_fcmToken!);
-      if (success) {
-        debugPrint('FCM token sent to server with userId: $_fcmToken');
-      } else {
-        debugPrint('Failed to send FCM token to server');
+      final fcmTokenModel = await fcmRepository.registerFcmToken(
+        _fcmToken!,
+        platform,
+        deviceId,
+        appVersion,
+      );
+      if (fcmTokenModel.id != null) {
+        debugPrint(
+          'FCM token registered to server with id: ${fcmTokenModel.id}',
+        );
       }
     } catch (e) {
-      debugPrint('Error sending FCM token to server: $e');
+      debugPrint('Error registering FCM token to server: $e');
     }
   }
 

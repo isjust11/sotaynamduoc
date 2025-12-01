@@ -4,6 +4,8 @@ import 'package:sotaynamduoc/services/api_service.dart';
 import 'package:sotaynamduoc/res/colors.dart';
 import 'package:sotaynamduoc/ui/widget/base_appbar.dart';
 import 'package:sotaynamduoc/ui/widget/base_screen.dart';
+import 'package:sotaynamduoc/injection_container.dart' as getIt;
+import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
 
 class FCMTestScreen extends StatefulWidget {
   const FCMTestScreen({super.key});
@@ -13,7 +15,7 @@ class FCMTestScreen extends StatefulWidget {
 }
 
 class _FCMTestScreenState extends State<FCMTestScreen> {
-  final FCMService _fcmService = FCMService();
+  final FCMService _fcmService = FCMService(fcmRepository: getIt.getIt.get<FcmRepository>());
   final ApiService _apiService = ApiService();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();

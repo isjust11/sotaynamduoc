@@ -1,6 +1,4 @@
 import 'package:sotaynamduoc/domain/data/models/fcm_token_model.dart';
-import 'package:sotaynamduoc/domain/data/models/models.dart';
-import 'package:sotaynamduoc/domain/data/models/verify_pin_model.dart';
 import 'package:sotaynamduoc/domain/network/network.dart';
 
 class FcmRemoteDataSource {
@@ -8,64 +6,9 @@ class FcmRemoteDataSource {
 
   FcmRemoteDataSource({required this.network});
 
-  Future<AuthModel> login(Map<String, dynamic> param) async {
-    ApiResponse apiResponse = await network.post(
-      url: ApiConstant.login,
-      body: param,
-    );
-    if (apiResponse.isSuccess) {
-      return AuthModel.fromJson(apiResponse.data);
-    }
-    return Future.error(apiResponse.message);
-  }
-
-  Future<RegisterModel> register(Map<String, dynamic> param) async {
-    ApiResponse apiResponse = await network.post(
-      url: ApiConstant.register,
-      body: param,
-    );
-    if (apiResponse.isSuccess) {
-      return RegisterModel.fromJson(apiResponse.data);
-    }
-    return Future.error(apiResponse.message);
-  }
-
-  Future<VerifyPINModel> verifyPin(Map<String, dynamic> param) async {
-    ApiResponse apiResponse = await network.post(
-      url: ApiConstant.verifyPin,
-      body: param,
-    );
-    if (apiResponse.isSuccess) {
-      return VerifyPINModel.fromJson(apiResponse.data);
-    }
-    return Future.error(apiResponse.message);
-  }
-
-  Future<VerifyPINModel> resendPin(Map<String, dynamic> param) async {
-    ApiResponse apiResponse = await network.post(
-      url: ApiConstant.resendPin,
-      body: param,
-    );
-    if (apiResponse.isSuccess) {
-      return VerifyPINModel.fromJson(apiResponse.data);
-    }
-    return Future.error(apiResponse.message);
-  }
-
-  Future<AuthModel> mobileSocialLogin(Map<String, dynamic> param) async {
-    ApiResponse apiResponse = await network.post(
-      url: ApiConstant.mobileSocialLogin,
-      body: param,
-    );
-    if (apiResponse.isSuccess) {
-      return AuthModel.fromJson(apiResponse.data);
-    }
-    return Future.error(apiResponse.message);
-  }
-
   Future<FcmTokenModel> registerFcm(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
-      url: ApiConstant.registerFCM,
+      url: ApiConstant.registerFcmToken,
       body: param,
     );
     if (apiResponse.isSuccess) {
@@ -74,13 +17,57 @@ class FcmRemoteDataSource {
     return Future.error(apiResponse.message);
   }
 
-  Future<UserModel> updateProfile(Map<String, dynamic> param) async {
+  Future<bool> sendFcmToken(Map<String, dynamic> param) async {
     ApiResponse apiResponse = await network.post(
-      url: ApiConstant.updateProfile,
+      url: ApiConstant.sendFcmToken,
       body: param,
     );
     if (apiResponse.isSuccess) {
-      return UserModel.fromJson(apiResponse.data);
+      return apiResponse.data;
+    }
+    return Future.error(apiResponse.message);
+  }
+
+  Future<bool> subscribeToTopic(Map<String, dynamic> param) async {
+    ApiResponse apiResponse = await network.post(
+      url: ApiConstant.subscribeToTopic,
+      body: param,
+    );
+    if (apiResponse.isSuccess) {
+      return apiResponse.data;
+    }
+    return Future.error(apiResponse.message);
+  }
+
+  Future<bool> unsubscribeFromTopic(Map<String, dynamic> param) async {
+    ApiResponse apiResponse = await network.post(
+      url: ApiConstant.unsubscribeFromTopic,
+      body: param,
+    );
+    if (apiResponse.isSuccess) {
+      return apiResponse.data;
+    }
+    return Future.error(apiResponse.message);
+  }
+
+  Future<bool> sendToTopic(Map<String, dynamic> param) async {
+    ApiResponse apiResponse = await network.post(
+      url: ApiConstant.sendToTopic,
+      body: param,
+    );
+    if (apiResponse.isSuccess) {
+      return apiResponse.data;
+    }
+    return Future.error(apiResponse.message);
+  }
+
+  Future<bool> sendToToken(Map<String, dynamic> param) async {
+    ApiResponse apiResponse = await network.post(
+      url: ApiConstant.sendToToken,
+      body: param,
+    );
+    if (apiResponse.isSuccess) {
+      return apiResponse.data;
     }
     return Future.error(apiResponse.message);
   }

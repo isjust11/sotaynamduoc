@@ -18,6 +18,8 @@ import 'package:sotaynamduoc/services/biometric_auth_service.dart';
 import 'package:sotaynamduoc/services/fcm_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sotaynamduoc/services/biometric_test_helper.dart';
+import 'package:sotaynamduoc/injection_container.dart' as getIt;
+import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -50,7 +52,9 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   Future<void> _loadNotificationStatus() async {
-    final fcmService = FCMService();
+    final fcmService = FCMService(
+      fcmRepository: getIt.getIt.get<FcmRepository>(),
+    );
     setState(() {
       _notificationsEnabled = fcmService.notificationsEnabled;
     });
@@ -311,7 +315,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 setState(() {
                   _notificationsEnabled = value;
                 });
-                await FCMService().toggleNotifications(value);
+                await FCMService(
+                  fcmRepository: getIt.getIt.get<FcmRepository>(),
+                ).toggleNotifications(value);
               },
               activeThumbColor: AppColors.secondaryBrand,
             ),
