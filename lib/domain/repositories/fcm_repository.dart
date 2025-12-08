@@ -21,19 +21,29 @@ class FcmRepository {
     return fcmTokenModel;
   }
 
-  Future<bool> subscribeToTopic(String topic) async {
-    bool success = await remoteDataSource.subscribeToTopic({'topic': topic});
-    return success;
+  Future<bool> subscribeToTopic({required String topic}) async {
+    try {
+      await remoteDataSource.subscribeToTopic({'topic': topic});
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
-  Future<bool> unsubscribeFromTopic(String topic) async {
-    bool success = await remoteDataSource.unsubscribeFromTopic({
-      'topic': topic,
-    });
-    return success;
+  Future<bool> unsubscribeFromTopic({required String topic}) async {
+    try {
+      await remoteDataSource.unsubscribeFromTopic({'topic': topic});
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
-  Future<bool> sendToTopic(String topic, String title, String body) async {
+  Future<bool> sendToTopic({
+    required String topic,
+    required String title,
+    required String body,
+  }) async {
     bool success = await remoteDataSource.sendToTopic({
       'topic': topic,
       'title': title,

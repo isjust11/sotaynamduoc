@@ -4,6 +4,7 @@ import 'package:sotaynamduoc/domain/network/network.dart';
 import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
 import 'package:sotaynamduoc/blocs/search/search.dart';
+import 'package:sotaynamduoc/blocs/fcm_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

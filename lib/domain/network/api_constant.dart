@@ -85,6 +85,6 @@ class ApiConstant {
   static final sendFcmToken = "$apiHost/fcm-tokens/send";
   static final subscribeToTopic = "$apiHost/fcm-tokens/subscribe-topic";
   static final unsubscribeFromTopic = "$apiHost/fcm-tokens/unsubscribe-topic";
-  static final sendToTopic = "$apiHost/fcm-tokens/send-to-topic";
-  static final sendToToken = "$apiHost/fcm-tokens/send-to-token";
+  static final sendToTopic = "$apiHost/notifications/fcm/send-topic";
+  static final sendToToken = "$apiHost/notifications/fcm/send-token";
 }

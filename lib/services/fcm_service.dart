@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,6 +6,15 @@ import 'package:get_storage/get_storage.dart';
 import 'package:sotaynamduoc/services/api_service.dart';
 import 'package:sotaynamduoc/utils/shared_preference.dart';
 import 'package:sotaynamduoc/domain/repositories/fcm_repository.dart';
+
+/// Background message handler - must be a top-level function
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  debugPrint('Received background message: ${message.messageId}');
+  debugPrint('Title: ${message.notification?.title}');
+  debugPrint('Body: ${message.notification?.body}');
+  // Note: Do not show notifications here as it's handled by the system
+}
 
 class FCMService {
   final FcmRepository fcmRepository;
@@ -37,9 +45,6 @@ class FCMService {
   /// Initialize FCM service
   Future<void> initialize() async {
     try {
-      // Initialize Firebase
-      await Firebase.initializeApp();
-
       // Initialize local notifications
       await _initializeLocalNotifications();
 
@@ -235,8 +240,8 @@ class FCMService {
     // Handle foreground messages
     FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
 
-    // Handle background messages
-    FirebaseMessaging.onBackgroundMessage(_handleBackgroundMessage);
+    // Handle background messages (registered separately in main.dart)
+    // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     // Handle notification tap when app is in background
     FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationTap);
@@ -253,12 +258,6 @@ class FCMService {
 
     // Show local notification
     await _showLocalNotification(message);
-  }
-
-  /// Handle background messages
-  static Future<void> _handleBackgroundMessage(RemoteMessage message) async {
-    debugPrint('Received background message: ${message.messageId}');
-    // Background message handling is done here
   }
 
   /// Handle notification tap
@@ -330,12 +329,6 @@ class FCMService {
   /// Subscribe to topic
   Future<void> subscribeToTopic(String topic) async {
     try {
-      if (Platform.isIOS) {
-        debugPrint(
-          'APNS disabled on iOS: skipping topic subscription for "$topic"',
-        );
-        return;
-      }
       // For iOS, ensure APNS token is available before subscribing
       if (Platform.isIOS) {
         final apnsToken = await _messaging.getAPNSToken();
@@ -372,22 +365,6 @@ class FCMService {
           debugPrint('Retry failed: $retryError');
         }
       }
-    }
-  }
-
-  /// Unsubscribe from topic
-  Future<void> unsubscribeFromTopic(String topic) async {
-    try {
-      await _messaging.unsubscribeFromTopic(topic);
-
-      // Also notify server
-      final apiService = ApiService();
-      apiService.initialize();
-      await apiService.unsubscribeFromTopic(topic);
-
-      debugPrint('Unsubscribed from topic: $topic');
-    } catch (e) {
-      debugPrint('Error unsubscribing from topic $topic: $e');
     }
   }
 

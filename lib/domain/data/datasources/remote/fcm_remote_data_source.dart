@@ -56,9 +56,9 @@ class FcmRemoteDataSource {
       body: param,
     );
     if (apiResponse.isSuccess) {
-      return apiResponse.data;
+      return true;
     }
-    return Future.error(apiResponse.message);
+    return false;
   }
 
   Future<bool> sendToToken(Map<String, dynamic> param) async {

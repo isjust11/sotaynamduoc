@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sotaynamduoc/blocs/cubit.dart';
 import 'package:sotaynamduoc/blocs/discovery/discovery_bloc.dart';
 import 'package:sotaynamduoc/domain/repositories/repositories.dart';
@@ -12,6 +13,9 @@ import 'package:sotaynamduoc/injection_container.dart' as getIt;
 import 'package:sotaynamduoc/services/fcm_service.dart';
 import 'package:sotaynamduoc/firebase_options.dart';
 
+// Global FCMService instance
+late FCMService fcmService;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
@@ -20,10 +24,12 @@ void main() async {
   // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Initialize FCM Service
-  await FCMService(
-    fcmRepository: getIt.getIt.get<FcmRepository>(),
-  ).initialize();
+  // Register background message handler
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  // Initialize FCM Service and store the instance
+  fcmService = FCMService(fcmRepository: getIt.getIt.get<FcmRepository>());
+  await fcmService.initialize();
 
   String language = await SharedPreferenceUtil.getCurrentLanguage();
   String theme = await SharedPreferenceUtil.getCurrentTheme();
@@ -90,6 +96,9 @@ void main() async {
             herbalRepository: getIt.getIt.get<HerbalRepository>(),
             authorRepository: getIt.getIt.get<AuthorRepository>(),
           ),
+        ),
+        BlocProvider(
+          create: (_) => FcmCubit(repository: getIt.getIt.get<FcmRepository>()),
         ),
       ],
       child: MyApp(),
