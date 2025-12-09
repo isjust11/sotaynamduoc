@@ -105,8 +105,24 @@ class _FCMTestScreenState extends State<_FCMTestScreenContent> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          'FCM Token: ${_fcmService.fcmToken ?? 'Not available'}',
+                        Row(
+                          children: [
+                            Expanded(
+                              child: SelectableText(
+                                'FCM Token: ${_fcmService.fcmToken ?? 'Not available'}',
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                            if (_fcmService.fcmToken != null)
+                              IconButton(
+                                icon: const Icon(Icons.copy, size: 20),
+                                onPressed: () {
+                                  // Copy to clipboard would need clipboard package
+                                  _showSnackBar('Token: ${_fcmService.fcmToken}');
+                                },
+                                tooltip: 'Show full token',
+                              ),
+                          ],
                         ),
                         Text(
                           'Notifications Enabled: ${_fcmService.notificationsEnabled}',
@@ -118,6 +134,107 @@ class _FCMTestScreenState extends State<_FCMTestScreenContent> {
                               return Text('APNS Token Ready: ${snapshot.data}');
                             }
                             return const Text('APNS Token: Checking...');
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Permission Status
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Notification Permission',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        FutureBuilder<bool>(
+                          future: _fcmService.isPermissionGranted(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Text('Checking permission...');
+                            }
+                            
+                            final isGranted = snapshot.data ?? false;
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      isGranted ? Icons.check_circle : Icons.cancel,
+                                      color: isGranted ? Colors.green : Colors.red,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      isGranted ? 'Permission Granted ✅' : 'Permission Denied ❌',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: isGranted ? Colors.green : Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                if (!isGranted) ...[
+                                  const SizedBox(height: 8),
+                                  const Text(
+                                    '⚠️ You need to enable notifications in Settings',
+                                    style: TextStyle(color: Colors.orange),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  ElevatedButton.icon(
+                                    icon: const Icon(Icons.settings),
+                                    label: const Text('Request Permission'),
+                                    onPressed: () async {
+                                      final granted = await _fcmService.requestPermissionAgain();
+                                      setState(() {});
+                                      _showSnackBar(
+                                        granted 
+                                          ? 'Permission granted!' 
+                                          : 'Permission denied. Please enable in Settings.',
+                                        isError: !granted,
+                                      );
+                                    },
+                                  ),
+                                ],
+                                const SizedBox(height: 8),
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: _fcmService.getPermissionStatus(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) return const SizedBox.shrink();
+                                    
+                                    final status = snapshot.data!;
+                                    return ExpansionTile(
+                                      title: const Text('Detailed Status'),
+                                      children: [
+                                        ...status.entries.map((e) => 
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(e.key),
+                                                Text(e.value.toString()),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
                           },
                         ),
                       ],

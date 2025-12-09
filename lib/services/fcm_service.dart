@@ -140,7 +140,9 @@ class FCMService {
   }
 
   /// Request notification permission
-  Future<void> _requestPermission() async {
+  Future<NotificationSettings> _requestPermission() async {
+    debugPrint('📱 Requesting notification permission...');
+
     final settings = await _messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -151,14 +153,28 @@ class FCMService {
       sound: true,
     );
 
-    debugPrint(
-      'Notification permission status: ${settings.authorizationStatus}',
-    );
+    final status = settings.authorizationStatus;
+    debugPrint('🔔 Notification permission status: $status');
+
+    // Check and log permission status
+    switch (status) {
+      case AuthorizationStatus.authorized:
+        debugPrint('✅ User granted notification permission');
+      case AuthorizationStatus.provisional:
+        debugPrint('⚠️ User granted provisional permission');
+      case AuthorizationStatus.denied:
+        debugPrint('❌ User denied notification permission');
+        debugPrint('⚠️ User needs to enable notifications in Settings');
+      case AuthorizationStatus.notDetermined:
+        debugPrint('❓ Permission not determined yet');
+    }
 
     // For iOS, ensure APNS token is available
     if (Platform.isIOS) {
       await _setupAPNSToken();
     }
+
+    return settings;
   }
 
   /// Setup APNS token for iOS
@@ -252,9 +268,15 @@ class FCMService {
 
   /// Handle foreground messages
   Future<void> _handleForegroundMessage(RemoteMessage message) async {
-    debugPrint('Received foreground message: ${message.messageId}');
+    debugPrint('📩 Received foreground message: ${message.messageId}');
+    debugPrint('   Title: ${message.notification?.title}');
+    debugPrint('   Body: ${message.notification?.body}');
+    debugPrint('   Data: ${message.data}');
 
-    if (!_notificationsEnabled) return;
+    if (!_notificationsEnabled) {
+      debugPrint('⚠️ Notifications are disabled in app settings');
+      return;
+    }
 
     // Show local notification
     await _showLocalNotification(message);
@@ -279,7 +301,14 @@ class FCMService {
   /// Show local notification
   Future<void> _showLocalNotification(RemoteMessage message) async {
     final notification = message.notification;
-    if (notification == null) return;
+    if (notification == null) {
+      debugPrint('⚠️ No notification payload in message');
+      return;
+    }
+
+    debugPrint('🔔 Showing local notification...');
+    debugPrint('   Title: ${notification.title}');
+    debugPrint('   Body: ${notification.body}');
 
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
@@ -302,13 +331,18 @@ class FCMService {
       iOS: iosDetails,
     );
 
-    await _localNotifications.show(
-      message.hashCode,
-      notification.title,
-      notification.body,
-      details,
-      payload: message.data.toString(),
-    );
+    try {
+      await _localNotifications.show(
+        message.hashCode,
+        notification.title,
+        notification.body,
+        details,
+        payload: message.data.toString(),
+      );
+      debugPrint('✅ Local notification shown successfully');
+    } catch (e) {
+      debugPrint('❌ Error showing local notification: $e');
+    }
   }
 
   /// Handle notification tap
@@ -416,5 +450,46 @@ class FCMService {
       debugPrint('Error getting APNS token: $e');
       return null;
     }
+  }
+
+  /// Check if notification permission is granted
+  Future<bool> isPermissionGranted() async {
+    final settings = await _messaging.getNotificationSettings();
+    final isGranted =
+        settings.authorizationStatus == AuthorizationStatus.authorized ||
+        settings.authorizationStatus == AuthorizationStatus.provisional;
+
+    debugPrint(
+      '🔍 Permission check: ${settings.authorizationStatus} (granted: $isGranted)',
+    );
+    return isGranted;
+  }
+
+  /// Get detailed permission status
+  Future<Map<String, dynamic>> getPermissionStatus() async {
+    final settings = await _messaging.getNotificationSettings();
+
+    return {
+      'authorizationStatus': settings.authorizationStatus.toString(),
+      'isGranted':
+          settings.authorizationStatus == AuthorizationStatus.authorized ||
+          settings.authorizationStatus == AuthorizationStatus.provisional,
+      'alert': settings.alert.toString(),
+      'badge': settings.badge.toString(),
+      'sound': settings.sound.toString(),
+      'announcement': settings.announcement.toString(),
+      'carPlay': settings.carPlay.toString(),
+      'criticalAlert': settings.criticalAlert.toString(),
+      'lockScreen': settings.lockScreen.toString(),
+      'notificationCenter': settings.notificationCenter.toString(),
+    };
+  }
+
+  /// Request permission again (useful if user denied initially)
+  Future<bool> requestPermissionAgain() async {
+    debugPrint('🔄 Requesting notification permission again...');
+    final settings = await _requestPermission();
+    return settings.authorizationStatus == AuthorizationStatus.authorized ||
+        settings.authorizationStatus == AuthorizationStatus.provisional;
   }
 }
