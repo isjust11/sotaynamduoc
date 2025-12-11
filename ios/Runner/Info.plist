@@ -84,10 +84,16 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSFaceIDUsageDescription</key>
-	<string>This app uses Face ID for biometric authentication</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartobservatory._tcp</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to camera to take photos for your profile</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This app uses Face ID for biometric authentication</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Ứng dụng sử dụng mạng cục bộ để phục vụ gỡ lỗi và khám phá dịch vụ trong quá trình phát triển.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to photo library to select images for your profile</string>
 	<key>NSUserTrackingUsageDescription</key>
@@ -106,6 +112,7 @@
 	<array>
 		<string>processing</string>
 		<string>remote-notification</string>
+		<string>fetch</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -124,11 +131,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_dartobservatory._tcp</string>
-	</array>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Ứng dụng sử dụng mạng cục bộ để phục vụ gỡ lỗi và khám phá dịch vụ trong quá trình phát triển.</string>
 </dict>
 </plist>
